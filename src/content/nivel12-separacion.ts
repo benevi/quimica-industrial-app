@@ -377,10 +377,10 @@ Hoy se basa en **toxicología**: la **PDE** del producto anterior (exposición d
 - MBS (*Minimum Batch Size*): tamaño mínimo del lote siguiente.
 - TDD (*Therapeutic Daily Dose*): dosis diaria máxima del producto siguiente.
 
-Ejemplo: PDE 0,5 mg/día, lote siguiente 100 kg (100 000 000 mg), dosis siguiente 500 mg/día → MACO = 0,5 × 100 000 000 / 500 = 100 000 mg = 100 g. Repartido en 50 m² de superficie compartida da 2 g/m². Se aplica además el criterio de "visualmente limpio" y, si es más estricto, cualquier otro que fije la empresa.
+Ejemplo: PDE 0,5 mg/día, lote siguiente 100 kg (100 000 000 mg), dosis siguiente 500 mg/día → MACO = 0,5 × 100 000 000 / 500 = 100 000 mg = 100 g. Repartido en 50 m² de superficie compartida da 2 g/m², es decir, **200 µg/cm²**. Es un límite muy alto: un residuo así se vería a simple vista (el límite de residuo visible suele estar en torno a 1–4 µg/cm²). Por eso siempre se aplica también el criterio de "visualmente limpio" y, si es más estricto, el límite práctico que fije la empresa. **Manda el límite más estricto.**
 
 ### Validación de limpieza (*cleaning validation*)
-Se demuestra en (normalmente) **tres** limpiezas que el procedimiento deja el equipo por debajo del límite, con métodos analíticos validados y en los **puntos más difíciles** (válvulas, juntas, agitador, mirillas).
+Se demuestra en **varias limpiezas consecutivas** (tradicionalmente **tres**; hoy el número se justifica con un análisis de riesgos) que el procedimiento deja el equipo por debajo del límite, con métodos analíticos validados y en los **puntos más difíciles** (válvulas, juntas, agitador, mirillas).
 `,
     plant: `
 Tras el último lote del producto X, el reactor R-201 tiene un tiempo sucio máximo de 72 h. El operador limpia según el procedimiento, marca cada paso en la hoja de limpieza, inspecciona con linterna, el laboratorio toma un frotis del agitador y cuelga la etiqueta "Limpio – pendiente de resultado". Hasta que Calidad libera el resultado no se carga el producto Y.

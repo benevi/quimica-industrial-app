@@ -190,7 +190,7 @@ Entre salas de distinta clasificación se suele pedir una diferencia de al menos
 - No tapar rejillas de impulsión ni de retorno.
 `,
     plant: `
-En la sala de envasado del API (grado D), el manómetro indica +15 Pa respecto al pasillo. Durante una carga, la puerta queda abierta y salta la alarma de presión. El operador la cierra, comprueba que se recupera y lo anota, porque el producto estaba expuesto en ese momento.
+En la sala de envasado del API (con requisitos similares a un grado D; los grados A–D son del Anexo 1, pensado para estériles), el manómetro indica +15 Pa respecto al pasillo. Durante una carga, la puerta queda abierta y salta la alarma de presión. El operador la cierra, comprueba que se recupera y lo anota, porque el producto estaba expuesto en ese momento.
 `,
     batchRecord: `
 - Lectura de presiones diferenciales, temperatura y humedad al inicio de operaciones con producto expuesto.

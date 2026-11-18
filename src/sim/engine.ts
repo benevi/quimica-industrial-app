@@ -116,6 +116,22 @@ export type Entry = {
 export type AuditItem = { time: number; who: string; what: string };
 export type Deviation = { id: string; time: number; section: SectionId; what: string; action: string };
 
+/** Válvulas manuales todo/nada (on-off) que el operador abre y cierra en cada operación. */
+export const VALVES = {
+  "XV-101": { name: "Agua purificada → R-101", section: "carga" },
+  "XV-102": { name: "Nitrógeno → R-101", section: "carga" },
+  "XV-103": { name: "Vacío del R-101, por el condensador", section: "carga" },
+  "XV-104": { name: "Salida del depósito D-101 (anhídrido)", section: "reaccion" },
+  "XV-105": { name: "Válvula de fondo del R-101", section: "filtracion" },
+  "XV-106": { name: "Entrada al cristalizador R-102", section: "filtracion" },
+  "XV-201": { name: "Fondo del R-102 → centrífuga", section: "centrifugacion" },
+  "XV-202": { name: "Agua de lavado → centrífuga", section: "centrifugacion" },
+  "XV-301": { name: "Vacío del secadero SD-301", section: "secado" },
+} as const satisfies Record<string, { name: string; section: SectionId }>;
+export type ValveId = keyof typeof VALVES;
+export const VALVE_IDS = Object.keys(VALVES) as ValveId[];
+export const valvesOf = (sec: SectionId) => VALVE_IDS.filter((v) => VALVES[v].section === sec);
+
 export type EventId = "bascula" | "frio" | "filtro" | "vacio";
 export type SimEvent = { active: boolean; start?: number; notified?: number; resolved?: number };
 
@@ -166,6 +182,10 @@ export type Sim = {
   afCharged: boolean;
   o2: number;
   inertCycles: number;
+  /** "vacio" mientras el R-101 está en vacío dentro de un ciclo de inertización. */
+  inertStep: "vacio" | null;
+  valves: Record<ValveId, boolean>;
+  valveFindings: { time: number; section: SectionId; sev: "crítico" | "mayor" | "menor"; text: string }[];
   reactor: Reactor;
   ipc: { requested: number; ready: number; value: number }[];
   filter: { dp: number; maxDpRun: number; changes: number; done: boolean; running: boolean; progress: number };
@@ -208,6 +228,9 @@ export function newSim(scenario: Scenario): Sim {
     afCharged: false,
     o2: 20.9,
     inertCycles: 0,
+    inertStep: null,
+    valves: Object.fromEntries(VALVE_IDS.map((v) => [v, false])) as Record<ValveId, boolean>,
+    valveFindings: [],
     reactor: {
       T: 20, Tj: 20, sp: 20, rate: 0, agit: false, added: 0, accum: 0, consumed: 0, slow: 0, imp: 0.05,
       maxTadd: 20, interlock: false, inRange: 0, maxTreact: 20, history: [], alarms: [],
@@ -220,6 +243,14 @@ export function newSim(scenario: Scenario): Sim {
     pack: { netKg: 0, drums: 0, labelsIssued: 0, labelsUsed: 0, labelsDestroyed: 0, done: false },
     closed: false,
   };
+}
+
+/** Completa un lote guardado con una versión anterior del simulador (sin válvulas). */
+export function migrate(s: Sim): Sim {
+  if (!s.valves) s.valves = Object.fromEntries(VALVE_IDS.map((v) => [v, false])) as Record<ValveId, boolean>;
+  if (!s.valveFindings) s.valveFindings = [];
+  if (s.inertStep === undefined) s.inertStep = null;
+  return s;
 }
 
 export function fmtTime(min: number) {
@@ -287,6 +318,14 @@ export function sign(s: Sim, sec: SectionId) {
 
 export function advance(s: Sim) {
   if (s.section >= SECTIONS.length - 1) return;
+  const leaving = SECTIONS[s.section].id;
+  const left = valvesOf(leaving).filter((v) => s.valves[v]);
+  for (const v of left) {
+    s.valves[v] = false;
+    s.valveFindings.push({ time: s.clock, section: leaving, sev: "mayor", text: `La ${v} (${VALVES[v].name}) quedó abierta al terminar la etapa.` });
+    log(s, `Cierra la ${v}, que había quedado abierta`, "Supervisor");
+  }
+  if (left.length) msg(s, "Supervisor", `Has dejado abierta${left.length > 1 ? "s" : ""} ${left.join(", ")}. La cierro yo. Al terminar cada operación, las válvulas que has usado se cierran.`);
   s.sectionEnd[s.section] = s.clock;
   s.clock += 5;
   s.section += 1;
@@ -384,15 +423,36 @@ export function requestVerification(s: Sim, m: MaterialId): string | null {
   return null;
 }
 
+// ---------- Válvulas ----------
+
+export function toggleValve(s: Sim, v: ValveId) {
+  const open = !s.valves[v];
+  s.valves[v] = open;
+  s.clock += 1;
+  log(s, `${open ? "Abre" : "Cierra"} la válvula ${v} (${VALVES[v].name})`);
+  if (open && ((v === "XV-102" && s.valves["XV-103"]) || (v === "XV-103" && s.valves["XV-102"]))) {
+    s.valveFindings.push({ time: s.clock, section: "carga", sev: "mayor", text: "Nitrógeno y vacío abiertos a la vez en el R-101: el N₂ se va directo a la bomba de vacío." });
+    msg(s, "Supervisor", "¡Cuidado! Tienes el N₂ (XV-102) y el vacío (XV-103) abiertos a la vez: el nitrógeno se va a la bomba de vacío. Nunca se abren las dos juntas: primero una, se cierra, y luego la otra.");
+  }
+}
+
 // ---------- Carga e inertización ----------
 
 export function chargeWater(s: Sim, liters: number) {
+  if (!s.valves["XV-101"]) {
+    msg(s, "Sistema de control", "El totalizador FQ-101 no se mueve: la válvula XV-101 de agua purificada está cerrada.");
+    return;
+  }
   s.water = Math.round(s.water + liters);
   s.clock += Math.max(1, Math.round(liters / 50));
 }
 
 export function chargeAF(s: Sim) {
   if (s.afCharged) return;
+  if (s.valves["XV-103"] || s.inertStep === "vacio") {
+    msg(s, "Supervisor", "No abras la boca de carga con el reactor en vacío: el polvo saldría por la línea de vacío. Rompe el vacío con N₂ y cierra la XV-103.");
+    return;
+  }
   if (s.o2 > 8) {
     s.reactor.alarms.push({ time: s.clock, text: "Carga de sólido sin inertizar: riesgo de atmósfera inflamable" });
   }
@@ -401,11 +461,38 @@ export function chargeAF(s: Sim) {
   log(s, `Carga ${fmtNum(s.dosed.af, 2)} kg de 4-aminofenol (lote ${s.lotsUsed.af ?? "?"}) por la estación de carga`);
 }
 
-export function inertCycle(s: Sim) {
+/** Primera mitad del ciclo de inertización: vacío a 200 mbar por la XV-103. */
+export function inertVacuum(s: Sim) {
+  if (s.inertStep === "vacio") return;
+  if (!s.valves["XV-103"]) {
+    msg(s, "Sistema de control", "La presión del R-101 no baja: la válvula de vacío XV-103 está cerrada.");
+    return;
+  }
+  if (s.valves["XV-102"]) {
+    msg(s, "Sistema de control", "La presión no baja de 1000 mbar: está entrando N₂ por la XV-102. Ciérrala para poder hacer vacío.");
+    return;
+  }
+  s.inertStep = "vacio";
+  s.clock += 5;
+  log(s, "Hace vacío en el R-101 hasta 200 mbar");
+}
+
+/** Segunda mitad: rompe el vacío con nitrógeno por la XV-102. */
+export function inertN2(s: Sim) {
+  if (s.inertStep !== "vacio") return;
+  if (s.valves["XV-103"]) {
+    msg(s, "Sistema de control", "La presión no sube: el N₂ se va por la línea de vacío. Cierra la XV-103 antes de meter nitrógeno.");
+    return;
+  }
+  if (!s.valves["XV-102"]) {
+    msg(s, "Sistema de control", "No entra nitrógeno: la válvula XV-102 está cerrada.");
+    return;
+  }
+  s.inertStep = null;
   s.inertCycles += 1;
   s.o2 = r1(Math.max(0.1, s.o2 * 0.2));
-  s.clock += 10;
-  log(s, `Ciclo de vacío (200 mbar) y nitrógeno nº ${s.inertCycles}: O₂ = ${fmtNum(s.o2)} %`);
+  s.clock += 5;
+  log(s, `Rompe el vacío con N₂ (ciclo nº ${s.inertCycles}): O₂ = ${fmtNum(s.o2)} %`);
 }
 
 export function toggleAgit(s: Sim, on: boolean) {
@@ -426,7 +513,6 @@ export function setRate(s: Sim, rate: number) {
     msg(s, "Sistema de control", "Enclavamiento activo: la válvula de adición no abre hasta que la temperatura baje de 35 °C y se rearme.");
     return;
   }
-  if (rate > 0 && r.addStart == null) r.addStart = s.clock;
   r.rate = rate;
   log(s, rate > 0 ? `Abre la adición de anhídrido acético a ${rate} L/min` : "Para la adición de anhídrido acético");
 }
@@ -466,7 +552,8 @@ export function reactorTick(s: Sim) {
 
   // Adición
   let addNow = 0;
-  if (r.rate > 0 && !r.interlock) {
+  if (r.rate > 0 && !r.interlock && s.valves["XV-104"]) {
+    if (r.addStart == null) r.addStart = s.clock;
     addNow = Math.min(r.rate, total - r.added);
     r.added += addNow;
     r.accum += addNow;
@@ -545,6 +632,14 @@ export function requestIPC(s: Sim) {
 export function filterStep(s: Sim) {
   const f = s.filter;
   if (f.done) return;
+  if (!s.valves["XV-105"]) {
+    msg(s, "Sistema de control", "La bomba gira pero no hay caudal: la válvula de fondo XV-105 del R-101 está cerrada.");
+    return;
+  }
+  if (!s.valves["XV-106"]) {
+    msg(s, "Sistema de control", "La presión de impulsión sube y no pasa nada: la XV-106 de entrada al R-102 está cerrada. Para la bomba y ábrela.");
+    return;
+  }
   f.running = true;
   f.progress = Math.min(100, f.progress + 20);
   s.clock += 10;
@@ -567,6 +662,10 @@ export function filterStep(s: Sim) {
 }
 
 export function changeCartridge(s: Sim) {
+  if (s.valves["XV-105"] || s.valves["XV-106"]) {
+    msg(s, "Supervisor", "Antes de abrir el filtro hay que aislarlo: cierra la XV-105 y la XV-106. Si no, al abrir la carcasa sale producto caliente.");
+    return;
+  }
   s.filter.changes += 1;
   s.filter.dp = 0.3;
   s.filter.running = false;
@@ -604,6 +703,15 @@ export function productDryKg(s: Sim) {
 
 export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "descargar") {
   const c = s.centri;
+  const need = (v: ValveId, open: boolean, why: string) => {
+    if (s.valves[v] === open) return false;
+    msg(s, "Supervisor", why);
+    return true;
+  };
+  if (a === "cargar" && need("XV-201", true, "No llega suspensión a la centrífuga: abre la XV-201 (fondo del R-102).")) return;
+  if (a === "centrifugar" && need("XV-201", false, "Cierra la alimentación XV-201 antes de centrifugar: si sigue entrando suspensión, la cesta se desequilibra.")) return;
+  if (a === "lavar" && need("XV-202", true, "No sale agua de lavado: abre la XV-202.")) return;
+  if (a === "descargar" && need("XV-202", false, "Cierra el agua de lavado XV-202 antes de descargar la torta.")) return;
   if (a === "cargar") { c.loaded = true; s.clock += 30; log(s, "Carga la suspensión de R-102 en la centrífuga C-201"); }
   if (a === "centrifugar") { c.spun = true; s.clock += s.cryst.quality === "finos" ? 50 : 25; log(s, "Centrifuga y escurre las aguas madre"); }
   if (a === "lavar") { c.washes += 1; s.clock += 15; log(s, `Lavado nº ${c.washes} de la torta con 50 L de agua fría`); }
@@ -628,11 +736,15 @@ export function dryerSet(s: Sim, Tj: number) {
 export function dryerLoad(s: Sim) {
   s.dryer.loaded = true;
   s.clock += 20;
-  log(s, "Carga la torta en el secadero SD-301 y aplica vacío");
+  log(s, "Carga la torta en el secadero SD-301 y cierra la tapa");
 }
 
 export function dryHour(s: Sim) {
   const d = s.dryer;
+  if (!s.valves["XV-301"]) {
+    msg(s, "Sistema de control", "PI-301 marca 1013 mbar: no hay vacío porque la XV-301 está cerrada. Sin vacío el agua apenas se evapora.");
+    return;
+  }
   d.hours += 1;
   if (s.scenario === "incidencias" && d.hours === 2 && !s.events.vacio.active) {
     s.events.vacio.active = true;

@@ -114,7 +114,7 @@ export function PanelCarga({ s, act, active }: P) {
           <div className="grid min-w-[15rem] flex-1 grid-cols-2 gap-2">
             <Readout label="FQ-101 agua cargada" value={String(s.water)} unit="L" />
             <Readout label="AI-101 oxígeno" value={n1(s.o2)} unit="%" alert={s.o2 > 2} />
-            <Readout label="TI-101" value={n1(s.reactor.T)} unit="°C" />
+            <Readout label="PI-101 presión" value={s.inertStep === "vacio" ? "200" : "1013"} unit="mbar" />
             <Readout label="Agitador" value={s.reactor.agit ? "Marcha" : "Paro"} />
           </div>
         </div>
@@ -122,7 +122,7 @@ export function PanelCarga({ s, act, active }: P) {
       <Card title="Acciones">
         <ol className="list-decimal space-y-3 pl-5 text-sm">
           <li>
-            Cargar 300 L de agua purificada.
+            Abrir la XV-101 y cargar 300 L de agua purificada. Cerrar la XV-101.
             <div className="mt-1 flex flex-wrap gap-1.5">
               {[100, 10, 1].map((l) => (
                 <Btn key={l} disabled={dis} onClick={() => act((x) => E.chargeWater(x, l))}>+{l} L</Btn>
@@ -136,9 +136,11 @@ export function PanelCarga({ s, act, active }: P) {
             </div>
           </li>
           <li>
-            Inertizar con ciclos de vacío y nitrógeno hasta O₂ ≤ 2,0 %.
-            <div className="mt-1">
-              <Btn disabled={dis} onClick={() => act(E.inertCycle)}>Ciclo vacío / N₂</Btn>
+            Inertizar con ciclos de vacío y nitrógeno hasta O₂ ≤ 2,0 %. Cada ciclo: abrir XV-103 → vacío → cerrar XV-103 → abrir XV-102 → N₂ → cerrar XV-102. Nunca las dos abiertas a la vez.
+            <div className="mt-1 flex flex-wrap gap-1.5">
+              <Btn disabled={dis || s.inertStep === "vacio"} onClick={() => act(E.inertVacuum)}>Hacer vacío (XV-103)</Btn>
+              <Btn disabled={dis || s.inertStep !== "vacio"} onClick={() => act(E.inertN2)}>Romper con N₂ (XV-102)</Btn>
+              <span className="self-center text-xs text-muted">Ciclos hechos: {s.inertCycles}</span>
             </div>
           </li>
           <li>
@@ -234,6 +236,9 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
               ))}
             </div>
           </div>
+          {r.rate > 0 && !s.valves["XV-104"] && !addDone && (
+            <p className="rounded-md bg-[#fef2f2] px-2 py-1 text-xs text-[#7f1d1d]">La FV-103 está abierta, pero no hay caudal: la válvula manual XV-104 de salida del D-101 está cerrada.</p>
+          )}
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Agitador</span>
             <Btn disabled={dis} onClick={() => act((x) => E.toggleAgit(x, !x.reactor.agit))}>{r.agit ? "Parar" : "Arrancar"}</Btn>
@@ -378,12 +383,12 @@ export function PanelSecado({ s, act, active }: P) {
       <Card title="Secadero de vacío SD-301">
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <Readout label="T camisa" value={String(d.Tj)} unit="°C" alert={d.Tj > 60} />
-          <Readout label="PI-301 vacío" value={String(d.loaded ? d.vacuum : 1013)} unit="mbar" alert={d.loaded && d.vacuum > 100} />
+          <Readout label="PI-301 vacío" value={String(d.loaded && s.valves["XV-301"] ? d.vacuum : 1013)} unit="mbar" alert={d.loaded && s.valves["XV-301"] && d.vacuum > 100} />
           <Readout label="Horas de secado" value={String(d.hours)} />
           <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <Btn disabled={dis || d.loaded || !s.centri.discharged} onClick={() => act(E.dryerLoad)}>{d.loaded ? "Cargado" : "Cargar y hacer vacío"}</Btn>
+          <Btn disabled={dis || d.loaded || !s.centri.discharged} onClick={() => act(E.dryerLoad)}>{d.loaded ? "Cargado" : "Cargar y cerrar tapa"}</Btn>
           <span className="ml-2">T camisa:</span>
           {[50, 55, 60, 70, 80].map((t) => (
             <Btn key={t} tone={d.Tj === t ? "primary" : "default"} disabled={dis} onClick={() => act((x) => E.dryerSet(x, t))}>{t} °C</Btn>
@@ -393,7 +398,7 @@ export function PanelSecado({ s, act, active }: P) {
           <Btn tone="primary" disabled={dis || !d.loaded} onClick={() => act(E.dryHour)}>Secar 1 hora</Btn>
           <Btn disabled={dis || !d.loaded || d.hours === 0} onClick={() => act((x) => void E.lodSample(x))}>Tomar muestra de LOD</Btn>
         </div>
-        <p className="mt-2 text-xs text-muted">Hoja: T camisa 55–60 °C, vacío ≤ 100 mbar, primer IPC a las 4 h, LOD ≤ 0,5 %.</p>
+        <p className="mt-2 text-xs text-muted">Hoja: hacer vacío abriendo la XV-301, T camisa 55–60 °C, vacío ≤ 100 mbar, primer IPC a las 4 h, LOD ≤ 0,5 %.</p>
       </Card>
       {d.samples.length > 0 && (
         <Card title="Resultados de LOD">

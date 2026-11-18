@@ -144,6 +144,14 @@ El limitante es el **anhídrido**: quedará aminofenol sin reaccionar, que es un
         unit: "kmol",
         explain: "0,800 × 1,25 = 1,00 kmol.",
       },
+      {
+        kind: "number",
+        q: "Reacción 1:1. Tienes 0,450 kmol de A y 0,500 kmol de B. ¿Cuántos kmol de producto se forman como máximo?",
+        answer: 0.45,
+        tolerance: 0.001,
+        unit: "kmol",
+        explain: "El limitante es A (0,450 kmol), así que se forman como máximo 0,45 kmol de producto.",
+      },
     ],
   },
   {
@@ -332,10 +340,10 @@ Aceleran la reacción **sin consumirse**. Ejemplos en API:
 - Ácidos o bases en pequeña cantidad.
 - **Enzimas** (catalizadores biológicos).
 
-Los catalizadores de metal se retiran después por filtración y se controla el **metal residual** en el API (guía ICH Q3D de impurezas elementales).
+Los catalizadores de metal se retiran después por filtración y se controla el **metal residual** en el API (guía ICH Q3D de impurezas elementales; más detalle en el nivel 3).
 
 ### ¿Cuándo ha terminado la reacción?
-No se sabe "a ojo". Se toma una muestra y se analiza: **control en proceso** (*IPC, in-process control*), normalmente por HPLC o TLC. Ejemplo: "material de partida ≤ 0,5 %". Si no cumple, se espera y se repite según la hoja.
+No se sabe "a ojo". Se toma una muestra y se analiza: **control en proceso** (*IPC, in-process control*), normalmente por HPLC o TLC (técnicas que verás en el nivel 7). Ejemplo: "material de partida ≤ 0,5 %". Si no cumple, se espera y se repite según la hoja.
 `,
     plant: `
 La hoja dice *"Mantener a 60 ± 2 °C. IPC a las 3 h: material de partida ≤ 1,0 %. Si no cumple, mantener 1 h más y repetir."*
@@ -369,6 +377,18 @@ A las 3 h el IPC da 1,8 % → sigues 1 h. A las 4 h da 0,6 % → cumple, pasas a
         tolerance: 0.001,
         unit: "veces",
         explain: "Tres saltos de 10 °C: 2 × 2 × 2 = 8 veces.",
+      },
+      {
+        kind: "choice",
+        q: "El IPC a las 3 h da 1,8 % de material de partida (límite ≤ 1,0 %). La hoja dice «mantener 1 h y repetir». ¿Qué haces?",
+        options: [
+          "Subir la temperatura para acabar antes",
+          "Mantener 1 h más en las condiciones de la hoja y repetir el IPC",
+          "Pasar al siguiente paso",
+          "Anotar 1,0 %",
+        ],
+        answer: 1,
+        explain: "Se sigue exactamente lo previsto en la hoja; cambiar la temperatura por tu cuenta sería una desviación.",
       },
     ],
   },
@@ -432,6 +452,18 @@ En una esterificación la hoja dice *"Reflujo con tolueno separando agua en el D
         answer: 2,
         explain: "Es un equilibrio dinámico: las dos reacciones siguen, pero se compensan.",
       },
+      {
+        kind: "choice",
+        q: "En una reacción exotérmica en equilibrio, ¿qué hace enfriar sobre la cantidad de producto en el equilibrio?",
+        options: [
+          "La disminuye",
+          "La aumenta, aunque la reacción vaya más lenta",
+          "No cambia nada",
+          "Detiene la reacción para siempre",
+        ],
+        answer: 1,
+        explain: "Según Le Châtelier, quitar calor favorece el sentido que lo desprende: el de los productos.",
+      },
     ],
   },
   {
@@ -493,6 +525,18 @@ Fin de una hidrogenación: *"Despresurizar, purgar 3 veces con N₂, filtrar el 
         options: ["Para que pese más", "Porque seco puede inflamarse al aire", "Para que reaccione menos", "Por limpieza"],
         answer: 1,
         explain: "El Pd/C seco con restos de disolvente o hidrógeno es pirofórico.",
+      },
+      {
+        kind: "choice",
+        q: "Se carga borohidruro de sodio (NaBH₄). ¿Qué gas puede desprender si entra en contacto con agua o ácido?",
+        options: [
+          "Oxígeno",
+          "Hidrógeno, muy inflamable",
+          "Nitrógeno",
+          "Cloro",
+        ],
+        answer: 1,
+        explain: "Los hidruros reaccionan con agua y ácidos liberando H₂: hace falta venteo e inertización.",
       },
     ],
   },
@@ -559,6 +603,18 @@ En la hoja ves "Etapa 3: desprotección Boc con HCl en isopropanol". No hace fal
         ],
         answer: 1,
         explain: "Muchos fármacos se comercializan como sal (por ejemplo, clorhidrato) por estas razones.",
+      },
+      {
+        kind: "choice",
+        q: "Una desprotección Boc con HCl desprende CO₂ e isobuteno. ¿Qué compruebas antes de empezar la adición?",
+        options: [
+          "Que el venteo está abierto hacia su tratamiento y que la adición será lenta",
+          "Que el reactor está cerrado herméticamente",
+          "Nada especial",
+          "Que el agitador está parado",
+        ],
+        answer: 0,
+        explain: "Un gas que se desprende en un reactor cerrado sube la presión. El venteo libre y la adición lenta lo controlan.",
       },
     ],
   },

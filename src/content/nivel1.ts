@@ -70,6 +70,18 @@ Etapa típica: *"Calentar a 65 °C hasta disolución completa, filtrar en calien
         answer: 1,
         explain: "La idea de cristalizar es que el producto forme cristales y las impurezas se queden disueltas.",
       },
+      {
+        kind: "choice",
+        q: "Una etapa dice: «calentar hasta disolución completa y enfriar lentamente hasta 0–5 °C». ¿Qué operación es?",
+        options: [
+          "Destilación",
+          "Cristalización por enfriamiento",
+          "Extracción",
+          "Secado",
+        ],
+        answer: 1,
+        explain: "Al enfriar baja la solubilidad y el producto cristaliza; las impurezas quedan en las aguas madres.",
+      },
     ],
   },
   {
@@ -138,6 +150,14 @@ En una ficha de seguridad lees "hidruro de sodio (NaH)". Na está a la izquierda
         answer: 1,
         explain: "Cl. C es carbono y Co es cobalto.",
       },
+      {
+        kind: "number",
+        q: "Calcula la masa molar del cloruro de sodio, NaCl (Na = 22,99; Cl = 35,45).",
+        answer: 58.44,
+        tolerance: 0.005,
+        unit: "g/mol",
+        explain: "22,99 + 35,45 = 58,44 g/mol.",
+      },
     ],
   },
   {
@@ -201,6 +221,18 @@ Se descarga la fase inferior por la válvula de fondo vigilando el visor hasta v
         options: ["El agua", "El diclorometano", "Ninguna, se mezclan", "Depende del color"],
         answer: 1,
         explain: "La fase más densa queda abajo. El diclorometano es más denso que el agua.",
+      },
+      {
+        kind: "choice",
+        q: "Extraes con tolueno (0,87 kg/L) y agua. ¿Dónde queda la fase orgánica?",
+        options: [
+          "Abajo",
+          "Arriba, porque es menos densa que el agua",
+          "Mezclada con el agua",
+          "Depende de la velocidad del agitador",
+        ],
+        answer: 1,
+        explain: "El tolueno no se mezcla con el agua y es menos denso: forma la capa superior.",
       },
     ],
   },
@@ -374,7 +406,7 @@ La hoja dice "Disolver en 8 vol de etanol". El material de partida pesa 25,0 kg 
 - **Base** (*base / alkali*): capta H⁺ o libera OH⁻. Ejemplos: NaOH (sosa), KOH, bicarbonato, amoníaco.
 
 ### La escala de pH
-De 0 a 14:
+Normalmente de 0 a 14 (con ácidos o bases muy concentrados puede salirse de ese rango):
 - **< 7 ácido**, **7 neutro**, **> 7 básico**.
 - Cada unidad es un factor **10**: pH 3 es diez veces más ácido que pH 4.
 

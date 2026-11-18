@@ -20,6 +20,7 @@ export default function SimuladorPage() {
           <li>Arriba ves la planta: el equipo en uso parpadea en azul y la tarjeta azul te dice qué hacer ahora. Pulsa un equipo para ver su panel.</li>
           <li>Debajo están los mandos del equipo y tu hoja de producción. La casilla que toca rellenar está en amarillo.</li>
           <li>Anota cada dato en el momento (botón «Registrar»): el sistema guarda la hora. Si corriges, el valor anterior queda tachado y hay que dar motivo.</li>
+          <li>Las válvulas manuales (XV-…) se abren y se cierran a mano: verde abierta, rojo cerrada. Sin abrirlas no pasa nada por la línea, y al terminar cada operación hay que cerrarlas.</li>
           <li>Cada etapa se firma. Las pesadas las verifica una segunda persona.</li>
           <li>En el reactor el tiempo corre: ponlo en marcha, controla la adición y la temperatura, y pide el IPC.</li>
           <li>Si algo se sale de lo normal: actúa con seguridad, avisa al supervisor y abre una desviación.</li>

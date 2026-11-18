@@ -12,6 +12,7 @@ import {
 import { QAReport } from "./QAReport";
 import { PlantView } from "./PlantView";
 import { Coach, nextFieldId } from "./Coach";
+import { ValveBank } from "./Valves";
 
 const KEY = "quimica-app:simulador:v1";
 
@@ -20,7 +21,7 @@ function load(): Sim | null {
     const raw = localStorage.getItem(KEY);
     if (!raw) return null;
     const s = JSON.parse(raw) as Sim;
-    return s.version === 1 ? s : null;
+    return s.version === 1 ? E.migrate(s) : null;
   } catch {
     return null;
   }
@@ -215,7 +216,7 @@ export function Simulator() {
       </nav>
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-        <PlantView s={s} onSelect={setView} />
+        <PlantView s={s} onSelect={setView} onValve={(v) => act((x) => E.toggleValve(x, v))} />
         <Coach s={s} />
       </div>
 
@@ -227,6 +228,7 @@ export function Simulator() {
             <div className="text-xs uppercase tracking-wide text-muted">
               {view === s.section ? "Equipo en uso" : "Consultando etapa anterior"} · {sec.equipo}
             </div>
+            <ValveBank s={s} act={act} active={isActive} sec={sec.id} />
             {sec.id === "previas" && <PanelPrevias {...p} />}
             {sec.id === "dispensacion" && <PanelDispensacion {...p} />}
             {sec.id === "carga" && <PanelCarga {...p} />}

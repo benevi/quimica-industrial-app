@@ -142,10 +142,10 @@ Un conjunto de átomos dentro de una molécula que le da **propiedades y reactiv
 - **Formación de sal** (base + ácido) para purificar o aislar el API.
 `,
     plant: `
-En el paso 3 de un proceso ficticio se añade **trietilamina** (una amina, base) a una solución que contiene **cloruro de acetilo**. La reacción es **exotérmica** y desprende HCl, que la amina neutraliza formando un sólido (clorhidrato de trietilamina). Por eso la adición es lenta y con la camisa en frío.
+En el paso 3 de un proceso ficticio se **acetila un alcohol**: sobre la solución del alcohol y **trietilamina** (una amina, base) se añade **cloruro de acetilo**. Se forma el éster (acetato) y se libera HCl, que la trietilamina neutraliza formando un sólido (clorhidrato de trietilamina). La reacción es **exotérmica**: por eso la adición del cloruro de acetilo es lenta y con la camisa en frío.
 `,
     batchRecord: `
-- Instrucciones del tipo "Adicionar trietilamina en ≥ 30 min manteniendo T ≤ 10 °C".
+- Instrucciones del tipo "Adicionar cloruro de acetilo en ≥ 30 min manteniendo T ≤ 10 °C".
 - Ensayos en proceso (IPC) que siguen la desaparición de un grupo (por ejemplo, éster < 1,0 % por HPLC).
 `,
     terms: [
@@ -233,7 +233,7 @@ Cada disolvente tiene una **PDE** (*Permitted Daily Exposure*, exposición diari
 Metanol: PDE 30 mg/día → 1000 × 30 / 10 = **3000 ppm**.
 
 ### Cómo se mide
-Por **cromatografía de gases con espacio de cabeza** (*headspace GC*, Ph. Eur. 2.4.24). Como control rápido en planta se usa la **pérdida por desecación** (LOD): si el LOD está bajo, el disolvente total también.
+Por **cromatografía de gases con espacio de cabeza** (*headspace GC*, Ph. Eur. 2.4.24; la técnica se explica en el nivel 7). Como control rápido en planta se usa la **pérdida por desecación** (LOD): si el LOD está bajo, el disolvente total también.
 `,
     plant: `
 Un API se cristaliza en metanol y se lava con heptano. La especificación pide metanol ≤ 3000 ppm y heptano ≤ 5000 ppm. El secado se mantiene hasta que el **LOD** en proceso es ≤ 0,5 % y después el laboratorio confirma cada disolvente por GC.
