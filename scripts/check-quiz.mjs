@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 
 const dir = new URL("../src/content/", import.meta.url);
-const files = readdirSync(dir).filter((f) => /^nivel\d+\.ts$/.test(f));
+const files = readdirSync(dir).filter((f) => /^nivel\d+(-[a-z]+)?\.ts$/.test(f));
 let errors = 0;
 const slugs = new Set();
 for (const f of files) {
