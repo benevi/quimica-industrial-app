@@ -1,10 +1,12 @@
 import { Simulator } from "@/components/sim/Simulator";
+import { SimModes } from "@/components/sim/SimModes";
 
 export const metadata = { title: "Simulador de planta · Aula de Química" };
 
 export default function SimuladorPage() {
   return (
     <div className="relative left-1/2 w-screen max-w-7xl -translate-x-1/2 space-y-6 px-4">
+      <SimModes />
       <div>
         <p className="text-sm font-medium text-accent">Simulador de planta · Plant simulator</p>
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Fabrica un lote siguiendo la hoja de producción</h1>
