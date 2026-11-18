@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
+import { nivel12Separacion } from "./nivel12-separacion";
 
-export const nivel12: Lesson[] = [
+const equipos: Lesson[] = [
   {
     slug: "reactor-y-servicios",
     level: 12,
@@ -406,3 +407,5 @@ A las 8 h el LOD da 1,2 % → sigue secando. A las 12 h da 0,3 % → cumple. Se 
     ],
   },
 ];
+
+export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion];
