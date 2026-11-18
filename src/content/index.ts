@@ -1,6 +1,7 @@
 import type { Lesson, Level } from "./types";
 import { nivel0 } from "./nivel0";
 import { nivel1 } from "./nivel1";
+import { nivel5 } from "./nivel5";
 import { nivel7 } from "./nivel7";
 
 export const levels: Level[] = [
@@ -9,12 +10,12 @@ export const levels: Level[] = [
   { number: 2, title: "Reacciones químicas", titleEn: "Chemical reactions", description: "Estequiometría, rendimiento, calor y velocidad de reacción." },
   { number: 3, title: "Química orgánica para planta", titleEn: "Organic chemistry for operators", description: "Grupos funcionales, disolventes, quiralidad y polimorfismo." },
   { number: 4, title: "Laboratorio y control de calidad", titleEn: "Lab and QC", description: "Muestreo, análisis y especificaciones." },
-  { number: 5, title: "Operaciones de planta", titleEn: "Unit operations", description: "Reactores, centrífugas, filtros, secaderos y limpieza." },
+  { number: 5, title: "Operaciones de planta", titleEn: "Unit operations", description: "Reactores, carga e inertización, centrífugas, filtros y secaderos." },
   { number: 6, title: "Seguridad", titleEn: "Safety (EHS)", description: "Pictogramas, EPI, ATEX y permisos de trabajo." },
   { number: 7, title: "GMP y ALCOA+", titleEn: "GMP and data integrity", description: "Normas, documentación y desviaciones." },
 ];
 
-export const lessons: Lesson[] = [...nivel0, ...nivel1, ...nivel7].sort(
+export const lessons: Lesson[] = [...nivel0, ...nivel1, ...nivel5, ...nivel7].sort(
   (a, b) => a.level - b.level || a.order - b.order,
 );
 
