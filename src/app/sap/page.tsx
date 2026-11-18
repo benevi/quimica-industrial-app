@@ -30,6 +30,10 @@ export default function SapPage() {
           Simulador didáctico: no es SAP ni reproduce su aspecto. En tu planta, la configuración y los pasos pueden variar: manda el procedimiento de tu empresa.
         </p>
       </details>
+      <p className="rounded-xl border border-line bg-soft p-4 text-sm">
+        ¿Ya haces las misiones sin pistas? Ponte a prueba con el{" "}
+        <Link href="/sap/examen" className="font-medium underline">examen práctico cronometrado</Link>: sistema limpio, tareas en inglés y nota de corte del 64 %.
+      </p>
       <Simulator />
     </div>
   );

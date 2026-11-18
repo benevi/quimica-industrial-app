@@ -16,9 +16,39 @@ export type CertState = {
   self: Record<string, Record<string, number>>;
   /** Misiones del simulador ERP completadas */
   missions: Record<string, string>;
+  /** Repaso espaciado (Leitner): id de pregunta → caja 1–5 y fecha en que vuelve */
+  srs: Record<string, SrsCard>;
+  /** Simulacros con formato real: últimos intentos (fracción 0–1), el más reciente al final */
+  mocks: Record<string, ExamResult[]>;
+  /** Supuestos prácticos: mejor fracción de aciertos */
+  cases: Record<string, number>;
+  /** Examen práctico de SAP: mejor y último */
+  sapExam?: { best: ExamResult; last: ExamResult };
+  /** Mejor lote cerrado en el simulador de planta */
+  plant?: { score: number; decision: string; date: string };
 };
 
-const empty: CertState = { roadmap: {}, exams: {}, self: {}, missions: {} };
+export type SrsCard = { box: number; due: string };
+
+const empty: CertState = { roadmap: {}, exams: {}, self: {}, missions: {}, srs: {}, mocks: {}, cases: {} };
+
+/** Días hasta el siguiente repaso según la caja */
+export const SRS_DAYS = [0, 1, 3, 7, 14, 30];
+export const today = () => new Date().toISOString().slice(0, 10);
+function addDays(d: string, n: number) {
+  const x = new Date(d + "T12:00:00");
+  x.setDate(x.getDate() + n);
+  return x.toISOString().slice(0, 10);
+}
+
+/** Aplica el resultado de responder una pregunta al repaso espaciado */
+export function srsAnswer(srs: Record<string, SrsCard>, id: string, right: boolean): Record<string, SrsCard> {
+  const card = srs[id];
+  if (!right) return { ...srs, [id]: { box: 1, due: today() } };
+  if (!card) return srs; // acierto en una pregunta que no estaba en repaso: nada que hacer
+  const box = Math.min(card.box + 1, 5);
+  return { ...srs, [id]: { box, due: addDays(today(), SRS_DAYS[box]) } };
+}
 
 function read(): CertState {
   try {
@@ -47,11 +77,11 @@ export function useCertState() {
   }, []);
 
   const update = useCallback((fn: (s: CertState) => CertState) => {
-    setState((prev) => {
-      const next = fn(prev);
-      write(next);
-      return next;
-    });
+    // Se parte siempre de lo guardado: varias partes de la página usan este hook a la vez
+    // y ninguna debe pisar lo que haya guardado otra.
+    const next = fn(read());
+    write(next);
+    setState(next);
   }, []);
 
   const toggleStep = useCallback(
@@ -80,7 +110,56 @@ export function useCertState() {
     [update],
   );
 
-  return { state, loaded, toggleStep, saveExam, rate, completeMission };
+  /** Registra respuestas (id → acierto) en el repaso espaciado */
+  const review = useCallback(
+    (marks: Record<string, boolean>) =>
+      update((s) => {
+        let srs = s.srs;
+        for (const [id, ok] of Object.entries(marks)) srs = srsAnswer(srs, id, ok);
+        return { ...s, srs };
+      }),
+    [update],
+  );
+
+  const saveMock = useCallback(
+    (mockId: string, r: ExamResult, marks: Record<string, boolean>, caseScores: Record<string, number>) =>
+      update((s) => {
+        let srs = s.srs;
+        for (const [id, ok] of Object.entries(marks)) srs = srsAnswer(srs, id, ok);
+        const cases = { ...s.cases };
+        for (const [id, f] of Object.entries(caseScores)) cases[id] = Math.max(cases[id] ?? 0, f);
+        return { ...s, srs, cases, mocks: { ...s.mocks, [mockId]: [...(s.mocks[mockId] ?? []), r].slice(-5) } };
+      }),
+    [update],
+  );
+
+  const saveCase = useCallback(
+    (caseId: string, fraction: number, marks: Record<string, boolean>) =>
+      update((s) => {
+        let srs = s.srs;
+        for (const [id, ok] of Object.entries(marks)) srs = srsAnswer(srs, id, ok);
+        return { ...s, srs, cases: { ...s.cases, [caseId]: Math.max(s.cases[caseId] ?? 0, fraction) } };
+      }),
+    [update],
+  );
+
+  const saveSapExam = useCallback(
+    (r: ExamResult) =>
+      update((s) => {
+        const prev = s.sapExam;
+        const better = !prev || r.score / r.total > prev.best.score / prev.best.total;
+        return { ...s, sapExam: { best: better || !prev ? r : prev.best, last: r } };
+      }),
+    [update],
+  );
+
+  const savePlant = useCallback(
+    (p: { score: number; decision: string; date: string }) =>
+      update((s) => (s.plant && s.plant.score >= p.score ? s : { ...s, plant: p })),
+    [update],
+  );
+
+  return { state, loaded, toggleStep, saveExam, rate, completeMission, review, saveMock, saveCase, saveSapExam, savePlant };
 }
 
 /** Nota de aprobado de los simulacros de la app (criterio propio, no oficial) */

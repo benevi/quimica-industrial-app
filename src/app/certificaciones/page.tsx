@@ -7,6 +7,11 @@ import { lessonsForLevels, questionsForModule } from "@/certs/progress";
 import { PASS, useCertState } from "@/certs/useCertState";
 import { useProgress } from "@/lib/progress";
 import { missions } from "@/sap/engine";
+import { preps } from "@/certs/prep";
+import { prepSummary } from "@/certs/pool";
+import { Readiness } from "@/components/certs/Readiness";
+
+const summaries = preps.map((p) => ({ p, summary: prepSummary(p) }));
 
 function Bar({ pct }: { pct: number }) {
   return (
@@ -52,6 +57,31 @@ export default function CertificacionesPage() {
           La preparación de cada módulo combina lecciones completadas (60 %) y la mejor nota del simulacro (40 %). Es una
           orientación de la app: el certificado lo da siempre la administración o la entidad que lo emite.
         </p>
+      </section>
+
+      {/* preparación de examen */}
+      <section className="rounded-2xl border border-line bg-surface p-6">
+        <div className="mb-1 flex flex-wrap items-center gap-3">
+          <h2 className="text-lg font-semibold">
+            Preparación de examen <span lang="en" className="text-sm font-normal text-muted">Exam prep</span>
+          </h2>
+          <Link href="/repaso" className="ml-auto rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-soft">
+            Repaso de fallos
+          </Link>
+        </div>
+        <p className="mb-4 text-sm text-muted">
+          Temario oficial punto por punto, simulacros con el formato y la nota de la prueba real, supuestos prácticos y un indicador que te dice cuándo estás listo.
+        </p>
+        <div className="grid gap-3 md:grid-cols-3">
+          {summaries.map(({ p, summary }) => (
+            <Link key={p.certId} href={`/certificaciones/${p.certId}`} className="rounded-xl border border-line p-4 hover:border-accent">
+              <p className="font-medium">{p.title}</p>
+              <div className="mt-2">
+                <Readiness summary={summary} compact />
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* ruta */}
