@@ -323,6 +323,18 @@ Mantenimiento quiere sustituir una bomba por otro modelo "igual pero más modern
         answer: 1,
         explain: "El control de cambios exige evaluar y aprobar antes de ejecutar.",
       },
+      {
+        kind: "choice",
+        q: "Tras una desviación por una válvula cerrada en el R-101, se revisan los procedimientos de los demás reactores para que no ocurra allí. ¿Qué es?",
+        options: [
+          "Una corrección",
+          "Una acción correctiva",
+          "Una acción preventiva",
+          "Un control de cambios",
+        ],
+        answer: 2,
+        explain: "Evitar que el problema aparezca en otro sitio donde aún no ha pasado es una acción preventiva.",
+      },
     ],
   },
   {
@@ -394,18 +406,30 @@ En un reactor recién instalado verás etiquetas "Equipo en cualificación – n
         answer: 1,
         explain: "La validación solo cubre lo que se probó. Cambiarlo requiere control de cambios.",
       },
+      {
+        kind: "choice",
+        q: "¿Qué fase de cualificación comprueba que el equipo funciona en todo su rango de trabajo, normalmente sin producto?",
+        options: [
+          "DQ",
+          "IQ",
+          "OQ",
+          "PQ",
+        ],
+        answer: 2,
+        explain: "OQ (Operational Qualification): alarmas, velocidades, temperaturas… en todo el rango. La PQ lo prueba con el proceso real.",
+      },
     ],
   },
   {
     slug: "gestion-de-riesgos",
     level: 16,
     order: 7,
-    title: "Gestión de riesgos de calidad (ICH Q9)",
+    title: "Gestión de riesgos de calidad (ICH Q9(R1))",
     titleEn: "Quality risk management",
     minutes: 12,
     summary: "Cómo se decide qué es importante: gravedad, probabilidad y detectabilidad.",
     body: `
-No todo tiene la misma importancia. La **gestión de riesgos de calidad** (ICH Q9) sirve para concentrar el esfuerzo donde más afecta al paciente.
+No todo tiene la misma importancia. La **gestión de riesgos de calidad** (ICH Q9, revisada en 2023 como **Q9(R1)**) sirve para concentrar el esfuerzo donde más afecta al paciente. La revisión insiste en que las puntuaciones son **subjetivas**: hay que justificarlas con datos y no usar el número como excusa para no actuar.
 
 ### Riesgo
 Combinación de:
@@ -418,7 +442,7 @@ Una herramienta muy usada. Para cada fallo posible se puntúa gravedad (G), prob
 
 > **NPR = G × P × D** (en inglés *RPN, Risk Priority Number*)
 
-Cuanto mayor, antes hay que actuar. Ojo: en detección, **10 = muy difícil de detectar**.
+Cuanto mayor, antes hay que actuar. Ojo: en detección, **10 = muy difícil de detectar**. Y una **gravedad muy alta** se trata aunque el NPR salga bajo.
 
 ### Dónde se usa
 Para decidir qué parámetros son críticos, qué validar, cómo clasificar una desviación, cuánto muestrear o qué cambios necesitan más pruebas.
@@ -453,6 +477,14 @@ Si se añade lectura de código de barras en la carga, P baja a 1 y el NPR baja 
         options: ["Que se detecta siempre", "Que es muy difícil de detectar", "Que no importa", "Que hay 10 controles"],
         answer: 1,
         explain: "La escala de detección se invierte: cuanto más difícil de detectar, mayor puntuación y mayor riesgo.",
+      },
+      {
+        kind: "number",
+        q: "Un fallo tiene G = 7, P = 4 y D = 6. Se mejora el IPC y la detección baja a D = 2. ¿Cuál es el nuevo NPR?",
+        answer: 56,
+        tolerance: 0.001,
+        unit: "",
+        explain: "7 × 4 × 2 = 56 (antes era 7 × 4 × 6 = 168).",
       },
     ],
   },

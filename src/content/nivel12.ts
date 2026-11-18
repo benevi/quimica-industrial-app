@@ -315,6 +315,18 @@ Filtras en un filtro-secador a 1,5 barg de N₂. Al principio el ΔP es 0,3 bar;
         answer: 1,
         explain: "Menos manipulaciones significa menos riesgo de contaminación y de exposición.",
       },
+      {
+        kind: "choice",
+        q: "Durante el lavado en el filtro-secador la torta se agrieta. ¿Qué problema hay?",
+        options: [
+          "Ninguno",
+          "El disolvente de lavado se escapa por las grietas y la torta queda mal lavada",
+          "Se seca antes y es mejor",
+          "Aumenta el rendimiento",
+        ],
+        answer: 1,
+        explain: "Por las grietas el líquido encuentra un atajo: las aguas madres con impurezas se quedan en el resto de la torta. Se avisa y se sigue el procedimiento.",
+      },
     ],
   },
   {

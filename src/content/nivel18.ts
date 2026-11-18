@@ -72,6 +72,18 @@ Llega un lote de 16 bidones de un reactivo. Uno tiene el precinto roto. El almac
         answer: 1,
         explain: "Un precinto roto puede indicar contaminación o manipulación: Calidad decide.",
       },
+      {
+        kind: "choice",
+        q: "Llega un camión con materia prima. ¿Qué se comprueba primero?",
+        options: [
+          "El color del camión",
+          "El albarán frente al pedido, que el proveedor está aprobado y el estado de envases, precintos y etiquetas",
+          "Nada: se descarga y luego se mira",
+          "Solo el peso total",
+        ],
+        answer: 1,
+        explain: "Antes de dar entrada se verifica documentación, proveedor y estado físico; después el material queda en cuarentena.",
+      },
     ],
   },
   {
@@ -182,7 +194,7 @@ Las etiquetas del API llevan como mínimo: **nombre** del producto, **número de
 Cada envase se pesa en báscula calibrada: **bruto**, **tara** y **neto**. Neto = bruto − tara.
 
 ### Muestras de retención (*reserve samples*)
-De cada lote de API se guarda una muestra en un envase equivalente al comercial. ICH Q7 (11.7) pide conservarla **1 año tras la caducidad**, o **3 años tras la distribución** si el API tiene fecha de reanálisis (el plazo más largo), con cantidad suficiente para al menos **dos análisis completos**.
+De cada lote de API se guarda una muestra en un envase equivalente al comercial. ICH Q7 (11.7) pide conservarla, si el API tiene **caducidad**, **1 año tras la caducidad o 3 años tras la distribución, lo que sea más largo**; si tiene **fecha de reanálisis**, **3 años después de distribuir el lote por completo**. La cantidad debe bastar para al menos **dos análisis completos**.
 `,
     plant: `
 Se emiten 20 etiquetas para un lote que se envasará en 18 bidones. Se usan 18, una se destruye porque se imprimió torcida y sobra 1, que se devuelve. 18 + 1 + 1 = 20: la conciliación cuadra.

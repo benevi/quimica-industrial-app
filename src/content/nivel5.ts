@@ -61,6 +61,14 @@ Llegan 30 bidones de un disolvente. √30 + 1 = 6,5 → se muestrean **7** bidon
         answer: 1,
         explain: "Al mezclar, un recipiente malo se diluye entre los buenos.",
       },
+      {
+        kind: "number",
+        q: "Llegan 40 bidones. Con la regla √n + 1, redondeando hacia arriba, ¿cuántos muestreas?",
+        answer: 8,
+        tolerance: 0.001,
+        unit: "bidones",
+        explain: "√40 ≈ 6,32; 6,32 + 1 = 7,32 → hacia arriba: 8 bidones.",
+      },
     ],
   },
   {
@@ -126,6 +134,18 @@ IPC del reactor a 60 °C. Conectas el vial a la válvula tomamuestras, purgas lo
         answer: 1,
         explain: "Etiquetar en el momento evita confusiones entre muestras.",
       },
+      {
+        kind: "choice",
+        q: "Vas a muestrear un disolvente inflamable de un bidón. ¿Qué precaución es imprescindible?",
+        options: [
+          "Ninguna",
+          "Puesta a tierra y útiles antichispas, con el EPI indicado",
+          "Hacerlo deprisa y sin EPI",
+          "Calentar el bidón para que salga mejor",
+        ],
+        answer: 1,
+        explain: "La electricidad estática puede encender los vapores; la puesta a tierra la descarga.",
+      },
     ],
   },
   {
@@ -151,7 +171,9 @@ IPC del reactor a 60 °C. Conectas el vial a la válvula tomamuestras, purgas lo
 Registro de **cada persona** que tiene la muestra y **cuándo**: quien la toma, quien la transporta, quien la recibe en el laboratorio. Con el LIMS se hace escaneando la etiqueta en cada paso.
 
 ### Muestras de retención (*retention samples*)
-De cada lote de API se guarda una muestra en el envase equivalente al de venta. Según ICH Q7, se conserva al menos **1 año después de la fecha de caducidad** o **3 años después de distribuir el lote** si el API tiene fecha de re-análisis.
+De cada lote de API se guarda una muestra en el envase equivalente al de venta. Según ICH Q7 (11.7):
+- API con **fecha de caducidad**: **1 año después de la caducidad** o **3 años después de distribuir el lote**, lo que sea **más largo**.
+- API con **fecha de re-análisis**: **3 años después de que el lote se haya distribuido por completo**.
 `,
     plant: `
 Tomas una muestra para Karl Fischer del producto seco. La metes en un vial de vidrio con tapón hermético, sin dejar mucho aire, y la llevas enseguida. Si la dejas abierta, el producto absorbe humedad del ambiente y el resultado sale más alto que el real.
@@ -180,6 +202,14 @@ Tomas una muestra para Karl Fischer del producto seco. La metes en un vial de vi
         options: ["Vidrio transparente", "Vidrio ámbar", "Bolsa transparente", "Cualquiera"],
         answer: 1,
         explain: "El vidrio ámbar filtra la luz que degrada el producto.",
+      },
+      {
+        kind: "number",
+        q: "Un API con fecha de re-análisis se terminó de distribuir en marzo de 2026. Según ICH Q7, ¿hasta qué año como mínimo se guarda su muestra de retención?",
+        answer: 2029,
+        tolerance: 0.0001,
+        unit: "año",
+        explain: "Con fecha de re-análisis: 3 años tras la distribución completa. Marzo de 2026 + 3 = marzo de 2029.",
       },
     ],
   },
@@ -238,6 +268,14 @@ En el registro analítico: pesadas, volúmenes de cada matraz y pipeta, diluyent
         tolerance: 0.001,
         unit: "mg/mL",
         explain: "50 mg / 50 mL = 1 mg/mL; luego ÷10 = 0,1 mg/mL.",
+      },
+      {
+        kind: "number",
+        q: "Diluyes 1 mL a 25 mL y después 2 mL de esa disolución a 100 mL. ¿Cuál es el factor de dilución total?",
+        answer: 1250,
+        tolerance: 0.001,
+        unit: "",
+        explain: "Primera dilución ×25, segunda ×50 (100 / 2): 25 × 50 = 1250.",
       },
     ],
   },

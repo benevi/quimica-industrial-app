@@ -35,6 +35,26 @@ export const nivel11: Lesson[] = [
 | Válvula de seguridad | *Safety / relief valve (PSV)* | Se abre sola si la presión supera el tarado |
 | Disco de ruptura | *Rupture disc* | Se rompe a una presión fija; protege el equipo |
 
+### Válvulas manuales y automáticas: abrir y cerrar
+- **Manual**: la mueve el operador con una **palanca** (bola, mariposa: ¼ de vuelta) o un **volante** (asiento, diafragma: varias vueltas). En las de palanca, **palanca paralela a la tubería = abierta**; perpendicular = cerrada.
+- **Automática todo/nada** (*on/off valve*, en el P&ID suele llamarse **XV**): la abre o la cierra el sistema de control con un **actuador neumático** (*pneumatic actuator*) que recibe aire de instrumentos a través de una **electroválvula** (*solenoid valve*).
+- **Válvula de control** (*control valve*, **FCV**, **TCV**…): no solo abre o cierra, sino que se queda en cualquier posición intermedia (0–100 %) que le pide el controlador.
+
+**Posición de fallo** (*fail-safe position*): qué hace la válvula si se corta el aire o la electricidad. Se elige para que el proceso quede **seguro**:
+| Posición de fallo | Abreviatura | Ejemplo |
+|---|---|---|
+| Falla cerrada | **FC** (*fail closed*) | Entrada de vapor a la camisa, adición de un reactivo |
+| Falla abierta | **FO** (*fail open*) | Agua de refrigeración de la camisa, venteo a scrubber |
+| Se queda donde está | **FL** (*fail last / fail locked*) | Algunas válvulas de proceso |
+
+**¿Cómo sabes si está realmente abierta o cerrada?** Que el DCS haya **mandado** abrir no garantiza que la válvula se haya **movido**. Las automáticas llevan **finales de carrera** (*limit switches*, en el P&ID **ZSO** = abierta y **ZSC** = cerrada) que confirman la posición. Si la orden y la posición no coinciden, salta una **alarma de discrepancia** (*valve discrepancy / feedback alarm*). En campo, mira el **indicador mecánico** del actuador.
+
+**Buenas prácticas al abrir y cerrar**
+- Abre **despacio** las líneas de vapor, de presión o calientes (golpe de ariete, proyecciones).
+- **Nunca fuerces** una válvula atascada con barras o "palancas" improvisadas: avisa a mantenimiento.
+- Válvula en **mando local** (*local/manual override*) = el sistema ya no la controla: solo según procedimiento y dejándolo anotado.
+- Al terminar, deja cada válvula en la **posición que indica la hoja** (normalmente cerrada) y compruébalo.
+
 ### Reglas de oro
 - Comprueba la **ruta completa** antes de transferir: origen, válvulas abiertas, destino, sin otras salidas abiertas.
 - Nunca manipules una **PSV** ni un **disco de ruptura**: son la última protección contra una explosión.
@@ -57,6 +77,10 @@ Transferencia del reactor R-101 al R-102. El operador revisa en el panel de cone
       { es: "Válvula de seguridad", en: "Pressure safety valve (PSV)", def: "Válvula que se abre sola para aliviar sobrepresión." },
       { es: "Disco de ruptura", en: "Rupture disc", def: "Membrana que se rompe a una presión fijada para proteger el equipo." },
       { es: "Panel de conexión", en: "Transfer panel", def: "Panel con codos móviles para unir líneas distintas." },
+      { es: "Válvula automática todo/nada", en: "On/off valve (XV)", def: "Válvula que el sistema de control abre o cierra mediante un actuador." },
+      { es: "Actuador neumático", en: "Pneumatic actuator", def: "Mecanismo que mueve una válvula con aire comprimido." },
+      { es: "Posición de fallo", en: "Fail-safe position (FC / FO)", def: "Posición que toma la válvula si se pierde el aire o la señal: cerrada, abierta o quieta." },
+      { es: "Final de carrera", en: "Limit switch (ZSO / ZSC)", def: "Sensor que confirma que la válvula ha llegado a abierta o a cerrada." },
     ],
     quiz: [
       {
@@ -77,6 +101,30 @@ Transferencia del reactor R-101 al R-102. El operador revisa en el panel de cone
         ],
         answer: 1,
         explain: "Las PSV son elementos de seguridad: solo las tocan personas autorizadas con permiso de trabajo.",
+      },
+      {
+        kind: "choice",
+        q: "La válvula de entrada de vapor a la camisa es FC (falla cerrada). ¿Qué pasa si se corta el aire de instrumentos?",
+        options: [
+          "Se abre del todo y sigue calentando",
+          "Se cierra y deja de entrar vapor: el reactor queda en posición segura",
+          "Se queda a medias",
+          "Depende del operador",
+        ],
+        answer: 1,
+        explain: "FC significa que sin aire el muelle del actuador la cierra. Para calefacción, lo seguro es cortar el calor.",
+      },
+      {
+        kind: "choice",
+        q: "El DCS muestra que ha mandado abrir la XV-205, pero el final de carrera ZSO no se activa y salta una alarma de discrepancia. ¿Qué haces?",
+        options: [
+          "Doy por abierta la válvula porque el sistema la ha mandado abrir",
+          "No continúo la transferencia: compruebo en campo el indicador de la válvula y aviso; puede estar atascada o sin aire",
+          "Puenteo el final de carrera",
+          "Golpeo la válvula hasta que se mueva",
+        ],
+        answer: 1,
+        explain: "La orden no garantiza el movimiento. El final de carrera confirma la posición real; si no coincide, se investiga antes de seguir.",
       },
       {
         kind: "choice",
@@ -337,6 +385,18 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
         options: ["Agua de torre", "Agua glicolada o salmuera", "Vapor", "Aire comprimido"],
         answer: 1,
         explain: "El glicol o la salmuera no se congelan a 0 °C y permiten enfriar por debajo.",
+      },
+      {
+        kind: "choice",
+        q: "¿Por qué una adición dosificada (semi-batch) es más segura que cargar todo el reactivo de golpe?",
+        options: [
+          "Porque es más rápida",
+          "Porque si falla el frío se para la adición y deja de generarse calor; con todo cargado no se puede frenar",
+          "Porque usa menos reactivo",
+          "Porque no necesita agitación",
+        ],
+        answer: 1,
+        explain: "Con la adición controlada, el calor generado depende de lo que se añade: parar la bomba frena la reacción.",
       },
     ],
   },

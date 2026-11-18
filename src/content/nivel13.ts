@@ -115,6 +115,8 @@ Formato: **letras + número de lazo**. La **primera letra** es la variable medid
 | W | Peso (*weight*) | V | Válvula |
 | A | Análisis (pH, O₂) | S | Interruptor (*switch*) |
 | S | Velocidad (*speed*) | E | Elemento primario (sensor) |
+| Z | Posición (*position*) | Y | Relé o electroválvula |
+| X | Sin clasificar (se usa para válvulas todo/nada: **XV**) | SO / SC | Interruptor de abierto / cerrado (*ZSO*, *ZSC*) |
 
 Con **H** y **L** se indica alto (*high*) y bajo (*low*); **HH** y **LL**, muy alto y muy bajo.
 
@@ -124,6 +126,7 @@ Ejemplos:
 - **PSV-205**: válvula de seguridad de presión.
 - **LAHH-310**: alarma de nivel muy alto.
 - **FCV-120**: válvula de control de caudal.
+- **XV-130**: válvula automática todo/nada; sus finales de carrera son **ZSO-130** (abierta) y **ZSC-130** (cerrada).
 
 ### Símbolos básicos
 - **Círculo**: instrumento. Con una raya horizontal: está en el **panel o en el sistema de control**; sin raya: instalado **en campo**.
