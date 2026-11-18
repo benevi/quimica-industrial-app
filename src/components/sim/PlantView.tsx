@@ -171,7 +171,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
   const r102Level = s.centri.loaded ? 0 : (s.filter.progress / 100) * 0.62;
   const r102T = s.cryst.done ? s.cryst.finalT : s.filter.progress > 0 ? 80 : 20;
   const addFlow = r.rate > 0 && !r.interlock && s.valves["XV-104"] && cur === "reaccion" && r.addEnd == null;
-  const target = s.closed ? undefined : currentTask(s).valve;
+  const target = s.closed || s.halt ? undefined : currentTask(s).valve;
   const vacProblem = s.dryer.loaded && s.valves["XV-301"] && s.dryer.vacuum > 100;
 
   const selectable = (eq: EqId) => {
@@ -449,7 +449,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         ).map(([v, x, y, vert, lab]) => {
           const [lx, ly] = lab === "right" ? [29, 0] : lab === "down" ? [0, 17] : [0, -21];
           const open = s.valves[v];
-          const can = !!onValve && !s.closed && E.VALVES[v].section === cur;
+          const can = !!onValve && !s.closed && !s.halt && E.VALVES[v].section === cur;
           const isTarget = target === v;
           return (
             <g
@@ -501,8 +501,47 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
           </g>
         )}
 
+        {/* incidente en curso */}
+        {(() => {
+          const inc = E.currentIncident(s);
+          if (!inc) return null;
+          const box: Record<E.IncidentEq, [number, number, number, number]> = {
+            r101: [226, 150, 210, 300],
+            f301: [464, 350, 70, 130],
+            r102: [515, 170, 170, 295],
+            c201: [706, 440, 116, 118],
+            sd301: [832, 270, 116, 172],
+          };
+          const [x, y, w, h] = box[inc.eq];
+          const cx = x + w / 2;
+          return (
+            <g pointerEvents="none">
+              <rect x={x - 6} y={y - 6} width={w + 12} height={h + 12} rx={16} fill="#dc2626" opacity={0.12} stroke="#dc2626" strokeWidth={4}>
+                <animate attributeName="opacity" values="0.05;0.3;0.05" dur="0.9s" repeatCount="indefinite" />
+              </rect>
+              {(inc.kind === "desborde_r101" || inc.kind === "fuga_impulsion" || inc.kind === "choque_termico_r102") && (
+                <ellipse cx={cx} cy={inc.eq === "f301" ? 520 : 545} rx={inc.eq === "f301" ? 60 : 110} ry={10} fill={inc.kind === "desborde_r101" ? "#7dd3fc" : "#fbbf24"} opacity={0.75} />
+              )}
+              {(inc.kind === "disco_n2" || inc.kind === "disco_ebullicion") && (
+                <g>
+                  {[-30, -10, 10, 30].map((d) => (
+                    <path key={d} d={`M${352 + d * 0.3} 118 l${d} -40`} stroke={inc.kind === "disco_n2" ? "#d4a017" : "#e5e7eb"} strokeWidth={5} strokeLinecap="round" opacity={0.85}>
+                      <animate attributeName="opacity" values="0.2;0.9;0.2" dur="0.6s" repeatCount="indefinite" />
+                    </path>
+                  ))}
+                  <rect x={300} y={62} width={104} height={20} rx={4} fill="#b91c1c" />
+                  <text x={352} y={76} textAnchor="middle" fontSize={12} fontWeight={800} fill="#fff">PSE-101 ROTO</text>
+                </g>
+              )}
+              {inc.kind === "choque_termico_r102" && <path d="M560 260 l18 22 l-10 14 l22 26 l-8 18" stroke="#111" strokeWidth={2.5} fill="none" />}
+              <rect x={cx - 70} y={y - 34} width={140} height={24} rx={12} fill="#dc2626" />
+              <text x={cx} y={y - 17} textAnchor="middle" fill="#fff" fontSize={11.5} fontWeight={800}>⚠ INCIDENTE {inc.id}</text>
+            </g>
+          );
+        })()}
+
         {/* ESTÁS AQUÍ */}
-        {nowEq && here[nowEq] && (
+        {nowEq && here[nowEq] && !s.halt && (
           <g>
             <rect x={here[nowEq]![0] - 62} y={here[nowEq]![1] - 18} width={124} height={24} rx={12} fill="#1d4ed8" />
             <text x={here[nowEq]![0]} y={here[nowEq]![1] - 1} textAnchor="middle" fill="#fff" fontSize={11.5} fontWeight={700}>▼ ESTÁS AQUÍ</text>

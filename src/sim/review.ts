@@ -80,6 +80,20 @@ export function reviewBatch(s: Sim): Review {
     F.push({ sev: vf.sev, area: "Seguridad", title: vf.text, detail: "Cada operación empieza abriendo solo las válvulas necesarias y termina cerrándolas. Una válvula olvidada puede mezclar líneas, dejar pasar producto o servicios donde no toca.", lesson: L.valvulas });
   }
 
+  // --- Incidentes
+  for (const inc of s.incidents ?? []) {
+    const area = inc.kind === "lavado_caliente" || inc.kind === "aguas_madres_caliente" || inc.kind === "degradacion_secado" || inc.kind === "rotura_cartucho" ? "Calidad del producto" : "Seguridad";
+    F.push({
+      sev: inc.sev,
+      area,
+      title: `Incidente ${inc.id}: ${inc.title}`,
+      detail: `${inc.cause}${inc.redone != null ? " Se rehízo la fase: en planta eso es un reproceso y solo se hace con una desviación aprobada por Calidad." : inc.acknowledged != null ? " Se siguió adelante asumiendo las consecuencias." : ""}`,
+      lesson: L.desv,
+    });
+    if (inc.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: `No se avisó al supervisor del incidente ${inc.id}`, detail: "Todo incidente se comunica en el momento, aunque parezca resuelto.", lesson: L.desv });
+    if (!s.deviations.some((d) => d.time >= inc.time)) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `Sin desviación para el incidente ${inc.id}`, detail: "Cada incidente se documenta en una desviación: qué pasó, cuándo, qué se hizo y qué se ve.", lesson: L.desv });
+  }
+
   // --- Verificaciones previas
   if (v("r101_estado") && v("r101_estado") !== "Limpio y dentro de tiempo") {
     F.push({ sev: "mayor", area: "Proceso", title: "Se registró el reactor como no apto y aun así se usó", detail: "Si el estado no es «limpio y dentro de tiempo», no se empieza: se avisa y se limpia.", lesson: L.bpd });
@@ -197,9 +211,10 @@ export function reviewBatch(s: Sim): Review {
   const imp = finalImpurities(s);
   const lodFinal = d.lod;
   const assay = Math.round((99.8 - imp) * 10) / 10;
-  const appearanceOk = imp <= 0.3;
+  const appearanceOk = imp <= 0.3 && !s.degraded;
   const results = [
-    { test: "Aspecto", spec: "Polvo cristalino blanco", value: appearanceOk ? "Polvo cristalino blanco" : "Polvo ligeramente coloreado", ok: appearanceOk },
+    { test: "Aspecto", spec: "Polvo cristalino blanco", value: appearanceOk ? "Polvo cristalino blanco" : s.degraded ? "Polvo amarillento" : "Polvo ligeramente coloreado", ok: appearanceOk },
+    { test: "Partículas visibles", spec: "Ausencia", value: s.contam ? "Presencia de partículas" : "Ausencia", ok: !s.contam },
     { test: "Pérdida por secado", spec: "≤ 0,5 %", value: `${fmtNum(lodFinal, 2)} %`, ok: lodFinal <= 0.5 },
     { test: "Impurezas totales (HPLC)", spec: "≤ 0,30 %", value: `${fmtNum(imp, 2)} %`, ok: imp <= 0.3 },
     { test: "Valoración (sobre seco)", spec: "98,0 – 102,0 %", value: `${fmtNum(assay)} %`, ok: assay >= 98 && assay <= 102 },

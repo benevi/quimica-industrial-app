@@ -132,6 +132,47 @@ export type ValveId = keyof typeof VALVES;
 export const VALVE_IDS = Object.keys(VALVES) as ValveId[];
 export const valvesOf = (sec: SectionId) => VALVE_IDS.filter((v) => VALVES[v].section === sec);
 
+export type IncidentKind =
+  | "desborde_r101"
+  | "disco_n2"
+  | "carga_sin_inertizar"
+  | "acumulacion"
+  | "disco_ebullicion"
+  | "fuga_impulsion"
+  | "rotura_cartucho"
+  | "choque_termico_r102"
+  | "vibracion_c201"
+  | "lavado_caliente"
+  | "aguas_madres_caliente"
+  | "degradacion_secado";
+
+/** Equipo de la vista de planta donde se marca el incidente. */
+export type IncidentEq = "r101" | "f301" | "r102" | "c201" | "sd301";
+
+export type Incident = {
+  id: string;
+  kind: IncidentKind;
+  time: number;
+  section: SectionId;
+  eq: IncidentEq;
+  sev: "crítico" | "mayor" | "menor";
+  /** true: el equipo queda fuera de servicio y la única salida es rehacer la fase. */
+  critical: boolean;
+  title: string;
+  what: string;
+  cause: string;
+  safety: string;
+  product: string;
+  gmp: string;
+  plant: string[];
+  lossPct: number;
+  /** Fase donde está la causa, si no es la fase en la que salta (p. ej. cristalizar en caliente). */
+  redoFrom?: SectionId;
+  redone?: number;
+  acknowledged?: number;
+  notified?: number;
+};
+
 export type EventId = "bascula" | "frio" | "filtro" | "vacio";
 export type SimEvent = { active: boolean; start?: number; notified?: number; resolved?: number };
 
@@ -186,6 +227,18 @@ export type Sim = {
   inertStep: "vacio" | null;
   valves: Record<ValveId, boolean>;
   valveFindings: { time: number; section: SectionId; sev: "crítico" | "mayor" | "menor"; text: string }[];
+  /** Presión manométrica del R-101 (barg) cuando entra N₂ con el reactor cerrado. */
+  p101: number;
+  incidents: Incident[];
+  /** Incidente que tiene el lote parado hasta que el operador decida. */
+  halt: string | null;
+  /** Estado del lote al empezar cada fase, para poder rehacerla. */
+  checkpoints: Record<number, string>;
+  redos: number;
+  /** % de producto perdido por incidentes (derrames, aguas madres, venteo). */
+  lossPct: number;
+  contam: boolean;
+  degraded: boolean;
   reactor: Reactor;
   ipc: { requested: number; ready: number; value: number }[];
   filter: { dp: number; maxDpRun: number; changes: number; done: boolean; running: boolean; progress: number };
@@ -200,6 +253,12 @@ const r1 = (x: number) => Math.round(x * 10) / 10;
 const r2 = (x: number) => Math.round(x * 100) / 100;
 
 export function newSim(scenario: Scenario): Sim {
+  const s = blankSim(scenario);
+  s.checkpoints[0] = snapshot(s);
+  return s;
+}
+
+function blankSim(scenario: Scenario): Sim {
   return {
     version: 1,
     scenario,
@@ -231,6 +290,14 @@ export function newSim(scenario: Scenario): Sim {
     inertStep: null,
     valves: Object.fromEntries(VALVE_IDS.map((v) => [v, false])) as Record<ValveId, boolean>,
     valveFindings: [],
+    p101: 0,
+    incidents: [],
+    halt: null,
+    checkpoints: {},
+    redos: 0,
+    lossPct: 0,
+    contam: false,
+    degraded: false,
     reactor: {
       T: 20, Tj: 20, sp: 20, rate: 0, agit: false, added: 0, accum: 0, consumed: 0, slow: 0, imp: 0.05,
       maxTadd: 20, interlock: false, inRange: 0, maxTreact: 20, history: [], alarms: [],
@@ -250,6 +317,15 @@ export function migrate(s: Sim): Sim {
   if (!s.valves) s.valves = Object.fromEntries(VALVE_IDS.map((v) => [v, false])) as Record<ValveId, boolean>;
   if (!s.valveFindings) s.valveFindings = [];
   if (s.inertStep === undefined) s.inertStep = null;
+  s.p101 ??= 0;
+  s.incidents ??= [];
+  s.halt ??= null;
+  s.checkpoints ??= {};
+  s.redos ??= 0;
+  s.lossPct ??= 0;
+  s.contam ??= false;
+  s.degraded ??= false;
+  if (s.checkpoints[s.section] == null) s.checkpoints[s.section] = snapshot(s);
   return s;
 }
 
@@ -337,10 +413,17 @@ export function advance(s: Sim) {
   if (id === "reaccion") {
     s.reactor.history = [{ t: s.clock, T: s.reactor.T, Tj: s.reactor.Tj }];
   }
+  s.checkpoints[s.section] = snapshot(s);
 }
 
 export function notify(s: Sim, text: string) {
   log(s, `Avisa al supervisor: ${text}`);
+  const pend = s.incidents.filter((i) => i.notified == null);
+  if (pend.length) {
+    for (const i of pend) i.notified = s.clock;
+    msg(s, "Supervisor", `Recibido. Vamos a la zona. Registra ahora la desviación del incidente «${pend[pend.length - 1].title}»: qué pasó, a qué hora, qué hiciste y qué ves. Calidad decidirá qué se hace con el producto.`);
+    return;
+  }
   const ev = activeUnnotified(s);
   if (ev) {
     s.events[ev].notified = s.clock;
@@ -428,7 +511,7 @@ export function requestVerification(s: Sim, m: MaterialId): string | null {
 export function toggleValve(s: Sim, v: ValveId) {
   const open = !s.valves[v];
   s.valves[v] = open;
-  s.clock += 1;
+  passTime(s, 1);
   log(s, `${open ? "Abre" : "Cierra"} la válvula ${v} (${VALVES[v].name})`);
   if (open && ((v === "XV-102" && s.valves["XV-103"]) || (v === "XV-103" && s.valves["XV-102"]))) {
     s.valveFindings.push({ time: s.clock, section: "carga", sev: "mayor", text: "Nitrógeno y vacío abiertos a la vez en el R-101: el N₂ se va directo a la bomba de vacío." });
@@ -444,7 +527,8 @@ export function chargeWater(s: Sim, liters: number) {
     return;
   }
   s.water = Math.round(s.water + liters);
-  s.clock += Math.max(1, Math.round(liters / 50));
+  passTime(s, Math.max(1, Math.round(liters / 50)));
+  if (s.water > 450) raise(s, "desborde_r101", { what: `El totalizador FQ-101 marca ${s.water} L. El R-101 se ha llenado hasta la tapa y el agua ha salido por la línea de vapores hacia el condensador y la línea de vacío.` });
 }
 
 export function chargeAF(s: Sim) {
@@ -455,9 +539,12 @@ export function chargeAF(s: Sim) {
   }
   if (s.o2 > 8) {
     s.reactor.alarms.push({ time: s.clock, text: "Carga de sólido sin inertizar: riesgo de atmósfera inflamable" });
+    raise(s, "carga_sin_inertizar", { what: `Abriste la boca de carga y empezaste a echar 4-aminofenol con un ${fmtNum(s.o2)} % de oxígeno dentro del R-101. Salta la alarma del analizador AI-101 y el supervisor para la carga.` });
+    return;
   }
+  passTime(s, 20);
+  if (s.halt) return;
   s.afCharged = true;
-  s.clock += 20;
   log(s, `Carga ${fmtNum(s.dosed.af, 2)} kg de 4-aminofenol (lote ${s.lotsUsed.af ?? "?"}) por la estación de carga`);
 }
 
@@ -473,7 +560,8 @@ export function inertVacuum(s: Sim) {
     return;
   }
   s.inertStep = "vacio";
-  s.clock += 5;
+  s.p101 = 0;
+  passTime(s, 5);
   log(s, "Hace vacío en el R-101 hasta 200 mbar");
 }
 
@@ -491,7 +579,8 @@ export function inertN2(s: Sim) {
   s.inertStep = null;
   s.inertCycles += 1;
   s.o2 = r1(Math.max(0.1, s.o2 * 0.2));
-  s.clock += 5;
+  s.p101 = 0;
+  passTime(s, 5);
   log(s, `Rompe el vacío con N₂ (ciclo nº ${s.inertCycles}): O₂ = ${fmtNum(s.o2)} %`);
 }
 
@@ -503,7 +592,7 @@ export function toggleAgit(s: Sim, on: boolean) {
 // ---------- Reacción ----------
 
 export function setSP(s: Sim, sp: number) {
-  s.reactor.sp = Math.max(0, Math.min(95, sp));
+  s.reactor.sp = Math.max(0, Math.min(120, sp));
   log(s, `Fija la consigna de temperatura TIC-101 en ${fmtNum(s.reactor.sp, 0)} °C`);
 }
 
@@ -530,6 +619,7 @@ export function aaTotalL(s: Sim) {
 
 /** Avanza el reactor un minuto simulado. */
 export function reactorTick(s: Sim) {
+  if (s.halt) return;
   const r = s.reactor;
   const frio = s.events.frio;
   const total = aaTotalL(s);
@@ -595,6 +685,16 @@ export function reactorTick(s: Sim) {
 
   s.clock += 1;
 
+  // Incidentes provocados por la operación
+  if (r.addEnd == null && r.added > 0 && !r.agit && r.accum > 12) {
+    raise(s, "acumulacion", { what: `Hay ${fmtNum(r.accum)} L de anhídrido acético dentro del reactor sin reaccionar porque el agitador está parado. La temperatura no sube, pero el calor está «guardado».` });
+  }
+  if (r.T >= 100) {
+    raise(s, "disco_ebullicion", { what: `La masa ha llegado a ${fmtNum(r.T)} °C. El agua hierve, la presión sube por encima de 0,5 bar y rompe el disco de ruptura PSE-101: vapores de ácido acético salen por el venteo al lavador de gases.` });
+    r.T = 99;
+    r.rate = 0;
+  }
+
   // Alarmas y enclavamiento
   if (r.addEnd == null && r.added > 0) {
     r.maxTadd = Math.max(r.maxTadd, r.T);
@@ -637,7 +737,13 @@ export function filterStep(s: Sim) {
     return;
   }
   if (!s.valves["XV-106"]) {
-    msg(s, "Sistema de control", "La presión de impulsión sube y no pasa nada: la XV-106 de entrada al R-102 está cerrada. Para la bomba y ábrela.");
+    raise(s, "fuga_impulsion");
+    return;
+  }
+  if (f.dp > 1.5) {
+    raise(s, "rotura_cartucho", { what: `Seguiste transfiriendo con ${fmtNum(f.dp)} bar de presión diferencial (límite 1,5 bar). El cartucho de 1 µm se ha roto: la presión cae de golpe a 0,1 bar y las partículas pasan al R-102.` });
+    f.dp = 0.1;
+    s.contam = true;
     return;
   }
   f.running = true;
@@ -684,6 +790,10 @@ export function runCrystallization(s: Sim, seedT: number, seeded: boolean, ramp:
   c.finalT = finalT;
   c.hold = hold;
   c.quality = seeded && ramp >= 120 && seedT >= 55 && seedT <= 65 ? "buena" : "finos";
+  if (ramp < 30) {
+    raise(s, "choque_termico_r102", { what: `Programaste el enfriamiento de 80 °C a ${finalT} °C en solo ${ramp} min. La camisa pasa a glicol a −10 °C con la masa a 80 °C: el vidrio no aguanta la diferencia y se agrieta.` });
+    return;
+  }
   c.done = true;
   s.clock += 20 + ramp + hold;
   log(s, `Cristalización: ${seeded ? `siembra a ${seedT} °C` : "sin siembra"}, enfriamiento en ${ramp} min hasta ${finalT} °C, mantenimiento ${hold} min`);
@@ -697,11 +807,11 @@ export function productDryKg(s: Sim) {
   const solubility = 5 + 0.5 * Math.max(0, s.cryst.finalT); // g/L, simplificado
   const motherLoss = (420 * solubility) / 1000;
   const holdBonus = s.cryst.hold >= 60 ? 0 : 1.5;
-  const dry = THEORETICAL_KG * conv * 0.93 - motherLoss - holdBonus;
+  const dry = (THEORETICAL_KG * conv * 0.93 - motherLoss - holdBonus) * (1 - Math.min(100, s.lossPct ?? 0) / 100);
   return Math.max(0, dry);
 }
 
-export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "descargar") {
+export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "descargar", washT = 5) {
   const c = s.centri;
   const need = (v: ValveId, open: boolean, why: string) => {
     if (s.valves[v] === open) return false;
@@ -709,12 +819,29 @@ export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "de
     return true;
   };
   if (a === "cargar" && need("XV-201", true, "No llega suspensión a la centrífuga: abre la XV-201 (fondo del R-102).")) return;
-  if (a === "centrifugar" && need("XV-201", false, "Cierra la alimentación XV-201 antes de centrifugar: si sigue entrando suspensión, la cesta se desequilibra.")) return;
+  if (a === "centrifugar" && s.valves["XV-201"]) {
+    raise(s, "vibracion_c201");
+    return;
+  }
   if (a === "lavar" && need("XV-202", true, "No sale agua de lavado: abre la XV-202.")) return;
   if (a === "descargar" && need("XV-202", false, "Cierra el agua de lavado XV-202 antes de descargar la torta.")) return;
   if (a === "cargar") { c.loaded = true; s.clock += 30; log(s, "Carga la suspensión de R-102 en la centrífuga C-201"); }
+  if (a === "centrifugar" && s.cryst.finalT > 10) {
+    const kg = (420 * (5 + 0.5 * s.cryst.finalT)) / 1000;
+    raise(s, "aguas_madres_caliente", { what: `La cristalización terminó a ${s.cryst.finalT} °C. A esa temperatura queda mucho producto disuelto: unos ${fmtNum(kg)} kg se van con las aguas madres al tanque de residuos (a 3 °C serían ${fmtNum((420 * 6.5) / 1000)} kg).` });
+  }
   if (a === "centrifugar") { c.spun = true; s.clock += s.cryst.quality === "finos" ? 50 : 25; log(s, "Centrifuga y escurre las aguas madre"); }
-  if (a === "lavar") { c.washes += 1; s.clock += 15; log(s, `Lavado nº ${c.washes} de la torta con 50 L de agua fría`); }
+  if (a === "lavar") {
+    c.washes += 1;
+    s.clock += 15;
+    log(s, `Lavado nº ${c.washes} de la torta con 50 L de agua a ${washT} °C`);
+    if (washT >= 20) {
+      const loss = washT >= 50 ? 18 : 4;
+      raise(s, "lavado_caliente", { what: `Has lavado la torta con agua a ${washT} °C en vez de agua fría (≤ 5 °C). El producto es bastante soluble en agua templada: se ha disuelto cerca de un ${loss} % de la torta y se ha ido a aguas madres.`, lossPct: loss, sev: washT >= 50 ? "mayor" : "menor" });
+    } else if (c.washes > 2) {
+      s.lossPct += 1.5;
+    }
+  }
   if (a === "descargar") {
     c.discharged = true;
     const moisture = s.cryst.quality === "finos" ? 0.25 : 0.13;
@@ -767,6 +894,10 @@ export function dryHour(s: Sim) {
   d.lod = d.lod * Math.exp(-k);
   if (d.Tj > 65) d.imp += 0.01 * (d.Tj - 65);
   s.clock += 60;
+  if (d.Tj >= 75) {
+    s.degraded = true;
+    raise(s, "degradacion_secado", { what: `Has secado una hora con la camisa a ${d.Tj} °C (rango validado 55–60 °C). Por la mirilla el producto se ve amarillento y apelmazado: se está degradando.` });
+  }
 }
 
 export function lodSample(s: Sim) {
@@ -805,4 +936,220 @@ export function closeBatch(s: Sim) {
   s.sectionEnd[s.section] = s.clock;
   s.closed = true;
   log(s, "Cierra el registro del lote y lo envía a QA");
+}
+
+// ---------- Incidentes, consecuencias y rehacer la fase ----------
+
+type IncidentDef = Omit<Incident, "id" | "kind" | "time" | "section" | "redone" | "acknowledged" | "notified">;
+
+export const INCIDENTS: Record<IncidentKind, IncidentDef> = {
+  desborde_r101: {
+    eq: "r101", sev: "mayor", critical: true, lossPct: 0,
+    title: "Desbordamiento del R-101",
+    what: "",
+    cause: "Se siguió cargando agua con la XV-101 abierta sin vigilar el totalizador FQ-101. La hoja pide 300 L.",
+    safety: "Líquido en la línea de vapores, el condensador y la bomba de vacío: la bomba puede romperse y el agua sale por el lavador de gases. Suelo mojado y riesgo de resbalón.",
+    product: "La concentración ya no es la de la receta. Con tanta agua el producto no cristaliza bien y se pierde mucho en aguas madres.",
+    gmp: "Desviación. Hay que vaciar el reactor, revisar y limpiar la línea de vapores y el condensador, y Calidad decide si el agua contaminó otras líneas.",
+    plant: ["Cerrar la XV-101 de inmediato.", "Parar la bomba de vacío si está en marcha.", "Avisar al supervisor.", "Vaciar el reactor por el fondo a residuos y revisar la línea de vapores antes de volver a cargar."],
+  },
+  disco_n2: {
+    eq: "r101", sev: "crítico", critical: true, lossPct: 0,
+    title: "Sobrepresión con nitrógeno: rotura del disco PSE-101",
+    what: "",
+    cause: "Se dejó la XV-102 de nitrógeno abierta con el reactor cerrado (vacío XV-103 cerrado). El N₂ sigue entrando y la presión sube hasta romper el disco de ruptura, tarado a 0,5 bar.",
+    safety: "El disco ha hecho su trabajo: proteger el reactor de vidrio, que no aguanta más de 0,5 bar. Sale N₂ por el venteo: en un local cerrado el nitrógeno desplaza el oxígeno y puede asfixiar.",
+    product: "El reactor queda abierto a la atmósfera por el venteo: entra aire y se pierde la inertización.",
+    gmp: "Incidente de seguridad y desviación. El disco roto se sustituye con permiso de trabajo y mantenimiento; luego se repite la inertización.",
+    plant: ["Cerrar la XV-102.", "Alejarse del venteo y avisar al supervisor.", "Mantenimiento cambia el disco PSE-101 (permiso de trabajo).", "Repetir la inertización completa."],
+  },
+  carga_sin_inertizar: {
+    eq: "r101", sev: "crítico", critical: true, lossPct: 0,
+    title: "Carga de sólido sin inertizar",
+    what: "",
+    cause: "Se cargó el 4-aminofenol en polvo sin hacer los ciclos de vacío y nitrógeno. El oxígeno estaba por encima del 2 %.",
+    safety: "Polvo fino + oxígeno + una chispa de electricidad estática = riesgo de explosión de polvo o fogonazo en la boca de carga. Es de los accidentes más graves en plantas de API.",
+    product: "Con oxígeno, el 4-aminofenol se oxida y el producto sale coloreado.",
+    gmp: "Parada de seguridad, desviación e investigación. La carga no continúa hasta inertizar.",
+    plant: ["Parar la carga y cerrar la boca de carga.", "Avisar al supervisor.", "Hacer los ciclos de vacío y N₂ hasta O₂ ≤ 2,0 %.", "Solo entonces volver a cargar."],
+  },
+  acumulacion: {
+    eq: "r101", sev: "mayor", critical: false, lossPct: 0,
+    title: "Acumulación de anhídrido sin reaccionar",
+    what: "",
+    cause: "Se añadió anhídrido con el agitador parado. Sin agitación el reactivo no se mezcla, no reacciona y se acumula.",
+    safety: "Es el inicio típico de una reacción fuera de control: si ahora arrancas el agitador, todo lo acumulado reacciona de golpe y la temperatura se dispara.",
+    product: "Puntos calientes y más impurezas.",
+    gmp: "Desviación: la adición no se hizo según la hoja (agitación obligatoria).",
+    plant: ["Parar la adición (FV-103 a cero).", "No arrancar el agitador de golpe: avisar al supervisor.", "Con la camisa enfriando al máximo, arrancar el agitador y vigilar la temperatura.", "Continuar la adición solo cuando lo acumulado haya reaccionado."],
+  },
+  disco_ebullicion: {
+    eq: "r101", sev: "crítico", critical: true, lossPct: 12,
+    title: "Sobretemperatura: ebullición y rotura del disco PSE-101",
+    what: "",
+    cause: "La consigna de temperatura se subió por encima de lo que permite la hoja (75–85 °C). La masa llega a 100 °C y el agua hierve.",
+    safety: "Los vapores calientes de ácido acético salen por el venteo al lavador de gases. Riesgo de quemaduras y de exposición a vapores irritantes.",
+    product: "Se pierde producto arrastrado por el venteo (≈ 12 %) y se forman impurezas por el exceso de temperatura.",
+    gmp: "Incidente de seguridad y desviación. Cambio del disco con permiso de trabajo. Calidad decide si el lote se puede reprocesar.",
+    plant: ["Bajar la consigna y enfriar con la camisa.", "Despejar la zona del venteo y avisar al supervisor.", "Mantenimiento sustituye el disco PSE-101.", "El lote queda retenido hasta la decisión de Calidad."],
+  },
+  fuga_impulsion: {
+    eq: "f301", sev: "mayor", critical: true, lossPct: 4,
+    title: "Sobrepresión en la impulsión: fuga en el filtro F-301",
+    what: "Arrancaste la transferencia con la XV-106 de entrada al R-102 cerrada. La bomba empuja contra una válvula cerrada, la presión sube y cede la junta de la tapa del F-301.",
+    cause: "Alineación de válvulas incompleta: se abrió el fondo del R-101 (XV-105) pero no el destino (XV-106).",
+    safety: "Sale solución a 80 °C por la junta: riesgo de quemaduras y de salpicaduras en los ojos.",
+    product: "Se derrama ≈ 4 % de la solución, que ya no se recupera.",
+    gmp: "Desviación. Limpieza de la zona, cambio de junta y comprobación del filtro antes de seguir.",
+    plant: ["Parar la bomba y cerrar la XV-105.", "Apartarse de la fuga y avisar al supervisor.", "Recoger el derrame con el kit de derrames y EPI.", "Cambiar la junta, alinear todas las válvulas y repetir la transferencia."],
+  },
+  rotura_cartucho: {
+    eq: "f301", sev: "crítico", critical: true, lossPct: 0,
+    title: "Rotura del cartucho del filtro F-301",
+    what: "",
+    cause: "Se siguió filtrando con la presión diferencial por encima del límite de 1,5 bar en vez de parar y cambiar el cartucho.",
+    safety: "Golpe de presión en el filtro.",
+    product: "Las partículas que el filtro tenía que retener pasan al R-102: el producto final tendría partículas visibles.",
+    gmp: "Desviación. La solución del R-102 hay que volver a filtrarla con un cartucho nuevo (reproceso aprobado por Calidad).",
+    plant: ["Parar la transferencia y aislar el filtro (XV-105 y XV-106).", "Avisar al supervisor.", "Cambiar el cartucho y comprobar la integridad del nuevo.", "Volver a filtrar."],
+  },
+  choque_termico_r102: {
+    eq: "r102", sev: "crítico", critical: true, lossPct: 100,
+    title: "Choque térmico: rotura del vidrio del R-102",
+    what: "",
+    cause: "Enfriamiento brusco. Un reactor de vidrio no soporta una diferencia de temperatura muy grande entre la camisa y la masa.",
+    safety: "El vidrio se agrieta y sale la suspensión caliente. Riesgo de cortes y quemaduras.",
+    product: "El lote se pierde: se derrama al cubeto del reactor.",
+    gmp: "Incidente grave, desviación e investigación. El R-102 queda fuera de servicio hasta su reparación.",
+    plant: ["Parar la camisa.", "Evacuar la zona y avisar al supervisor.", "Contener el derrame en el cubeto.", "No volver a usar el equipo hasta que mantenimiento lo revise."],
+  },
+  vibracion_c201: {
+    eq: "c201", sev: "mayor", critical: true, lossPct: 6,
+    title: "Vibración alta en la centrífuga: parada por VSHH-201",
+    what: "Centrifugaste con la alimentación XV-201 todavía abierta. La suspensión siguió entrando con la cesta girando, la carga se repartió mal y la centrífuga empezó a vibrar hasta que saltó el enclavamiento de vibración.",
+    cause: "No se cerró la alimentación antes de centrifugar.",
+    safety: "Una cesta desequilibrada a alta velocidad puede dañar los rodamientos o romperse. Por eso existe el enclavamiento VSHH-201.",
+    product: "Parte de la suspensión rebosa y sale con las aguas madres (≈ 6 % de producto).",
+    gmp: "Desviación. Revisión mecánica de la centrífuga antes de volver a usarla.",
+    plant: ["Cerrar la XV-201.", "No rearmar hasta que la cesta esté parada.", "Avisar al supervisor y a mantenimiento.", "Descargar, revisar y volver a cargar."],
+  },
+  lavado_caliente: {
+    eq: "c201", sev: "mayor", critical: false, lossPct: 0,
+    title: "Producto perdido a aguas madres por lavar con agua templada",
+    what: "",
+    cause: "La hoja pide lavar con agua fría (≤ 5 °C). Con agua templada o caliente el producto se disuelve.",
+    safety: "Sin riesgo de seguridad.",
+    product: "El producto disuelto se va al tanque de aguas madres: menos rendimiento.",
+    gmp: "Desviación: lavado fuera de lo establecido. El rendimiento saldrá bajo.",
+    plant: ["Usar agua de lavado fría.", "Avisar al supervisor.", "Anotar en la hoja la temperatura real del agua usada."],
+  },
+  aguas_madres_caliente: {
+    eq: "c201", sev: "mayor", critical: false, lossPct: 0, redoFrom: "cristalizacion",
+    title: "Producto perdido a aguas madres: cristalización terminada en caliente",
+    what: "",
+    cause: "La temperatura final de cristalización estaba por encima de 0–5 °C. Cuanto más caliente, más producto queda disuelto en el líquido.",
+    safety: "Sin riesgo de seguridad.",
+    product: "Menos rendimiento. Lo disuelto se va con las aguas madres.",
+    gmp: "Desviación por parámetro fuera de rango y rendimiento bajo.",
+    plant: ["Avisar al supervisor.", "Volver a la cristalización: enfriar la suspensión a 0–5 °C y mantener antes de centrifugar."],
+  },
+  degradacion_secado: {
+    eq: "sd301", sev: "mayor", critical: false, lossPct: 0,
+    title: "Degradación térmica del producto en el secadero",
+    what: "",
+    cause: "Temperatura de camisa muy por encima del rango validado (55–60 °C).",
+    safety: "Sin riesgo inmediato, aunque los productos degradados pueden desprender vapores.",
+    product: "El producto cambia de color y aumentan las impurezas: no cumplirá la especificación de aspecto.",
+    gmp: "Desviación y probable resultado fuera de especificación (OOS) en el análisis final.",
+    plant: ["Bajar la camisa a 55–60 °C.", "Avisar al supervisor.", "Tomar muestra para que el laboratorio evalúe la degradación."],
+  },
+};
+
+/** Avanza el reloj y aplica lo que pasa mientras tanto (por ahora: presión del R-101 con N₂). */
+function passTime(s: Sim, minutes: number) {
+  for (let i = 0; i < minutes; i++) {
+    s.clock += 1;
+    if (s.halt) continue;
+    const cerrado = sectionActive(s, "carga") && s.valves["XV-102"] && !s.valves["XV-103"] && s.inertStep !== "vacio";
+    if (!cerrado) continue;
+    const before = s.p101;
+    s.p101 = r2(s.p101 + 0.06);
+    if (before < 0.3 && s.p101 >= 0.3) {
+      msg(s, "Sistema de control", "PAH-101: presión alta en el R-101 (0,3 bar). Sigue entrando nitrógeno por la XV-102.");
+    }
+    if (s.p101 >= 0.5) {
+      raise(s, "disco_n2", { what: `La presión del R-101 ha llegado a ${fmtNum(s.p101, 2)} bar con la XV-102 abierta. Rompe el disco de ruptura PSE-101 y el nitrógeno sale por el venteo.` });
+      s.p101 = 0;
+      s.o2 = 20.9;
+    }
+  }
+}
+
+/** Dispara un incidente: queda registrado y el lote se para hasta que el operador decida. */
+export function raise(s: Sim, kind: IncidentKind, extra: Partial<Pick<Incident, "what" | "lossPct" | "sev">> = {}) {
+  if (s.halt) return;
+  const sec = SECTIONS[s.section].id;
+  if (s.incidents.some((i) => i.kind === kind && i.section === sec && i.redone == null)) return;
+  const def = INCIDENTS[kind];
+  const inc: Incident = {
+    ...def,
+    ...extra,
+    what: extra.what ?? def.what,
+    id: `INC-${String(s.incidents.length + 1).padStart(2, "0")}`,
+    kind,
+    time: s.clock,
+    section: sec,
+  };
+  s.incidents.push(inc);
+  s.lossPct = Math.min(100, s.lossPct + inc.lossPct);
+  s.halt = inc.id;
+  s.reactor.rate = 0;
+  log(s, `INCIDENTE ${inc.id}: ${inc.title}`, "Sistema de control");
+  msg(s, "Sistema de control", `⚠ ${inc.title}.`);
+}
+
+export function currentIncident(s: Sim): Incident | null {
+  return s.halt ? s.incidents.find((i) => i.id === s.halt) ?? null : null;
+}
+
+/** Seguir adelante asumiendo las consecuencias (solo si el equipo sigue en servicio). */
+export function acceptIncident(s: Sim) {
+  const inc = currentIncident(s);
+  if (!inc || inc.critical) return;
+  inc.acknowledged = s.clock;
+  s.halt = null;
+  log(s, `Decide seguir con el lote tras el incidente ${inc.id}`);
+}
+
+function snapshot(s: Sim): string {
+  const { checkpoints: _c, incidents: _i, audit: _a, messages: _m, deviations: _d, ...rest } = s;
+  void _c; void _i; void _a; void _m; void _d;
+  return JSON.stringify(rest);
+}
+
+/**
+ * Vuelve al estado del lote al empezar una fase (por defecto, la actual). Si es una fase anterior,
+ * se anula todo lo hecho desde entonces. El historial (audit trail, mensajes, incidentes) se conserva.
+ */
+export function redoPhase(s: Sim, index = s.section) {
+  const cp = s.checkpoints[index];
+  if (!cp || index > s.section) return;
+  const sec = SECTIONS[index];
+  const why = currentIncident(s);
+  for (const i of s.incidents) {
+    if (i.redone == null && SECTIONS.findIndex((x) => x.id === i.section) >= index) i.redone = s.clock;
+  }
+  const checkpoints: Record<number, string> = {};
+  for (const [k, v] of Object.entries(s.checkpoints)) if (Number(k) <= index) checkpoints[Number(k)] = v;
+  const keep = {
+    checkpoints, incidents: s.incidents, audit: s.audit, messages: s.messages, deviations: s.deviations,
+    clock: s.clock, redos: s.redos + 1,
+  };
+  Object.assign(s, JSON.parse(cp) as Sim, keep);
+  s.halt = null;
+  s.clock = keep.clock + 30;
+  s.sectionStart[s.section] = s.clock;
+  if (sec.id === "reaccion") s.reactor.history = [{ t: s.clock, T: s.reactor.T, Tj: s.reactor.Tj }];
+  log(s, `Rehace la fase «${sec.title}» desde el principio${why ? ` tras el incidente ${why.id}` : ""} (30 min de limpieza y preparación). Los datos anotados en esta fase se anulan.`);
+  msg(s, "Supervisor", `De acuerdo, repetimos «${sec.title}». Recuerda: en planta, repetir una etapa es un reproceso y necesita una desviación aprobada por Calidad.`);
 }

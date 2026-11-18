@@ -13,6 +13,7 @@ import { QAReport } from "./QAReport";
 import { PlantView } from "./PlantView";
 import { Coach, nextFieldId } from "./Coach";
 import { ValveBank } from "./Valves";
+import { IncidentCard } from "./IncidentCard";
 
 const KEY = "quimica-app:simulador:v1";
 
@@ -142,7 +143,7 @@ export function Simulator() {
     });
   }, []);
 
-  const inReaction = s != null && E.SECTIONS[s.section].id === "reaccion" && !s.closed;
+  const inReaction = s != null && E.SECTIONS[s.section].id === "reaccion" && !s.closed && !s.halt;
   useEffect(() => {
     if (!running || !inReaction) return;
     const t = setInterval(() => {
@@ -170,7 +171,15 @@ export function Simulator() {
   }
 
   const sec = E.SECTIONS[view];
-  const isActive = view === s.section && !s.closed;
+  const isActive = view === s.section && !s.closed && !s.halt;
+  const redo = (index: number = s.section) => {
+    const later = index < s.section ? " y de las fases siguientes" : "";
+    if (window.confirm(`¿Volver al principio de «${E.SECTIONS[index].title}»? Se anulan los datos y acciones de esa fase${later}. El audit trail y los incidentes se conservan.`)) {
+      setRunning(false);
+      act((x) => E.redoPhase(x, index));
+      setView(index);
+    }
+  };
   const p = { s, act, active: isActive, running, setRunning, speed, setSpeed };
 
   return (
@@ -217,7 +226,7 @@ export function Simulator() {
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
         <PlantView s={s} onSelect={setView} onValve={(v) => act((x) => E.toggleValve(x, v))} />
-        <Coach s={s} />
+        {s.halt ? <IncidentCard s={s} act={act} onRedo={redo} /> : <Coach s={s} />}
       </div>
 
       {sec.id === "cierre" && s.closed ? (
@@ -253,6 +262,11 @@ export function Simulator() {
           </div>
           <div className="space-y-4">
             <Sheet s={s} sec={sec.id} act={act} isActive={isActive} focusId={isActive ? nextFieldId(s) : null} />
+            {view === s.section && !s.closed && !s.halt && (
+              <div className="flex justify-end">
+                <button type="button" onClick={() => redo()} className="text-xs text-muted underline hover:text-ink">↺ Rehacer esta fase desde el principio</button>
+              </div>
+            )}
             {isActive && sec.id !== "cierre" && (
               <div className="flex items-center justify-end gap-2">
                 <span className="text-xs text-muted">Al pasar de etapa, lo que quede sin anotar contará como registro tardío.</span>
