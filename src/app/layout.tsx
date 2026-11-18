@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import type { SearchIndex } from "@/components/Search";
@@ -28,7 +29,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Nav index={searchIndex} />
         <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
         <footer className="mx-auto max-w-6xl px-4 pb-10 text-xs text-muted">
-          Material de estudio con ejemplos ficticios. En planta manda siempre el procedimiento vigente de tu empresa.
+          Material de estudio con ejemplos ficticios. En planta manda siempre el procedimiento vigente de tu empresa.{" "}
+          Tu progreso se guarda en este navegador:{" "}
+          <Link href="/progreso" className="underline hover:text-ink">
+            haz una copia de seguridad
+          </Link>
+          .
         </footer>
       </body>
     </html>
