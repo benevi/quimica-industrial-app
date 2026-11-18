@@ -24,11 +24,13 @@ const steps: { icon: IconName; title: string; text: string; links: { href: strin
   {
     icon: "reactor",
     title: "3. Practica",
-    text: "Fabrica un lote en el simulador, haz cálculos y mueve el lote por el ERP.",
+    text: "Fabrica un lote en el simulador, haz cálculos, lee fichas de seguridad y repasa con tarjetas 5 minutos antes del turno.",
     links: [
       { href: "/simulador", label: "Simulador" },
       { href: "/calculadoras", label: "Calculadoras" },
       { href: "/sap", label: "ERP" },
+      { href: "/fds", label: "Fichas FDS" },
+      { href: "/tarjetas", label: "Tarjetas" },
     ],
   },
   {
