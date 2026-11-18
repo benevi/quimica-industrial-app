@@ -177,8 +177,16 @@ export function Coach({ s }: { s: Sim }) {
     return e.active && e.start != null && e.notified == null && e.resolved == null;
   });
   const t = currentTask(s);
+  const pendInc = (s.incidents ?? []).filter((i) => i.notified == null && i.id !== s.halt);
   return (
     <div className="space-y-3">
+      {pendInc.length > 0 && (
+        <div className="rounded-xl border-2 border-[#dc2626] bg-[#fef2f2] p-4 text-[#7f1d1d]" role="alert">
+          <div className="text-xs font-bold uppercase tracking-wide">⚠ Incidente sin comunicar</div>
+          <div className="mt-1 font-semibold">{pendInc[0].title}</div>
+          <p className="mt-1 text-sm">Avisa al supervisor y abre una desviación (abajo, «Comunicación e incidencias»). Aunque hayas rehecho la fase, el incidente ocurrió y tiene que quedar documentado.</p>
+        </div>
+      )}
       {ev && (
         <div className="rounded-xl border-2 border-[#dc2626] bg-[#fef2f2] p-4 text-[#7f1d1d]" role="alert">
           <div className="text-xs font-bold uppercase tracking-wide">⚠ Algo no va bien</div>

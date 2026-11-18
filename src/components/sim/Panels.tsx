@@ -114,7 +114,7 @@ export function PanelCarga({ s, act, active }: P) {
           <div className="grid min-w-[15rem] flex-1 grid-cols-2 gap-2">
             <Readout label="FQ-101 agua cargada" value={String(s.water)} unit="L" />
             <Readout label="AI-101 oxígeno" value={n1(s.o2)} unit="%" alert={s.o2 > 2} />
-            <Readout label="PI-101 presión" value={s.inertStep === "vacio" ? "200" : "1013"} unit="mbar" />
+            <Readout label="PI-101 presión (abs.)" value={s.inertStep === "vacio" ? "200" : String(Math.round(1013 + s.p101 * 1000))} unit="mbar" alert={s.p101 >= 0.3} />
             <Readout label="Agitador" value={s.reactor.agit ? "Marcha" : "Paro"} />
           </div>
         </div>
@@ -218,7 +218,7 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
             <span className="w-44">Consigna TIC-101 (°C)</span>
             <input value={sp} onChange={(e) => setSp(e.target.value)} className="w-20 rounded-md border border-line bg-surface px-2 py-1 font-mono" aria-label="Consigna de temperatura" />
             <Btn disabled={dis} onClick={() => { const v = E.parseNum(sp); if (v != null) act((x) => E.setSP(x, v)); }}>Aplicar</Btn>
-            <span className="text-xs text-muted">actual {n1(r.sp)} °C</span>
+            <span className="text-xs text-muted">actual {n1(r.sp)} °C · la hoja permite como máximo 85 °C</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Adición FV-103 (L/min)</span>
@@ -362,7 +362,18 @@ export function PanelCentrifugacion({ s, act, active }: P) {
       <ol className="list-decimal space-y-3 pl-5 text-sm">
         <li>Cargar la suspensión. <Btn disabled={dis || c.loaded || !s.cryst.done} onClick={() => act((x) => E.centriAction(x, "cargar"))}>{c.loaded ? "Cargada" : "Cargar"}</Btn></li>
         <li>Centrifugar y escurrir las aguas madre. <Btn disabled={dis || !c.loaded || c.spun} onClick={() => act((x) => E.centriAction(x, "centrifugar"))}>{c.spun ? "Hecho" : "Centrifugar"}</Btn></li>
-        <li>Lavar la torta con 50 L de agua fría (dos veces). <Btn disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "lavar"))}>Lavar ({c.washes})</Btn></li>
+        <li>
+          Lavar la torta con 50 L de agua fría (dos veces). Lavados hechos: {c.washes}
+          <div className="mt-1 flex flex-wrap gap-1.5">
+            {[
+              [5, "Agua fría 5 °C"],
+              [25, "Agua de red 25 °C"],
+              [60, "Agua caliente 60 °C"],
+            ].map(([t, l]) => (
+              <Btn key={t} disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "lavar", t as number))}>{l}</Btn>
+            ))}
+          </div>
+        </li>
         <li>Escurrir y descargar la torta a la báscula. <Btn disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "descargar"))}>{c.discharged ? "Descargada" : "Descargar"}</Btn></li>
       </ol>
       {c.discharged && (
