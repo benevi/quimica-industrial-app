@@ -1,103 +1,98 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { levels, lessons, lessonsOfLevel } from "@/content";
+import { useProgress } from "@/lib/progress";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { progress, loaded } = useProgress();
+  const doneCount = lessons.filter((l) => progress[l.slug]?.done).length;
+  const next = lessons.find((l) => !progress[l.slug]?.done);
+  const pct = Math.round((doneCount / lessons.length) * 100);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="space-y-8">
+      <section className="rounded-2xl border border-line bg-surface p-6">
+        <p className="text-sm font-medium text-accent">Química desde cero · Chemistry from scratch</p>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">De no saber química a entender tu hoja de producción</h1>
+        <p className="mt-2 max-w-2xl text-muted">
+          Lecciones cortas con ejemplos de una planta de principios activos (API). Cada una termina con lo que verás en el
+          batch record y un pequeño test.
+        </p>
+        <div className="mt-5 flex flex-wrap items-center gap-4">
+          {next && (
+            <Link href={`/leccion/${next.slug}`} className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90">
+              {doneCount === 0 ? "Empezar" : "Continuar"}: {next.title}
+            </Link>
+          )}
+          <div className="flex min-w-48 flex-1 items-center gap-3">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-soft">
+              <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${loaded ? pct : 0}%` }} />
+            </div>
+            <span className="text-sm tabular-nums text-muted">
+              {doneCount}/{lessons.length} lecciones
+            </span>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      <section className="rounded-xl border border-line bg-warn-soft p-4 text-sm">
+        <strong>Kit de supervivencia para tus primeras semanas:</strong> haz cuanto antes{" "}
+        <Link className="underline" href="/leccion/alcoa-plus">ALCOA+</Link>,{" "}
+        <Link className="underline" href="/leccion/unidades-y-conversiones">Unidades</Link> y{" "}
+        <Link className="underline" href="/leccion/el-mol">El mol</Link>.
+      </section>
+
+      <div className="space-y-6">
+        {levels.map((lv) => {
+          const ls = lessonsOfLevel(lv.number);
+          return (
+            <section key={lv.number}>
+              <div className="mb-2 flex items-baseline gap-2">
+                <h2 className="text-lg font-semibold">
+                  Nivel {lv.number}. {lv.title}
+                </h2>
+                <span className="text-sm text-muted">{lv.titleEn}</span>
+              </div>
+              <p className="mb-3 text-sm text-muted">{lv.description}</p>
+              {ls.length === 0 ? (
+                <p className="rounded-lg border border-dashed border-line px-4 py-3 text-sm text-muted">Próximamente.</p>
+              ) : (
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {ls.map((l) => {
+                    const p = progress[l.slug];
+                    return (
+                      <li key={l.slug}>
+                        <Link
+                          href={`/leccion/${l.slug}`}
+                          className="flex h-full gap-3 rounded-xl border border-line bg-surface p-4 hover:border-accent"
+                        >
+                          <span
+                            aria-label={p?.done ? "Completada" : "Pendiente"}
+                            className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs ${
+                              p?.done ? "bg-ok text-white" : "border border-line text-muted"
+                            }`}
+                          >
+                            {p?.done ? "✓" : l.order}
+                          </span>
+                          <span className="min-w-0">
+                            <span className="block font-medium">{l.title}</span>
+                            <span className="block text-xs text-muted">
+                              {l.titleEn} · {l.minutes} min
+                              {p?.done ? ` · test ${p.score}/${p.total}` : ""}
+                            </span>
+                            <span className="mt-1 block text-sm text-muted">{l.summary}</span>
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </section>
+          );
+        })}
+      </div>
     </div>
   );
 }
