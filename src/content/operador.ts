@@ -25,6 +25,10 @@ export const operatorStages: OperatorStage[] = [
     icon: "shield",
     why: "Antes de tocar un equipo tienes que saber dónde estás, qué EPI llevar y qué te dicen las etiquetas de los bidones.",
     lessons: ["planta-de-api", "pictogramas-y-fds", "epi", "emergencias-y-residuos"],
+    practice: [
+      { href: "/fds", label: "Fichas de seguridad", text: "Lee las FDS de metanol, tolueno, sosa, clorhídrico y nitrógeno, y haz sus ejercicios." },
+      { href: "/tarjetas", label: "Tarjetas de repaso", text: "Cinco minutos antes del turno con el mazo de seguridad." },
+    ],
   },
   {
     id: "documentar",

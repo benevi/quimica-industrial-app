@@ -12,6 +12,8 @@ function SummaryList({ s }: { s: Summary }) {
     ["Lecciones completadas", s.lessonsDone],
     ["Simulacros, exámenes y supuestos con nota", s.exams],
     ["Preguntas en el repaso de fallos", s.review],
+    ["Tarjetas de repaso estudiadas", s.cards],
+    ["Ejercicios de fichas de seguridad hechos", s.fds],
     ["Misiones del ERP completadas", s.missions],
   ] as const;
   return (

@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { prepIds, questionById, type PoolItem } from "@/certs/pool";
+import { allFdsItems, prepIds, questionById, type PoolItem } from "@/certs/pool";
 import { preps } from "@/certs/prep";
 import { ReviewRunner } from "@/components/certs/ReviewRunner";
+import { CardsDueNote } from "@/components/flashcards/CardsDueNote";
 
 export const metadata = { title: "Repaso de fallos · Aula de Química" };
 
@@ -11,6 +12,7 @@ export default function ReviewPage() {
     const it = questionById(id);
     if (it) items[id] = it;
   }
+  for (const it of allFdsItems()) items[it.id] = it;
   return (
     <div className="space-y-6">
       <div>
@@ -19,6 +21,7 @@ export default function ReviewPage() {
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Repaso de fallos</h1>
         <p className="mt-2 max-w-2xl text-muted">Unos minutos al día con lo que has fallado. Es la forma más eficaz de que no se te olvide antes del examen.</p>
       </div>
+      <CardsDueNote />
       <ReviewRunner items={items} />
     </div>
   );

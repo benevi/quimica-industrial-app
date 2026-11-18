@@ -30,7 +30,7 @@ export function ReviewRunner({ items }: { items: Record<string, PoolItem> }) {
         <div className="rounded-2xl border border-line bg-surface p-5">
           <p className="text-lg font-semibold">{due.length === 0 ? "No tienes fallos pendientes hoy" : `${due.length} pregunta${due.length === 1 ? "" : "s"} para repasar hoy`}</p>
           <p className="mt-1 text-sm text-muted">
-            Las preguntas que fallas en simulacros y supuestos entran aquí. Cada vez que aciertas una, sube de caja y tarda más en volver ({SRS_DAYS.slice(1).join(", ")} días). Si la fallas,
+            Las preguntas que fallas en simulacros, supuestos y ejercicios de fichas de seguridad entran aquí. Cada vez que aciertas una, sube de caja y tarda más en volver ({SRS_DAYS.slice(1).join(", ")} días). Si la fallas,
             vuelve a la caja 1.
           </p>
           <div className="mt-4 grid grid-cols-5 gap-2 text-center text-sm">

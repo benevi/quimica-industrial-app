@@ -41,6 +41,8 @@ En inglés *Safety Data Sheet* (SDS). Exigida por el reglamento **REACH**; tiene
 - **Sección 9**: propiedades físicas (punto de inflamación, ebullición…).
 
 Antes de manipular un producto nuevo para ti, **lee su FDS** o al menos las secciones 2, 7 y 8.
+
+> Practica con fichas completas de productos de planta (metanol, tolueno, sosa, clorhídrico, nitrógeno y un intermedio) en **[Fichas de seguridad](/fds)**.
 `,
     plant: `
 Vas a cargar hidróxido sódico al 50 %. La etiqueta lleva el pictograma de corrosión, la palabra "Peligro" y la frase H314 "Provoca quemaduras graves en la piel y lesiones oculares graves". La sección 8 de la FDS indica gafas de montura integral o pantalla facial, guantes resistentes a álcalis y ropa de protección.

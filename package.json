@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "check": "node scripts/check-quiz.mjs",
-    "check:certs": "node scripts/check-certs.mjs"
+    "check:certs": "node scripts/check-certs.mjs",
+    "check:repaso": "node scripts/check-repaso.mjs"
   },
   "dependencies": {
     "next": "15.5.29",

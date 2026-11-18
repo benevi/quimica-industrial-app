@@ -26,6 +26,10 @@ export type CertState = {
   sapExam?: { best: ExamResult; last: ExamResult };
   /** Mejor lote cerrado en el simulador de planta */
   plant?: { score: number; decision: string; date: string };
+  /** Tarjetas de repaso rápido: id de tarjeta → caja 1–5 y fecha en que vuelve (mismo sistema Leitner que el repaso de fallos) */
+  cards?: Record<string, SrsCard>;
+  /** Ejercicios de fichas de seguridad (FDS): mejor fracción de aciertos por ejercicio */
+  fds?: Record<string, number>;
 };
 
 export type SrsCard = { box: number; due: string };
@@ -48,6 +52,16 @@ export function srsAnswer(srs: Record<string, SrsCard>, id: string, right: boole
   if (!card) return srs; // acierto en una pregunta que no estaba en repaso: nada que hacer
   const box = Math.min(card.box + 1, 5);
   return { ...srs, [id]: { box, due: addDays(today(), SRS_DAYS[box]) } };
+}
+
+/**
+ * Tarjetas de repaso: «lo sabía» sube de caja (una tarjeta nueva entra directamente en la caja 2);
+ * «no lo sabía» la devuelve a la caja 1 para hoy mismo.
+ */
+export function cardAnswer(cards: Record<string, SrsCard>, id: string, known: boolean): Record<string, SrsCard> {
+  if (!known) return { ...cards, [id]: { box: 1, due: today() } };
+  const box = Math.min((cards[id]?.box ?? 1) + 1, 5);
+  return { ...cards, [id]: { box, due: addDays(today(), SRS_DAYS[box]) } };
 }
 
 function read(): CertState {
@@ -159,7 +173,24 @@ export function useCertState() {
     [update],
   );
 
-  return { state, loaded, toggleStep, saveExam, rate, completeMission, review, saveMock, saveCase, saveSapExam, savePlant };
+  const answerCard = useCallback(
+    (id: string, known: boolean) => update((s) => ({ ...s, cards: cardAnswer(s.cards ?? {}, id, known) })),
+    [update],
+  );
+
+  /** Ejercicio de fichas de seguridad: guarda la mejor nota y manda los fallos al repaso de fallos */
+  const saveFds = useCallback(
+    (quizId: string, fraction: number, marks: Record<string, boolean>) =>
+      update((s) => {
+        let srs = s.srs;
+        for (const [id, ok] of Object.entries(marks)) srs = srsAnswer(srs, id, ok);
+        const fds = s.fds ?? {};
+        return { ...s, srs, fds: { ...fds, [quizId]: Math.max(fds[quizId] ?? 0, fraction) } };
+      }),
+    [update],
+  );
+
+  return { state, loaded, answerCard, saveFds, toggleStep, saveExam, rate, completeMission, review, saveMock, saveCase, saveSapExam, savePlant };
 }
 
 /** Nota de aprobado de los simulacros de la app (criterio propio, no oficial) */

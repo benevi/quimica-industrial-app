@@ -17,7 +17,7 @@ export type Backup = {
 /** Qué guarda cada clave, para enseñarlo antes de importar */
 export const KEY_LABELS: Record<string, string> = {
   "quimica-app:progreso:v1": "Lecciones y tests",
-  "quimica-app:certificaciones:v1": "Certificaciones, simulacros y repaso de fallos",
+  "quimica-app:certificaciones:v1": "Certificaciones, simulacros, repaso de fallos, tarjetas y ejercicios de FDS",
   "quimica-app:simulador:v1": "Lote en curso del simulador de planta",
   "quimica-app:erp:v1": "Simulador ERP",
 };
@@ -80,7 +80,7 @@ export function summarize(data: Record<string, string>) {
   };
   const lessons = parse("quimica-app:progreso:v1") as Record<string, { done?: boolean }> | undefined;
   const certs = parse("quimica-app:certificaciones:v1") as
-    | { exams?: object; mocks?: object; srs?: object; cases?: object; missions?: object }
+    | { exams?: object; mocks?: object; srs?: object; cases?: object; missions?: object; cards?: object; fds?: object }
     | undefined;
   const count = (o?: object) => (o ? Object.keys(o).length : 0);
   return {
@@ -88,6 +88,8 @@ export function summarize(data: Record<string, string>) {
     exams: count(certs?.exams) + count(certs?.mocks) + count(certs?.cases),
     review: count(certs?.srs),
     missions: count(certs?.missions),
+    cards: count(certs?.cards),
+    fds: count(certs?.fds),
     simulator: "quimica-app:simulador:v1" in data,
     erp: "quimica-app:erp:v1" in data,
     keys: Object.keys(data),

@@ -14,6 +14,7 @@ const groups: { label: string; items: Item[] }[] = [
       { href: "/", label: "Ruta", icon: "book", match: ["/nivel", "/leccion"] },
       { href: "/mapa", label: "Mapa de planta", icon: "map" },
       { href: "/glosario", label: "Glosario", icon: "abc" },
+      { href: "/fds", label: "FDS", icon: "hazard" },
     ],
   },
   {
@@ -22,6 +23,7 @@ const groups: { label: string; items: Item[] }[] = [
       { href: "/simulador", label: "Simulador", icon: "reactor" },
       { href: "/sap", label: "ERP", icon: "screen" },
       { href: "/calculadoras", label: "Calculadoras", icon: "calc" },
+      { href: "/tarjetas", label: "Tarjetas", icon: "cards" },
     ],
   },
   {

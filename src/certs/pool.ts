@@ -2,7 +2,9 @@
 //   bank:<unidad>:<índice>   → banco propio del examen (src/certs/bancos)
 //   lesson:<slug>:<índice>   → test de una lección del temario
 //   case:<caso>:<índice>     → pregunta de un supuesto práctico
+//   fds:<ejercicio>:<índice> → ejercicio de fichas de seguridad (src/content/fds.ts)
 import { getLesson } from "@/content";
+import { fdsQuestions, fdsQuizIds, fdsQuizTitle } from "@/content/fds";
 import type { Question } from "@/content/types";
 import { quie0108 } from "./bancos/quie0108";
 import { gmp } from "./bancos/gmp";
@@ -59,8 +61,19 @@ export function questionById(id: string): PoolItem | undefined {
     return q && { id, q, from: l!.title, unit: "" };
   }
   if (kind === "case") return caseItems(key)[i];
+  if (kind === "fds") {
+    const q = fdsQuestions(key)[i];
+    return q && { id, q, from: fdsQuizTitle(key), unit: "" };
+  }
   return undefined;
 }
+
+/** Preguntas de un ejercicio de fichas de seguridad, con id estable para el repaso de fallos */
+export function fdsItems(quizId: string): PoolItem[] {
+  return fdsQuestions(quizId).map((q, i) => ({ id: `fds:${quizId}:${i}`, q, from: fdsQuizTitle(quizId), unit: "" }));
+}
+
+export const allFdsItems = () => fdsQuizIds.flatMap(fdsItems);
 
 /** Todos los ids de pregunta que cubre una certificación (para el indicador de repaso pendiente) */
 export function prepIds(p: ExamPrep): Set<string> {
