@@ -1,9 +1,9 @@
 import type { Lesson } from "./types";
 
-export const nivel5: Lesson[] = [
+export const nivel12: Lesson[] = [
   {
     slug: "reactor-y-servicios",
-    level: 5,
+    level: 12,
     order: 1,
     title: "El reactor y sus servicios",
     titleEn: "The reactor and utilities",
@@ -91,7 +91,7 @@ Si el reactor es vitrificado y el procedimiento dice "ΔT máxima camisa-masa 60
   },
   {
     slug: "carga-e-inertizacion",
-    level: 5,
+    level: 12,
     order: 2,
     title: "Carga de materiales e inertización",
     titleEn: "Charging and inerting",
@@ -174,7 +174,7 @@ Haces los tres ciclos, el medidor marca 2,1 % O₂ → cumple. Lo anotas con hor
   },
   {
     slug: "centrifuga",
-    level: 5,
+    level: 12,
     order: 3,
     title: "La centrífuga",
     titleEn: "The centrifuge",
@@ -254,7 +254,7 @@ Vas anotando rpm, tiempos y volúmenes. Si salta la alarma de vibración, paras 
   },
   {
     slug: "filtros",
-    level: 5,
+    level: 12,
     order: 4,
     title: "Filtros: Nutsche y filtro-secador",
     titleEn: "Filters: Nutsche and filter-dryer",
@@ -318,7 +318,7 @@ Filtras en un filtro-secador a 1,5 barg de N₂. Al principio el ΔP es 0,3 bar;
   },
   {
     slug: "secaderos",
-    level: 5,
+    level: 12,
     order: 5,
     title: "Secaderos",
     titleEn: "Dryers",
