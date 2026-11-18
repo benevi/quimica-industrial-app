@@ -177,6 +177,8 @@ export type EventId = "bascula" | "frio" | "filtro" | "vacio";
 export type SimEvent = { active: boolean; start?: number; notified?: number; resolved?: number };
 
 export type Point = { t: number; T: number; Tj: number };
+/** Punto de una tendencia genérica (filtro, centrífuga, secadero): tiempo y variables con nombre. */
+export type TrendPt = { t: number } & Record<string, number>;
 
 export type Reactor = {
   T: number;
@@ -241,10 +243,10 @@ export type Sim = {
   degraded: boolean;
   reactor: Reactor;
   ipc: { requested: number; ready: number; value: number }[];
-  filter: { dp: number; maxDpRun: number; changes: number; done: boolean; running: boolean; progress: number };
+  filter: { dp: number; maxDpRun: number; changes: number; done: boolean; running: boolean; progress: number; history: TrendPt[] };
   cryst: { done: boolean; seedT: number; seeded: boolean; ramp: number; finalT: number; hold: number; quality: "buena" | "finos" };
-  centri: { loaded: boolean; spun: boolean; washes: number; discharged: boolean; wetCake: number };
-  dryer: { loaded: boolean; Tj: number; vacuum: number; hours: number; lod0: number; lod: number; maxTj: number; worstVac: number; samples: { time: number; value: number }[]; imp: number };
+  centri: { loaded: boolean; spun: boolean; washes: number; discharged: boolean; wetCake: number; history: TrendPt[] };
+  dryer: { loaded: boolean; Tj: number; vacuum: number; hours: number; lod0: number; lod: number; maxTj: number; worstVac: number; samples: { time: number; value: number }[]; imp: number; history: TrendPt[] };
   pack: { netKg: number; drums: number; labelsIssued: number; labelsUsed: number; labelsDestroyed: number; done: boolean };
   closed: boolean;
 };
@@ -303,10 +305,10 @@ function blankSim(scenario: Scenario): Sim {
       maxTadd: 20, interlock: false, inRange: 0, maxTreact: 20, history: [], alarms: [],
     },
     ipc: [],
-    filter: { dp: 0.3, maxDpRun: 0, changes: 0, done: false, running: false, progress: 0 },
+    filter: { dp: 0.3, maxDpRun: 0, changes: 0, done: false, running: false, progress: 0, history: [] },
     cryst: { done: false, seedT: 60, seeded: true, ramp: 150, finalT: 3, hold: 60, quality: "buena" },
-    centri: { loaded: false, spun: false, washes: 0, discharged: false, wetCake: 0 },
-    dryer: { loaded: false, Tj: 60, vacuum: 60, hours: 0, lod0: 0, lod: 0, maxTj: 0, worstVac: 0, samples: [], imp: 0 },
+    centri: { loaded: false, spun: false, washes: 0, discharged: false, wetCake: 0, history: [] },
+    dryer: { loaded: false, Tj: 60, vacuum: 60, hours: 0, lod0: 0, lod: 0, maxTj: 0, worstVac: 0, samples: [], imp: 0, history: [] },
     pack: { netKg: 0, drums: 0, labelsIssued: 0, labelsUsed: 0, labelsDestroyed: 0, done: false },
     closed: false,
   };
@@ -325,6 +327,9 @@ export function migrate(s: Sim): Sim {
   s.lossPct ??= 0;
   s.contam ??= false;
   s.degraded ??= false;
+  s.filter.history ??= [];
+  s.centri.history ??= [];
+  s.dryer.history ??= [];
   if (s.checkpoints[s.section] == null) s.checkpoints[s.section] = snapshot(s);
   return s;
 }
@@ -743,9 +748,11 @@ export function filterStep(s: Sim) {
   if (f.dp > 1.5) {
     raise(s, "rotura_cartucho", { what: `Seguiste transfiriendo con ${fmtNum(f.dp)} bar de presión diferencial (límite 1,5 bar). El cartucho de 1 µm se ha roto: la presión cae de golpe a 0,1 bar y las partículas pasan al R-102.` });
     f.dp = 0.1;
+    f.history.push({ t: s.clock, dp: f.dp, pct: f.progress });
     s.contam = true;
     return;
   }
+  if (!f.history.length) f.history.push({ t: s.clock, dp: f.dp, pct: f.progress });
   f.running = true;
   f.progress = Math.min(100, f.progress + 20);
   s.clock += 10;
@@ -760,6 +767,7 @@ export function filterStep(s: Sim) {
     f.dp = r1(0.3 + f.progress * 0.006);
   }
   f.maxDpRun = Math.max(f.maxDpRun, f.dp);
+  f.history.push({ t: s.clock, dp: f.dp, pct: f.progress });
   if (f.progress >= 100) {
     f.done = true;
     f.running = false;
@@ -775,7 +783,9 @@ export function changeCartridge(s: Sim) {
   s.filter.changes += 1;
   s.filter.dp = 0.3;
   s.filter.running = false;
+  s.filter.history.push({ t: s.clock, dp: 0, pct: s.filter.progress });
   s.clock += 25;
+  s.filter.history.push({ t: s.clock, dp: 0.3, pct: s.filter.progress });
   if (s.events.filtro.active) s.events.filtro.resolved = s.clock;
   log(s, "Para la transferencia, cambia el cartucho del F-301 y comprueba la junta");
 }
@@ -825,15 +835,20 @@ export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "de
   }
   if (a === "lavar" && need("XV-202", true, "No sale agua de lavado: abre la XV-202.")) return;
   if (a === "descargar" && need("XV-202", false, "Cierra el agua de lavado XV-202 antes de descargar la torta.")) return;
-  if (a === "cargar") { c.loaded = true; s.clock += 30; log(s, "Carga la suspensión de R-102 en la centrífuga C-201"); }
+  // Tendencia: velocidad del bombo (rpm) y aguas madres + lavados acumulados (L)
+  const ml = () => c.history[c.history.length - 1]?.ml ?? 0;
+  const pt = (rpm: number, litres = ml()) => c.history.push({ t: s.clock, rpm, ml: litres });
+  if (a === "cargar") { pt(0, 0); c.loaded = true; s.clock += 30; pt(400); log(s, "Carga la suspensión de R-102 en la centrífuga C-201"); }
   if (a === "centrifugar" && s.cryst.finalT > 10) {
     const kg = (420 * (5 + 0.5 * s.cryst.finalT)) / 1000;
     raise(s, "aguas_madres_caliente", { what: `La cristalización terminó a ${s.cryst.finalT} °C. A esa temperatura queda mucho producto disuelto: unos ${fmtNum(kg)} kg se van con las aguas madres al tanque de residuos (a 3 °C serían ${fmtNum((420 * 6.5) / 1000)} kg).` });
   }
-  if (a === "centrifugar") { c.spun = true; s.clock += s.cryst.quality === "finos" ? 50 : 25; log(s, "Centrifuga y escurre las aguas madre"); }
+  if (a === "centrifugar") { pt(1200); c.spun = true; s.clock += s.cryst.quality === "finos" ? 50 : 25; pt(1200, 420); log(s, "Centrifuga y escurre las aguas madre"); }
   if (a === "lavar") {
     c.washes += 1;
+    pt(1200);
     s.clock += 15;
+    pt(1200, ml() + 50);
     log(s, `Lavado nº ${c.washes} de la torta con 50 L de agua a ${washT} °C`);
     if (washT >= 20) {
       const loss = washT >= 50 ? 18 : 4;
@@ -848,7 +863,9 @@ export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "de
     c.wetCake = r1(productDryKg(s) / (1 - moisture));
     s.dryer.lod0 = moisture * 100;
     s.dryer.lod = moisture * 100;
+    pt(60);
     s.clock += 20;
+    pt(0);
     log(s, `Descarga la torta húmeda: ${fmtNum(c.wetCake)} kg`);
   }
 }
@@ -863,6 +880,7 @@ export function dryerSet(s: Sim, Tj: number) {
 export function dryerLoad(s: Sim) {
   s.dryer.loaded = true;
   s.clock += 20;
+  s.dryer.history.push({ t: s.clock, Tp: 15, vac: 1013, Tj: s.dryer.Tj });
   log(s, "Carga la torta en el secadero SD-301 y cierra la tapa");
 }
 
@@ -894,10 +912,27 @@ export function dryHour(s: Sim) {
   d.lod = d.lod * Math.exp(-k);
   if (d.Tj > 65) d.imp += 0.01 * (d.Tj - 65);
   s.clock += 60;
+  d.history.push({ t: s.clock, Tp: r1(dryerProductT(d)), vac: d.vacuum, Tj: d.Tj });
   if (d.Tj >= 75) {
     s.degraded = true;
     raise(s, "degradacion_secado", { what: `Has secado una hora con la camisa a ${d.Tj} °C (rango validado 55–60 °C). Por la mirilla el producto se ve amarillento y apelmazado: se está degradando.` });
   }
+}
+
+/** Temperatura de ebullición del agua a una presión dada (ecuación de Antoine, mbar → °C). */
+export function waterBoilT(mbar: number) {
+  const mmHg = Math.max(1, mbar) * 0.75006;
+  return 1730.63 / (8.07131 - Math.log10(mmHg)) - 233.426;
+}
+
+/**
+ * TI-303, temperatura del producto en el secadero. Mientras la torta está húmeda, el agua que se evapora la
+ * mantiene cerca de la ebullición del agua a esa presión (unos 36 °C a 60 mbar). Cuando queda poca agua deja de
+ * enfriarse y sube hacia la camisa: es la señal de que el secado va terminando (pero el LOD lo confirma).
+ */
+export function dryerProductT(d: Sim["dryer"]) {
+  const plateau = Math.min(d.Tj, waterBoilT(d.vacuum));
+  return d.Tj - (d.Tj - plateau) * Math.min(1, d.lod / 2);
 }
 
 export function lodSample(s: Sim) {
