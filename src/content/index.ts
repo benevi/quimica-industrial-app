@@ -1,6 +1,7 @@
 import type { Lesson, Level } from "./types";
 import { nivel0 } from "./nivel0";
 import { nivel1 } from "./nivel1";
+import { nivel2 } from "./nivel2";
 import { nivel12 } from "./nivel12";
 import { nivel16 } from "./nivel16";
 
@@ -26,7 +27,7 @@ export const levels: Level[] = [
   { number: 18, title: "Acondicionamiento y almacén", titleEn: "Packaging and warehouse", description: "Envasado, etiquetado, almacenamiento y trazabilidad." },
 ];
 
-export const lessons: Lesson[] = [...nivel0, ...nivel1, ...nivel12, ...nivel16].sort(
+export const lessons: Lesson[] = [...nivel0, ...nivel1, ...nivel2, ...nivel12, ...nivel16].sort(
   (a, b) => a.level - b.level || a.order - b.order,
 );
 
