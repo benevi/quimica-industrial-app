@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { lessons, lessonsOfLevel } from "@/content";
+import { lessons, lessonsOfLevel, levels } from "@/content";
 import { blockColor, blockOfLevel, blocks, lessonsOfBlock, levelInfo, minutesOfLevel } from "@/content/blocks";
 import { Icon, blockIcon, levelIcon, type IconName } from "@/components/icons";
 import { ProgressRing } from "@/components/ProgressRing";
@@ -54,7 +54,7 @@ export default function Home() {
           <p className="text-sm font-medium text-accent">Química desde cero · Chemistry from scratch</p>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">De no saber química a entender tu hoja de producción</h1>
           <p className="mt-3 max-w-2xl text-muted">
-            {lessons.length} lecciones en 19 niveles, ordenadas en 4 bloques. Sigue la ruta de arriba abajo: cada nivel se apoya en
+            {lessons.length} lecciones en {levels.length} niveles, ordenadas en {blocks.length} bloques. Sigue la ruta de arriba abajo: cada nivel se apoya en
             los anteriores.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-5">
@@ -156,7 +156,7 @@ export default function Home() {
       {/* ruta */}
       <section id="ruta" aria-labelledby="ruta-h" className="space-y-2">
         <h2 id="ruta-h" className="text-2xl font-semibold tracking-tight">Tu ruta de estudio</h2>
-        <p className="text-muted">Cuatro bloques, de la química básica a la liberación del lote. Pulsa un nivel para ver sus lecciones.</p>
+        <p className="text-muted">Cinco bloques, de la química básica a la liberación del lote y los sistemas informáticos que la registran. Pulsa un nivel para ver sus lecciones.</p>
 
         <ol className="relative mt-6 space-y-10 border-l-2 border-dashed border-line pl-6 sm:pl-10">
           {blocks.map((b) => {
@@ -181,6 +181,15 @@ export default function Home() {
                     <p className="text-sm text-muted">
                       <em className="not-italic text-ink">{b.question}</em> {b.description}
                     </p>
+                    {b.practice && (
+                      <p className="mt-1 flex flex-wrap gap-x-3 text-sm">
+                        {b.practice.map((p) => (
+                          <Link key={p.href} href={p.href} className="font-medium hover:underline" style={{ color: c.fg }}>
+                            Practica: {p.label} →
+                          </Link>
+                        ))}
+                      </p>
+                    )}
                   </div>
                   <span className="text-sm tabular-nums text-muted">
                     {d}/{ls.length} lecciones

@@ -76,7 +76,7 @@ La hoja dice: *"Cargar 6,0 L de agua por cada kg de producto húmedo"*. Tu produ
         q: "La báscula marca 18,46 kg. ¿Qué anotas en la hoja?",
         options: ["18,5 kg", "18 kg", "18,46 kg", "Lo que diga el compañero"],
         answer: 2,
-        explain: "Se registra el valor exacto que muestra el equipo (dato original y preciso: principios ALCOA+, que verás en el nivel 16).",
+        explain: "Se registra el valor exacto que muestra el equipo (dato original y preciso: principios ALCOA+, que verás en el nivel 20).",
       },
     ],
   },

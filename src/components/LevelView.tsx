@@ -16,8 +16,9 @@ const practice: Record<number, { href: string; label: string; text: string }[]> 
   12: [{ href: "/simulador", label: "Simulador de planta", text: "Fabrica un lote: reactor, filtro, centrífuga y secadero." }],
   13: [{ href: "/simulador", label: "Simulador de planta", text: "Lee temperaturas, presiones y alarmas en el panel." }],
   16: [{ href: "/simulador", label: "Simulador de planta", text: "Rellena la hoja de producción y pasa la revisión de QA." }],
-  17: [{ href: "/sap", label: "Simulador ERP", text: "Lleva un lote de la orden de proceso a la liberación." }],
-  18: [{ href: "/sap", label: "Simulador ERP", text: "Estados de calidad, entradas y salidas de almacén." }],
+  17: [{ href: "/sap", label: "Simulador ERP", text: "Estados de calidad, entradas y salidas de almacén." }],
+  19: [{ href: "/sap", label: "Simulador ERP (tipo SAP)", text: "Lleva un lote de la orden de proceso a la decisión de empleo." }],
+  20: [{ href: "/simulador", label: "Simulador de planta", text: "Registra datos ALCOA+ en la hoja y pasa la revisión de QA." }],
 };
 
 export function LevelView({ level }: { level: number }) {

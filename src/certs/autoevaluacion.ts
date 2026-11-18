@@ -52,10 +52,10 @@ export const units: CompetencyUnit[] = [
     cert: "QUIE0108",
     items: [
       { rp: "RP1", text: "Tomar muestras y hacer ensayos sencillos en planta (pH, densidad, aspecto) para verificar la calidad.", levels: [5, 8] },
-      { rp: "RP2", text: "Medir variables de proceso con los instrumentos y la frecuencia establecidos, y registrar los datos (ALCOA+).", levels: [13, 16] },
+      { rp: "RP2", text: "Medir variables de proceso con los instrumentos y la frecuencia establecidos, y registrar los datos (ALCOA+).", levels: [13, 16, 20] },
       { rp: "RP3", text: "Ajustar los instrumentos de control local para alcanzar y mantener el régimen de operación.", levels: [13] },
       { rp: "RP4", text: "Vigilar el estado de máquinas e instalaciones e informar de incidencias y cambios.", levels: [13, 16] },
-      { rp: "RP5", text: "Controlar el suministro y la reposición de productos y materiales auxiliares.", levels: [18] },
+      { rp: "RP5", text: "Controlar el suministro y la reposición de productos y materiales auxiliares.", levels: [17] },
     ],
   },
   {
@@ -77,10 +77,10 @@ export const units: CompetencyUnit[] = [
     cert: "QUIM0109",
     items: [
       { rp: "RP1", text: "Preparar los equipos e instalaciones de dispensado para la pesada (limpieza, verificación de balanzas).", levels: [4] },
-      { rp: "RP2", text: "Recepcionar y verificar los materiales (identidad, estado aprobado, caducidad).", levels: [16, 18] },
+      { rp: "RP2", text: "Recepcionar y verificar los materiales (identidad, estado aprobado, caducidad).", levels: [16, 17] },
       { rp: "RP3", text: "Pesar los materiales y registrar los valores en la guía de fabricación.", levels: [4, 16] },
-      { rp: "RP4", text: "Identificar, etiquetar y disponer los materiales pesados para su traslado.", levels: [18] },
-      { rp: "RP5", text: "Almacenar los materiales pesados en las condiciones y lugares establecidos.", levels: [18] },
+      { rp: "RP4", text: "Identificar, etiquetar y disponer los materiales pesados para su traslado.", levels: [17] },
+      { rp: "RP5", text: "Almacenar los materiales pesados en las condiciones y lugares establecidos.", levels: [17] },
     ],
   },
   {

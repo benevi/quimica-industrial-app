@@ -59,9 +59,9 @@ export const certifications: Certification[] = [
     how: "Cursando los módulos (hasta 250 h a distancia) o por acreditación de competencias cuando tengas 3 años y 2.000 h, o 300 h de formación relacionada.",
     source: { label: "Ficha oficial (Lanbide)", url: "https://web.lanbide.eus/descargas/egailancas/certificados/ficha/QUIM0109_FIR.pdf" },
     modules: [
-      { id: "mf0049", code: "MF0049_2", name: "Dispensado de materiales", hours: 180, levels: [4, 16, 18], uc: "uc0049" },
+      { id: "mf0049", code: "MF0049_2", name: "Dispensado de materiales", hours: 180, levels: [4, 16, 17], uc: "uc0049" },
       { id: "mf0050", code: "MF0050_2", name: "Instalaciones, servicios y equipos", hours: 160, levels: [9, 11, 14, 15], uc: "uc0050" },
-      { id: "mf0051", code: "MF0051_2", name: "Fabricación de lotes farmacéuticos", hours: 240, levels: [2, 12, 16, 17], uc: "uc0051" },
+      { id: "mf0051", code: "MF0051_2", name: "Fabricación de lotes farmacéuticos", hours: 240, levels: [2, 12, 16, 19, 20], uc: "uc0051" },
     ],
   },
   {
@@ -77,10 +77,10 @@ export const certifications: Certification[] = [
       url: "https://www.cfp.upv.es/formacion-permanente/curso/buenas-practicas-fabricacion-gmp-buenas-practicas-distribucion-gdp-industria-farmaceutica_103391.html",
     },
     modules: [
-      { id: "gmp-sistema", code: "GMP", name: "Sistema de calidad, personal, documentación y producción", levels: [16], },
+      { id: "gmp-sistema", code: "GMP", name: "Sistema de calidad, personal, documentación y producción", levels: [16, 20] },
       { id: "gmp-control", code: "GMP", name: "Control de calidad, reclamaciones y retiradas", levels: [10] },
       { id: "gmp-locales", code: "GMP", name: "Locales, equipos y áreas limpias", levels: [9, 14] },
-      { id: "gdp", code: "GDP", name: "Buenas prácticas de distribución y almacén", levels: [18] },
+      { id: "gdp", code: "GDP", name: "Buenas prácticas de distribución y almacén", levels: [17] },
     ],
   },
   {
@@ -94,7 +94,7 @@ export const certifications: Certification[] = [
     how: "Acceso directo con tu título de Técnico Superior. Convalida los módulos transversales y lo que hayas acreditado.",
     source: { label: "RD 832/2014 (BOE)", url: "https://boe.es/boe/dias/2014/10/25/pdfs/BOE-A-2014-10872.pdf" },
     modules: [
-      { id: "fp-organizacion", code: "1387", name: "Organización y gestión de la fabricación de productos farmacéuticos, biotecnológicos y afines", levels: [16, 17] },
+      { id: "fp-organizacion", code: "1387", name: "Organización y gestión de la fabricación de productos farmacéuticos, biotecnológicos y afines", levels: [16, 19, 20, 21] },
       { id: "fp-calidad", code: "1388", name: "Control de calidad de productos farmacéuticos, biotecnológicos y afines", levels: [5, 6, 7, 8, 10] },
       { id: "fp-operaciones", code: "1389", name: "Operaciones básicas en la industria farmacéutica, biotecnológica y afines", levels: [11, 12] },
       { id: "fp-biotecnologia", code: "1390", name: "Principios de biotecnología", levels: [9], gap: "El temario aún no tiene un bloque propio de biotecnología: de momento solo lo cubre en parte la microbiología." },
@@ -103,7 +103,7 @@ export const certifications: Certification[] = [
       { id: "fp-prod-biotec", code: "1393", name: "Técnicas de producción biotecnológica", levels: [], gap: "Pendiente: el temario se centra en síntesis química de API; la producción biotecnológica (fermentación, purificación) aún no está." },
       { id: "fp-prod-farma", code: "1394", name: "Técnicas de producción farmacéutica y afines", levels: [2, 3, 12] },
       { id: "fp-regulacion", code: "1395", name: "Regulación y control en la industria farmacéutica, biotecnológica y afines", levels: [13] },
-      { id: "fp-acondicionamiento", code: "1396", name: "Acondicionamiento y almacenamiento de productos farmacéuticos, biotecnológicos y afines", levels: [18] },
+      { id: "fp-acondicionamiento", code: "1396", name: "Acondicionamiento y almacenamiento de productos farmacéuticos, biotecnológicos y afines", levels: [17] },
       { id: "fp-mantenimiento", code: "0191", name: "Mantenimiento electromecánico en industrias de proceso", levels: [11, 14] },
     ],
   },
@@ -116,7 +116,7 @@ export const certifications: Certification[] = [
     how: "Examen práctico de 3 h dentro de un sistema SAP, en inglés y a libro abierto. Aprobado: 64 %. Caduca a los 12 meses.",
     source: { label: "SAP Learning", url: "https://learning.sap.com/helpcenter/certification-support/certification-program" },
     modules: [
-      { id: "sap-erp", code: "Teoría", name: "ERP, trazabilidad y sistemas informáticos GMP", levels: [17] },
+      { id: "sap-erp", code: "Teoría", name: "ERP, trazabilidad y sistemas informáticos GMP", levels: [18, 19, 20, 21] },
       { id: "sap-flujo", code: "Práctica", name: "Flujo de una orden de proceso en el simulador ERP", levels: [] },
     ],
   },
@@ -144,7 +144,7 @@ export const roadmap: { phase: string; when: string; steps: { id: string; text: 
     steps: [
       { id: "r-guardar-cursos", text: "Guardar los certificados de los cursos internos de la empresa (GMP, seguridad, ATEX)." },
       { id: "r-certificado-funciones", text: "Pedir a Recursos Humanos un certificado de funciones y horas trabajadas." },
-      { id: "r-niveles-base", text: "Completar en la app los niveles 0, 1 y 16 (ALCOA+)." },
+      { id: "r-niveles-base", text: "Completar en la app los niveles 0, 1, 16 y la lección de ALCOA+ (nivel 20)." },
     ],
   },
   {

@@ -1,321 +1,299 @@
 import type { Lesson } from "./types";
 
+/** Nivel 18. Arquitectura de sistemas GMP: el mapa, los datos y la ciberseguridad. */
 export const nivel18: Lesson[] = [
   {
-    slug: "recepcion-y-cuarentena",
+    slug: "sistemas-isa-95",
     level: 18,
     order: 1,
-    title: "Recepción de materiales y estados de calidad",
-    titleEn: "Goods receipt and quality status",
+    title: "El mapa de sistemas: de los sensores al ERP",
+    titleEn: "The plant systems map (ISA-95 / Purdue model)",
     minutes: 15,
-    summary: "Qué pasa desde que llega un camión hasta que un material se puede usar.",
+    summary: "Qué programas hay en una planta de API, en qué capa vive cada uno y qué datos se pasan entre ellos.",
     body: `
-### El recorrido de un material
-1. **Llegada**: se comprueba el albarán (*delivery note*) contra el pedido, que el **proveedor está aprobado** y el estado de los envases (roturas, precintos, etiquetas legibles).
-2. **Registro** en el ERP: se le asigna un **número de lote interno** y queda en **cuarentena** (*quarantine*). Se etiqueta.
-3. **Muestreo** por personal formado, en una zona o cabina adecuada, y análisis según la especificación.
-4. **Decisión de Calidad**: **aprobado** (*released / approved*) o **rechazado** (*rejected*).
-5. Ubicación en el almacén según el estado.
+En una planta GMP no hay "un programa": hay una **cadena de sistemas**, cada uno con su trabajo. Para ordenarlos se usa la norma **ISA-95** (internacional: **IEC 62264**), que los coloca en **niveles**, desde el proceso físico hasta el negocio.
 
-ICH Q7 (sección 7) pide que los materiales se mantengan en cuarentena hasta su análisis o examen y su aprobación, y que se puedan identificar los envases con su estado.
+### Los niveles de ISA-95
 
-### Estados típicos
-| Estado | En inglés | ¿Se puede usar? |
-|---|---|---|
-| Cuarentena | *Quarantine* | No |
-| Muestreado | *Sampled* | No (pendiente de resultado) |
-| Aprobado / liberado | *Released / approved* | Sí |
-| Rechazado | *Rejected* | No; se separa y se devuelve o destruye |
-| Bloqueado | *Blocked / on hold* | No (investigación en curso) |
+| Nivel | Qué hay | Ejemplos | Ritmo de los datos |
+|---|---|---|---|
+| **4. Negocio y logística** | Planificación, compras, stock, ventas | **ERP** (SAP S/4HANA) | Días, semanas |
+| **3. Gestión de operaciones** | Cómo se fabrica y se analiza cada lote | **MES**, **LIMS**, historiador de planta, almacén (WMS) | Turnos, horas, minutos |
+| **2. Supervisión** | Ver y mandar sobre el proceso | **SCADA**, pantallas **HMI**, estaciones del **DCS** | Segundos |
+| **1. Control básico** | Leer sensores y mover actuadores | **PLC**, controladores, tarjetas de E/S | Milisegundos |
+| **0. Proceso físico** | El reactor y sus instrumentos | Sondas de temperatura, válvulas, bombas | Tiempo real |
 
-El estado puede indicarse con **etiquetas de colores**, con **zonas físicas separadas** o, cada vez más, solo en el **sistema informático** (ERP/WMS) con lectura de código de barras. Lo que manda es el procedimiento de tu empresa.
+El **modelo Purdue** es la misma idea aplicada a redes y ciberseguridad (lo verás en la lección de ciberseguridad).
 
-### Proveedores
-Solo se compra a **proveedores aprobados** tras una evaluación (cuestionarios, auditorías, historial). Los materiales críticos se reciben con el **certificado de análisis** del proveedor, que se verifica con análisis propios.
+### IT y OT: dos mundos
+- **IT** (*Information Technology*): niveles 3–4. Servidores, bases de datos, aplicaciones web. Lo primero es la **confidencialidad** de los datos.
+- **OT** (*Operational Technology*): niveles 0–2. Equipos que mueven el proceso en tiempo real. Lo primero es la **disponibilidad** y la **seguridad de las personas**: un PLC no se puede reiniciar "para instalar una actualización" con el reactor a 80 °C.
+
+### Cómo viaja un lote por los sistemas
+1. El **ERP** crea la **orden de proceso**: qué producto, cuántos kg, con qué materiales.
+2. El **MES** la recibe y la convierte en instrucciones paso a paso (la hoja de producción electrónica).
+3. El **DCS/PLC** ejecuta la receta: abre válvulas, calienta, dosifica.
+4. Los sensores mandan las medidas al **historiador**; el MES recoge las que necesita el registro del lote.
+5. El **LIMS** gestiona las muestras de control y sus resultados.
+6. Al final, el MES informa al ERP de **consumos** y **producto obtenido**, y el LIMS de la **decisión de calidad**, que cambia el estado del lote en el ERP.
+
+### Otros sistemas que también son GMP
+- **eQMS** (*electronic Quality Management System*): desviaciones, CAPA, control de cambios, reclamaciones.
+- **Gestor documental** (*DMS, Document Management System*): procedimientos (SOP) y su versión vigente.
+- **GMAO** (*CMMS, Computerized Maintenance Management System*): mantenimiento y calibraciones.
+- **Sistema de datos cromatográficos** (*CDS*): los datos crudos del HPLC.
+
+Un sistema es **GMP** (o *GxP*) si crea, guarda o procesa datos que sirven para decidir sobre la calidad del producto. Si lo es, tiene que estar **validado** y cumplir el **Anexo 11**.
+
+### El "sistema de registro"
+Para cada dato hay que saber **dónde vive el original** (*system of record*). Si el peso de una carga lo registra la báscula y pasa al MES, el registro GMP es el del MES. Una copia en Excel nunca es el original.
 `,
     plant: `
-Llega un lote de 16 bidones de un reactivo. Uno tiene el precinto roto. El almacenero registra la recepción, separa ese bidón, lo etiqueta como bloqueado y avisa a Calidad. Los otros 15 quedan en cuarentena hasta el resultado del laboratorio.
+Lote 26-0412 del intermedio ficticio **INT-12**. A las 7:00 el ERP libera la orden de proceso 1000231. En la tableta del MES aparece el paso "Cargar 180,0 kg de tolueno". El DCS abre la válvula de dosificación y el caudalímetro totaliza 180,2 kg; el historiador guarda la curva de caudal y el MES registra el total. A media mañana tomas el IPC: el LIMS imprime la etiqueta. Cuando el laboratorio aprueba, el lote pasa en el ERP de **"en control de calidad"** a **"libre utilización"**.
+
+Cinco sistemas distintos han tocado el mismo lote, y todos dejan rastro.
 `,
     batchRecord: `
-- En la hoja de fabricación se anota el **lote interno** de cada material cargado y se comprueba que está **aprobado** y dentro de su fecha de reanálisis o caducidad.
+- Número de **orden de proceso** del ERP en la cabecera.
+- Datos que llegan **automáticamente** de equipos (pesos, temperaturas): llevan una marca que indica su origen.
+- Número de muestra del LIMS en cada IPC.
+- Referencias a desviaciones abiertas en el eQMS, si las hay.
 `,
     terms: [
-      { es: "Cuarentena", en: "Quarantine", def: "Estado de un material que aún no se puede usar porque espera la decisión de Calidad." },
-      { es: "Aprobado / liberado", en: "Released / approved", def: "Material autorizado por Calidad para su uso." },
-      { es: "Rechazado", en: "Rejected", def: "Material que no cumple; no se puede usar." },
-      { es: "Albarán", en: "Delivery note", def: "Documento que acompaña la mercancía." },
-      { es: "Proveedor aprobado", en: "Approved supplier", def: "Proveedor evaluado y autorizado por Calidad." },
-      { es: "Lote interno", en: "Internal batch number", def: "Número que la empresa asigna al lote recibido para su trazabilidad." },
+      { es: "ISA-95", en: "ISA-95 / IEC 62264", def: "Norma que ordena los sistemas de una fábrica en niveles, del proceso físico al ERP." },
+      { es: "Modelo Purdue", en: "Purdue model", def: "Modelo de referencia de capas de red industrial, usado para separar IT y OT." },
+      { es: "Tecnología de operación", en: "Operational Technology (OT)", def: "Sistemas que controlan el proceso físico en tiempo real: PLC, DCS, SCADA." },
+      { es: "Sistema de gestión de calidad electrónico", en: "eQMS", def: "Software para desviaciones, CAPA, control de cambios y reclamaciones." },
+      { es: "Gestión de mantenimiento asistida por ordenador", en: "CMMS (GMAO)", def: "Sistema que planifica y registra el mantenimiento y las calibraciones." },
+      { es: "Sistema de registro", en: "System of record", def: "El sistema donde vive el dato original con su audit trail." },
     ],
     quiz: [
       {
         kind: "choice",
-        q: "Un material en cuarentena…",
-        options: [
-          "Se puede usar si hay prisa",
-          "No se puede usar hasta que Calidad lo apruebe",
-          "Se puede usar la mitad",
-          "Está caducado",
-        ],
-        answer: 1,
-        explain: "Solo los materiales aprobados se usan en producción.",
+        q: "¿En qué nivel de ISA-95 está el MES?",
+        options: ["Nivel 1", "Nivel 2", "Nivel 3", "Nivel 4"],
+        answer: 2,
+        explain: "El MES gestiona las operaciones de fabricación (nivel 3), entre el ERP (nivel 4) y el control de planta (niveles 1–2).",
       },
       {
         kind: "choice",
-        q: "Llega un envase con el precinto roto. ¿Qué se hace?",
+        q: "¿Qué prioriza la OT frente a la IT?",
         options: [
-          "Usarlo primero",
-          "Separarlo, identificarlo como bloqueado y avisar a Calidad",
-          "Tirarlo sin decir nada",
-          "Volver a precintarlo",
+          "La confidencialidad de los datos",
+          "La disponibilidad y la seguridad del proceso",
+          "La velocidad de internet",
+          "El diseño de las pantallas",
         ],
         answer: 1,
-        explain: "Un precinto roto puede indicar contaminación o manipulación: Calidad decide.",
+        explain: "En planta, parar o reiniciar un controlador puede ser peligroso; la prioridad es que el proceso siga funcionando con seguridad.",
       },
       {
         kind: "choice",
-        q: "Llega un camión con materia prima. ¿Qué se comprueba primero?",
-        options: [
-          "El color del camión",
-          "El albarán frente al pedido, que el proveedor está aprobado y el estado de envases, precintos y etiquetas",
-          "Nada: se descarga y luego se mira",
-          "Solo el peso total",
-        ],
+        q: "El peso de una carga lo envía la báscula al MES y alguien lo copia también en un Excel. ¿Cuál es el dato original?",
+        options: ["El del Excel", "El del MES", "Los dos por igual", "Ninguno"],
         answer: 1,
-        explain: "Antes de dar entrada se verifica documentación, proveedor y estado físico; después el material queda en cuarentena.",
+        explain: "El sistema de registro es el MES, que lo recibe directamente con su audit trail. El Excel es una copia no controlada.",
+      },
+      {
+        kind: "choice",
+        q: "¿Qué sistema cambia el estado del lote a «libre utilización» cuando calidad lo aprueba?",
+        options: ["El PLC", "El historiador", "El ERP, a partir de la decisión registrada", "La HMI"],
+        answer: 2,
+        explain: "El ERP guarda el estado de stock de cada lote; la decisión de calidad (desde el LIMS o el módulo QM) lo cambia.",
       },
     ],
   },
   {
-    slug: "almacenamiento",
+    slug: "datos-maestros-e-integracion",
     level: 18,
     order: 2,
-    title: "Almacenamiento: condiciones, FEFO y fechas",
-    titleEn: "Storage: conditions, FEFO and dating",
-    minutes: 15,
-    summary: "Cómo se guardan materiales y producto para que no se degraden ni se confundan.",
+    title: "Datos maestros, bases de datos e interfaces",
+    titleEn: "Master data, databases and interfaces",
+    minutes: 18,
+    summary: "Por qué un dato maestro mal puesto estropea todos los lotes, cómo guardan los datos los sistemas y cómo se los pasan.",
     body: `
-### Condiciones de almacenamiento
-Cada material tiene sus condiciones (en la etiqueta y la especificación):
-- **Temperatura ambiente controlada** (por ejemplo, "no conservar por encima de 25 °C").
-- **Refrigerado** (2–8 °C).
-- **Congelado**.
-- Protegido de la **luz** o de la **humedad**.
+### Datos maestros y datos de transacción
+- **Datos maestros** (*master data*): se definen una vez y se usan en cada lote. Código y descripción del material, unidad, periodo de reanálisis, receta maestra, especificaciones del LIMS, usuarios y perfiles.
+- **Datos de transacción** (*transactional data*): se crean con cada operación. Órdenes, consumos, pesadas, resultados.
 
-Los almacenes GMP tienen **registro continuo de temperatura** (y humedad cuando importa), con alarmas. Se hace un **mapeo térmico** (*temperature mapping*) para saber dónde están los puntos más fríos y calientes.
+Un error en un dato de transacción afecta a **un lote**. Un error en un **dato maestro** afecta a **todos los lotes** que lo usen. Por eso los datos maestros GMP se cambian con **control de cambios** y con **verificación por una segunda persona** (*four-eyes principle*).
 
-### Orden de salida
-- **FEFO** (*First Expired, First Out*): sale primero lo que caduca antes. Es la regla preferida.
-- **FIFO** (*First In, First Out*): sale primero lo que entró antes.
+### Cómo guardan los datos: bases de datos relacionales
+LIMS, MES y ERP guardan casi todo en **bases de datos relacionales** (Oracle, SQL Server, SAP HANA). Los datos están en **tablas** unidas por **claves**:
 
-### Fechas
-- **Fecha de caducidad** (*expiry date*): después de esta fecha **no se usa**.
-- **Fecha de reanálisis** (*retest date*): habitual en API y materias primas. Llegada esa fecha, el material se **vuelve a analizar** y, si cumple, se puede usar (ICH Q7 11.6). Un API con fecha de reanálisis de 24 meses fabricado en marzo de 2026 debe reanalizarse antes de usarse a partir de marzo de 2028.
+| Tabla | Clave primaria | Ejemplo de columnas |
+|---|---|---|
+| MATERIAL | codigo_material | descripcion, unidad, reanalisis_meses |
+| LOTE | id_lote | codigo_material (clave ajena), fecha_fabricacion, estado |
+| RESULTADO | id_resultado | id_lote (clave ajena), ensayo, valor, usuario, fecha_hora |
 
-### Separación de químicos peligrosos
-La normativa de almacenamiento de productos químicos (**RD 656/2017** y sus instrucciones técnicas, APQ) pide separar incompatibles:
-- Inflamables lejos de **oxidantes**.
-- **Ácidos** separados de **bases**.
-- Cubetos de retención (*bunds*) para recoger derrames.
-- Armarios o almacenes específicos para inflamables.
+Una consulta para ver el agua (Karl Fischer) de un lote sería:
 
-### Orden y limpieza
-Palés en buen estado, nada en el suelo, pasillos libres, plagas controladas (*pest control*), zonas identificadas. Una confusión en el almacén se convierte en un **error de carga** en producción.
+~~~sql
+SELECT r.ensayo, r.valor, r.usuario, r.fecha_hora
+FROM resultado r
+WHERE r.id_lote = '26-0412' AND r.ensayo = 'KF';
+~~~
+
+**Regla de oro**: los datos GMP **solo se cambian a través de la aplicación**, que pide motivo y deja audit trail. Un *UPDATE* directo sobre la base de datos se salta todos los controles. Por eso el acceso de escritura a la base de datos está restringido a administradores, separado de los usuarios del proceso, y sus acciones también quedan registradas. Los cambios "por detrás" (*back-end changes*) son uno de los hallazgos de integridad de datos más graves en las inspecciones.
+
+### Cómo se pasan los datos: interfaces
+| Tipo | Ejemplo |
+|---|---|
+| **Fichero** | Un CSV que el instrumento deja en una carpeta y el LIMS recoge |
+| **Mensajes / servicios web** | APIs REST o SOAP; en SAP, los mensajes **IDoc** |
+| **OPC UA** | Estándar industrial (IEC 62541) para leer datos de PLC y SCADA |
+| **Middleware** | Una capa intermedia que traduce y enruta mensajes |
+
+El Anexo 11 (apartado 5) pide que los sistemas que intercambian datos tengan **comprobaciones integradas** para que la entrada y el procesado sean correctos y seguros. En la práctica, una interfaz validada demuestra que:
+- El dato llega **completo** y **sin alterar** (mismos decimales, misma unidad).
+- Si algo falla, **no se pierde en silencio**: hay cola de errores, aviso y reproceso.
+- Se puede **conciliar**: lo que salió de un sistema coincide con lo que entró en el otro.
+
+### Trampas clásicas
+- **Separador decimal**: "1,500" en España es uno y medio; en inglés, mil quinientos. Un CSV mal interpretado multiplica una carga por mil.
+- **Unidades**: g frente a kg, % frente a fracción.
+- **Hora**: un sistema en UTC y otro en hora local, o el cambio de horario de verano, desordenan los registros. Todos los relojes GMP se **sincronizan** con un servidor de hora (*NTP*) y no los cambia el usuario.
 `,
     plant: `
-Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en septiembre. Aunque el B está más a mano, el operador coge el A (FEFO). El escáner del ERP lo confirma.
+En el maestro de materiales alguien dio de alta el disolvente ficticio **SOL-07** con periodo de reanálisis de **36 meses** en vez de **12**. Durante meses, el ERP dejó usar bidones que deberían haberse reanalizado. Afectó a **14 lotes**. Se abrió una desviación, y la CAPA fue exigir verificación de una segunda persona en cada alta de material y revisar todos los maestros.
+
+Un error en un solo dato, multiplicado por cada lote que lo usó.
 `,
     batchRecord: `
-- Comprobación en la carga: lote aprobado y dentro de fecha.
-- Condiciones de almacenamiento del producto intermedio entre etapas y su **tiempo máximo de espera** (*hold time*).
+- Los datos maestros no aparecen como tales, pero **todo lo que ves sale de ellos**: descripción del material, rangos de cada paso, límites de los IPC.
+- Si un rango impreso no te cuadra con el procedimiento, **avísalo**: puede ser un error de maestro.
 `,
     terms: [
-      { es: "FEFO", en: "First Expired, First Out", def: "Sale primero lo que caduca antes." },
-      { es: "FIFO", en: "First In, First Out", def: "Sale primero lo que entró antes." },
-      { es: "Fecha de caducidad", en: "Expiry date", def: "Fecha a partir de la cual el material no debe usarse." },
-      { es: "Fecha de reanálisis", en: "Retest date", def: "Fecha en que el material debe volver a analizarse antes de usarse." },
-      { es: "Mapeo térmico", en: "Temperature mapping", def: "Estudio de la distribución de temperaturas de un almacén o cámara." },
-      { es: "Cubeto de retención", en: "Bund / secondary containment", def: "Recinto que recoge un posible derrame." },
-      { es: "Tiempo de espera", en: "Hold time", def: "Tiempo máximo que un intermedio puede esperar antes de la siguiente etapa." },
+      { es: "Datos maestros", en: "Master data", def: "Datos de referencia que se definen una vez y se usan en muchas operaciones: materiales, recetas, especificaciones." },
+      { es: "Principio de los cuatro ojos", en: "Four-eyes principle", def: "Un cambio crítico lo hace una persona y lo verifica otra." },
+      { es: "Clave primaria", en: "Primary key", def: "Columna que identifica cada fila de una tabla de forma única." },
+      { es: "Interfaz", en: "Interface", def: "Conexión por la que dos sistemas intercambian datos." },
+      { es: "OPC UA", en: "OPC Unified Architecture", def: "Estándar industrial de comunicación entre equipos y sistemas de planta." },
+      { es: "Protocolo de hora de red", en: "Network Time Protocol (NTP)", def: "Servicio que sincroniza los relojes de todos los sistemas." },
     ],
     quiz: [
       {
         kind: "choice",
-        q: "Según FEFO, ¿qué lote usas primero?",
-        options: ["El que llegó último", "El que caduca antes", "El más grande", "El más cercano"],
-        answer: 1,
-        explain: "First Expired, First Out.",
-      },
-      {
-        kind: "choice",
-        q: "Un API ha superado su fecha de reanálisis. ¿Se puede usar?",
+        q: "¿Por qué un error en un dato maestro es más grave que en un dato de transacción?",
         options: [
-          "Nunca",
-          "Solo si se reanaliza y cumple, según el procedimiento",
-          "Sí, sin más",
-          "Solo la mitad",
+          "Porque los maestros son más caros",
+          "Porque afecta a todos los lotes que usan ese dato",
+          "Porque no se puede corregir",
+          "No es más grave",
         ],
         answer: 1,
-        explain: "La fecha de reanálisis obliga a volver a analizar; la de caducidad, en cambio, impide el uso.",
+        explain: "El dato maestro se reutiliza en cada operación: su error se multiplica.",
       },
       {
         kind: "choice",
-        q: "¿Qué no debe almacenarse junto a disolventes inflamables?",
-        options: ["Otros inflamables en su armario", "Oxidantes", "Etiquetas", "Palés vacíos en su zona"],
+        q: "Un administrador corrige un resultado con un UPDATE directo en la base de datos del LIMS. ¿Qué problema hay?",
+        options: [
+          "Ninguno, el valor final es correcto",
+          "Se salta la aplicación: sin motivo, sin revisión y quizá sin audit trail. Es un fallo grave de integridad de datos",
+          "Solo que tarda más",
+          "Que no avisó al operador",
+        ],
         answer: 1,
-        explain: "Oxidante + combustible = riesgo de incendio grave.",
+        explain: "Los datos GMP solo se cambian por la aplicación, que pide motivo y registra el cambio.",
+      },
+      {
+        kind: "choice",
+        q: "Un instrumento exporta «2,5» y el LIMS lo lee como 25. ¿Qué ha fallado?",
+        options: ["El instrumento", "La interpretación del separador decimal en la interfaz", "El analista", "Nada"],
+        answer: 1,
+        explain: "Coma y punto decimal son una trampa clásica; la validación de la interfaz debe probarlo.",
       },
     ],
   },
   {
-    slug: "envasado-y-etiquetado",
+    slug: "ciberseguridad-ot",
     level: 18,
     order: 3,
-    title: "Envasado y etiquetado del API",
-    titleEn: "API packaging and labelling",
+    title: "Redes industriales y ciberseguridad",
+    titleEn: "OT networks and cybersecurity (IEC 62443)",
     minutes: 15,
-    summary: "El último paso en planta: meter el producto en sus envases sin errores ni contaminación.",
+    summary: "Cómo se protege la red de planta, qué dice la norma IEC 62443 y qué te toca a ti como usuario.",
     body: `
-### Cómo se envasa un API
-Normalmente en **doble bolsa de polietileno** (*double PE liner*), cerrada con bridas, dentro de un **bidón** de cartón (*fibre drum*) o de plástico (HDPE). A veces con **desecante** o **atmósfera de nitrógeno**. Se cierra con un **precinto de seguridad** (*tamper-evident seal*) numerado.
+Un ataque informático en una planta química no solo roba datos: puede **parar la producción**, **destruir registros GMP** o, en el peor caso, afectar al **control del proceso**. En 2017 el *ransomware* NotPetya paralizó durante semanas la fabricación de una gran farmacéutica: no iba dirigido contra ella, entró por la red y se extendió.
 
-El material de envase en contacto con el producto debe estar **especificado y aprobado**: si se cambia la bolsa por otra "parecida", es un cambio que se evalúa.
+### Defensa en profundidad (*defense in depth*)
+No hay una sola barrera, sino **capas**: si una falla, la siguiente frena el ataque.
 
-### Despeje de línea (*line clearance*)
-Antes de empezar, se comprueba que en la sala y los equipos **no queda nada** del lote o producto anterior: producto, etiquetas, envases, documentos. Lo hace el operador y lo verifica otra persona. Es la principal defensa contra **mezclas** y **etiquetas equivocadas** (ICH Q7, sección 9).
+### Segmentar la red: el modelo Purdue
+La red se divide en capas, igual que ISA-95:
+- **Nivel 4–5**: red corporativa (correo, ERP, internet).
+- **Nivel 3,5: DMZ industrial**: zona intermedia. Ningún tráfico pasa **directo** de la red de oficina a la de planta; todo pasa por servidores intermedios (por ejemplo, una réplica del historiador o un servidor de salto).
+- **Nivel 3**: MES, historiador de planta.
+- **Niveles 0–2**: DCS, PLC, SCADA. **Sin acceso a internet**.
 
-### Etiquetas
-Las etiquetas del API llevan como mínimo: **nombre** del producto, **número de lote**, y la información necesaria de almacenamiento, fecha de reanálisis o caducidad y peso. Se imprimen o se emiten de forma controlada:
-- Se emite el número exacto necesario.
-- Se comprueba la primera etiqueta (texto, lote) y se adjunta un **especimen** al registro.
-- Al terminar se hace la **conciliación**: emitidas = usadas + destruidas + devueltas. Una diferencia sin explicar se investiga, porque podría haber una etiqueta en el envase equivocado.
+### IEC 62443: la norma de ciberseguridad industrial
+- Divide la planta en **zonas** (grupos de equipos con las mismas necesidades de seguridad) unidas por **conductos** (las comunicaciones permitidas entre zonas, filtradas por cortafuegos).
+- Define **niveles de seguridad** (*Security Levels*, SL 1 a 4) según lo sofisticado del atacante del que hay que protegerse.
+- Reparte responsabilidades entre el propietario de la planta, el integrador y el fabricante de los equipos.
 
-### Pesos
-Cada envase se pesa en báscula calibrada: **bruto**, **tara** y **neto**. Neto = bruto − tara.
+### Medidas típicas
+- **Acceso remoto** de proveedores solo por un servidor de salto, con **doble factor** (*MFA*), por tiempo limitado y registrado.
+- **Parches**: en OT no se instalan automáticamente. Se prueban antes, y en un sistema validado pasan por **control de cambios**.
+- **Lista blanca de aplicaciones** (*application whitelisting*): en la estación solo puede ejecutarse lo autorizado.
+- **Puertos USB** bloqueados en las HMI.
+- **Copias de seguridad** fuera de línea, para poder recuperar tras un *ransomware*.
+- **Inventario** de todos los equipos conectados.
 
-### Muestras de retención (*reserve samples*)
-De cada lote de API se guarda una muestra en un envase equivalente al comercial. ICH Q7 (11.7) pide conservarla, si el API tiene **caducidad**, **1 año tras la caducidad o 3 años tras la distribución, lo que sea más largo**; si tiene **fecha de reanálisis**, **3 años después de distribuir el lote por completo**. La cantidad debe bastar para al menos **dos análisis completos**.
+### Normativa
+- El **Anexo 11** (apartado 12, Seguridad) pide controles físicos y lógicos para que solo las personas autorizadas accedan a los sistemas y a los datos.
+- La Directiva europea **NIS2** (UE 2022/2555) incluye a los fabricantes de productos farmacéuticos de base y de preparados farmacéuticos entre las entidades del sector sanitario con obligaciones de ciberseguridad.
+
+### Lo que te toca a ti
+- **Nunca** conectes un USB, un móvil (ni para cargarlo) ni un portátil a una HMI o a un equipo de planta.
+- Desconfía de correos con prisa, adjuntos o enlaces raros (*phishing*) y repórtalos.
+- Si una pantalla hace algo extraño (se mueve sola, pide contraseñas inesperadas, aparecen mensajes de rescate), **avisa enseguida** al supervisor y a sistemas.
 `,
     plant: `
-Se emiten 20 etiquetas para un lote que se envasará en 18 bidones. Se usan 18, una se destruye porque se imprimió torcida y sobra 1, que se devuelve. 18 + 1 + 1 = 20: la conciliación cuadra.
+Un técnico externo llega para revisar la centrífuga y quiere conectar su portátil directamente al PLC "como siempre". El procedimiento lo impide: la conexión se hace desde la estación de ingeniería autorizada, con un permiso de trabajo, un cambio aprobado y la sesión registrada. Tú no lo dejas conectar por tu cuenta: avisas al supervisor.
 `,
     batchRecord: `
-- Despeje de línea: realizado por / verificado por, con hora.
-- Etiquetas emitidas, usadas, destruidas y devueltas; especimen adjunto.
-- Para cada envase: número, peso bruto, tara, neto, número de precinto.
-- Muestras de retención tomadas.
+- La ciberseguridad no aparece como un paso del lote, pero si un incidente informático afecta a la producción, se registra como **desviación** y se evalúa qué datos del lote pueden estar afectados.
 `,
     terms: [
-      { es: "Despeje de línea", en: "Line clearance", def: "Comprobación de que no quedan restos del lote anterior antes de empezar." },
-      { es: "Precinto de seguridad", en: "Tamper-evident seal", def: "Precinto que muestra si el envase se ha abierto." },
-      { es: "Conciliación de etiquetas", en: "Label reconciliation", def: "Cuadre entre etiquetas emitidas, usadas, destruidas y devueltas." },
-      { es: "Peso bruto / tara / neto", en: "Gross / tare / net weight", def: "Peso total / del envase vacío / del producto." },
-      { es: "Muestra de retención", en: "Reserve / retention sample", def: "Muestra de cada lote que se guarda por si hay que reanalizar o investigar." },
-      { es: "Bidón de cartón", en: "Fibre drum", def: "Envase cilíndrico de cartón prensado muy usado para API." },
-    ],
-    quiz: [
-      {
-        kind: "number",
-        q: "Se emiten 200 etiquetas; se usan 182, se destruyen 12 y se devuelven 4. ¿Cuántas faltan por explicar?",
-        answer: 2,
-        tolerance: 0.001,
-        unit: "etiquetas",
-        explain: "200 − (182 + 12 + 4) = 2 etiquetas sin explicar: se investiga.",
-      },
-      {
-        kind: "number",
-        q: "Un bidón pesa 27,35 kg en bruto y su tara es 2,10 kg. ¿Cuál es el peso neto?",
-        answer: 25.25,
-        tolerance: 0.001,
-        unit: "kg",
-        explain: "27,35 − 2,10 = 25,25 kg.",
-      },
-      {
-        kind: "choice",
-        q: "¿Para qué sirve el despeje de línea?",
-        options: [
-          "Para limpiar el suelo",
-          "Para asegurar que no quedan materiales ni etiquetas del lote anterior",
-          "Para contar a las personas",
-          "Para medir la temperatura",
-        ],
-        answer: 1,
-        explain: "Evita mezclas y etiquetados equivocados, errores graves para el paciente.",
-      },
-    ],
-  },
-  {
-    slug: "trazabilidad-y-distribucion",
-    level: 18,
-    order: 4,
-    title: "Trazabilidad, distribución, devoluciones y retiradas",
-    titleEn: "Traceability, distribution, returns and recalls",
-    minutes: 12,
-    summary: "Cómo se sigue un lote hasta el cliente y qué pasa si hay que retirarlo.",
-    body: `
-### Trazabilidad (*traceability*)
-Tiene dos direcciones:
-- **Hacia atrás**: de un lote de API a todos los lotes de materias primas, equipos, personas y registros que intervinieron.
-- **Hacia delante**: de un lote a todos los clientes que lo recibieron.
-Se consigue con los números de lote, el ERP y registros completos. Sin trazabilidad, una retirada es imposible.
-
-### Distribución
-Los API se distribuyen siguiendo las **Buenas Prácticas de Distribución** para principios activos (*GDP for active substances*, directrices de la Comisión Europea de 2015):
-- Solo a clientes autorizados y desde almacenes controlados.
-- Transporte en las **condiciones** indicadas (temperatura, protección), con registro si es necesario.
-- Documentación que permita la trazabilidad (lote, cantidad, fecha, destinatario).
-
-### Liberación
-Un lote de API solo se envía cuando **Calidad lo ha liberado** tras revisar el registro del lote completo (incluidas las desviaciones) y los resultados analíticos.
-
-### Devoluciones (*returns*)
-Un API devuelto se pone en **cuarentena**. Solo puede volver al stock si Calidad evalúa que sus condiciones de almacenamiento y transporte no han afectado a su calidad (ICH Q7, sección 14).
-
-### Reclamaciones y retiradas
-- **Reclamación** (*complaint*): un cliente comunica un problema. Se registra, se investiga y se responde.
-- **Retirada** (*recall*): si un lote puede ser un riesgo, se retira del mercado. Debe haber un procedimiento probado para hacerlo rápido, gracias a la trazabilidad hacia delante.
-`,
-    plant: `
-Un cliente reclama partículas negras en un bidón. Con el número de lote, Calidad localiza en la hoja de fabricación el equipo de molienda usado, la revisión de la malla, el operador y los lotes de bolsas. Encuentra que una junta del molino se había desgastado y abre una CAPA. Gracias a la trazabilidad hacia delante sabe qué otros clientes recibieron el mismo lote.
-`,
-    batchRecord: `
-- Todos los números de lote, equipos, firmas y horas: son la base de la trazabilidad.
-- Número de lote del API en cada envase y en la documentación de expedición.
-`,
-    terms: [
-      { es: "Trazabilidad", en: "Traceability", def: "Capacidad de seguir la historia y el destino de un lote." },
-      { es: "Buenas Prácticas de Distribución", en: "Good Distribution Practice (GDP)", def: "Normas para almacenar y transportar medicamentos y principios activos." },
-      { es: "Liberación del lote", en: "Batch release", def: "Decisión de Calidad que autoriza el uso o la venta de un lote." },
-      { es: "Devolución", en: "Return", def: "Producto que el cliente devuelve; queda en cuarentena hasta que Calidad decida." },
-      { es: "Reclamación", en: "Complaint", def: "Comunicación de un posible problema de calidad." },
-      { es: "Retirada", en: "Recall", def: "Retirada del mercado de un lote por un posible riesgo." },
+      { es: "Defensa en profundidad", en: "Defense in depth", def: "Proteger con varias capas de seguridad independientes." },
+      { es: "Zona desmilitarizada industrial", en: "Industrial DMZ", def: "Red intermedia entre la red corporativa y la de planta; no se permite tráfico directo entre ambas." },
+      { es: "Zonas y conductos", en: "Zones and conduits (IEC 62443)", def: "Grupos de equipos con la misma necesidad de seguridad y las comunicaciones permitidas entre ellos." },
+      { es: "Autenticación multifactor", en: "Multi-factor authentication (MFA)", def: "Acceso que pide dos pruebas distintas, por ejemplo contraseña y código del móvil." },
+      { es: "Secuestro de datos", en: "Ransomware", def: "Programa malicioso que cifra los datos y pide un rescate." },
+      { es: "Suplantación por correo", en: "Phishing", def: "Engaño por correo o mensaje para robar contraseñas o instalar malware." },
     ],
     quiz: [
       {
         kind: "choice",
-        q: "Saber a qué clientes fue un lote es trazabilidad…",
-        options: ["Hacia atrás", "Hacia delante", "Lateral", "No es trazabilidad"],
-        answer: 1,
-        explain: "Hacia delante: del lote a sus destinos.",
-      },
-      {
-        kind: "choice",
-        q: "Un cliente devuelve un bidón de API. ¿Qué se hace?",
+        q: "¿Para qué sirve la DMZ industrial?",
         options: [
-          "Se vende a otro cliente",
-          "Se pone en cuarentena y Calidad evalúa si puede volver al stock",
-          "Se tira siempre",
-          "Se reprocesa sin más",
+          "Para navegar más rápido",
+          "Para que no haya tráfico directo entre la red de oficina y la de planta",
+          "Para guardar las copias de seguridad",
+          "Para dar internet a los PLC",
         ],
         answer: 1,
-        explain: "Hay que comprobar que no se ha visto afectado por el transporte o el almacenamiento.",
+        explain: "Todo intercambio pasa por servidores intermedios controlados; así un ataque en la oficina no llega directo al control.",
       },
       {
         kind: "choice",
-        q: "¿Quién decide que un lote de API se puede enviar al cliente?",
-        options: ["El operador", "Calidad (liberación del lote)", "El transportista", "El cliente"],
+        q: "Tu móvil se queda sin batería y la HMI tiene un puerto USB. ¿Qué haces?",
+        options: ["Lo cargo un rato", "No lo conecto nunca a un equipo de planta", "Lo conecto si está apagado", "Pregunto a un compañero"],
         answer: 1,
-        explain: "Calidad libera el lote tras revisar el registro y los análisis.",
+        explain: "Cualquier dispositivo USB puede introducir malware o alterar el equipo.",
+      },
+      {
+        kind: "choice",
+        q: "En IEC 62443, ¿qué es un conducto?",
+        options: [
+          "Una tubería de proceso",
+          "Un canal de comunicación permitido y controlado entre dos zonas",
+          "Un cable de alimentación",
+          "Un tipo de virus",
+        ],
+        answer: 1,
+        explain: "Las zonas agrupan equipos; los conductos son las comunicaciones permitidas entre ellas, filtradas.",
       },
     ],
   },

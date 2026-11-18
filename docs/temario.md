@@ -14,7 +14,7 @@ El temario se alinea con tres títulos de Formación Profesional de grado superi
 
 Quedan fuera los módulos que no son técnicos (Formación y orientación laboral, Empresa e iniciativa emprendedora, Proyecto, Formación en centros de trabajo). El inglés técnico se cubre con los términos en inglés de cada lección y el glosario.
 
-Fuentes normativas y técnicas que se citan en las lecciones: ICH Q7, Q9, Q10, Q2(R2), Q3A/Q3C, Q6A; EU GMP (EudraLex vol. 4, Parte II y Anexos 1, 11, 15); 21 CFR Part 11; Farmacopea Europea y USP; guías de integridad de datos (MHRA 2018, PIC/S PI 041-1); GAMP 5 (2.ª ed.); Reglamento CLP y fichas de datos de seguridad (REACH); Directivas ATEX.
+Fuentes normativas y técnicas que se citan en las lecciones: ICH Q7, Q9, Q10, Q2(R2), Q3A/Q3C, Q6A; EU GMP (EudraLex vol. 4, Parte II y Anexos 1, 11, 15); 21 CFR Part 11; Farmacopea Europea y USP; guías de integridad de datos (MHRA 2018, PIC/S PI 041-1); GAMP 5 (2.ª ed.); FDA CSA (2025); ISA-95 / IEC 62264; IEC 62443; borradores 2025 del Anexo 11 y del Anexo 22; Reglamento CLP y fichas de datos de seguridad (REACH); Directivas ATEX.
 
 ## Bloques de la app
 
@@ -38,9 +38,14 @@ Cada bloque es un "nivel". Las lecciones duran 10–20 minutos y siguen siempre 
 | 13 | Instrumentación y control | Medida de temperatura, presión, nivel y caudal · Lectura de P&ID · Lazos de control y PID · DCS, SCADA y alarmas · Enclavamientos | Regulación y control de proceso |
 | 14 | Mantenimiento y servicios auxiliares | Mantenimiento preventivo y correctivo · Agua purificada · Aire comprimido y nitrógeno · HVAC | Mantenimiento electromecánico · Áreas y servicios auxiliares |
 | 15 | Seguridad y medio ambiente | Pictogramas y FDS · EPI · Inflamables y ATEX · Tóxicos, potentes y contención · Permisos y LOTO · Emergencias · Residuos y emisiones | Prevención de riesgos |
-| 16 | GMP y calidad | Por qué existen las GMP · ICH Q7 · ALCOA+ · Buenas prácticas de documentación · Desviaciones y CAPA · Control de cambios · Cualificación y validación · Gestión de riesgos (ICH Q9) | Organización y gestión · Control de calidad |
-| 17 | Sistemas informáticos | LIMS · MES y batch record electrónico · ERP y trazabilidad · Audit trail y firma electrónica (Part 11 / Anexo 11) · Validación de sistemas (GAMP 5) | Calidad y seguridad en el laboratorio · Regulación y control |
-| 18 | Acondicionamiento y almacén | Envasado y etiquetado de API · Almacenamiento y condiciones · Estados de material y trazabilidad · Expedición | Acondicionamiento y almacenamiento |
+| 16 | GMP y calidad | Por qué existen las GMP · ICH Q7 · Buenas prácticas de documentación · Desviaciones y CAPA · Control de cambios · Cualificación y validación · Gestión de riesgos (ICH Q9) | Organización y gestión · Control de calidad |
+| 17 | Acondicionamiento y almacén | Recepción y estados de calidad · Almacenamiento, FEFO y fechas · Envasado y etiquetado de API · Trazabilidad, distribución y retiradas | Acondicionamiento y almacenamiento |
+| 18 | Arquitectura de sistemas | Mapa de sistemas ISA-95 / Purdue · Datos maestros, bases de datos e interfaces · Redes industriales y ciberseguridad (IEC 62443) | Regulación y control |
+| 19 | LIMS, MES, SCADA y ERP | LIMS · MES y batch record electrónico · SCADA, historiador y datos de proceso · ERP y trazabilidad · SAP en la planta (PP-PI, MM, QM) | Organización y gestión · Calidad y seguridad en el laboratorio |
+| 20 | Integridad de datos y registros electrónicos | ALCOA+ · 21 CFR Part 11, Anexo 11 y guías de integridad de datos · Audit trail y firma electrónica · Usuarios, revisión del audit trail, copias y archivo | Organización y gestión · Control de calidad |
+| 21 | Validación de sistemas informatizados | GAMP 5 · Del URS al informe (modelo en V, RTM, CSA) · Cambios, incidencias, revisión periódica, nube, Excel e IA | Organización y gestión |
+
+Los niveles 0–3 forman el bloque 1 (Las bases), 4–10 el bloque 2 (Laboratorio), 11–15 el bloque 3 (Planta), 16–17 el bloque 4 (Calidad y salida del producto) y 18–21 el bloque 5 (Sistemas informáticos).
 
 ## Cómo se garantiza la exactitud
 
