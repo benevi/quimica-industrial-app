@@ -34,6 +34,7 @@ const L = {
   filtros: { slug: "filtros", title: "Filtros" },
   envas: { slug: "envasado-y-etiquetado", title: "Envasado y etiquetado" },
   oos: { slug: "oos-y-oot", title: "OOS y OOT" },
+  valvulas: { slug: "tuberias-y-valvulas", title: "Tuberías y válvulas" },
 };
 
 function hasDeviation(s: Sim, ...words: string[]) {
@@ -73,6 +74,11 @@ export function reviewBatch(s: Sim): Review {
     }
   }
   const corrections = Object.values(s.entries).reduce((a, e) => a + e.history.length, 0);
+
+  // --- Válvulas
+  for (const vf of s.valveFindings ?? []) {
+    F.push({ sev: vf.sev, area: "Seguridad", title: vf.text, detail: "Cada operación empieza abriendo solo las válvulas necesarias y termina cerrándolas. Una válvula olvidada puede mezclar líneas, dejar pasar producto o servicios donde no toca.", lesson: L.valvulas });
+  }
 
   // --- Verificaciones previas
   if (v("r101_estado") && v("r101_estado") !== "Limpio y dentro de tiempo") {
