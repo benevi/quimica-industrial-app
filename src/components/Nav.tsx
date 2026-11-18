@@ -9,6 +9,7 @@ export function Nav() {
           <span>Aula<span className="hidden sm:inline"> de Química</span></span>
         </Link>
         <Link href="/" className="rounded-md px-2 py-1.5 sm:px-3 text-muted hover:bg-soft hover:text-ink">Temario</Link>
+        <Link href="/simulador" className="rounded-md px-2 py-1.5 sm:px-3 text-muted hover:bg-soft hover:text-ink">Simulador</Link>
         <Link href="/glosario" className="rounded-md px-2 py-1.5 sm:px-3 text-muted hover:bg-soft hover:text-ink">Glosario</Link>
         <Link href="/calculadoras" className="rounded-md px-2 py-1.5 sm:px-3 text-muted hover:bg-soft hover:text-ink">Calculadoras</Link>
         <Link href="/certificaciones" className="rounded-md px-2 py-1.5 sm:px-3 text-muted hover:bg-soft hover:text-ink">Certificaciones</Link>

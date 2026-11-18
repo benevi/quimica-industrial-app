@@ -36,6 +36,13 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-4 text-sm">
+        <span className="flex-1">
+          <strong>Simulador de planta:</strong> fabrica un lote ficticio en reactor, filtro, centrífuga y secadero, rellenando la hoja de producción como en GMP.
+        </span>
+        <Link href="/simulador" className="rounded-lg border border-line px-3 py-1.5 font-medium hover:bg-soft">Abrir simulador</Link>
+      </section>
+
       <section className="rounded-xl border border-line bg-warn-soft p-4 text-sm">
         <strong>Kit de supervivencia para tus primeras semanas:</strong> haz cuanto antes{" "}
         <Link className="underline" href="/leccion/alcoa-plus">ALCOA+</Link>,{" "}
