@@ -6,6 +6,7 @@ import { blockColor, blockOfLevel, blocks, lessonsOfBlock, levelInfo, minutesOfL
 import { Icon, blockIcon, levelIcon, type IconName } from "@/components/icons";
 import { ProgressRing } from "@/components/ProgressRing";
 import { useProgress } from "@/lib/progress";
+import { operatorSlugs, operatorStages } from "@/content/operador";
 
 const steps: { icon: IconName; title: string; text: string; links: { href: string; label: string }[] }[] = [
   {
@@ -45,6 +46,10 @@ export default function Home() {
   const next = lessons.find((l) => !isDone(l.slug));
   const pct = loaded ? Math.round((doneCount / lessons.length) * 100) : 0;
   const nextBlock = next ? blockOfLevel(next.level) : undefined;
+  const opDone = operatorSlugs.filter(isDone).length;
+  const opPct = loaded ? Math.round((opDone / operatorSlugs.length) * 100) : 0;
+  const opNextSlug = operatorSlugs.find((s) => !isDone(s));
+  const opNext = opNextSlug ? lessons.find((l) => l.slug === opNextSlug) : undefined;
 
   return (
     <div className="space-y-10">
@@ -119,6 +124,55 @@ export default function Home() {
         )}
       </section>
 
+      {/* ruta corta del operador */}
+      <section aria-labelledby="operador-h" className="grid gap-4 rounded-2xl border-2 border-accent bg-accent-soft p-5 sm:p-6 lg:grid-cols-[1.3fr_1fr]">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Ruta corta · Operator fast track</p>
+          <h2 id="operador-h" className="mt-1 text-xl font-semibold">¿Empiezas en planta? Haz primero la ruta del operador</h2>
+          <p className="mt-2 text-sm text-muted">
+            {operatorSlugs.length} lecciones con lo imprescindible para tu día a día: seguridad, la hoja de producción, las cuentas, el reactor, la
+            centrífuga, el filtro y el secadero, el panel de control y la calidad en tu turno. Cuentan también en la ruta completa.
+          </p>
+          <ol className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            {operatorStages.map((s, i) => {
+              const ok = loaded && s.lessons.every(isDone);
+              return (
+                <li key={s.id} className="inline-flex items-center gap-1.5">
+                  <span
+                    className="grid h-4 w-4 place-items-center rounded-full text-[10px] text-white"
+                    style={{ background: ok ? "var(--ok)" : "var(--accent)" }}
+                  >
+                    {ok ? "✓" : i + 1}
+                  </span>
+                  {s.title}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+        <div className="flex flex-col justify-between gap-4 rounded-xl bg-surface p-4">
+          <div className="flex items-center gap-4">
+            <ProgressRing pct={opPct} size={56} label={`${opDone} de ${operatorSlugs.length} lecciones de la ruta del operador`} />
+            <div className="text-sm">
+              <p className="text-lg font-semibold tabular-nums">
+                {opDone} <span className="font-normal text-muted">/ {operatorSlugs.length}</span>
+              </p>
+              <p className="text-muted">{opNext ? <>Siguiente: <strong className="text-ink">{opNext.title}</strong></> : "Ruta del operador terminada"}</p>
+            </div>
+          </div>
+          <p className="flex flex-wrap gap-2">
+            {opNext && (
+              <Link href={`/leccion/${opNext.slug}`} className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
+                {opDone === 0 ? "Empezar" : "Continuar"} <Icon name="arrow" className="h-4 w-4" />
+              </Link>
+            )}
+            <Link href="/operador" className="inline-flex items-center rounded-lg border border-line px-4 py-2 text-sm font-medium hover:border-accent">
+              Ver la ruta del operador
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* cómo funciona */}
       <section aria-labelledby="como" className="space-y-3">
         <h2 id="como" className="text-sm font-semibold uppercase tracking-wider text-muted">Cómo se usa el aula</h2>
@@ -140,17 +194,6 @@ export default function Home() {
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-warn-soft p-4 text-sm">
-        <Icon name="bulb" className="h-5 w-5 shrink-0" />
-        <span>
-          <strong>Kit de supervivencia para tus primeras semanas en planta:</strong> haz cuanto antes{" "}
-          <Link className="underline" href="/leccion/alcoa-plus">ALCOA+</Link>,{" "}
-          <Link className="underline" href="/leccion/unidades-y-conversiones">Unidades</Link>,{" "}
-          <Link className="underline" href="/leccion/el-mol">El mol</Link> y{" "}
-          <Link className="underline" href="/leccion/pictogramas-y-fds">Pictogramas y FDS</Link>.
-        </span>
       </section>
 
       {/* ruta */}
