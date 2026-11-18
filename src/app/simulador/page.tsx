@@ -4,7 +4,7 @@ export const metadata = { title: "Simulador de planta · Aula de Química" };
 
 export default function SimuladorPage() {
   return (
-    <div className="relative left-1/2 w-screen max-w-6xl -translate-x-1/2 space-y-6 px-4">
+    <div className="relative left-1/2 w-screen max-w-7xl -translate-x-1/2 space-y-6 px-4">
       <div>
         <p className="text-sm font-medium text-accent">Simulador de planta · Plant simulator</p>
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Fabrica un lote siguiendo la hoja de producción</h1>
@@ -17,7 +17,8 @@ export default function SimuladorPage() {
       <details className="rounded-xl border border-line bg-surface p-4 text-sm">
         <summary className="cursor-pointer font-medium">Cómo funciona</summary>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-muted">
-          <li>A la izquierda está la planta: equipos, lecturas y mandos. A la derecha, tu hoja de producción.</li>
+          <li>Arriba ves la planta: el equipo en uso parpadea en azul y la tarjeta azul te dice qué hacer ahora. Pulsa un equipo para ver su panel.</li>
+          <li>Debajo están los mandos del equipo y tu hoja de producción. La casilla que toca rellenar está en amarillo.</li>
           <li>Anota cada dato en el momento (botón «Registrar»): el sistema guarda la hora. Si corriges, el valor anterior queda tachado y hay que dar motivo.</li>
           <li>Cada etapa se firma. Las pesadas las verifica una segunda persona.</li>
           <li>En el reactor el tiempo corre: ponlo en marcha, controla la adición y la temperatura, y pide el IPC.</li>

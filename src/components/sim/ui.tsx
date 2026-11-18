@@ -45,12 +45,13 @@ export function Badge({ children, tone = "neutral" }: { children: ReactNode; ton
 }
 
 export function Readout({ label, value, unit, alert }: { label: string; value: string; unit?: string; alert?: boolean }) {
+  // Indicador tipo panel de control: fondo oscuro y cifras grandes; rojo si está fuera de límite.
   return (
-    <div className={`rounded-lg border px-3 py-2 ${alert ? "border-bad bg-bad-soft" : "border-line bg-soft"}`}>
-      <div className="text-xs text-muted">{label}</div>
-      <div className="font-mono text-lg tabular-nums">
+    <div className={`rounded-lg border px-3 py-2 ${alert ? "border-[#ef4444] bg-[#450a0a]" : "border-[#1f2d47] bg-[#0f172a]"}`}>
+      <div className={`text-xs ${alert ? "text-[#fecaca]" : "text-[#93c5fd]"}`}>{label}</div>
+      <div className="font-mono text-xl font-bold tabular-nums text-white">
         {value}
-        {unit && <span className="ml-1 text-sm text-muted">{unit}</span>}
+        {unit && <span className="ml-1 text-sm font-normal text-[#94a3b8]">{unit}</span>}
       </div>
     </div>
   );

@@ -183,13 +183,31 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
           <div className="grid min-w-[15rem] flex-1 grid-cols-2 gap-2">
             <Readout label="TI-101 producto" value={n1(r.T)} unit="°C" alert={!addDone && r.T > 40} />
             <Readout label="TI-102 camisa" value={n1(r.Tj)} unit="°C" />
-            <Readout label="Anhídrido añadido" value={`${n1(r.added)} / ${n1(total)}`} unit="L" />
+            <Readout label={`Anhídrido añadido (de ${n1(total)} L)`} value={n1(r.added)} unit="L" />
             <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
           </div>
         </div>
         <div className="mt-3">
           <Trend points={r.history} limitHigh={addDone ? undefined : 40} band={addDone ? [75, 85] : undefined} />
         </div>
+        {(() => {
+          // Aviso anticipado: a qué ritmo sube la temperatura durante la adición
+          const h = r.history;
+          if (addDone || r.interlock || h.length < 4) return null;
+          const a = h[h.length - 4];
+          const b = h[h.length - 1];
+          const slope = (b.T - a.T) / Math.max(1, b.t - a.t);
+          if (slope <= 0.4 || b.T >= 40) return null;
+          const mins = Math.max(0, (40 - b.T) / slope);
+          return (
+            <div className="mt-3 flex items-start gap-3 rounded-lg border border-[#d97706] bg-[#fffbeb] p-3 text-sm text-[#78350f]" role="status">
+              <span className="text-xl leading-none">⚠</span>
+              <div>
+                <strong>La temperatura sube {E.fmtNum(slope, 1)} °C/min.</strong> A este ritmo pasarás de 40 °C en unos {Math.round(mins)} min. Baja la velocidad de adición.
+              </div>
+            </div>
+          );
+        })()}
       </Card>
 
       <Card title="Mandos">
@@ -202,11 +220,19 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Adición FV-103 (L/min)</span>
-            {[0, 1, 2, 3, 4, 5].map((v) => (
-              <Btn key={v} tone={r.rate === v ? "primary" : "default"} disabled={dis || addDone} onClick={() => act((x) => E.setRate(x, v))}>
-                {v === 0 ? "Cerrar" : v}
-              </Btn>
-            ))}
+            <div className="inline-flex overflow-hidden rounded-lg border border-line" role="group" aria-label="Velocidad de adición">
+              {[0, 1, 2, 3, 4, 5].map((v) => (
+                <button
+                  key={v}
+                  type="button"
+                  disabled={dis || addDone}
+                  onClick={() => act((x) => E.setRate(x, v))}
+                  className={`px-3 py-1.5 text-sm font-medium disabled:opacity-40 ${r.rate === v ? (v === 0 ? "bg-[#b91c1c] text-white" : "bg-[#1d4ed8] text-white") : "bg-surface hover:bg-soft"} ${v ? "border-l border-line" : ""}`}
+                >
+                  {v === 0 ? "■ Cerrar" : v}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Agitador</span>

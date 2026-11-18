@@ -10,6 +10,8 @@ import {
   PanelPrevias, PanelReaccion, PanelSecado,
 } from "./Panels";
 import { QAReport } from "./QAReport";
+import { PlantView } from "./PlantView";
+import { Coach, nextFieldId } from "./Coach";
 
 const KEY = "quimica-app:simulador:v1";
 
@@ -212,12 +214,19 @@ export function Simulator() {
         })}
       </nav>
 
+      <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+        <PlantView s={s} onSelect={setView} />
+        <Coach s={s} />
+      </div>
+
       {sec.id === "cierre" && s.closed ? (
         <QAReport s={s} />
       ) : (
         <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div className="space-y-4">
-            <div className="text-xs uppercase tracking-wide text-muted">Planta · {sec.equipo}</div>
+            <div className="text-xs uppercase tracking-wide text-muted">
+              {view === s.section ? "Equipo en uso" : "Consultando etapa anterior"} · {sec.equipo}
+            </div>
             {sec.id === "previas" && <PanelPrevias {...p} />}
             {sec.id === "dispensacion" && <PanelDispensacion {...p} />}
             {sec.id === "carga" && <PanelCarga {...p} />}
@@ -241,7 +250,7 @@ export function Simulator() {
             )}
           </div>
           <div className="space-y-4">
-            <Sheet s={s} sec={sec.id} act={act} isActive={isActive} />
+            <Sheet s={s} sec={sec.id} act={act} isActive={isActive} focusId={isActive ? nextFieldId(s) : null} />
             {isActive && sec.id !== "cierre" && (
               <div className="flex items-center justify-end gap-2">
                 <span className="text-xs text-muted">Al pasar de etapa, lo que quede sin anotar contará como registro tardío.</span>
