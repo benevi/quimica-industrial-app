@@ -56,6 +56,18 @@ Identificación del agua usada (punto de uso), cumplimiento de su análisis y ti
         answer: 1,
         explain: "Las endotoxinas resisten la esterilización habitual.",
       },
+      {
+        kind: "choice",
+        q: "¿Qué etapas de un API de síntesis química necesitan más control microbiológico?",
+        options: [
+          "Las primeras reacciones en disolventes orgánicos",
+          "Las etapas finales con agua, el envasado y los API destinados a inyectables",
+          "Ninguna",
+          "Solo el almacén de disolventes",
+        ],
+        answer: 1,
+        explain: "Los disolventes y temperaturas de síntesis no favorecen a los microbios; el agua y la exposición final sí.",
+      },
     ],
   },
   {
@@ -193,6 +205,18 @@ Comprobación de presiones diferenciales, temperatura y humedad de la sala antes
         answer: 0,
         explain: "El grado A es para las operaciones asépticas críticas.",
       },
+      {
+        kind: "choice",
+        q: "¿Qué muestra una placa de contacto?",
+        options: [
+          "Las partículas del aire",
+          "Los microorganismos de la superficie, guante o ropa sobre la que se apoya",
+          "La presión de la sala",
+          "La temperatura",
+        ],
+        answer: 1,
+        explain: "Se apoya el agar sobre la superficie, se incuba y se cuentan las colonias.",
+      },
     ],
   },
   {
@@ -249,6 +273,18 @@ A veces se registra la entrada a la sala o la comprobación de vestimenta.
         options: ["Sigo trabajando", "Desinfecto o cambio los guantes según el procedimiento", "Me limpio en el buzo", "Me quito los guantes y sigo sin ellos"],
         answer: 1,
         explain: "Los guantes contaminados transfieren la contaminación al producto.",
+      },
+      {
+        kind: "choice",
+        q: "¿En qué orden suele ponerse la vestimenta de una zona limpia?",
+        options: [
+          "De abajo arriba: calzas primero",
+          "De arriba abajo: gorro, mascarilla, buzo, calzas y guantes al final",
+          "Guantes primero",
+          "No hay orden",
+        ],
+        answer: 1,
+        explain: "De arriba abajo, para que lo que cae no ensucie lo ya puesto; los guantes, al final. Manda siempre el procedimiento.",
       },
     ],
   },

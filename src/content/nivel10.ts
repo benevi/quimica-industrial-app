@@ -63,6 +63,18 @@ IPC con su límite en cada paso; el CoA final con la especificación del API.
         answer: 1,
         explain: "Supera el criterio de aceptación.",
       },
+      {
+        kind: "choice",
+        q: "¿Qué diferencia hay entre un límite de IPC y la especificación del API?",
+        options: [
+          "Ninguna",
+          "El IPC es un límite de proceso para decidir si se continúa; la especificación es lo que debe cumplir el producto para liberarse",
+          "El IPC lo fija el cliente",
+          "La especificación solo existe para materias primas",
+        ],
+        answer: 1,
+        explain: "Los IPC controlan el proceso paso a paso; la especificación final decide la liberación del lote.",
+      },
     ],
   },
   {
@@ -131,6 +143,18 @@ No aparece en la hoja de producción, pero todos los IPC y análisis que la acom
         answer: 1,
         explain: "Especificidad: medir solo lo que se quiere medir.",
       },
+      {
+        kind: "choice",
+        q: "¿Qué característica comprueba que otro analista, otro día y con otro equipo obtiene resultados equivalentes?",
+        options: [
+          "Repetibilidad",
+          "Precisión intermedia",
+          "Especificidad",
+          "Robustez",
+        ],
+        answer: 1,
+        explain: "La repetibilidad es mismo analista y mismo día; la precisión intermedia añade esas variaciones dentro del laboratorio.",
+      },
     ],
   },
   {
@@ -194,6 +218,18 @@ Comentarios y anomalías anotados en la hoja: son clave en las investigaciones.
         answer: 1,
         explain: "Cumple el límite pero rompe la tendencia: es un OOT y se evalúa.",
       },
+      {
+        kind: "choice",
+        q: "En la fase I de un OOS se comprueba que el analista usó el patrón equivocado. ¿Qué pasa con el resultado?",
+        options: [
+          "Se queda como válido",
+          "Se invalida por error de laboratorio demostrado y se repite el análisis según el procedimiento",
+          "Se promedia con otro resultado",
+          "Se borra del sistema",
+        ],
+        answer: 1,
+        explain: "Solo un error de laboratorio demostrable y documentado permite invalidar un resultado. Nunca se borra: queda registrado.",
+      },
     ],
   },
   {
@@ -215,7 +251,7 @@ Se guardan muestras en **cámaras climáticas** y se analizan a intervalos (0, 3
 
 | Estudio | Condiciones típicas |
 |---|---|
-| Largo plazo (*long-term*) | 25 °C / 60 % HR (o 30 °C / 65 % HR para climas cálidos) |
+| Largo plazo (*long-term*) | 25 °C / 60 % HR (o 30 °C / 65 % HR, y 30 °C / 75 % HR para climas cálidos y húmedos, zona IVb) |
 | Intermedio | 30 °C / 65 % HR |
 | Acelerado | 40 °C / 75 % HR durante 6 meses |
 
@@ -261,6 +297,14 @@ Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en 
         ],
         answer: 1,
         explain: "Para los API, el periodo de re-análisis permite reanalizar y seguir usándolo si cumple.",
+      },
+      {
+        kind: "number",
+        q: "Un API se fabricó en mayo de 2026 y tiene un periodo de re-análisis de 36 meses. ¿En qué año toca reanalizarlo?",
+        answer: 2029,
+        tolerance: 0.0001,
+        unit: "año",
+        explain: "36 meses = 3 años: mayo de 2026 + 3 años = mayo de 2029.",
       },
     ],
   },
@@ -318,6 +362,18 @@ La hoja de producción completa es una de las bases de la liberación del lote.
         options: ["El operador", "El jefe de producción", "La unidad de calidad (QA)", "El cliente"],
         answer: 2,
         explain: "La decisión de liberación es responsabilidad de la unidad de calidad.",
+      },
+      {
+        kind: "choice",
+        q: "Un CoA pone «Impurezas totales: cumple» sin el valor, aunque el ensayo da un número. ¿Es correcto según ICH Q7?",
+        options: [
+          "Sí, basta con «cumple»",
+          "No: cuando el resultado es numérico, el CoA debe dar el valor obtenido",
+          "Solo si lo firma producción",
+          "Solo para clientes fuera de la UE",
+        ],
+        answer: 1,
+        explain: "ICH Q7 pide indicar los resultados numéricos cuando el ensayo los da, junto al criterio de aceptación.",
       },
     ],
   },
