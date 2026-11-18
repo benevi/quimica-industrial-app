@@ -151,6 +151,8 @@ Esto es imprescindible si hay que **retirar** un producto del mercado (*recall*)
 
 ### Cómo se conectan los sistemas
 ERP (qué fabricar y con qué) → MES (cómo se fabrica, paso a paso) → sistema de control de planta (DCS) que mueve válvulas y lee sensores. En paralelo, el LIMS gestiona las muestras y su aprobación, que el ERP usa para cambiar el estado del lote.
+
+**Practica:** en el [simulador de ERP tipo SAP](/sap) puedes crear una orden, consumir lotes y ver cómo cambia su estado.
 `,
     plant: `
 Vas a cargar un saco de reactivo y el escáner dice "Lote en cuarentena". No se usa: el laboratorio aún no lo ha aprobado. Avisas al supervisor para comprobar si hay otro lote liberado.
