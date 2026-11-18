@@ -96,7 +96,12 @@ function Table({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
 const stockLabel = { libre: "Libre utilización", calidad: "Control de calidad", bloqueado: "Bloqueado" } as const;
 const stockCls = { libre: "text-ok", calidad: "text-amber-600 dark:text-amber-400", bloqueado: "text-bad" } as const;
 
-export function Simulator() {
+/**
+ * practice: guarda el sistema en el navegador y marca misiones.
+ * exam: parte de `initial`, no guarda nada, sin misiones ni pistas GMP; avisa de cada cambio con `onState`.
+ */
+export function Simulator({ mode = "practice", initial, onState }: { mode?: "practice" | "exam"; initial?: ErpState; onState?: (s: ErpState) => void } = {}) {
+  const exam = mode === "exam";
   const [s, setS] = useState<ErpState | null>(null);
   const [tx, setTx] = useState("MMBE");
   const [cmd, setCmd] = useState("");
@@ -104,14 +109,16 @@ export function Simulator() {
   const [showHints, setShowHints] = useState(false);
   const { state: cert, completeMission } = useCertState();
 
-  useEffect(() => setS(load()), []);
+  useEffect(() => setS(exam && initial ? initial : load()), [exam, initial]);
   useEffect(() => {
     if (!s) return;
+    onState?.(s);
+    if (exam) return;
     try {
       window.localStorage.setItem(KEY, JSON.stringify(s));
     } catch {}
     for (const m of missions) if (m.done(s) && !cert.missions[m.id]) completeMission(m.id);
-  }, [s, cert.missions, completeMission]);
+  }, [s, cert.missions, completeMission, exam, onState]);
 
   if (!s) return <p className="text-muted">Cargando el sistema…</p>;
   const state = s;
@@ -205,7 +212,7 @@ export function Simulator() {
           {msg ? (
             <>
               <strong>{msg.type === "E" ? "Error" : msg.type === "W" ? "Aviso" : "Hecho"}:</strong> {msg.text}
-              {msg.gmp && <span className="mt-1 block text-xs">GMP: {msg.gmp}</span>}
+              {msg.gmp && !exam && <span className="mt-1 block text-xs">GMP: {msg.gmp}</span>}
             </>
           ) : (
             "Escribe una transacción o elígela en el menú."
@@ -214,7 +221,7 @@ export function Simulator() {
       </div>
 
       {/* misiones */}
-      <section className="rounded-2xl border border-line bg-surface p-5">
+      {!exam && <section className="rounded-2xl border border-line bg-surface p-5">
         <div className="mb-3 flex flex-wrap items-center gap-3">
           <h2 className="text-lg font-semibold">
             Misiones <span lang="en" className="text-sm font-normal text-muted">Tasks</span>
@@ -242,7 +249,7 @@ export function Simulator() {
             );
           })}
         </ol>
-      </section>
+      </section>}
 
       {/* informe del laboratorio */}
       <section className="rounded-2xl border border-line bg-surface p-5">
@@ -269,7 +276,7 @@ export function Simulator() {
           <h2 className="text-lg font-semibold">
             Registro de documentos <span lang="en" className="text-sm font-normal text-muted">Audit trail</span>
           </h2>
-          <button onClick={reset} className={`${btn2} ml-auto`}>Reiniciar sistema</button>
+          {!exam && <button onClick={reset} className={`${btn2} ml-auto`}>Reiniciar sistema</button>}
         </div>
         <p className="mb-3 text-sm text-muted">Cada contabilización deja quién, qué y cuándo. Es lo que revisa un auditor (ALCOA+: atribuible y contemporáneo).</p>
         <Table

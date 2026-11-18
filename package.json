@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check": "node scripts/check-quiz.mjs"
+    "check": "node scripts/check-quiz.mjs",
+    "check:certs": "node scripts/check-certs.mjs"
   },
   "dependencies": {
     "next": "15.5.29",
