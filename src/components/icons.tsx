@@ -31,6 +31,7 @@ const paths: Record<string, React.ReactNode> = {
   quiz: <><circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01" /></>,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   back: <path d="M19 12H5M11 6l-6 6 6 6" />,
+  network: <><rect x="9" y="3" width="6" height="5" rx="1" /><rect x="3" y="16" width="6" height="5" rx="1" /><rect x="15" y="16" width="6" height="5" rx="1" /><path d="M12 8v4M6 16v-4h12v4" /></>,
   lock: <><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></>,
 };
 
@@ -46,7 +47,7 @@ export function Icon({ name, className = "h-5 w-5" }: { name: IconName; classNam
 
 export const levelIcon: Record<number, IconName> = {
   0: "calc", 1: "atom", 2: "flask", 3: "hexagon", 4: "scale", 5: "sample", 6: "burette", 7: "wave", 8: "thermo",
-  9: "microbe", 10: "badge", 11: "pipe", 12: "reactor", 13: "gauge", 14: "wrench", 15: "shield", 16: "doc", 17: "screen", 18: "box",
+  9: "microbe", 10: "badge", 11: "pipe", 12: "reactor", 13: "gauge", 14: "wrench", 15: "shield", 16: "doc", 17: "box", 18: "network", 19: "screen", 20: "lock", 21: "check",
 };
 
-export const blockIcon: Record<string, IconName> = { bases: "atom", laboratorio: "flask", planta: "factory", calidad: "doc" };
+export const blockIcon: Record<string, IconName> = { bases: "atom", laboratorio: "flask", planta: "factory", calidad: "doc", sistemas: "screen" };

@@ -1,5 +1,9 @@
 import type { Lesson, Level } from "./types";
 import { nivel18 } from "./nivel18";
+import { nivel19 } from "./nivel19";
+import { nivel20 } from "./nivel20";
+import { nivel20Alcoa } from "./nivel20-alcoa";
+import { nivel21 } from "./nivel21";
 import { nivel15 } from "./nivel15";
 import { nivel14 } from "./nivel14";
 import { nivel13 } from "./nivel13";
@@ -37,11 +41,14 @@ export const levels: Level[] = [
   { number: 14, title: "Mantenimiento y servicios auxiliares", titleEn: "Maintenance and utilities", description: "Mantenimiento, agua purificada, aire, nitrógeno y HVAC." },
   { number: 15, title: "Seguridad y medio ambiente", titleEn: "Safety and environment (EHS)", description: "Pictogramas, FDS, EPI, ATEX, contención, permisos y residuos." },
   { number: 16, title: "GMP y calidad", titleEn: "GMP and quality", description: "ICH Q7, ALCOA+, documentación, desviaciones, CAPA, cambios y validación." },
-  { number: 17, title: "Sistemas informáticos", titleEn: "Computerized systems", description: "LIMS, MES, ERP, audit trail, firma electrónica y validación GAMP 5." },
-  { number: 18, title: "Acondicionamiento y almacén", titleEn: "Packaging and warehouse", description: "Envasado, etiquetado, almacenamiento y trazabilidad." },
+  { number: 17, title: "Acondicionamiento y almacén", titleEn: "Packaging and warehouse", description: "Envasado, etiquetado, almacenamiento y trazabilidad." },
+  { number: 18, title: "Arquitectura de sistemas", titleEn: "Plant IT/OT architecture", description: "El mapa ISA-95, datos maestros, bases de datos, interfaces y ciberseguridad industrial." },
+  { number: 19, title: "LIMS, MES, SCADA y ERP", titleEn: "LIMS, MES, SCADA and ERP", description: "Los sistemas del día a día: laboratorio, hoja electrónica, datos de proceso y SAP." },
+  { number: 20, title: "Integridad de datos y registros electrónicos", titleEn: "Data integrity and electronic records", description: "ALCOA+, 21 CFR Part 11, Anexo 11, audit trail, firma electrónica, accesos y copias." },
+  { number: 21, title: "Validación de sistemas informatizados", titleEn: "Computerized system validation", description: "GAMP 5, del URS al informe, CSA, control de cambios y revisión periódica." },
 ];
 
-export const lessons: Lesson[] = [...nivel0, ...nivel1, ...nivel2, ...nivel12, ...nivel16, ...nivel17, ...nivel4, ...nivel5, ...nivel6, ...nivel7, ...nivel8, ...nivel9, ...nivel10, ...nivel3, ...nivel11, ...nivel13, ...nivel14, ...nivel15, ...nivel18].sort(
+export const lessons: Lesson[] = [...nivel0, ...nivel1, ...nivel2, ...nivel12, ...nivel16, ...nivel17, ...nivel19, ...nivel20Alcoa, ...nivel20, ...nivel21, ...nivel4, ...nivel5, ...nivel6, ...nivel7, ...nivel8, ...nivel9, ...nivel10, ...nivel3, ...nivel11, ...nivel13, ...nivel14, ...nivel15, ...nivel18].sort(
   (a, b) => a.level - b.level || a.order - b.order,
 );
 

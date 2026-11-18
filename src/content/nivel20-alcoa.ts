@@ -1,10 +1,10 @@
 import type { Lesson } from "./types";
 
-export const nivel16Alcoa: Lesson[] = [
+export const nivel20Alcoa: Lesson[] = [
   {
     slug: "alcoa-plus",
-    level: 16,
-    order: 3,
+    level: 20,
+    order: 1,
     title: "ALCOA+: datos en los que se puede confiar",
     titleEn: "ALCOA+ data integrity",
     minutes: 15,

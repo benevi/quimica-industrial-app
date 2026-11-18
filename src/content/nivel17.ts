@@ -2,385 +2,320 @@ import type { Lesson } from "./types";
 
 export const nivel17: Lesson[] = [
   {
-    slug: "lims",
+    slug: "recepcion-y-cuarentena",
     level: 17,
     order: 1,
-    title: "LIMS: el sistema del laboratorio",
-    titleEn: "Laboratory Information Management System",
+    title: "Recepción de materiales y estados de calidad",
+    titleEn: "Goods receipt and quality status",
     minutes: 15,
-    summary: "Qué es un LIMS, qué hace con cada muestra y cómo se relaciona contigo como operador.",
+    summary: "Qué pasa desde que llega un camión hasta que un material se puede usar.",
     body: `
-Un **LIMS** (*Laboratory Information Management System*) es el programa que gestiona **todo lo que pasa con las muestras** en el laboratorio de control de calidad.
+### El recorrido de un material
+1. **Llegada**: se comprueba el albarán (*delivery note*) contra el pedido, que el **proveedor está aprobado** y el estado de los envases (roturas, precintos, etiquetas legibles).
+2. **Registro** en el ERP: se le asigna un **número de lote interno** y queda en **cuarentena** (*quarantine*). Se etiqueta.
+3. **Muestreo** por personal formado, en una zona o cabina adecuada, y análisis según la especificación.
+4. **Decisión de Calidad**: **aprobado** (*released / approved*) o **rechazado** (*rejected*).
+5. Ubicación en el almacén según el estado.
 
-### El viaje de una muestra en el LIMS
-1. **Registro** (*login / sample registration*): se crea la muestra con su producto, lote, punto de muestreo y fecha. El LIMS genera una **etiqueta con código de barras**.
-2. **Asignación de análisis** (*test assignment*): según la especificación, el LIMS sabe qué ensayos hay que hacer (HPLC, KF, LOD…).
-3. **Recepción** en el laboratorio: se escanea la etiqueta. Queda registrado quién la recibió y cuándo (**cadena de custodia**).
-4. **Introducción de resultados** (*result entry*): a mano o directamente desde el instrumento (balanza, KF, sistema de cromatografía).
-5. **Comparación con la especificación**: el LIMS marca en rojo lo que está **fuera de especificación** (*OOS*).
-6. **Revisión y aprobación** (*review / approval*): un segundo analista revisa y QA aprueba.
-7. **Certificado de análisis** (*Certificate of Analysis, CoA*) y decisión de uso del lote.
+ICH Q7 (sección 7) pide que los materiales se mantengan en cuarentena hasta su análisis o examen y su aprobación, y que se puedan identificar los envases con su estado.
 
-### Otras funciones
-- Gestión de **estabilidades** (muestras guardadas y analizadas a lo largo del tiempo).
-- Control de **reactivos, patrones e instrumentos** (calibraciones, caducidades).
-- **Tendencias** de resultados entre lotes.
-- **Audit trail** de cada cambio.
+### Estados típicos
+| Estado | En inglés | ¿Se puede usar? |
+|---|---|---|
+| Cuarentena | *Quarantine* | No |
+| Muestreado | *Sampled* | No (pendiente de resultado) |
+| Aprobado / liberado | *Released / approved* | Sí |
+| Rechazado | *Rejected* | No; se separa y se devuelve o destruye |
+| Bloqueado | *Blocked / on hold* | No (investigación en curso) |
 
-### Qué tiene que ver contigo
-Como operador, tú **tomas las muestras** del proceso (IPC, producto final). La etiqueta del LIMS y los datos que registras al muestrear (hora, punto, cantidad, quién) son el **inicio de la cadena**. Una muestra mal identificada invalida el análisis.
+El estado puede indicarse con **etiquetas de colores**, con **zonas físicas separadas** o, cada vez más, solo en el **sistema informático** (ERP/WMS) con lectura de código de barras. Lo que manda es el procedimiento de tu empresa.
+
+### Proveedores
+Solo se compra a **proveedores aprobados** tras una evaluación (cuestionarios, auditorías, historial). Los materiales críticos se reciben con el **certificado de análisis** del proveedor, que se verifica con análisis propios.
 `,
     plant: `
-Tomas el IPC de la etapa de reacción. Imprimes la etiqueta del LIMS para "Lote 24-0117, Etapa 2, IPC fin de reacción", la pegas en el vial, anotas la hora de toma en la hoja y la llevas al laboratorio. Allí la escanean: el LIMS sabe que hay que hacer un HPLC y que el límite es ≤ 1,0 %.
+Llega un lote de 16 bidones de un reactivo. Uno tiene el precinto roto. El almacenero registra la recepción, separa ese bidón, lo etiqueta como bloqueado y avisa a Calidad. Los otros 15 quedan en cuarentena hasta el resultado del laboratorio.
 `,
     batchRecord: `
-- Número de muestra del LIMS junto al paso de muestreo.
-- Resultado del IPC y decisión (a veces el resultado llega impreso o se consulta en el LIMS).
-- Al final, el CoA del lote.
+- En la hoja de fabricación se anota el **lote interno** de cada material cargado y se comprueba que está **aprobado** y dentro de su fecha de reanálisis o caducidad.
 `,
     terms: [
-      { es: "Sistema de gestión de información de laboratorio", en: "LIMS", def: "Programa que gestiona muestras, análisis, resultados y aprobaciones del laboratorio." },
-      { es: "Registro de muestra", en: "Sample login / registration", def: "Alta de una muestra en el LIMS con sus datos de identificación." },
-      { es: "Fuera de especificación", en: "Out of Specification (OOS)", def: "Resultado que no cumple el límite establecido." },
-      { es: "Certificado de análisis", en: "Certificate of Analysis (CoA)", def: "Documento con los resultados de un lote frente a sus especificaciones." },
-      { es: "Cadena de custodia", en: "Chain of custody", def: "Registro de quién ha tenido la muestra en cada momento." },
-      { es: "Sistema de datos cromatográficos", en: "Chromatography Data System (CDS)", def: "Software que controla los equipos de HPLC/GC y guarda sus datos." },
+      { es: "Cuarentena", en: "Quarantine", def: "Estado de un material que aún no se puede usar porque espera la decisión de Calidad." },
+      { es: "Aprobado / liberado", en: "Released / approved", def: "Material autorizado por Calidad para su uso." },
+      { es: "Rechazado", en: "Rejected", def: "Material que no cumple; no se puede usar." },
+      { es: "Albarán", en: "Delivery note", def: "Documento que acompaña la mercancía." },
+      { es: "Proveedor aprobado", en: "Approved supplier", def: "Proveedor evaluado y autorizado por Calidad." },
+      { es: "Lote interno", en: "Internal batch number", def: "Número que la empresa asigna al lote recibido para su trazabilidad." },
     ],
     quiz: [
       {
         kind: "choice",
-        q: "¿Qué hace el LIMS cuando un resultado no cumple la especificación?",
-        options: ["Lo borra", "Lo marca como fuera de especificación (OOS)", "Lo redondea", "Nada"],
+        q: "Un material en cuarentena…",
+        options: [
+          "Se puede usar si hay prisa",
+          "No se puede usar hasta que Calidad lo apruebe",
+          "Se puede usar la mitad",
+          "Está caducado",
+        ],
         answer: 1,
-        explain: "El LIMS compara automáticamente con la especificación y señala el OOS para su investigación.",
+        explain: "Solo los materiales aprobados se usan en producción.",
       },
       {
         kind: "choice",
-        q: "Se te cae la etiqueta del vial de muestra. ¿Qué haces?",
+        q: "Llega un envase con el precinto roto. ¿Qué se hace?",
         options: [
-          "Escribo el lote a mano en el vial",
-          "Lo comunico y sigo el procedimiento; normalmente se repite la toma con etiqueta nueva",
-          "Le pego la etiqueta de otra muestra",
-          "Lo llevo igualmente al laboratorio",
+          "Usarlo primero",
+          "Separarlo, identificarlo como bloqueado y avisar a Calidad",
+          "Tirarlo sin decir nada",
+          "Volver a precintarlo",
         ],
         answer: 1,
-        explain: "Una muestra sin identificación fiable no sirve; la trazabilidad es parte del dato.",
+        explain: "Un precinto roto puede indicar contaminación o manipulación: Calidad decide.",
       },
       {
         kind: "choice",
-        q: "¿Qué ventaja tiene que el resultado pase directamente del instrumento al LIMS?",
+        q: "Llega un camión con materia prima. ¿Qué se comprueba primero?",
         options: [
-          "Ninguna",
-          "Evita errores de transcripción y conserva el dato original",
-          "Permite cambiarlo después sin dejar rastro",
-          "Hace el análisis químico más rápido",
+          "El color del camión",
+          "El albarán frente al pedido, que el proveedor está aprobado y el estado de envases, precintos y etiquetas",
+          "Nada: se descarga y luego se mira",
+          "Solo el peso total",
         ],
         answer: 1,
-        explain: "Cada copia a mano es una oportunidad de error. La interfaz directa mantiene el dato original y su audit trail.",
+        explain: "Antes de dar entrada se verifica documentación, proveedor y estado físico; después el material queda en cuarentena.",
       },
     ],
   },
   {
-    slug: "mes-y-ebr",
+    slug: "almacenamiento",
     level: 17,
     order: 2,
-    title: "MES y hoja de producción electrónica",
-    titleEn: "MES and electronic batch record",
+    title: "Almacenamiento: condiciones, FEFO y fechas",
+    titleEn: "Storage: conditions, FEFO and dating",
     minutes: 15,
-    summary: "Cómo funciona una hoja de producción en pantalla y qué cambia respecto al papel.",
+    summary: "Cómo se guardan materiales y producto para que no se degraden ni se confundan.",
     body: `
-Muchas plantas sustituyen la hoja en papel por un **batch record electrónico** (*EBR, electronic batch record*) dentro de un **MES** (*Manufacturing Execution System*).
+### Condiciones de almacenamiento
+Cada material tiene sus condiciones (en la etiqueta y la especificación):
+- **Temperatura ambiente controlada** (por ejemplo, "no conservar por encima de 25 °C").
+- **Refrigerado** (2–8 °C).
+- **Congelado**.
+- Protegido de la **luz** o de la **humedad**.
 
-### Qué hace un MES
-- Muestra **paso a paso** las instrucciones del lote en una pantalla o tableta.
-- Pide **escanear** el código de barras del material, del recipiente y del equipo: si no coincide, **no deja continuar**.
-- Recibe datos **directamente** de básculas, sensores y del sistema de control de planta.
-- Comprueba los rangos: si un valor está fuera, lo marca como **excepción** y pide comentario.
-- Pide **firma electrónica** en los pasos que lo requieren, y a veces una segunda firma de verificación.
-- Genera al final el **informe de excepciones** (*review by exception*): QA revisa sobre todo lo que se salió de lo normal.
+Los almacenes GMP tienen **registro continuo de temperatura** (y humedad cuando importa), con alarmas. Se hace un **mapeo térmico** (*temperature mapping*) para saber dónde están los puntos más fríos y calientes.
 
-### Ventajas
-- Menos errores de transcripción y cálculo.
-- Imposible saltarse un paso u olvidar una casilla.
-- Datos disponibles en tiempo real.
+### Orden de salida
+- **FEFO** (*First Expired, First Out*): sale primero lo que caduca antes. Es la regla preferida.
+- **FIFO** (*First In, First Out*): sale primero lo que entró antes.
 
-### Lo que no cambia
-Las reglas ALCOA+ siguen igual: **tu usuario es tu firma**, se registra en el momento y no se comparte la sesión.
+### Fechas
+- **Fecha de caducidad** (*expiry date*): después de esta fecha **no se usa**.
+- **Fecha de reanálisis** (*retest date*): habitual en API y materias primas. Llegada esa fecha, el material se **vuelve a analizar** y, si cumple, se puede usar (ICH Q7 11.6). Un API con fecha de reanálisis de 24 meses fabricado en marzo de 2026 debe reanalizarse antes de usarse a partir de marzo de 2028.
+
+### Separación de químicos peligrosos
+La normativa de almacenamiento de productos químicos (**RD 656/2017** y sus instrucciones técnicas, APQ) pide separar incompatibles:
+- Inflamables lejos de **oxidantes**.
+- **Ácidos** separados de **bases**.
+- Cubetos de retención (*bunds*) para recoger derrames.
+- Armarios o almacenes específicos para inflamables.
+
+### Orden y limpieza
+Palés en buen estado, nada en el suelo, pasillos libres, plagas controladas (*pest control*), zonas identificadas. Una confusión en el almacén se convierte en un **error de carga** en producción.
 `,
     plant: `
-En la pantalla aparece: "Paso 12: cargar 254,0 kg de metanol (rango 252,0–256,0)". Escaneas el contenedor, la báscula envía 254,3 kg automáticamente, firmas con tu usuario y contraseña, y un compañero firma la verificación. Si hubieras escaneado otro material, el sistema habría bloqueado el paso.
+Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en septiembre. Aunque el B está más a mano, el operador coge el A (FEFO). El escáner del ERP lo confirma.
 `,
     batchRecord: `
-- Pasos con firma electrónica: nombre, fecha, hora y significado ("realizado", "verificado").
-- Excepciones con comentario.
-- Datos transferidos desde equipos (sin escribirlos a mano).
+- Comprobación en la carga: lote aprobado y dentro de fecha.
+- Condiciones de almacenamiento del producto intermedio entre etapas y su **tiempo máximo de espera** (*hold time*).
 `,
     terms: [
-      { es: "Sistema de ejecución de fabricación", en: "Manufacturing Execution System (MES)", def: "Software que guía y registra la fabricación en planta." },
-      { es: "Hoja de producción electrónica", en: "Electronic Batch Record (EBR)", def: "Registro de lote en formato electrónico." },
-      { es: "Revisión por excepción", en: "Review by exception", def: "Revisión centrada en los datos fuera de lo normal." },
-      { es: "Código de barras", en: "Barcode", def: "Código que identifica materiales, recipientes y equipos al escanearlo." },
+      { es: "FEFO", en: "First Expired, First Out", def: "Sale primero lo que caduca antes." },
+      { es: "FIFO", en: "First In, First Out", def: "Sale primero lo que entró antes." },
+      { es: "Fecha de caducidad", en: "Expiry date", def: "Fecha a partir de la cual el material no debe usarse." },
+      { es: "Fecha de reanálisis", en: "Retest date", def: "Fecha en que el material debe volver a analizarse antes de usarse." },
+      { es: "Mapeo térmico", en: "Temperature mapping", def: "Estudio de la distribución de temperaturas de un almacén o cámara." },
+      { es: "Cubeto de retención", en: "Bund / secondary containment", def: "Recinto que recoge un posible derrame." },
+      { es: "Tiempo de espera", en: "Hold time", def: "Tiempo máximo que un intermedio puede esperar antes de la siguiente etapa." },
     ],
     quiz: [
       {
         kind: "choice",
-        q: "Escaneas un material que no corresponde al paso. ¿Qué hace normalmente el MES?",
-        options: ["Lo acepta", "Bloquea el paso y avisa del error", "Cambia la receta", "Imprime un certificado"],
+        q: "Según FEFO, ¿qué lote usas primero?",
+        options: ["El que llegó último", "El que caduca antes", "El más grande", "El más cercano"],
         answer: 1,
-        explain: "La verificación por código de barras evita cargas equivocadas.",
+        explain: "First Expired, First Out.",
       },
       {
         kind: "choice",
-        q: "Un compañero te pide que firmes con su usuario porque ha olvidado la contraseña. ¿Qué haces?",
-        options: ["Firmo, es un favor", "No: cada usuario es personal; debe pedir que le restablezcan la contraseña", "Le doy mi usuario", "Apunto su contraseña"],
-        answer: 1,
-        explain: "La firma electrónica equivale a la manuscrita: usarla por otro es falsificar.",
-      },
-      {
-        kind: "choice",
-        q: "En un MES, la báscula envía 258,1 kg y el rango del paso es 252,0–256,0 kg. ¿Qué ocurre?",
+        q: "Un API ha superado su fecha de reanálisis. ¿Se puede usar?",
         options: [
-          "El sistema lo acepta sin más",
-          "El MES marca una excepción, pide comentario y el paso queda señalado para la revisión de QA",
-          "El operador cambia el valor",
-          "El MES redondea a 256,0",
+          "Nunca",
+          "Solo si se reanaliza y cumple, según el procedimiento",
+          "Sí, sin más",
+          "Solo la mitad",
         ],
         answer: 1,
-        explain: "Los valores fuera de rango no se ocultan: se registran tal cual, se comentan y se revisan (revisión por excepción).",
+        explain: "La fecha de reanálisis obliga a volver a analizar; la de caducidad, en cambio, impide el uso.",
+      },
+      {
+        kind: "choice",
+        q: "¿Qué no debe almacenarse junto a disolventes inflamables?",
+        options: ["Otros inflamables en su armario", "Oxidantes", "Etiquetas", "Palés vacíos en su zona"],
+        answer: 1,
+        explain: "Oxidante + combustible = riesgo de incendio grave.",
       },
     ],
   },
   {
-    slug: "erp-y-trazabilidad",
+    slug: "envasado-y-etiquetado",
     level: 17,
     order: 3,
-    title: "ERP y trazabilidad de materiales",
-    titleEn: "ERP and material traceability",
-    minutes: 10,
-    summary: "Cómo se sabe en todo momento dónde está cada lote y en qué estado.",
+    title: "Envasado y etiquetado del API",
+    titleEn: "API packaging and labelling",
+    minutes: 15,
+    summary: "El último paso en planta: meter el producto en sus envases sin errores ni contaminación.",
     body: `
-El **ERP** (*Enterprise Resource Planning*, por ejemplo SAP) gestiona la parte de **negocio y logística**: compras, stock, almacenes, órdenes de fabricación y ventas.
+### Cómo se envasa un API
+Normalmente en **doble bolsa de polietileno** (*double PE liner*), cerrada con bridas, dentro de un **bidón** de cartón (*fibre drum*) o de plástico (HDPE). A veces con **desecante** o **atmósfera de nitrógeno**. Se cierra con un **precinto de seguridad** (*tamper-evident seal*) numerado.
 
-### Lo que verás del ERP
-- **Orden de fabricación** (*process order*): qué lote fabricar, cuánto y con qué materiales.
-- **Estados de stock**: **cuarentena**, **liberado** (aprobado) o **bloqueado/rechazado**. Solo se puede consumir material liberado.
-- **Consumos y entradas**: cada kg cargado al reactor se descuenta del stock; el producto obtenido entra como un lote nuevo.
+El material de envase en contacto con el producto debe estar **especificado y aprobado**: si se cambia la bolsa por otra "parecida", es un cambio que se evalúa.
 
-### Trazabilidad (*traceability*)
-Gracias al ERP, MES y LIMS se puede contestar en minutos:
-- **Hacia atrás**: ¿qué lotes de materia prima se usaron en este lote de API?
-- **Hacia delante**: ¿a qué clientes se envió este lote?
+### Despeje de línea (*line clearance*)
+Antes de empezar, se comprueba que en la sala y los equipos **no queda nada** del lote o producto anterior: producto, etiquetas, envases, documentos. Lo hace el operador y lo verifica otra persona. Es la principal defensa contra **mezclas** y **etiquetas equivocadas** (ICH Q7, sección 9).
 
-Esto es imprescindible si hay que **retirar** un producto del mercado (*recall*).
+### Etiquetas
+Las etiquetas del API llevan como mínimo: **nombre** del producto, **número de lote**, y la información necesaria de almacenamiento, fecha de reanálisis o caducidad y peso. Se imprimen o se emiten de forma controlada:
+- Se emite el número exacto necesario.
+- Se comprueba la primera etiqueta (texto, lote) y se adjunta un **especimen** al registro.
+- Al terminar se hace la **conciliación**: emitidas = usadas + destruidas + devueltas. Una diferencia sin explicar se investiga, porque podría haber una etiqueta en el envase equivocado.
 
-### Cómo se conectan los sistemas
-ERP (qué fabricar y con qué) → MES (cómo se fabrica, paso a paso) → sistema de control de planta (DCS) que mueve válvulas y lee sensores. En paralelo, el LIMS gestiona las muestras y su aprobación, que el ERP usa para cambiar el estado del lote.
+### Pesos
+Cada envase se pesa en báscula calibrada: **bruto**, **tara** y **neto**. Neto = bruto − tara.
 
-**Practica:** en el [simulador de ERP tipo SAP](/sap) puedes crear una orden, consumir lotes y ver cómo cambia su estado.
+### Muestras de retención (*reserve samples*)
+De cada lote de API se guarda una muestra en un envase equivalente al comercial. ICH Q7 (11.7) pide conservarla, si el API tiene **caducidad**, **1 año tras la caducidad o 3 años tras la distribución, lo que sea más largo**; si tiene **fecha de reanálisis**, **3 años después de distribuir el lote por completo**. La cantidad debe bastar para al menos **dos análisis completos**.
 `,
     plant: `
-Vas a cargar un saco de reactivo y el escáner dice "Lote en cuarentena". No se usa: el laboratorio aún no lo ha aprobado. Avisas al supervisor para comprobar si hay otro lote liberado.
+Se emiten 20 etiquetas para un lote que se envasará en 18 bidones. Se usan 18, una se destruye porque se imprimió torcida y sobra 1, que se devuelve. 18 + 1 + 1 = 20: la conciliación cuadra.
 `,
     batchRecord: `
-- Número de orden de fabricación.
-- Lotes de cada material consumido.
-- Número de lote del producto obtenido y cantidad.
+- Despeje de línea: realizado por / verificado por, con hora.
+- Etiquetas emitidas, usadas, destruidas y devueltas; especimen adjunto.
+- Para cada envase: número, peso bruto, tara, neto, número de precinto.
+- Muestras de retención tomadas.
 `,
     terms: [
-      { es: "Planificación de recursos empresariales", en: "Enterprise Resource Planning (ERP)", def: "Sistema de gestión de compras, stock, producción y ventas." },
-      { es: "Orden de fabricación", en: "Process / production order", def: "Instrucción del ERP para fabricar un lote." },
-      { es: "Trazabilidad", en: "Traceability", def: "Capacidad de seguir un lote hacia atrás (materias primas) y hacia delante (clientes)." },
-      { es: "Retirada de producto", en: "Recall", def: "Recuperación de un producto ya distribuido por un problema de calidad." },
-      { es: "Sistema de control distribuido", en: "Distributed Control System (DCS)", def: "Sistema que controla automáticamente los equipos de planta." },
+      { es: "Despeje de línea", en: "Line clearance", def: "Comprobación de que no quedan restos del lote anterior antes de empezar." },
+      { es: "Precinto de seguridad", en: "Tamper-evident seal", def: "Precinto que muestra si el envase se ha abierto." },
+      { es: "Conciliación de etiquetas", en: "Label reconciliation", def: "Cuadre entre etiquetas emitidas, usadas, destruidas y devueltas." },
+      { es: "Peso bruto / tara / neto", en: "Gross / tare / net weight", def: "Peso total / del envase vacío / del producto." },
+      { es: "Muestra de retención", en: "Reserve / retention sample", def: "Muestra de cada lote que se guarda por si hay que reanalizar o investigar." },
+      { es: "Bidón de cartón", en: "Fibre drum", def: "Envase cilíndrico de cartón prensado muy usado para API." },
     ],
     quiz: [
       {
-        kind: "choice",
-        q: "¿Qué estado debe tener un material para poder usarlo en producción?",
-        options: ["Cuarentena", "Liberado (aprobado)", "Bloqueado", "Cualquiera"],
-        answer: 1,
-        explain: "Solo los materiales aprobados por calidad pueden consumirse.",
+        kind: "number",
+        q: "Se emiten 200 etiquetas; se usan 182, se destruyen 12 y se devuelven 4. ¿Cuántas faltan por explicar?",
+        answer: 2,
+        tolerance: 0.001,
+        unit: "etiquetas",
+        explain: "200 − (182 + 12 + 4) = 2 etiquetas sin explicar: se investiga.",
+      },
+      {
+        kind: "number",
+        q: "Un bidón pesa 27,35 kg en bruto y su tara es 2,10 kg. ¿Cuál es el peso neto?",
+        answer: 25.25,
+        tolerance: 0.001,
+        unit: "kg",
+        explain: "27,35 − 2,10 = 25,25 kg.",
       },
       {
         kind: "choice",
-        q: "¿Qué permite la trazabilidad hacia delante?",
+        q: "¿Para qué sirve el despeje de línea?",
         options: [
-          "Saber qué materias primas se usaron",
-          "Saber a qué clientes se envió un lote",
-          "Saber quién limpió el reactor",
-          "Saber el precio del lote",
+          "Para limpiar el suelo",
+          "Para asegurar que no quedan materiales ni etiquetas del lote anterior",
+          "Para contar a las personas",
+          "Para medir la temperatura",
         ],
         answer: 1,
-        explain: "Hacia delante = hacia el cliente; hacia atrás = hacia las materias primas.",
-      },
-      {
-        kind: "choice",
-        q: "Necesitas saber qué lotes de materia prima se usaron en un lote de API. ¿Qué trazabilidad es?",
-        options: [
-          "Hacia delante",
-          "Hacia atrás",
-          "Lateral",
-          "No es trazabilidad",
-        ],
-        answer: 1,
-        explain: "Hacia atrás: del producto a sus materiales de origen. Hacia delante: del producto a sus clientes.",
+        explain: "Evita mezclas y etiquetados equivocados, errores graves para el paciente.",
       },
     ],
   },
   {
-    slug: "audit-trail-y-firma-electronica",
+    slug: "trazabilidad-y-distribucion",
     level: 17,
     order: 4,
-    title: "Audit trail y firma electrónica",
-    titleEn: "Audit trail and electronic signatures",
+    title: "Trazabilidad, distribución, devoluciones y retiradas",
+    titleEn: "Traceability, distribution, returns and recalls",
     minutes: 12,
-    summary: "Las reglas de 21 CFR Part 11 y del Anexo 11 europeo que hacen que un dato electrónico sea fiable.",
+    summary: "Cómo se sigue un lote hasta el cliente y qué pasa si hay que retirarlo.",
     body: `
-Los registros electrónicos deben ser tan fiables como el papel. Las dos normas de referencia son:
-- **21 CFR Part 11** (FDA, EE. UU.): registros y firmas electrónicas.
-- **Anexo 11** de las GMP europeas: sistemas informatizados.
+### Trazabilidad (*traceability*)
+Tiene dos direcciones:
+- **Hacia atrás**: de un lote de API a todos los lotes de materias primas, equipos, personas y registros que intervinieron.
+- **Hacia delante**: de un lote a todos los clientes que lo recibieron.
+Se consigue con los números de lote, el ERP y registros completos. Sin trazabilidad, una retirada es imposible.
 
-### Audit trail (registro de auditoría)
-Un registro **automático, seguro y con fecha y hora** que guarda **quién** hizo **qué**, **cuándo** y, en los cambios GMP, **por qué**. Ejemplo:
+### Distribución
+Los API se distribuyen siguiendo las **Buenas Prácticas de Distribución** para principios activos (*GDP for active substances*, directrices de la Comisión Europea de 2015):
+- Solo a clientes autorizados y desde almacenes controlados.
+- Transporte en las **condiciones** indicadas (temperatura, protección), con registro si es necesario.
+- Documentación que permita la trazabilidad (lote, cantidad, fecha, destinatario).
 
-| Fecha y hora | Usuario | Acción | Valor anterior | Valor nuevo | Motivo |
-|---|---|---|---|---|---|
-| 18/11/2026 10:42 | jlopez | Modificar T reacción | 61,5 | 60,5 | Error de lectura |
+### Liberación
+Un lote de API solo se envía cuando **Calidad lo ha liberado** tras revisar el registro del lote completo (incluidas las desviaciones) y los resultados analíticos.
 
-El usuario **no puede** desactivarlo ni borrarlo. QA lo revisa antes de liberar el lote.
+### Devoluciones (*returns*)
+Un API devuelto se pone en **cuarentena**. Solo puede volver al stock si Calidad evalúa que sus condiciones de almacenamiento y transporte no han afectado a su calidad (ICH Q7, sección 14).
 
-### Firma electrónica
-- Es **personal e intransferible**, igual que la manuscrita.
-- Suele tener **dos componentes**: usuario y contraseña.
-- Al firmar quedan el **nombre**, la **fecha y hora** y el **significado** (realizado, revisado, aprobado).
-
-### Buenas prácticas
-- **No compartir** usuario ni contraseña. No dejarla apuntada.
-- **Bloquear la sesión** (o cerrar) al alejarte del puesto.
-- No usar la sesión de otra persona aunque esté abierta.
-- Los relojes de los sistemas los controla informática: no se cambian.
+### Reclamaciones y retiradas
+- **Reclamación** (*complaint*): un cliente comunica un problema. Se registra, se investiga y se responde.
+- **Retirada** (*recall*): si un lote puede ser un riesgo, se retira del mercado. Debe haber un procedimiento probado para hacerlo rápido, gracias a la trazabilidad hacia delante.
 `,
     plant: `
-Te levantas a tomar una muestra y dejas el terminal del MES abierto. Un compañero introduce un dato con tu sesión. El audit trail dirá que fuiste tú. Por eso: **bloquear siempre** la sesión al irte.
+Un cliente reclama partículas negras en un bidón. Con el número de lote, Calidad localiza en la hoja de fabricación el equipo de molienda usado, la revisión de la malla, el operador y los lotes de bolsas. Encuentra que una junta del molino se había desgastado y abre una CAPA. Gracias a la trazabilidad hacia delante sabe qué otros clientes recibieron el mismo lote.
 `,
     batchRecord: `
-- Firmas electrónicas con su significado.
-- Informe de audit trail revisado por QA como parte de la liberación.
+- Todos los números de lote, equipos, firmas y horas: son la base de la trazabilidad.
+- Número de lote del API en cada envase y en la documentación de expedición.
 `,
     terms: [
-      { es: "Registro de auditoría", en: "Audit trail", def: "Historial automático e inalterable de creación, cambio y borrado de datos." },
-      { es: "Firma electrónica", en: "Electronic signature", def: "Firma en un sistema informático, legalmente equivalente a la manuscrita." },
-      { es: "21 CFR Part 11", en: "21 CFR Part 11", def: "Norma de la FDA sobre registros y firmas electrónicas." },
-      { es: "Anexo 11", en: "EU GMP Annex 11", def: "Anexo de las GMP europeas sobre sistemas informatizados." },
-      { es: "Control de acceso", en: "Access control", def: "Gestión de quién puede entrar en un sistema y qué puede hacer." },
+      { es: "Trazabilidad", en: "Traceability", def: "Capacidad de seguir la historia y el destino de un lote." },
+      { es: "Buenas Prácticas de Distribución", en: "Good Distribution Practice (GDP)", def: "Normas para almacenar y transportar medicamentos y principios activos." },
+      { es: "Liberación del lote", en: "Batch release", def: "Decisión de Calidad que autoriza el uso o la venta de un lote." },
+      { es: "Devolución", en: "Return", def: "Producto que el cliente devuelve; queda en cuarentena hasta que Calidad decida." },
+      { es: "Reclamación", en: "Complaint", def: "Comunicación de un posible problema de calidad." },
+      { es: "Retirada", en: "Recall", def: "Retirada del mercado de un lote por un posible riesgo." },
     ],
     quiz: [
       {
         kind: "choice",
-        q: "¿Qué cuatro cosas registra un buen audit trail en un cambio GMP?",
-        options: [
-          "Quién, qué, cuándo y por qué",
-          "Solo el valor final",
-          "El nombre del ordenador",
-          "La opinión del usuario",
-        ],
-        answer: 0,
-        explain: "Además suele guardar el valor anterior y el nuevo.",
-      },
-      {
-        kind: "choice",
-        q: "Vas a alejarte del terminal 5 minutos. ¿Qué haces?",
-        options: ["Nada, vuelvo enseguida", "Bloqueo o cierro la sesión", "Le digo a un compañero que vigile", "Apago la pantalla"],
+        q: "Saber a qué clientes fue un lote es trazabilidad…",
+        options: ["Hacia atrás", "Hacia delante", "Lateral", "No es trazabilidad"],
         answer: 1,
-        explain: "Todo lo que se haga con tu sesión quedará a tu nombre.",
+        explain: "Hacia delante: del lote a sus destinos.",
       },
       {
         kind: "choice",
-        q: "¿Qué datos quedan unidos a una firma electrónica según 21 CFR Part 11?",
+        q: "Un cliente devuelve un bidón de API. ¿Qué se hace?",
         options: [
-          "Usuario, color de pantalla y equipo",
-          "Nombre de quien firma, fecha y hora, y significado de la firma (realizado, revisado, aprobado)",
-          "Solo la contraseña",
-          "El nombre del ordenador",
+          "Se vende a otro cliente",
+          "Se pone en cuarentena y Calidad evalúa si puede volver al stock",
+          "Se tira siempre",
+          "Se reprocesa sin más",
         ],
         answer: 1,
-        explain: "Así cualquiera que lea el registro sabe quién firmó, cuándo y con qué responsabilidad.",
-      },
-    ],
-  },
-  {
-    slug: "validacion-de-sistemas",
-    level: 17,
-    order: 5,
-    title: "Validación de sistemas informatizados (GAMP 5)",
-    titleEn: "Computerized system validation",
-    minutes: 12,
-    summary: "Cómo se demuestra que un programa GMP funciona bien y protege los datos.",
-    body: `
-Un sistema informatizado que afecta a la calidad (LIMS, MES, ERP, control de planta, software de un equipo de laboratorio) debe estar **validado**: demostrado y documentado que hace lo que debe.
-
-### GAMP 5
-Guía de la industria (ISPE) para validar sistemas con un enfoque **basado en riesgos**: más pruebas donde más riesgo hay. La 2.ª edición (2022) clasifica el software en categorías:
-
-| Categoría | Tipo | Ejemplo | Esfuerzo de validación |
-|---|---|---|---|
-| 1 | Infraestructura | Sistema operativo, bases de datos | Bajo |
-| 3 | Software estándar no configurado | Firmware de una balanza | Bajo-medio |
-| 4 | Software configurado | LIMS o MES configurados para la planta | Medio-alto |
-| 5 | Software a medida | Programa desarrollado para la empresa | Alto |
-
-### Ciclo de vida
-Requisitos del usuario (**URS**) → especificaciones → configuración o desarrollo → pruebas (IQ, OQ, PQ) → informe de validación → uso con **control de cambios**, copias de seguridad, gestión de accesos y revisiones periódicas → retirada (conservando los datos).
-
-### Qué significa para ti
-- Solo se usan **sistemas validados** y la versión aprobada.
-- Si un sistema hace algo raro (calcula mal, se cuelga, muestra datos extraños), **se comunica**: puede ser una desviación.
-- No se instalan programas ni se usan hojas de cálculo propias para datos GMP sin validar.
-`,
-    plant: `
-Un compañero ha hecho una hoja de Excel para calcular las cargas "porque es más rápido". Aunque los números estén bien, no es un sistema validado ni controlado: los cálculos oficiales son los del MES o la hoja aprobada.
-`,
-    batchRecord: `
-- Identificación del sistema y versión en los informes impresos.
-- Los cálculos que hace el sistema validado no se rehacen a mano salvo que lo pida el procedimiento.
-`,
-    terms: [
-      { es: "Validación de sistemas informatizados", en: "Computerized System Validation (CSV)", def: "Demostración documentada de que un sistema informático funciona según lo previsto." },
-      { es: "GAMP 5", en: "GAMP 5", def: "Guía de ISPE para validar sistemas informatizados con un enfoque basado en riesgos." },
-      { es: "Especificación de requisitos de usuario", en: "User Requirements Specification (URS)", def: "Documento que define lo que el sistema debe hacer." },
-      { es: "Copia de seguridad", en: "Backup", def: "Copia de los datos para poder recuperarlos." },
-    ],
-    quiz: [
-      {
-        kind: "choice",
-        q: "¿Qué categoría GAMP suele tener un LIMS configurado para la planta?",
-        options: ["Categoría 1", "Categoría 3", "Categoría 4", "No necesita validación"],
-        answer: 2,
-        explain: "Es software comercial configurado: categoría 4.",
+        explain: "Hay que comprobar que no se ha visto afectado por el transporte o el almacenamiento.",
       },
       {
         kind: "choice",
-        q: "¿Se puede usar una hoja de cálculo personal para calcular cargas GMP?",
-        options: [
-          "Sí, si está bien hecha",
-          "No, salvo que esté validada y controlada",
-          "Sí, si la revisa el supervisor",
-          "Sí, en el turno de noche",
-        ],
+        q: "¿Quién decide que un lote de API se puede enviar al cliente?",
+        options: ["El operador", "Calidad (liberación del lote)", "El transportista", "El cliente"],
         answer: 1,
-        explain: "Las herramientas que generan datos GMP deben estar validadas y controladas.",
-      },
-      {
-        kind: "choice",
-        q: "¿Qué documento define al principio lo que un sistema informatizado debe hacer?",
-        options: [
-          "El informe de validación",
-          "La especificación de requisitos de usuario (URS)",
-          "El audit trail",
-          "La factura del proveedor",
-        ],
-        answer: 1,
-        explain: "La URS es el punto de partida del ciclo de vida: todo lo que se prueba después se compara con ella.",
+        explain: "Calidad libera el lote tras revisar el registro y los análisis.",
       },
     ],
   },

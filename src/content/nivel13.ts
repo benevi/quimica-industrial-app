@@ -311,7 +311,7 @@ La **receta maestra** (*master recipe*) es la aprobada. Cada lote ejecuta una **
 - **Usuario personal**: nunca se comparte contraseña ni se deja la sesión abierta para otro (ALCOA+: atribuible).
 
 ### GMP de los sistemas
-Un sistema que controla o registra datos GMP es un **sistema informatizado** validado (EU GMP Anexo 11, GAMP 5): pruebas, control de acceso, *audit trail*, copias de seguridad. Lo verás a fondo en el nivel 17.
+Un sistema que controla o registra datos GMP es un **sistema informatizado** validado (EU GMP Anexo 11, GAMP 5): pruebas, control de acceso, *audit trail*, copias de seguridad. Lo verás a fondo en el bloque de Sistemas informáticos (niveles 18 a 21).
 `,
     plant: `
 El DCS ejecuta la operación "Reacción". Al llegar a la fase "Carga manual de sólido", se para y pide confirmación. El operador carga, escanea el código del saco y confirma con su usuario. El sistema sigue con la fase "Calentar a 60 °C".
