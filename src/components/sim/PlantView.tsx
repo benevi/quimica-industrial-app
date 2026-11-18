@@ -2,7 +2,8 @@
 
 import type { ReactNode } from "react";
 import * as E from "@/sim/engine";
-import type { SectionId, Sim } from "@/sim/engine";
+import type { SectionId, Sim, ValveId } from "@/sim/engine";
+import { currentTask } from "./Coach";
 
 /*
  * Vista de planta ilustrada: equipos de vidrio sobre estructura tubular, condensador aislado,
@@ -159,7 +160,7 @@ function GlassSphere({
   );
 }
 
-export function PlantView({ s, onSelect }: { s: Sim; onSelect: (sectionIndex: number) => void }) {
+export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (sectionIndex: number) => void; onValve?: (v: ValveId) => void }) {
   const r = s.reactor;
   const cur = E.SECTIONS[s.section].id;
   const st = (eq: EqId) => status(s, eq);
@@ -169,8 +170,9 @@ export function PlantView({ s, onSelect }: { s: Sim; onSelect: (sectionIndex: nu
   const r101Level = (charged / 520) * (1 - s.filter.progress / 100);
   const r102Level = s.centri.loaded ? 0 : (s.filter.progress / 100) * 0.62;
   const r102T = s.cryst.done ? s.cryst.finalT : s.filter.progress > 0 ? 80 : 20;
-  const addFlow = r.rate > 0 && !r.interlock && cur === "reaccion" && r.addEnd == null;
-  const vacProblem = s.dryer.loaded && s.dryer.vacuum > 100;
+  const addFlow = r.rate > 0 && !r.interlock && s.valves["XV-104"] && cur === "reaccion" && r.addEnd == null;
+  const target = s.closed ? undefined : currentTask(s).valve;
+  const vacProblem = s.dryer.loaded && s.valves["XV-301"] && s.dryer.vacuum > 100;
 
   const selectable = (eq: EqId) => {
     const idx = E.SECTIONS.findIndex((x) => x.id === EQ_SECTION[eq]);
@@ -324,6 +326,10 @@ export function PlantView({ s, onSelect }: { s: Sim; onSelect: (sectionIndex: nu
           </g>
         ))}
 
+        {/* agua purificada al reactor */}
+        <path d="M69.5 104 H284 V204" stroke="#16a34a" strokeWidth={3.5} fill="none" />
+        {/* agua de lavado a la centrífuga */}
+        <path d="M880 448 H790 V462" stroke="#16a34a" strokeWidth={3} fill="none" />
         {/* N2 al reactor */}
         <path d="M45 128 H300 V196" stroke="#d4a017" strokeWidth={3.5} fill="none" />
         <text x="292" y="190" textAnchor="end" fontSize={10} fill="#92400e" fontWeight={700}>N₂</text>
@@ -427,6 +433,56 @@ export function PlantView({ s, onSelect }: { s: Sim; onSelect: (sectionIndex: nu
         <text x="231" y="604" textAnchor="middle" fontSize={10.5} fill="#334155">Báscula</text>
         {hit({ eq: "bascula", x: 168, y: 470, w: 126, h: 90 })}
 
+        {/* válvulas manuales (clic para abrir/cerrar en su etapa) */}
+        {(
+          [
+            ["XV-101", 200, 104, false, "up"],
+            ["XV-102", 236, 128, false, "down"],
+            ["XV-103", 760, 84, false, "up"],
+            ["XV-104", 262, 284, true, "right"],
+            ["XV-105", 330, 488, true, "right"],
+            ["XV-106", 528, 300, false, "down"],
+            ["XV-201", 652, 420, false, "up"],
+            ["XV-202", 820, 448, false, "up"],
+            ["XV-301", 962, 350, false, "up"],
+          ] as [ValveId, number, number, boolean, "up" | "down" | "right"][]
+        ).map(([v, x, y, vert, lab]) => {
+          const [lx, ly] = lab === "right" ? [29, 0] : lab === "down" ? [0, 17] : [0, -21];
+          const open = s.valves[v];
+          const can = !!onValve && !s.closed && E.VALVES[v].section === cur;
+          const isTarget = target === v;
+          return (
+            <g
+              key={v}
+              transform={`translate(${x} ${y})`}
+              role={can ? "button" : undefined}
+              tabIndex={can ? 0 : undefined}
+              aria-label={`${v} ${E.VALVES[v].name}: ${open ? "abierta" : "cerrada"}`}
+              onClick={() => can && onValve!(v)}
+              onKeyDown={(e) => {
+                if (can && (e.key === "Enter" || e.key === " ")) {
+                  e.preventDefault();
+                  onValve!(v);
+                }
+              }}
+              style={{ cursor: can ? "pointer" : "default", outline: "none" }}
+            >
+              <title>{`${v} · ${E.VALVES[v].name}\n${open ? "ABIERTA" : "CERRADA"}${can ? "\nClic: " + (open ? "cerrar" : "abrir") : ""}`}</title>
+              {isTarget && (
+                <circle r={17} fill="#fde68a" stroke="#f59e0b" strokeWidth={2.5}>
+                  <animate attributeName="r" values="14;19;14" dur="1.2s" repeatCount="indefinite" />
+                </circle>
+              )}
+              <g transform={vert ? "rotate(90)" : undefined}>
+                <path d="M-11 -7 L0 0 L-11 7 Z M11 -7 L0 0 L11 7 Z" fill={open ? "#16a34a" : "#dc2626"} stroke="#1f2937" strokeWidth={1.3} strokeLinejoin="round" />
+              </g>
+              <path d="M0 0 V-11 M-5 -11 H5" stroke="#1f2937" strokeWidth={1.8} />
+              <rect x={lx - 20} y={ly - 6.5} width={40} height={13} rx={3} fill={open ? "#dcfce7" : "#fff"} stroke={open ? "#16a34a" : "#94a3b8"} />
+              <text x={lx} y={ly + 3.5} textAnchor="middle" fontSize={9} fontWeight={700} fill="#1f2937">{v}</text>
+            </g>
+          );
+        })}
+
         {/* datos en vivo */}
         {(cur === "carga" || cur === "reaccion" || cur === "previas") && (
           <g>
@@ -440,7 +496,7 @@ export function PlantView({ s, onSelect }: { s: Sim; onSelect: (sectionIndex: nu
         {cur === "cristalizacion" && <Chip x={690} y={190} label="TI-102 R-102" value={`${E.fmtNum(r102T, 0)} °C`} tone="hot" />}
         {cur === "secado" && (
           <g>
-            <Chip x={710} y={290} label="PI-301 vacío" value={`${s.dryer.loaded ? s.dryer.vacuum : 1013} mbar`} tone={vacProblem ? "bad" : "dark"} w={124} />
+            <Chip x={710} y={290} label="PI-301 vacío" value={`${s.dryer.loaded && s.valves["XV-301"] ? s.dryer.vacuum : 1013} mbar`} tone={vacProblem ? "bad" : "dark"} w={124} />
             <Chip x={710} y={334} label="T camisa" value={`${s.dryer.Tj} °C`} tone="hot" w={124} />
           </g>
         )}
@@ -460,7 +516,9 @@ export function PlantView({ s, onSelect }: { s: Sim; onSelect: (sectionIndex: nu
         <span><span className="text-[#dc2626]">■</span> Vapor</span>
         <span><span className="text-[#0891b2]">■</span> Glicol (frío)</span>
         <span><span className="text-[#b8ae8f]">■</span> Vacío y gases al lavador</span>
-        <span className="ml-auto">Pasa el ratón por un equipo para ver qué es · clic para ir a su etapa</span>
+        <span><span className="text-[#16a34a]">▶◀</span> Válvula abierta</span>
+        <span><span className="text-[#dc2626]">▶◀</span> Válvula cerrada</span>
+        <span className="ml-auto">Clic en un equipo: ir a su etapa · clic en una válvula: abrirla o cerrarla</span>
       </div>
     </div>
   );
