@@ -5,6 +5,7 @@ import * as E from "@/sim/engine";
 import type { MaterialId, Sim } from "@/sim/engine";
 import { Badge, Btn, Card, Readout } from "./ui";
 import { Trend, Vessel } from "./Reactor";
+import { CentrifugeSvg, DryerSvg, FilterSvg, MiniTrend } from "./Equipment";
 import type { Act } from "./Sheet";
 
 const n1 = (x: number) => E.fmtNum(x, 1);
@@ -290,21 +291,36 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
 export function PanelFiltracion({ s, act, active }: P) {
   const f = s.filter;
   const dis = !active || s.closed;
+  const broken = s.incidents.some((i) => i.kind === "rotura_cartucho" && !i.redone);
   return (
     <div className="space-y-4">
       <Card title="Transferencia R-101 → F-301 → R-102">
-        <p className="mb-3 text-sm text-muted">La solución caliente pasa por un cartucho de 1 µm para quitar partículas antes de cristalizar.</p>
-        <div className="grid grid-cols-3 gap-2">
-          <Readout label="PDI-301 ΔP" value={n1(f.dp)} unit="bar" alert={f.dp > 1.5} />
-          <Readout label="Transferido" value={`${f.progress}`} unit="%" />
-          <Readout label="Cartucho" value={f.changes === 0 ? "CF-5512" : "CF-5531"} />
+        <div className="flex flex-wrap items-start gap-4">
+          <FilterSvg dp={f.dp} progress={f.progress} running={f.running} v105={s.valves["XV-105"]} v106={s.valves["XV-106"]} broken={broken} done={f.done} />
+          <div className="min-w-[14rem] flex-1 space-y-3">
+            <p className="text-sm text-muted">La solución caliente pasa por un cartucho de 1 µm que retiene las partículas. Cuanto más se ensucia, más sube la presión diferencial (ΔP) entre la entrada y la salida.</p>
+            <div className="grid grid-cols-2 gap-2">
+              <Readout label="PDI-301 ΔP" value={n1(f.dp)} unit="bar" alert={f.dp > 1.5} />
+              <Readout label="Transferido" value={`${f.progress}`} unit="%" />
+              <Readout label="Cartucho" value={f.changes === 0 ? "CF-5512" : "CF-5531"} />
+              <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Btn tone="primary" disabled={dis || f.done} onClick={() => act(E.filterStep)}>Transferir (+20 %)</Btn>
+              <Btn disabled={dis || f.done} onClick={() => act(E.changeCartridge)}>Parar y cambiar cartucho</Btn>
+            </div>
+          </div>
         </div>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-soft">
-          <div className="h-full bg-accent" style={{ width: `${f.progress}%` }} />
-        </div>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Btn tone="primary" disabled={dis || f.done} onClick={() => act(E.filterStep)}>Transferir (+20 %)</Btn>
-          <Btn disabled={dis || f.done} onClick={() => act(E.changeCartridge)}>Parar y cambiar cartucho</Btn>
+        <div className="mt-3">
+          <MiniTrend
+            points={f.history}
+            series={[
+              { key: "dp", label: "ΔP PDI-301", color: "#f97316", max: 2.5, unit: "bar", fmt: (v) => E.fmtNum(v, 1), width: 3 },
+              { key: "pct", label: "transferido", color: "#22d3ee", max: 100, unit: "%" },
+            ]}
+            limit={1.5}
+            empty="La gráfica empieza con la primera transferencia."
+          />
         </div>
         <p className="mt-2 text-xs text-muted">Límite: ΔP ≤ 1,5 bar. Si se supera, se para, se avisa y se cambia el cartucho según el procedimiento.</p>
       </Card>
@@ -357,59 +373,97 @@ export function PanelCristalizacion({ s, act, active }: P) {
 export function PanelCentrifugacion({ s, act, active }: P) {
   const c = s.centri;
   const dis = !active || s.closed;
+  const rpm = c.discharged ? 0 : c.spun ? 1200 : c.loaded ? 400 : 0;
+  const ml = c.history.length ? c.history[c.history.length - 1].ml : 0;
   return (
-    <Card title="Centrífuga C-201">
-      <ol className="list-decimal space-y-3 pl-5 text-sm">
-        <li>Cargar la suspensión. <Btn disabled={dis || c.loaded || !s.cryst.done} onClick={() => act((x) => E.centriAction(x, "cargar"))}>{c.loaded ? "Cargada" : "Cargar"}</Btn></li>
-        <li>Centrifugar y escurrir las aguas madre. <Btn disabled={dis || !c.loaded || c.spun} onClick={() => act((x) => E.centriAction(x, "centrifugar"))}>{c.spun ? "Hecho" : "Centrifugar"}</Btn></li>
-        <li>
-          Lavar la torta con 50 L de agua fría (dos veces). Lavados hechos: {c.washes}
-          <div className="mt-1 flex flex-wrap gap-1.5">
-            {[
-              [5, "Agua fría 5 °C"],
-              [25, "Agua de red 25 °C"],
-              [60, "Agua caliente 60 °C"],
-            ].map(([t, l]) => (
-              <Btn key={t} disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "lavar", t as number))}>{l}</Btn>
-            ))}
-          </div>
-        </li>
-        <li>Escurrir y descargar la torta a la báscula. <Btn disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "descargar"))}>{c.discharged ? "Descargada" : "Descargar"}</Btn></li>
-      </ol>
-      {c.discharged && (
-        <div className="mt-3 max-w-xs">
-          <Readout label="Báscula: torta húmeda" value={n1(c.wetCake)} unit="kg" />
+    <div className="space-y-4">
+      <Card title="Centrífuga C-201">
+        <div className="flex flex-wrap items-start gap-4">
+          <CentrifugeSvg rpm={rpm} loaded={c.loaded} spun={c.spun} discharged={c.discharged} washes={c.washes} v201={s.valves["XV-201"]} v202={s.valves["XV-202"]} ml={ml} />
+          <ol className="min-w-[14rem] flex-1 list-decimal space-y-3 pl-5 text-sm">
+            <li>Cargar la suspensión (el cesto gira despacio, unas 400 rpm). <Btn disabled={dis || c.loaded || !s.cryst.done} onClick={() => act((x) => E.centriAction(x, "cargar"))}>{c.loaded ? "Cargada" : "Cargar"}</Btn></li>
+            <li>Centrifugar a 1200 rpm y escurrir las aguas madre. <Btn disabled={dis || !c.loaded || c.spun} onClick={() => act((x) => E.centriAction(x, "centrifugar"))}>{c.spun ? "Hecho" : "Centrifugar"}</Btn></li>
+            <li>
+              Lavar la torta con 50 L de agua fría (dos veces). Lavados hechos: {c.washes}
+              <div className="mt-1 flex flex-wrap gap-1.5">
+                {[
+                  [5, "Agua fría 5 °C"],
+                  [25, "Agua de red 25 °C"],
+                  [60, "Agua caliente 60 °C"],
+                ].map(([t, l]) => (
+                  <Btn key={t} disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "lavar", t as number))}>{l}</Btn>
+                ))}
+              </div>
+            </li>
+            <li>Escurrir, frenar y descargar la torta a la báscula. <Btn disabled={dis || !c.spun || c.discharged} onClick={() => act((x) => E.centriAction(x, "descargar"))}>{c.discharged ? "Descargada" : "Descargar"}</Btn></li>
+          </ol>
         </div>
-      )}
-      {s.cryst.quality === "finos" && c.spun && <p className="mt-2 text-sm text-bad">La torta escurre muy despacio: los cristales finos retienen mucho líquido.</p>}
-    </Card>
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <Readout label="SI-201 velocidad" value={String(rpm)} unit="rpm" />
+          <Readout label="FQ-201 filtrado" value={String(ml)} unit="L" />
+          <Readout label="Báscula: torta húmeda" value={c.discharged ? n1(c.wetCake) : "—"} unit={c.discharged ? "kg" : undefined} />
+          <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
+        </div>
+        <div className="mt-3">
+          <MiniTrend
+            points={c.history}
+            series={[
+              { key: "rpm", label: "velocidad", color: "#a78bfa", max: 1500, unit: "rpm", width: 3 },
+              { key: "ml", label: "filtrado acumulado", color: "#fbbf24", max: 600, unit: "L" },
+            ]}
+            empty="La gráfica empieza al cargar la centrífuga."
+          />
+        </div>
+        {s.cryst.quality === "finos" && c.spun && <p className="mt-2 text-sm text-bad">La torta escurre muy despacio: los cristales finos retienen mucho líquido.</p>}
+      </Card>
+    </div>
   );
 }
 
 export function PanelSecado({ s, act, active }: P) {
   const d = s.dryer;
   const dis = !active || s.closed;
+  const here = E.SECTIONS[s.section]?.id === "secado" && !s.closed;
   return (
     <div className="space-y-4">
       <Card title="Secadero de vacío SD-301">
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <Readout label="T camisa" value={String(d.Tj)} unit="°C" alert={d.Tj > 60} />
-          <Readout label="PI-301 vacío" value={String(d.loaded && s.valves["XV-301"] ? d.vacuum : 1013)} unit="mbar" alert={d.loaded && s.valves["XV-301"] && d.vacuum > 100} />
-          <Readout label="Horas de secado" value={String(d.hours)} />
-          <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
+        <div className="flex flex-wrap items-start gap-4">
+          <DryerSvg loaded={d.loaded} Tj={d.Tj} vacuum={d.vacuum} v301={s.valves["XV-301"]} lod={d.lod} running={here && d.hours > 0} packed={s.pack.done} />
+          <div className="min-w-[14rem] flex-1 space-y-3">
+            <div className="grid grid-cols-2 gap-2">
+              <Readout label="TI-302 camisa" value={String(d.Tj)} unit="°C" alert={d.Tj > 60} />
+              <Readout label="PI-301 vacío" value={String(d.loaded && s.valves["XV-301"] ? d.vacuum : 1013)} unit="mbar" alert={d.loaded && s.valves["XV-301"] && d.vacuum > 100} />
+              <Readout label="TI-303 producto" value={d.hours ? n1(E.dryerProductT(d)) : d.loaded ? "15,0" : "—"} unit={d.loaded ? "°C" : undefined} />
+              <Readout label="Horas de secado" value={String(d.hours)} unit="h" />
+              <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
+            </div>
+            <div className="flex flex-wrap items-center gap-2 text-sm">
+              <Btn disabled={dis || d.loaded || !s.centri.discharged} onClick={() => act(E.dryerLoad)}>{d.loaded ? "Cargado" : "Cargar y cerrar tapa"}</Btn>
+              <span>T camisa:</span>
+              {[50, 55, 60, 70, 80].map((t) => (
+                <Btn key={t} tone={d.Tj === t ? "primary" : "default"} disabled={dis} onClick={() => act((x) => E.dryerSet(x, t))}>{t} °C</Btn>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Btn tone="primary" disabled={dis || !d.loaded} onClick={() => act(E.dryHour)}>Secar 1 hora</Btn>
+              <Btn disabled={dis || !d.loaded || d.hours === 0} onClick={() => act((x) => void E.lodSample(x))}>Tomar muestra de LOD</Btn>
+            </div>
+          </div>
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <Btn disabled={dis || d.loaded || !s.centri.discharged} onClick={() => act(E.dryerLoad)}>{d.loaded ? "Cargado" : "Cargar y cerrar tapa"}</Btn>
-          <span className="ml-2">T camisa:</span>
-          {[50, 55, 60, 70, 80].map((t) => (
-            <Btn key={t} tone={d.Tj === t ? "primary" : "default"} disabled={dis} onClick={() => act((x) => E.dryerSet(x, t))}>{t} °C</Btn>
-          ))}
-        </div>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Btn tone="primary" disabled={dis || !d.loaded} onClick={() => act(E.dryHour)}>Secar 1 hora</Btn>
-          <Btn disabled={dis || !d.loaded || d.hours === 0} onClick={() => act((x) => void E.lodSample(x))}>Tomar muestra de LOD</Btn>
+        <div className="mt-3">
+          <MiniTrend
+            points={d.history}
+            series={[
+              { key: "Tp", label: "producto TI-303", color: "#fbbf24", max: 100, unit: "°C", width: 3 },
+              { key: "Tj", label: "camisa TI-302", color: "#f87171", max: 100, unit: "°C" },
+              { key: "vac", label: "presión PI-301", color: "#a5b4fc", max: 1013, unit: "mbar" },
+            ]}
+            band={[55, 60]}
+            empty="La gráfica empieza al cargar el secadero."
+          />
         </div>
         <p className="mt-2 text-xs text-muted">Hoja: hacer vacío abriendo la XV-301, T camisa 55–60 °C, vacío ≤ 100 mbar, primer IPC a las 4 h, LOD ≤ 0,5 %.</p>
+        <p className="mt-1 text-xs text-muted">Pista de sala de control: mientras la torta está mojada, el agua al evaporarse la mantiene fría (unos 36 °C a 60 mbar). Cuando la temperatura del producto sube y se acerca a la de la camisa, queda poca agua: es el momento de tomar la muestra de LOD, que es la que decide.</p>
       </Card>
       {d.samples.length > 0 && (
         <Card title="Resultados de LOD">
