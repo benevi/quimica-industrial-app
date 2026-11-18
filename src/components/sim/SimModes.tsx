@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const MODES = [
   { href: "/simulador", label: "Lote completo", sub: "Reactor, filtro, centrífuga y secadero" },
+  { href: "/simulador/nutsche", label: "Filtro-secador Nutsche", sub: "Proceso 2 y relevo de turno" },
   { href: "/simulador/auditoria", label: "Auditoría de hojas", sub: "Encuentra los errores como QA" },
 ];
 

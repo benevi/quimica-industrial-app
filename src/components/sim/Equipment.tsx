@@ -8,7 +8,7 @@ import type { TrendPt } from "@/sim/engine";
 const SS = "#c3ccd3"; // acero inoxidable
 const SS_DARK = "#7d868e";
 
-function Plate({ x, y, children }: { x: number; y: number; children: string }) {
+export function Plate({ x, y, children }: { x: number; y: number; children: string }) {
   return (
     <g>
       <rect x={x - 28} y={y - 13} width={56} height={18} rx={2} fill="#facc15" stroke="#a38200" />
@@ -17,7 +17,7 @@ function Plate({ x, y, children }: { x: number; y: number; children: string }) {
   );
 }
 
-function Lcd({ x, y, w = 92, label, value, alert }: { x: number; y: number; w?: number; label: string; value: string; alert?: boolean }) {
+export function Lcd({ x, y, w = 92, label, value, alert }: { x: number; y: number; w?: number; label: string; value: string; alert?: boolean }) {
   return (
     <g>
       <rect x={x} y={y} width={w} height={38} rx={6} fill={alert ? "#450a0a" : "#0f172a"} stroke={alert ? "#ef4444" : "#1f2d47"} />
@@ -28,7 +28,7 @@ function Lcd({ x, y, w = 92, label, value, alert }: { x: number; y: number; w?: 
 }
 
 /** Manómetro de esfera con zona roja. */
-function Gauge({ cx, cy, r, value, max, red, label }: { cx: number; cy: number; r: number; value: number; max: number; red?: number; label: string }) {
+export function Gauge({ cx, cy, r, value, max, red, label }: { cx: number; cy: number; r: number; value: number; max: number; red?: number; label: string }) {
   const ang = (v: number) => Math.PI * (1.25 - 1.5 * Math.max(0, Math.min(1, v / max)));
   const pt = (v: number, rr: number) => [cx + rr * Math.cos(ang(v)), cy - rr * Math.sin(ang(v))];
   const [ax, ay] = pt(red ?? max, r - 4);
@@ -52,7 +52,7 @@ function Gauge({ cx, cy, r, value, max, red, label }: { cx: number; cy: number; 
 }
 
 /** Tubería con flujo animado (rayas que avanzan) cuando hay caudal. */
-function Pipe({ d, flow, color = "#f2c96b" }: { d: string; flow: boolean; color?: string }) {
+export function Pipe({ d, flow, color = "#f2c96b" }: { d: string; flow: boolean; color?: string }) {
   return (
     <g>
       <path d={d} stroke="#cfd8df" strokeWidth={9} fill="none" />
@@ -65,7 +65,7 @@ function Pipe({ d, flow, color = "#f2c96b" }: { d: string; flow: boolean; color?
   );
 }
 
-function Valve({ x, y, open, label, vertical }: { x: number; y: number; open: boolean; label: string; vertical?: boolean }) {
+export function Valve({ x, y, open, label, vertical }: { x: number; y: number; open: boolean; label: string; vertical?: boolean }) {
   const fill = open ? "#16a34a" : "#dc2626";
   return (
     <g transform={`translate(${x} ${y})${vertical ? " rotate(90)" : ""}`}>
@@ -76,7 +76,7 @@ function Valve({ x, y, open, label, vertical }: { x: number; y: number; open: bo
 }
 
 /** Nivel de un depósito como barra vertical. */
-function Level({ x, y, h, pct, label, color }: { x: number; y: number; h: number; pct: number; label: string; color: string }) {
+export function Level({ x, y, h, pct, label, color }: { x: number; y: number; h: number; pct: number; label: string; color: string }) {
   const p = Math.max(0, Math.min(100, pct)) / 100;
   return (
     <g>
