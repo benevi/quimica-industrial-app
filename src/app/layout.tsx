@@ -34,6 +34,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Link href="/progreso" className="underline hover:text-ink">
             haz una copia de seguridad
           </Link>
+          . Imágenes y vídeos:{" "}
+          <Link href="/creditos" className="underline hover:text-ink">
+            créditos y licencias
+          </Link>
           .
         </footer>
       </body>

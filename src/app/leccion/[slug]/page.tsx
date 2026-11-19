@@ -5,7 +5,9 @@ import { blockColor, blockOfLevel, levelInfo } from "@/content/blocks";
 import { Markdown } from "@/components/Markdown";
 import { Quiz } from "@/components/Quiz";
 import { LessonSidebar } from "@/components/LessonSidebar";
-import { lessonSteps } from "@/components/lessonSteps";
+import { stepsFor, type lessonSteps } from "@/components/lessonSteps";
+import { LessonMedia } from "@/components/LessonMedia";
+import { mediaFor } from "@/content/media";
 import { Icon, levelIcon } from "@/components/icons";
 
 export function generateStaticParams() {
@@ -30,7 +32,9 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
   const next = nextLesson(slug);
   const i = lessons.findIndex((l) => l.slug === slug);
   const prev = i > 0 ? lessons[i - 1] : undefined;
-  const step = (id: string) => lessonSteps.findIndex((s) => s.id === id);
+  const media = mediaFor(slug);
+  const steps = stepsFor(!!media);
+  const step = (id: string) => ({ n: steps.findIndex((s) => s.id === id), s: steps.find((s) => s.id === id)! });
 
   return (
     <div className="grid gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
@@ -41,6 +45,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           levelTitle={level.title}
           color={c.fg}
           siblings={siblings.map((s) => ({ slug: s.slug, title: s.title }))}
+          hasMedia={!!media}
         />
       </aside>
 
@@ -86,19 +91,25 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           </p>
         </section>
 
-        <Section id="idea" n={step("idea")} title="Idea clave" en="Key concept">
+        <Section id="idea" {...step("idea")} title="Idea clave" en="Key concept">
           <Markdown terms={lesson.terms}>{lesson.body}</Markdown>
         </Section>
 
-        <Section id="planta" n={step("planta")} title="Ejemplo de planta" en="Plant example" tone="accent">
+        {media && (
+          <Section id="ver" {...step("ver")} title="Imágenes y vídeos" en="See it">
+            <LessonMedia media={media} />
+          </Section>
+        )}
+
+        <Section id="planta" {...step("planta")} title="Ejemplo de planta" en="Plant example" tone="accent">
           <Markdown>{lesson.plant}</Markdown>
         </Section>
 
-        <Section id="hoja" n={step("hoja")} title="¿Qué verías en la hoja de producción?" en="In the batch record" tone="warn">
+        <Section id="hoja" {...step("hoja")} title="¿Qué verías en la hoja de producción?" en="In the batch record" tone="warn">
           <Markdown>{lesson.batchRecord}</Markdown>
         </Section>
 
-        <Section id="vocabulario" n={step("vocabulario")} title="Vocabulario" en="Vocabulary">
+        <Section id="vocabulario" {...step("vocabulario")} title="Vocabulario" en="Vocabulary">
           <dl className="grid gap-2 sm:grid-cols-2">
             {lesson.terms.map((t) => (
               <div key={t.es} className="rounded-xl border border-line bg-bg p-3">
@@ -140,6 +151,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
 function Section({
   id,
   n,
+  s,
   title,
   en,
   tone,
@@ -147,13 +159,13 @@ function Section({
 }: {
   id: string;
   n: number;
+  s: (typeof lessonSteps)[number];
   title: string;
   en: string;
   tone?: "accent" | "warn";
   children: React.ReactNode;
 }) {
   const bg = tone === "accent" ? "bg-accent-soft" : tone === "warn" ? "bg-warn-soft" : "bg-surface";
-  const s = lessonSteps[n];
   return (
     <section id={id} className={`rounded-2xl border border-line p-5 sm:p-6 ${bg}`}>
       <h2 className="mb-4 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-lg font-semibold">
