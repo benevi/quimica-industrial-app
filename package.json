@@ -10,6 +10,7 @@
     "check": "node scripts/check-quiz.mjs",
     "check:certs": "node scripts/check-certs.mjs",
     "check:repaso": "node scripts/check-repaso.mjs",
+    "check:media": "node scripts/check-media.mjs",
     "check:cloud": "node scripts/check-cloud.mjs"
   },
   "dependencies": {

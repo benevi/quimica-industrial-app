@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Icon } from "./icons";
-import { lessonSteps } from "./lessonSteps";
+import { stepsFor } from "./lessonSteps";
 import { useProgress } from "@/lib/progress";
 
 
@@ -13,13 +13,16 @@ export function LessonSidebar({
   levelTitle,
   color,
   siblings,
+  hasMedia = false,
 }: {
   slug: string;
   level: number;
   levelTitle: string;
   color: string;
   siblings: { slug: string; title: string }[];
+  hasMedia?: boolean;
 }) {
+  const lessonSteps = useMemo(() => stepsFor(hasMedia), [hasMedia]);
   const { progress } = useProgress();
   const [active, setActive] = useState("idea");
 
@@ -34,7 +37,7 @@ export function LessonSidebar({
     );
     els.forEach((e) => obs.observe(e));
     return () => obs.disconnect();
-  }, []);
+  }, [lessonSteps]);
 
   const done = siblings.filter((s) => progress[s.slug]?.done).length;
 
