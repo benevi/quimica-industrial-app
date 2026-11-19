@@ -72,7 +72,7 @@ export function Badge({ children, tone = "neutral" }: { children: ReactNode; ton
 export function Readout({ label, value, unit, alert }: { label: string; value: string; unit?: string; alert?: boolean }) {
   // Indicador tipo panel de control: fondo oscuro y cifras grandes; rojo si está fuera de límite.
   return (
-    <div className={`rounded-md border px-3 py-2 ${alert ? "border-[#f87171] bg-[#3a1a18]" : "border-[#2a3631] bg-[#17201c]"}`}>
+    <div className={`rounded-md border px-3 py-2 ${alert ? "border-[#f87171] bg-[#3a1a18]" : "border-[#2f3648] bg-[#1b2030]"}`}>
       <div className={`text-xs ${alert ? "text-[#fecaca]" : "text-[#8fa199]"}`}>{label}</div>
       <div className="font-mono text-xl font-medium tabular-nums text-white">
         {value}
