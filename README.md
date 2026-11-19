@@ -17,12 +17,15 @@ Sin configurar nada, el progreso vive solo en el navegador (localStorage) y se p
 Para que se guarde también en la nube y puedas seguir en otro ordenador:
 
 1. Crea un proyecto gratuito en [supabase.com](https://supabase.com) (región Europa).
-2. En el proyecto, abre **SQL Editor**, pega el contenido de `supabase/migrations/20261119000000_progreso_nube.sql` y pulsa **Run**.
-   Crea la tabla `progreso` con seguridad por filas: cada usuario solo puede leer y escribir su propia fila.
+2. En el proyecto, abre **SQL Editor**, pega el contenido de `supabase/migrations/20261119000000_aula_progreso.sql` y pulsa **Run**.
+   Crea la tabla `aula_progreso` con seguridad por filas: cada usuario solo puede leer y escribir su propia fila.
 3. Copia `.env.example` como `.env.local` y pon la **Project URL** y la **publishable key** (o *anon key*) del proyecto
    (botón **Connect** o *Project Settings → API*). Nunca pongas aquí la *secret* / *service_role key*.
-4. Reinicia `npm run dev`, entra en **/progreso**, escribe tu email y abre el enlace que te llega **en el mismo navegador**.
+4. Reinicia `npm run dev`, entra en **/progreso** y pulsa **Crear cuenta** con tu email y una contraseña. Si el proyecto pide
+   confirmar el email, abre el enlace que llega y vuelve a entrar con **Ya tengo cuenta**.
    La primera vez se sube lo que ya tenías en el navegador; después se guarda solo cada pocos segundos.
+
+La tabla se llama `aula_progreso` para poder convivir con otras apps en un proyecto de Supabase ya existente.
 
 Si este navegador y la nube tienen progresos distintos (por ejemplo, has estudiado en otro ordenador sin sesión),
 la app te enseña los dos y eliges cuál conservar. La lógica está en `src/lib/cloud.ts` y se comprueba con `npm run check:cloud`.
