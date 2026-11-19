@@ -34,6 +34,7 @@ const paths: Record<string, React.ReactNode> = {
   network: <><rect x="9" y="3" width="6" height="5" rx="1" /><rect x="3" y="16" width="6" height="5" rx="1" /><rect x="15" y="16" width="6" height="5" rx="1" /><path d="M12 8v4M6 16v-4h12v4" /></>,
   cards: <><rect x="7" y="3" width="13" height="15" rx="2" /><path d="M4 7v11a3 3 0 0 0 3 3h9" /><path d="M11 9h5M11 12h3" /></>,
   hazard: <><path d="M12 2.5l9.5 9.5-9.5 9.5L2.5 12z" /><path d="M12 8v5M12 16h.01" /></>,
+  cloud: <><path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 9.5a4 4 0 0 1-.5 8.5z" /></>,
   lock: <><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></>,
 };
 

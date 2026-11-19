@@ -10,9 +10,11 @@
     "check": "node scripts/check-quiz.mjs",
     "check:certs": "node scripts/check-certs.mjs",
     "check:repaso": "node scripts/check-repaso.mjs",
-    "check:media": "node scripts/check-media.mjs"
+    "check:media": "node scripts/check-media.mjs",
+    "check:cloud": "node scripts/check-cloud.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.1",
     "next": "15.5.29",
     "react": "19.1.0",
     "react-dom": "19.1.0",

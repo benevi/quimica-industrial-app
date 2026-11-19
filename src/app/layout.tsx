@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
+import { CloudSyncProvider } from "@/components/CloudSync";
 import type { SearchIndex } from "@/components/Search";
 import { allTerms, lessons, levels } from "@/content";
 
@@ -26,13 +27,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es">
       <body className="min-h-screen antialiased">
-        <Nav index={searchIndex} />
-        <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+        <CloudSyncProvider>
+          <Nav index={searchIndex} />
+          <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+        </CloudSyncProvider>
         <footer className="mx-auto max-w-6xl px-4 pb-10 text-xs text-muted">
           Material de estudio con ejemplos ficticios. En planta manda siempre el procedimiento vigente de tu empresa.{" "}
           Tu progreso se guarda en este navegador:{" "}
           <Link href="/progreso" className="underline hover:text-ink">
-            haz una copia de seguridad
+            guárdalo en la nube o haz una copia
           </Link>
           . Imágenes y vídeos:{" "}
           <Link href="/creditos" className="underline hover:text-ink">
