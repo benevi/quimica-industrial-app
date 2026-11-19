@@ -562,7 +562,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         {nowEq && here[nowEq] && !s.halt && (
           <g>
             <rect x={here[nowEq]![0] - 62} y={here[nowEq]![1] - 18} width={124} height={24} rx={12} fill={SIGNAL} />
-            <text x={here[nowEq]![0]} y={here[nowEq]![1] - 1} textAnchor="middle" fill="#17201c" fontSize={12} fontWeight={600}>▼ Estás aquí</text>
+            <text x={here[nowEq]![0]} y={here[nowEq]![1] - 1} textAnchor="middle" fill="#1b2030" fontSize={12} fontWeight={600}>▼ Estás aquí</text>
           </g>
         )}
       </svg>

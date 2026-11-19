@@ -265,7 +265,7 @@ export function MiniTrend({ points, series, limit, band, empty }: { points: Tren
   const H = 180;
   const pad = 36;
   if (points.length < 2) {
-    return <div className="grid h-40 place-items-center rounded-md border border-dashed border-[#2e3a35] bg-[#17201c] px-4 text-center text-sm text-[#8fa199]">{empty}</div>;
+    return <div className="grid h-40 place-items-center rounded-md border border-dashed border-[#2e3a35] bg-[#1b2030] px-4 text-center text-sm text-[#8fa199]">{empty}</div>;
   }
   const t0 = points[0].t;
   const t1 = Math.max(points[points.length - 1].t, t0 + 30);
@@ -274,13 +274,13 @@ export function MiniTrend({ points, series, limit, band, empty }: { points: Tren
   const s0 = series[0];
   const last = points[points.length - 1];
   return (
-    <div className="rounded-md bg-[#17201c]">
+    <div className="rounded-md bg-[#1b2030]">
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={`Tendencia: ${series.map((s) => s.label).join(", ")}`}>
         {band && <rect x={pad} y={y(band[1], s0.max)} width={W - pad - 12} height={y(band[0], s0.max) - y(band[1], s0.max)} fill="#166534" opacity={0.35} />}
         {limit != null && <rect x={pad} y={y(s0.max, s0.max)} width={W - pad - 12} height={y(limit, s0.max) - y(s0.max, s0.max)} fill="#7f1d1d" opacity={0.22} />}
         {[0, 0.25, 0.5, 0.75, 1].map((f) => (
           <g key={f}>
-            <line x1={pad} x2={W - 12} y1={y(f * s0.max, s0.max)} y2={y(f * s0.max, s0.max)} stroke="#2a3631" />
+            <line x1={pad} x2={W - 12} y1={y(f * s0.max, s0.max)} y2={y(f * s0.max, s0.max)} stroke="#2f3648" />
             <text x={pad - 5} y={y(f * s0.max, s0.max) + 4} fontSize="10" textAnchor="end" fill={s0.color}>{(s0.fmt ?? String)(f * s0.max)}</text>
           </g>
         ))}

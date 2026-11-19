@@ -96,7 +96,7 @@ export function Trend({ points, limitHigh, band, height = 190 }: { points: Point
   const pad = 30;
   if (points.length < 2) {
     return (
-      <div className="grid h-44 place-items-center rounded-md border border-dashed border-[#2e3a35] bg-[#17201c] text-sm text-[#8fa199]">
+      <div className="grid h-44 place-items-center rounded-md border border-dashed border-[#2e3a35] bg-[#1b2030] text-sm text-[#8fa199]">
         La gráfica empieza al poner el reactor en marcha (▶).
       </div>
     );
@@ -109,12 +109,12 @@ export function Trend({ points, limitHigh, band, height = 190 }: { points: Point
   const line = (k: "T" | "Tj") => points.map((p, i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p[k]).toFixed(1)}`).join(" ");
   const last = points[points.length - 1];
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-md bg-[#17201c]" role="img" aria-label="Tendencia de temperaturas">
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-md bg-[#1b2030]" role="img" aria-label="Tendencia de temperaturas">
       {limitHigh != null && <rect x={pad} y={y(100)} width={W - pad - 10} height={y(limitHigh) - y(100)} fill="#7f1d1d" opacity={0.22} />}
       {band && <rect x={pad} y={y(band[1])} width={W - pad - 10} height={y(band[0]) - y(band[1])} fill="#166534" opacity={0.35} />}
       {[0, 20, 40, 60, 80, 100].map((v) => (
         <g key={v}>
-          <line x1={pad} x2={W - 10} y1={y(v)} y2={y(v)} stroke="#2a3631" />
+          <line x1={pad} x2={W - 10} y1={y(v)} y2={y(v)} stroke="#2f3648" />
           <text x={pad - 5} y={y(v) + 4} fontSize="10" textAnchor="end" fill="#8fa199">{v}</text>
         </g>
       ))}

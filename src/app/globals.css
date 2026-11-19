@@ -1,57 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  /* Hoja de lote: papel frío, tinta, acero y verde de línea de proceso */
-  --bg: #f3f5f2;
-  --surface: #ffffff;
-  --soft: #eaeee9;
-  --line: #d8ded8;
-  --line-strong: #b9c2bb;
-  --ink: #17201c;
-  --muted: #56625c;
-  --accent: #0d6b5b;
-  --accent-ink: #0a5649;
-  --accent-soft: #dfefe9;
+  /* Papel cálido y tinta azul: cómodo para leer mucho rato */
+  --bg: #f7f5f1;
+  --surface: #fffefc;
+  --soft: #efece6;
+  --line: #e2ddd4;
+  --line-strong: #c9c2b6;
+  --ink: #1f2430;
+  --muted: #5d6170;
+  --accent: #3b5bcc;
+  --accent-ink: #2f49a8;
+  --accent-soft: #e7ecfb;
   --on-accent: #ffffff;
   /* Ámbar de señal: solo para «tu siguiente paso» */
   --signal: #e8a317;
   --signal-soft: #fdf3dc;
-  --ok: #18794e;
-  --ok-soft: #e3f3ea;
+  --ok: #2b7a4b;
+  --ok-soft: #e5f2ea;
   --bad: #b42318;
   --bad-soft: #fdecea;
   --warn-soft: #fbf3df;
-  --sidebar: #1d2723;
-  --sidebar-ink: #dfe6e2;
-  --sidebar-muted: #8fa199;
-  --sidebar-hover: #2a3631;
+  --sidebar: #252a3a;
+  --sidebar-ink: #e4e7ef;
+  --sidebar-muted: #9ca3b6;
+  --sidebar-hover: #313749;
   --radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121815;
-    --surface: #19211e;
-    --soft: #222c28;
-    --line: #2e3a35;
-    --line-strong: #3f4d47;
-    --ink: #e6ece8;
-    --muted: #9caba4;
-    --accent: #3cc7a8;
-    --accent-ink: #6fdcc3;
-    --accent-soft: #143a32;
-    --on-accent: #06251f;
+    --bg: #16181f;
+    --surface: #1d2029;
+    --soft: #262a35;
+    --line: #313646;
+    --line-strong: #434a5c;
+    --ink: #e7e9ef;
+    --muted: #a5aabb;
+    --accent: #8fa6ff;
+    --accent-ink: #b4c3ff;
+    --accent-soft: #232c4d;
+    --on-accent: #111633;
     --signal: #f0b43c;
     --signal-soft: #352a12;
-    --ok: #4ade80;
-    --ok-soft: #14301f;
+    --ok: #5fd08f;
+    --ok-soft: #16301f;
     --bad: #f87171;
     --bad-soft: #3a1a18;
     --warn-soft: #33290f;
-    --sidebar: #0e1311;
-    --sidebar-ink: #dfe6e2;
-    --sidebar-muted: #8a9a93;
-    --sidebar-hover: #1c2522;
+    --sidebar: #101219;
+    --sidebar-ink: #e4e7ef;
+    --sidebar-muted: #8f96a8;
+    --sidebar-hover: #1e2230;
   }
 }
 

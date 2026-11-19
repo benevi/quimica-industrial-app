@@ -1,7 +1,7 @@
 # Sistema de diseño del Aula
 
 Objetivo: que un principiante sepa siempre **dónde está** y **qué hacer a continuación**, sin verlo todo a la vez.
-Identidad: «hoja de lote» — papel frío, tinta, acero y el verde de las líneas de proceso. Un único color de señal (ámbar)
+Identidad: papel cálido y tinta azul, cómodo para leer mucho rato. Un único color de señal (ámbar)
 marca *tu siguiente paso*, como el piloto de un equipo en planta. Todo lo demás es tranquilo.
 
 ## Arquitectura
