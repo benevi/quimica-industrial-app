@@ -6,6 +6,7 @@ import { isRight, type Answer } from "@/certs/grading";
 import type { PoolItem } from "@/certs/pool";
 import { useCertState } from "@/certs/useCertState";
 import { QuestionItem } from "@/components/certs/QuestionItem";
+import { btn } from "@/components/ui";
 
 /** Ejercicio de fichas de seguridad. Guarda la mejor nota y manda las preguntas falladas al repaso de fallos. */
 export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: string; items: PoolItem[]; title?: string }) {
@@ -18,9 +19,9 @@ export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: strin
   const best = state.fds?.[quizId];
 
   return (
-    <section className="rounded-2xl border border-line bg-surface p-5" aria-labelledby={`quiz-${quizId}`}>
+    <section className="rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6" aria-labelledby={`quiz-${quizId}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id={`quiz-${quizId}`} className="text-lg font-semibold">
+        <h2 id={`quiz-${quizId}`} className="t-h2">
           {title}
         </h2>
         {loaded && best !== undefined && <p className="text-sm text-muted">Tu mejor resultado: {Math.round(best * 100)} %</p>}
@@ -46,18 +47,20 @@ export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: strin
             setChecked(true);
           }}
           disabled={answered < items.length}
-          className="mt-5 rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90 disabled:opacity-50"
+          className={`${btn.primary} mt-6`}
         >
           Corregir ({answered}/{items.length})
         </button>
       ) : (
-        <div className="mt-5 space-y-3">
-          <p className="font-semibold">
+        <div className="mt-6 space-y-3" role="status">
+          <p className="font-medium">
             {right} de {items.length} correctas.
             {right < items.length && (
               <span className="font-normal text-muted">
                 {" "}
-                Las falladas pasan a tu <Link href="/repaso" className="underline">repaso de fallos</Link> y volverán mañana.
+                Las falladas pasan a tu <Link href="/repaso" className="text-accent underline-offset-2 hover:underline">
+                  repaso de fallos
+                </Link> y volverán mañana.
               </span>
             )}
           </p>
@@ -66,7 +69,7 @@ export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: strin
               setAnswers({});
               setChecked(false);
             }}
-            className="rounded-lg border border-line px-4 py-2 text-sm hover:bg-soft"
+            className={btn.secondary}
           >
             Repetir
           </button>

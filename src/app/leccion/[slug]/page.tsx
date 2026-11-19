@@ -1,14 +1,15 @@
-import Link from "next/link";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { getLesson, lessons, lessonsOfLevel, nextLesson } from "@/content";
-import { blockColor, blockOfLevel, levelInfo } from "@/content/blocks";
+import { getLesson, lessons, lessonsOfLevel } from "@/content";
+import { LessonCrumbs, LessonPager } from "@/components/course/LessonNav";
+import { levelInfo } from "@/content/blocks";
 import { Markdown } from "@/components/Markdown";
 import { Quiz } from "@/components/Quiz";
 import { LessonSidebar } from "@/components/LessonSidebar";
 import { stepsFor, type lessonSteps } from "@/components/lessonSteps";
 import { LessonMedia } from "@/components/LessonMedia";
 import { mediaFor } from "@/content/media";
-import { Icon, levelIcon } from "@/components/icons";
+import { Icon } from "@/components/icons";
 
 export function generateStaticParams() {
   return lessons.map((l) => ({ slug: l.slug }));
@@ -25,74 +26,54 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
   const lesson = getLesson(slug);
   if (!lesson) notFound();
   const level = levelInfo(lesson.level);
-  const block = blockOfLevel(lesson.level);
-  const c = blockColor[block.id];
   const siblings = lessonsOfLevel(lesson.level);
   const pos = siblings.findIndex((l) => l.slug === slug) + 1;
-  const next = nextLesson(slug);
-  const i = lessons.findIndex((l) => l.slug === slug);
-  const prev = i > 0 ? lessons[i - 1] : undefined;
   const media = mediaFor(slug);
   const steps = stepsFor(!!media);
   const step = (id: string) => ({ n: steps.findIndex((s) => s.id === id), s: steps.find((s) => s.id === id)! });
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
-      <aside className="order-2 lg:order-1">
-        <LessonSidebar
-          slug={slug}
-          level={lesson.level}
-          levelTitle={level.title}
-          color={c.fg}
-          siblings={siblings.map((s) => ({ slug: s.slug, title: s.title }))}
-          hasMedia={!!media}
-        />
-      </aside>
+    <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]">
+      <article className="min-w-0 max-w-3xl space-y-6">
+        <Suspense fallback={<div className="h-5" />}>
+          <LessonCrumbs slug={slug} />
+        </Suspense>
 
-      <article className="order-1 min-w-0 max-w-3xl space-y-6 lg:order-2">
-        <nav aria-label="Ruta de navegación" className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
-          <Link href="/#ruta" className="hover:text-ink">Ruta</Link>
-          <span aria-hidden>›</span>
-          <span style={{ color: c.fg }}>Bloque {block.n}. {block.title}</span>
-          <span aria-hidden>›</span>
-          <Link href={`/nivel/${level.number}`} className="hover:text-ink">Nivel {level.number}. {level.title}</Link>
-        </nav>
-
-        <header className="flex gap-4">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl" style={{ background: c.soft, color: c.fg }}>
-            <Icon name={levelIcon[lesson.level]} className="h-7 w-7" />
-          </span>
-          <div>
-            <p className="text-sm font-medium" style={{ color: c.fg }}>
-              Lección {pos} de {siblings.length}
-            </p>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{lesson.title}</h1>
-            <p className="text-muted">
-              <span lang="en">{lesson.titleEn}</span> · {lesson.minutes} min
-            </p>
-          </div>
+        <header>
+          <p className="text-sm text-muted">
+            Nivel {level.number}, lección {pos} de {siblings.length} <span aria-hidden>·</span> {lesson.minutes} min
+          </p>
+          <h1 className="t-h1 mt-1">{lesson.title}</h1>
+          <p lang="en" className="text-muted">
+            {lesson.titleEn}
+          </p>
         </header>
 
-        <section className="rounded-2xl border-l-4 bg-surface p-5" style={{ borderColor: c.fg }}>
-          <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: c.fg }}>En 30 segundos</p>
+        <section className="rounded-[var(--radius)] bg-soft px-5 py-4">
+          <p className="text-sm font-medium text-muted">En 30 segundos</p>
           <p className="mt-1 text-lg leading-snug">{lesson.summary}</p>
           {lesson.terms.length > 0 && (
-            <div className="mt-3 flex flex-wrap items-center gap-1.5 text-sm">
+            <p className="mt-3 flex flex-wrap items-center gap-1.5 text-sm">
               <span className="mr-1 text-muted">Palabras clave:</span>
               {lesson.terms.map((t) => (
-                <a key={t.es} href="#vocabulario" className="rounded-full border border-line bg-bg px-2.5 py-0.5 hover:border-accent" title={`${t.en}: ${t.def}`}>
+                <a
+                  key={t.es}
+                  href="#vocabulario"
+                  className="rounded-full border border-line bg-surface px-2.5 py-0.5 hover:border-accent"
+                  title={`${t.en}: ${t.def}`}
+                >
                   {t.es}
                 </a>
               ))}
-            </div>
+            </p>
           )}
-          <p className="mt-3 text-xs text-muted">
-            Consejo: las palabras <span className="term" style={{ cursor: "default" }}>subrayadas</span> de la idea clave muestran su definición al pasar el ratón.
-          </p>
         </section>
 
         <Section id="idea" {...step("idea")} title="Idea clave" en="Key concept">
           <Markdown terms={lesson.terms}>{lesson.body}</Markdown>
+          <p className="mt-5 text-xs text-muted">
+            Las palabras con <span className="term" style={{ cursor: "default" }}>subrayado de puntos</span> muestran su definición al pasar el ratón.
+          </p>
         </Section>
 
         {media && (
@@ -101,21 +82,23 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           </Section>
         )}
 
-        <Section id="planta" {...step("planta")} title="Ejemplo de planta" en="Plant example" tone="accent">
+        <Section id="planta" {...step("planta")} title="Ejemplo de planta" en="Plant example">
           <Markdown>{lesson.plant}</Markdown>
         </Section>
 
-        <Section id="hoja" {...step("hoja")} title="¿Qué verías en la hoja de producción?" en="In the batch record" tone="warn">
+        <Section id="hoja" {...step("hoja")} title="¿Qué verías en la hoja de producción?" en="In the batch record" sheet>
           <Markdown>{lesson.batchRecord}</Markdown>
         </Section>
 
         <Section id="vocabulario" {...step("vocabulario")} title="Vocabulario" en="Vocabulary">
-          <dl className="grid gap-2 sm:grid-cols-2">
+          <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
             {lesson.terms.map((t) => (
-              <div key={t.es} className="rounded-xl border border-line bg-bg p-3">
+              <div key={t.es} className="border-l-2 border-line pl-3">
                 <dt>
-                  <span className="font-semibold">{t.es}</span>
-                  <span lang="en" className="ml-2 text-sm text-accent">{t.en}</span>
+                  <span className="font-medium">{t.es}</span>
+                  <span lang="en" className="ml-2 text-sm text-accent">
+                    {t.en}
+                  </span>
                 </dt>
                 <dd className="mt-0.5 text-sm text-muted">{t.def}</dd>
               </div>
@@ -124,26 +107,25 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
         </Section>
 
         <div id="test">
-          <Quiz slug={lesson.slug} questions={lesson.quiz} nextSlug={next?.slug} nextTitle={next?.title} />
+          <Suspense fallback={null}>
+            <Quiz slug={lesson.slug} questions={lesson.quiz} />
+          </Suspense>
         </div>
 
-        <nav aria-label="Lecciones" className="grid gap-3 border-t border-line pt-6 sm:grid-cols-2">
-          {prev ? (
-            <Link href={`/leccion/${prev.slug}`} className="rounded-xl border border-line bg-surface p-4 hover:border-accent">
-              <span className="flex items-center gap-1 text-xs text-muted"><Icon name="back" className="h-3.5 w-3.5" /> Anterior</span>
-              <span className="mt-1 block font-medium">{prev.title}</span>
-            </Link>
-          ) : <span />}
-          {next && (
-            <Link href={`/leccion/${next.slug}`} className="rounded-xl border border-line bg-surface p-4 text-right hover:border-accent">
-              <span className="flex items-center justify-end gap-1 text-xs text-muted">
-                {next.level !== lesson.level ? `Siguiente nivel: ${levelInfo(next.level).title}` : "Siguiente"} <Icon name="arrow" className="h-3.5 w-3.5" />
-              </span>
-              <span className="mt-1 block font-medium">{next.title}</span>
-            </Link>
-          )}
-        </nav>
+        <Suspense fallback={null}>
+          <LessonPager slug={slug} />
+        </Suspense>
       </article>
+
+      <aside className="hidden xl:block">
+        <LessonSidebar
+          slug={slug}
+          level={lesson.level}
+          levelTitle={level.title}
+          siblings={siblings.map((s) => ({ slug: s.slug, title: s.title }))}
+          hasMedia={!!media}
+        />
+      </aside>
     </div>
   );
 }
@@ -154,7 +136,7 @@ function Section({
   s,
   title,
   en,
-  tone,
+  sheet,
   children,
 }: {
   id: string;
@@ -162,21 +144,24 @@ function Section({
   s: (typeof lessonSteps)[number];
   title: string;
   en: string;
-  tone?: "accent" | "warn";
+  sheet?: boolean;
   children: React.ReactNode;
 }) {
-  const bg = tone === "accent" ? "bg-accent-soft" : tone === "warn" ? "bg-warn-soft" : "bg-surface";
   return (
-    <section id={id} className={`rounded-2xl border border-line p-5 sm:p-6 ${bg}`}>
-      <h2 className="mb-4 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-lg font-semibold">
-        <span className="grid h-8 w-8 place-items-center rounded-lg bg-surface text-accent ring-1 ring-line">
-          <Icon name={s.icon} className="h-[18px] w-[18px]" />
+    <section id={id} className="overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
+      <h2 className={`flex flex-wrap items-center gap-x-2.5 gap-y-1 px-5 pt-5 sm:px-6 ${sheet ? "border-b border-dashed border-line-strong pb-4" : ""}`}>
+        <span className="grid h-7 w-7 place-items-center rounded-md bg-accent-soft text-accent">
+          <Icon name={s.icon} className="h-4 w-4" />
         </span>
-        <span className="text-sm font-medium text-muted">{n + 1}.</span>
-        {title}
-        <span lang="en" className="text-sm font-normal text-muted">{en}</span>
+        <span className="text-sm tabular-nums text-muted">{n + 1}</span>
+        <span className="t-h2">{title}</span>
+        <span lang="en" className="text-sm text-muted">
+          {en}
+        </span>
       </h2>
-      {children}
+      <div className={`px-5 pb-6 pt-4 sm:px-6`}>
+        {children}
+      </div>
     </section>
   );
 }

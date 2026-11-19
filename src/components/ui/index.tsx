@@ -27,8 +27,8 @@ export function PageHeader({
   return (
     <header className="mb-8 space-y-3">
       {crumbs && crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
-      <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
-        <div className="flex min-w-0 flex-1 gap-4">
+      <div>
+        <div className="flex min-w-0 gap-4">
           {icon && (
             <span aria-hidden className="mt-0.5 hidden h-11 w-11 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent sm:grid">
               <Icon name={icon} className="h-6 w-6" />
@@ -42,11 +42,11 @@ export function PageHeader({
               </p>
             )}
             {lead && <div className="mt-3 max-w-[68ch] text-[15px] leading-relaxed text-muted">{lead}</div>}
+            {children && <div className="mt-4 space-y-2">{children}</div>}
+            {actions && <div className="mt-5 flex flex-wrap items-center gap-2">{actions}</div>}
           </div>
         </div>
-        {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
       </div>
-      {children}
     </header>
   );
 }

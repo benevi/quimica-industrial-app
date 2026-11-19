@@ -2,9 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fdsItems } from "@/certs/pool";
 import { getSds, sdsList, sdsSections } from "@/content/fds";
+import { Icon } from "@/components/icons";
 import { Markdown } from "@/components/Markdown";
 import { FdsQuiz } from "@/components/fds/FdsQuiz";
 import { SdsLabel } from "@/components/fds/SdsLabel";
+import { Card, Disclosure, PageHeader, SectionTitle, btn } from "@/components/ui";
 
 export function generateStaticParams() {
   return sdsList.map((s) => ({ id: s.id }));
@@ -23,55 +25,73 @@ export default async function SdsPage({ params }: { params: Promise<{ id: string
   const next = sdsList[(i + 1) % sdsList.length];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <Link href="/fds" className="text-sm text-muted hover:text-ink">← Fichas de seguridad</Link>
-        <p className="mt-3 text-sm font-medium text-accent">Ficha de datos de seguridad · ficticia, para formación</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{sds.product}</h1>
-        <p className="mt-1 text-muted">{sds.substance}</p>
-      </div>
+    <div className="space-y-10">
+      <PageHeader
+        crumbs={[{ href: "/", label: "Hoy" }, { href: "/fds", label: "Fichas de seguridad" }, { label: sds.product }]}
+        title={sds.product}
+        en="Safety Data Sheet (SDS)"
+        icon="hazard"
+        lead={
+          <>
+            <p className="text-ink">{sds.substance}</p>
+            <p className="mt-1 text-sm">Ficha de datos de seguridad ficticia, para formación.</p>
+          </>
+        }
+      />
 
       <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
         <SdsLabel sds={sds} />
-        <div className="rounded-2xl border-2 border-accent bg-accent-soft p-5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Lo que tienes que sacar de esta ficha</p>
-          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm">
+        <Card className="p-5">
+          <h2 className="t-h3">Lo que tienes que sacar de esta ficha</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed">
             {sds.keyPoints.map((k) => (
               <li key={k}>{k}</li>
             ))}
           </ul>
-        </div>
+        </Card>
       </div>
 
-      <section aria-labelledby="secciones-h" className="space-y-2">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="secciones-h" className="text-xl font-semibold">Las 16 secciones</h2>
-          <p className="text-xs text-muted">Abiertas: 2, 7 y 8, las que más vas a usar</p>
+      <section aria-labelledby="secciones-h">
+        <SectionTitle id="secciones-h" aside="Abiertas: 2, 7 y 8, las que más vas a usar">
+          Las 16 secciones
+        </SectionTitle>
+        <div className="space-y-2">
+          {sdsSections.map((s, k) => (
+            <Disclosure
+              key={s.n}
+              defaultOpen={[2, 7, 8].includes(s.n)}
+              summary={
+                <span className="flex items-baseline gap-3">
+                  <span className="w-6 shrink-0 font-mono text-sm tabular-nums text-muted">{s.n}</span>
+                  <span className="font-medium">
+                    {s.title}{" "}
+                    <span lang="en" className="text-sm font-normal text-muted">
+                      · {s.en}
+                    </span>
+                  </span>
+                </span>
+              }
+            >
+              <div className="max-w-[68ch] text-sm">
+                <Markdown>{sds.sections[k]}</Markdown>
+              </div>
+            </Disclosure>
+          ))}
         </div>
-        {sdsSections.map((s, k) => (
-          <details key={s.n} open={[2, 7, 8].includes(s.n)} className="group rounded-xl border border-line bg-surface">
-            <summary className="flex cursor-pointer list-none items-baseline gap-3 px-4 py-3 hover:bg-soft">
-              <span className="w-6 shrink-0 font-semibold tabular-nums text-accent">{s.n}</span>
-              <span className="font-medium">
-                {s.title} <span className="text-xs font-normal text-muted">· {s.en}</span>
-              </span>
-              <span className="ml-auto text-muted transition group-open:rotate-90" aria-hidden>›</span>
-            </summary>
-            <div className="prose-sm border-t border-line px-4 py-3 text-sm">
-              <Markdown>{sds.sections[k]}</Markdown>
-            </div>
-          </details>
-        ))}
       </section>
 
       <FdsQuiz quizId={sds.id} items={fdsItems(sds.id)} title="Comprueba que la has entendido" />
 
-      <div className="flex flex-wrap justify-between gap-3 text-sm">
-        <Link href="/fds" className="rounded-xl border border-line bg-surface px-4 py-3 hover:border-accent">← Todas las fichas</Link>
-        <Link href={`/fds/${next.id}`} className="rounded-xl border border-line bg-surface px-4 py-3 text-right hover:border-accent">
-          Siguiente ficha: {next.product} →
+      <nav aria-label="Otras fichas" className="flex flex-wrap justify-between gap-3">
+        <Link href="/fds" className={btn.secondary}>
+          <Icon name="back" className="h-4 w-4" />
+          Todas las fichas
         </Link>
-      </div>
+        <Link href={`/fds/${next.id}`} className={btn.secondary}>
+          Siguiente ficha: {next.product}
+          <Icon name="arrow" className="h-4 w-4" />
+        </Link>
+      </nav>
     </div>
   );
 }

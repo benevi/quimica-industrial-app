@@ -4,7 +4,7 @@ import Link from "next/link";
 import { levels, lessonsOfLevel } from "@/content";
 import { blockColor, blockOfLevel, levelInfo, minutesOfLevel } from "@/content/blocks";
 import { Icon, levelIcon } from "@/components/icons";
-import { ProgressRing } from "@/components/ProgressRing";
+import { Bar, Card, PageHeader, SectionTitle, Status, btn } from "@/components/ui";
 import { useProgress } from "@/lib/progress";
 
 /** Dónde practicar lo aprendido en cada nivel */
@@ -35,77 +35,83 @@ export function LevelView({ level }: { level: number }) {
   const nextLv = levels[i + 1];
 
   return (
-    <div className="space-y-8">
-      <nav aria-label="Ruta de navegación" className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
-        <Link href="/#ruta" className="hover:text-ink">Ruta</Link>
-        <span aria-hidden>›</span>
-        <span style={{ color: c.fg }}>Bloque {b.n}. {b.title}</span>
-        <span aria-hidden>›</span>
-        <span className="text-ink">Nivel {level}</span>
-      </nav>
-
-      <header className="grid gap-6 rounded-2xl p-6 sm:p-8 lg:grid-cols-[1fr_auto]" style={{ background: c.soft }}>
-        <div className="flex gap-4">
-          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl text-white" style={{ background: c.fg }}>
-            <Icon name={levelIcon[level]} className="h-8 w-8" />
-          </span>
-          <div>
-            <p className="text-sm font-semibold" style={{ color: c.fg }}>Nivel {level}</p>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{lv.title}</h1>
-            <p lang="en" className="text-muted">{lv.titleEn}</p>
-            <p className="mt-3 max-w-2xl">{lv.description}</p>
-            <p className="mt-2 text-sm text-muted">
-              {ls.length} lecciones · unos {Math.round(minutesOfLevel(level) / 5) * 5} minutos en total
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-4 lg:flex-col lg:items-end lg:justify-between">
-          <ProgressRing pct={pct} size={72} color={c.fg} />
-          {next && (
-            <Link href={`/leccion/${next.slug}`} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-white" style={{ background: c.fg }}>
+    <div>
+      <PageHeader
+        crumbs={[
+          { href: "/temario", label: "Temario completo" },
+          { href: "/temario", label: `Bloque ${b.n}. ${b.title}` },
+          { label: `Nivel ${level}` },
+        ]}
+        title={
+          <>
+            <span className="text-muted">Nivel {level}.</span> {lv.title}
+          </>
+        }
+        en={lv.titleEn}
+        icon={levelIcon[level]}
+        lead={
+          <>
+            {lv.description} {ls.length} lecciones, unos {Math.round(minutesOfLevel(level) / 5) * 5} minutos en total.
+          </>
+        }
+        actions={
+          next && (
+            <Link href={`/leccion/${next.slug}`} className={btn.primary}>
               {done === 0 ? "Empezar el nivel" : done === ls.length ? "Repasar" : "Continuar"}
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
-          )}
+          )
+        }
+      >
+        <div className="flex max-w-md items-center gap-3 pt-1">
+          <Bar pct={pct} color={c.fg} className="flex-1" label={`Nivel ${level}: ${pct} %`} />
+          <span className="text-sm tabular-nums text-muted">
+            {done} de {ls.length} hechas
+          </span>
         </div>
-      </header>
+      </PageHeader>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_18rem]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_16rem]">
         <section aria-labelledby="lecciones">
-          <h2 id="lecciones" className="mb-4 text-lg font-semibold">Lecciones del nivel</h2>
-          <ol className="relative space-y-3">
-            <span aria-hidden className="absolute bottom-6 left-[19px] top-6 w-0.5 bg-line" />
+          <SectionTitle id="lecciones">Lecciones</SectionTitle>
+          <ol className="divide-y divide-line overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
             {ls.map((l, k) => {
               const p = progress[l.slug];
               const isNext = l.slug === next?.slug && !p?.done;
               return (
                 <li key={l.slug} className="relative">
-                  <Link
-                    href={`/leccion/${l.slug}`}
-                    className={`flex gap-4 rounded-xl border bg-surface p-4 transition hover:shadow-md ${isNext ? "border-2" : "border-line"}`}
-                    style={isNext ? { borderColor: c.fg } : undefined}
-                  >
+                  {isNext && <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-signal" />}
+                  <Link href={`/leccion/${l.slug}`} className="group flex gap-4 px-5 py-4 hover:bg-soft/60">
                     <span
-                      className="relative z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-semibold"
-                      style={p?.done ? { background: "var(--ok)", color: "white" } : { background: c.soft, color: c.fg }}
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-semibold tabular-nums"
+                      style={
+                        p?.done
+                          ? { background: "var(--ok)", color: "#fff" }
+                          : isNext
+                            ? { background: "var(--signal)", color: "#1b1405" }
+                            : { background: "var(--soft)", color: "var(--muted)" }
+                      }
                       aria-label={p?.done ? "Completada" : `Lección ${k + 1}`}
                     >
                       {p?.done ? "✓" : k + 1}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex flex-wrap items-baseline gap-x-2">
-                        <span className="font-semibold">{l.title}</span>
-                        {isNext && (
-                          <span className="rounded-full px-2 py-0.5 text-[11px] font-semibold text-white" style={{ background: c.fg }}>
-                            Siguiente
-                          </span>
-                        )}
+                        <span className="font-medium group-hover:text-accent">{l.title}</span>
+                        <span lang="en" className="text-sm text-muted">
+                          {l.titleEn}
+                        </span>
                       </span>
-                      <span lang="en" className="block text-xs text-muted">
-                        {l.titleEn} · {l.minutes} min · {l.terms.length} términos · test de {l.quiz.length} preguntas
-                        {p?.done ? ` · nota ${p.score}/${p.total}` : ""}
-                      </span>
-                      <span className="mt-1 block text-sm text-muted">{l.summary}</span>
+                      <span className="mt-0.5 block text-sm text-muted">{l.summary}</span>
+                    </span>
+                    <span className="hidden shrink-0 text-right text-sm text-muted sm:block">
+                      {l.minutes} min
+                      {p?.done && <span className="block text-xs">nota {p.score}/{p.total}</span>}
+                      {isNext && (
+                        <span className="mt-1 block">
+                          <Status kind="doing">Te toca</Status>
+                        </span>
+                      )}
                     </span>
                   </Link>
                 </li>
@@ -114,46 +120,40 @@ export function LevelView({ level }: { level: number }) {
           </ol>
         </section>
 
-        <aside className="space-y-4">
+        <aside className="space-y-4 text-sm">
           {practice[level] && (
-            <div className="rounded-xl border border-line bg-surface p-4">
-              <p className="flex items-center gap-2 font-semibold">
-                <Icon name="play" className="h-5 w-5 text-accent" /> Ponlo en práctica
-              </p>
-              <ul className="mt-2 space-y-2 text-sm">
+            <Card className="p-4">
+              <p className="font-medium">Ponlo en práctica</p>
+              <ul className="mt-2 space-y-2">
                 {practice[level].map((p) => (
                   <li key={p.href}>
-                    <Link href={p.href} className="font-medium text-accent hover:underline">{p.label} →</Link>
+                    <Link href={p.href} className="font-medium text-accent hover:underline">
+                      {p.label}
+                    </Link>
                     <span className="block text-muted">{p.text}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Card>
           )}
-          <div className="rounded-xl border border-line bg-surface p-4 text-sm">
-            <p className="font-semibold">Cómo es cada lección</p>
-            <ol className="mt-2 space-y-1.5 text-muted">
-              <li><b className="text-ink">1. Idea clave</b>: el concepto explicado desde cero.</li>
-              <li><b className="text-ink">2. Ejemplo de planta</b>: cómo se ve en una fábrica de API.</li>
-              <li><b className="text-ink">3. Hoja de producción</b>: qué te encontrarás escrito.</li>
-              <li><b className="text-ink">4. Vocabulario</b>: términos en español e inglés.</li>
-              <li><b className="text-ink">5. Test</b>: al corregirlo, la lección cuenta como hecha.</li>
-            </ol>
-          </div>
-          <div className="flex flex-col gap-2 text-sm">
+          <nav aria-label="Otros niveles" className="space-y-2">
             {prev && (
-              <Link href={`/nivel/${prev.number}`} className="rounded-lg border border-line bg-surface px-3 py-2 hover:border-accent">
-                <span className="block text-xs text-muted">← Nivel anterior</span>
-                {prev.number}. {prev.title}
+              <Link href={`/nivel/${prev.number}`} className="flex items-center gap-2 rounded-md px-2 py-1.5 text-muted hover:bg-soft hover:text-ink">
+                <Icon name="back" className="h-4 w-4 shrink-0" />
+                <span>
+                  Nivel {prev.number}. {prev.title}
+                </span>
               </Link>
             )}
             {nextLv && (
-              <Link href={`/nivel/${nextLv.number}`} className="rounded-lg border border-line bg-surface px-3 py-2 text-right hover:border-accent">
-                <span className="block text-xs text-muted">Nivel siguiente →</span>
-                {nextLv.number}. {nextLv.title}
+              <Link href={`/nivel/${nextLv.number}`} className="flex items-center gap-2 rounded-md px-2 py-1.5 text-muted hover:bg-soft hover:text-ink">
+                <Icon name="arrow" className="h-4 w-4 shrink-0" />
+                <span>
+                  Nivel {nextLv.number}. {nextLv.title}
+                </span>
               </Link>
             )}
-          </div>
+          </nav>
         </aside>
       </div>
     </div>

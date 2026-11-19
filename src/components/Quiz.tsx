@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Question } from "@/content/types";
 import { useProgress } from "@/lib/progress";
+import { useLessonRoute } from "@/components/course/useLessonRoute";
+import { btn } from "@/components/ui";
+import { Icon } from "@/components/icons";
 
 function parseNum(s: string) {
   const n = Number(s.trim().replace(/\s/g, "").replace(",", "."));
@@ -23,15 +26,12 @@ const fmt = (n: number) => n.toLocaleString("es-ES", { maximumFractionDigits: 4 
 export function Quiz({
   slug,
   questions,
-  nextSlug,
-  nextTitle,
 }: {
   slug: string;
   questions: Question[];
-  nextSlug?: string;
-  nextTitle?: string;
 }) {
   const { progress, save } = useProgress();
+  const route = useLessonRoute(slug);
   const [answers, setAnswers] = useState<Record<number, string | number>>({});
   const [checked, setChecked] = useState(false);
 
@@ -50,7 +50,7 @@ export function Quiz({
   }
 
   return (
-    <section className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+    <section className="rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6">
       <h2 className="mb-1 flex flex-wrap items-baseline gap-x-2 text-lg font-semibold">
         Comprueba lo que sabes <span lang="en" className="text-sm font-normal text-muted">Quick check</span>
       </h2>
@@ -78,7 +78,7 @@ export function Quiz({
                     else if (checked && selected) cls = "border-bad bg-bad-soft";
                     else if (selected) cls = "border-accent bg-accent-soft";
                     return (
-                      <label key={j} className={`flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-sm ${cls}`}>
+                      <label key={j} className={`flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2 text-sm ${cls}`}>
                         <input
                           type="radio"
                           name={`q${i}`}
@@ -96,7 +96,7 @@ export function Quiz({
                 <div className="mt-2 flex items-center gap-2">
                   <input
                     inputMode="decimal"
-                    className={`w-40 rounded-lg border bg-surface px-3 py-2 text-sm tabular-nums ${
+                    className={`w-40 rounded-md border bg-surface px-3 py-2 text-sm tabular-nums ${
                       right ? "border-ok" : wrong ? "border-bad" : "border-line"
                     }`}
                     placeholder="Tu respuesta"
@@ -109,7 +109,7 @@ export function Quiz({
                 </div>
               )}
               {checked && (
-                <p className={`mt-2 rounded-lg px-3 py-2 text-sm ${right ? "bg-ok-soft" : "bg-bad-soft"}`}>
+                <p className={`mt-2 rounded-md px-3 py-2 text-sm ${right ? "bg-ok-soft" : "bg-bad-soft"}`}>
                   <strong>{right ? "Correcto." : "No es correcto."}</strong>{" "}
                   {q.kind === "number" && !right && <>La respuesta es {fmt(q.answer)} {q.unit}. </>}
                   {q.explain}
@@ -125,21 +125,22 @@ export function Quiz({
           <button
             onClick={check}
             disabled={!allAnswered}
-            className="rounded-lg bg-accent px-4 py-2 font-medium text-white disabled:cursor-not-allowed disabled:opacity-40"
+            className={`${btn.primary} disabled:cursor-not-allowed`}
           >
-            Corregir
+            Corregir el test
           </button>
         ) : (
           <>
             <p className="font-medium">
               Resultado: {score}/{questions.length}
             </p>
-            <button onClick={retry} className="rounded-lg border border-line px-4 py-2 hover:bg-soft">
-              Repetir
+            <button onClick={retry} className={btn.secondary}>
+              Repetir el test
             </button>
-            {nextSlug && (
-              <Link href={`/leccion/${nextSlug}`} className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90">
-                Siguiente: {nextTitle} →
+            {route.next && (
+              <Link href={`/leccion/${route.next.slug}${route.suffix}`} className={btn.primary}>
+                Siguiente lección: {route.next.title}
+                <Icon name="arrow" className="h-4 w-4" />
               </Link>
             )}
           </>

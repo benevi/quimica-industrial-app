@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { allTerms, getLesson } from "@/content";
 import { blockColor, blockOfLevel, blocks, type BlockId } from "@/content/blocks";
+import { Icon } from "@/components/icons";
+import { Card, PageHeader } from "@/components/ui";
 
 const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 const letterOf = (s: string) => {
@@ -15,6 +17,11 @@ const terms = allTerms.map((t) => {
   const level = getLesson(t.lesson)?.level ?? 0;
   return { ...t, level, block: blockOfLevel(level).id };
 });
+
+const chip = (on: boolean) =>
+  `inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm ${
+    on ? "border-accent bg-accent-soft font-medium text-accent" : "border-line bg-surface text-ink hover:border-accent"
+  }`;
 
 export default function Glosario() {
   const [q, setQ] = useState("");
@@ -38,84 +45,99 @@ export default function Glosario() {
   const present = new Set(groups.map(([L]) => L));
 
   return (
-    <div className="space-y-5">
-      <div>
-        <p className="text-sm font-medium text-accent">Glosario · Glossary</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Glosario español · inglés</h1>
-        <p className="text-muted">
-          {allTerms.length} términos de todas las lecciones. Mucha documentación técnica y muchos equipos usan el término en inglés.
+    <div>
+      <PageHeader
+        crumbs={[{ href: "/", label: "Hoy" }, { label: "Glosario" }]}
+        title="Glosario español · inglés"
+        en="Glossary"
+        icon="abc"
+        lead={
+          <>
+            {allTerms.length} términos de todas las lecciones. Mucha documentación técnica y muchos equipos usan el término en inglés.
+          </>
+        }
+      />
+
+      {/* Búsqueda: siempre a mano mientras recorres la lista */}
+      <div className="sticky top-12 z-10 -mx-4 border-b border-line bg-bg/95 px-4 py-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-0">
+        <label className="relative block">
+          <span className="sr-only">Buscar término</span>
+          <Icon name="search" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+          <input
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Buscar en español o en inglés (p. ej. «yield» o «camisa»)"
+            className="w-full rounded-md border border-line-strong bg-surface py-2.5 pl-9 pr-4"
+          />
+        </label>
+        <p className="mt-2 text-sm text-muted" aria-live="polite">
+          {list.length} resultados
         </p>
       </div>
 
-      <div className="sticky top-[57px] z-10 -mx-4 space-y-3 border-b border-line bg-bg/95 px-4 py-3 backdrop-blur">
-        <input
-          type="search"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Buscar en español o en inglés (p. ej. «yield» o «camisa»)"
-          className="w-full rounded-lg border border-line bg-surface px-4 py-2.5"
-          aria-label="Buscar término"
-        />
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <button
-            type="button"
-            onClick={() => setBlock("all")}
-            aria-pressed={block === "all"}
-            className={`rounded-full border px-3 py-1 ${block === "all" ? "border-accent bg-accent-soft font-medium text-accent" : "border-line bg-surface"}`}
-          >
+      <div className="mt-4 space-y-3">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por bloque">
+          <button type="button" onClick={() => setBlock("all")} aria-pressed={block === "all"} className={chip(block === "all")}>
             Todos
           </button>
           {blocks.map((b) => (
-            <button
-              key={b.id}
-              type="button"
-              onClick={() => setBlock(b.id)}
-              aria-pressed={block === b.id}
-              className="flex items-center gap-1.5 rounded-full border px-3 py-1"
-              style={block === b.id ? { borderColor: blockColor[b.id].fg, background: blockColor[b.id].soft, color: blockColor[b.id].fg, fontWeight: 500 } : undefined}
-            >
-              <span className="h-2 w-2 rounded-full" style={{ background: blockColor[b.id].fg }} />
+            <button key={b.id} type="button" onClick={() => setBlock(b.id)} aria-pressed={block === b.id} className={chip(block === b.id)}>
+              <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: blockColor[b.id].fg }} />
               {b.title}
             </button>
           ))}
-          <span className="ml-auto text-muted">{list.length} resultados</span>
         </div>
         <nav aria-label="Índice alfabético" className="flex flex-wrap gap-0.5 text-sm">
           {letters.map((L) =>
             present.has(L) ? (
-              <a key={L} href={`#letra-${L}`} className="grid h-7 w-7 place-items-center rounded-md font-medium hover:bg-accent-soft hover:text-accent">
+              <a key={L} href={`#letra-${L}`} className="grid h-7 w-7 place-items-center rounded-md font-medium text-ink hover:bg-accent-soft hover:text-accent">
                 {L}
               </a>
             ) : (
-              <span key={L} className="grid h-7 w-7 place-items-center text-line">{L}</span>
+              <span key={L} aria-hidden className="grid h-7 w-7 place-items-center text-line-strong">
+                {L}
+              </span>
             ),
           )}
         </nav>
       </div>
 
-      {groups.map(([L, ts]) => (
-        <section key={L} id={`letra-${L}`} className="scroll-mt-56">
-          <h2 className="mb-2 text-xl font-semibold text-accent">{L}</h2>
-          <ul className="divide-y divide-line rounded-2xl border border-line bg-surface">
-            {ts.map((t) => (
-              <li key={`${t.es}-${t.lesson}`} className="grid gap-1 px-5 py-3 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-4">
-                <div>
-                  <p className="font-medium">{t.es}</p>
-                  <p lang="en" className="text-sm text-accent">{t.en}</p>
-                </div>
-                <div className="text-sm">
-                  <p className="text-muted">{t.def}</p>
-                  <Link href={`/leccion/${t.lesson}`} className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted hover:text-ink">
-                    <span className="h-1.5 w-1.5 rounded-full" style={{ background: blockColor[t.block].fg }} />
-                    Nivel {t.level} · <span className="underline">{t.lessonTitle}</span>
-                  </Link>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-      {list.length === 0 && <p className="rounded-2xl border border-line bg-surface px-5 py-6 text-sm text-muted">No hay resultados para «{q}».</p>}
+      <div className="mt-8 space-y-8">
+        {groups.map(([L, ts]) => (
+          <section key={L} id={`letra-${L}`} className="scroll-mt-40" aria-labelledby={`letra-${L}-h`}>
+            <h2 id={`letra-${L}-h`} className="t-h2 mb-2 text-muted">
+              {L}
+            </h2>
+            <Card as="div">
+              <ul className="divide-y divide-line">
+                {ts.map((t) => (
+                  <li key={`${t.es}-${t.lesson}`} className="grid gap-1 px-5 py-3.5 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-6">
+                    <div>
+                      <p className="font-medium">{t.es}</p>
+                      <p lang="en" className="text-sm text-muted">
+                        {t.en}
+                      </p>
+                    </div>
+                    <div className="text-sm">
+                      <p className="max-w-[68ch] leading-relaxed">{t.def}</p>
+                      <Link href={`/leccion/${t.lesson}`} className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent">
+                        <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ background: blockColor[t.block].fg }} />
+                        Nivel {t.level} · <span className="underline underline-offset-2">{t.lessonTitle}</span>
+                      </Link>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </section>
+        ))}
+        {list.length === 0 && (
+          <Card className="px-5 py-6 text-sm text-muted">
+            <p>No hay resultados para «{q}».</p>
+          </Card>
+        )}
+      </div>
     </div>
   );
 }
