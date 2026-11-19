@@ -14,7 +14,9 @@ type Ctx = {
   lastSync: string | null;
   error: string | null;
   conflict: Conflict | null;
-  sendLink: (email: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  /** Devuelve true si ya ha iniciado sesión; false si hay que confirmar el email primero */
+  signUp: (email: string, password: string) => Promise<boolean>;
   signOut: () => Promise<void>;
   syncNow: () => Promise<void>;
   choose: (keep: "remote" | "local") => Promise<void>;
@@ -24,6 +26,14 @@ const CloudCtx = createContext<Ctx | null>(null);
 export const useCloud = () => useContext(CloudCtx);
 
 const PUSH_EVERY_MS = 15_000;
+
+function authMessage(msg: string, status?: number) {
+  if (status === 429) return "Demasiados intentos seguidos. Espera unos minutos y vuelve a probar.";
+  if (/invalid login credentials/i.test(msg)) return "Email o contraseña incorrectos.";
+  if (/email not confirmed/i.test(msg)) return "Aún no has confirmado el email: abre el enlace que te llegó al crear la cuenta (mira también en spam).";
+  if (/password should be at least/i.test(msg)) return "La contraseña debe tener al menos 6 caracteres.";
+  return msg;
+}
 
 export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
@@ -100,14 +110,21 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
     };
   }, [ready, userId, run]);
 
-  const sendLink = useCallback(async (email: string) => {
+  const signIn = useCallback(async (email: string, password: string) => {
     const sb = supabase();
     if (!sb) throw new Error("La nube no está configurada.");
-    const { error } = await sb.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${window.location.origin}/progreso` },
-    });
-    if (error) throw new Error(error.status === 429 ? "Has pedido varios enlaces seguidos. Espera unos minutos y vuelve a probar." : error.message);
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) throw new Error(authMessage(error.message, error.status));
+  }, []);
+
+  const signUp = useCallback(async (email: string, password: string) => {
+    const sb = supabase();
+    if (!sb) throw new Error("La nube no está configurada.");
+    const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/progreso` } });
+    if (error) throw new Error(authMessage(error.message, error.status));
+    // Si el proyecto ya tenía una cuenta con ese email, Supabase devuelve un usuario sin identidades
+    if (data.user && data.user.identities?.length === 0) throw new Error("Ya hay una cuenta con ese email. Pulsa «Ya tengo cuenta» y entra con tu contraseña.");
+    return Boolean(data.session);
   }, []);
 
   const signOut = useCallback(async () => {
@@ -144,7 +161,7 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CloudCtx.Provider
-      value={{ configured: cloudConfigured, status, email: session?.user.email ?? null, lastSync, error, conflict, sendLink, signOut, syncNow, choose }}
+      value={{ configured: cloudConfigured, status, email: session?.user.email ?? null, lastSync, error, conflict, signIn, signUp, signOut, syncNow, choose }}
     >
       {children}
     </CloudCtx.Provider>

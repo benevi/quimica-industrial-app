@@ -88,6 +88,8 @@ export function useCloudNeedsAction() {
 export function CloudPanel() {
   const cloud = useCloud();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<"login" | "signup">("signup");
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -103,7 +105,7 @@ export function CloudPanel() {
         </span>
       </h2>
       <p className="mt-1 max-w-[68ch] text-sm text-muted">
-        Automático. Inicia sesión con tu email y tu progreso se guarda solo, sin descargar archivos.
+        Automático. Entra con tu email y contraseña y tu progreso se guarda solo, sin descargar archivos.
       </p>
     </div>
   );
@@ -126,41 +128,74 @@ export function CloudPanel() {
         <div className={box}>
           {sent ? (
             <p role="status" className="rounded-md bg-ok-soft p-4 text-sm">
-              Te hemos enviado un enlace a <strong>{email}</strong>. Ábrelo <strong>en este mismo navegador</strong> y volverás aquí con la sesión iniciada. Si
-              no llega en un par de minutos, mira en la carpeta de spam.
+              Cuenta creada. Te hemos enviado un email a <strong>{email}</strong> para confirmarla: abre el enlace (mira también en spam) y después vuelve
+              aquí y pulsa <strong>Ya tengo cuenta</strong>.
             </p>
           ) : (
             <form
-              className="flex flex-wrap gap-2"
+              className="grid gap-3 sm:max-w-md"
               onSubmit={async (e) => {
                 e.preventDefault();
                 setErr(null);
                 setSending(true);
                 try {
-                  await cloud.sendLink(email.trim());
-                  setSent(true);
+                  if (mode === "login") await cloud.signIn(email.trim(), password);
+                  else if (!(await cloud.signUp(email.trim(), password))) setSent(true);
                 } catch (x) {
-                  setErr(x instanceof Error ? x.message : "No se pudo enviar el enlace.");
+                  setErr(x instanceof Error ? x.message : "No se pudo iniciar sesión.");
                 } finally {
                   setSending(false);
                 }
               }}
             >
-              <label className="sr-only" htmlFor="cloud-email">
+              <div role="tablist" aria-label="Acceso" className="flex gap-1 rounded-md bg-soft p-1 text-sm">
+                {(
+                  [
+                    ["login", "Ya tengo cuenta"],
+                    ["signup", "Crear cuenta"],
+                  ] as const
+                ).map(([m, l]) => (
+                  <button
+                    key={m}
+                    type="button"
+                    role="tab"
+                    aria-selected={mode === m}
+                    onClick={() => {
+                      setMode(m);
+                      setErr(null);
+                    }}
+                    className={`flex-1 rounded px-3 py-1.5 ${mode === m ? "bg-surface font-medium shadow-sm" : "text-muted hover:text-ink"}`}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
+              <label className="grid gap-1 text-sm">
                 Email
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="tu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-md border border-line-strong bg-surface px-3 py-2"
+                />
               </label>
-              <input
-                id="cloud-email"
-                type="email"
-                required
-                autoComplete="email"
-                placeholder="tu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="min-w-0 flex-1 rounded-md border border-line-strong bg-surface px-3 py-2"
-              />
-              <button disabled={sending} className={btn.primary}>
-                {sending ? "Enviando…" : "Enviarme el enlace"}
+              <label className="grid gap-1 text-sm">
+                Contraseña
+                <input
+                  type="password"
+                  required
+                  minLength={6}
+                  autoComplete={mode === "login" ? "current-password" : "new-password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="rounded-md border border-line-strong bg-surface px-3 py-2"
+                />
+              </label>
+              <button disabled={sending} className={`${btn.primary} w-fit`}>
+                {sending ? "Un momento…" : mode === "login" ? "Entrar" : "Crear cuenta"}
               </button>
             </form>
           )}
@@ -170,8 +205,8 @@ export function CloudPanel() {
             </p>
           )}
           <p className="mt-3 max-w-[68ch] text-xs text-muted">
-            La primera vez, lo que ya tienes en este navegador se sube a la nube: no pierdes nada. Sin contraseña: cada vez que entres desde un navegador
-            nuevo te llega un enlace.
+            La primera vez, lo que ya tienes en este navegador se sube a la nube: no pierdes nada. La sesión se queda abierta en este navegador; desde
+            otro ordenador entras con el mismo email y contraseña.
           </p>
         </div>
       </section>

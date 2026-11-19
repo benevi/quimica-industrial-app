@@ -16,7 +16,7 @@ import { PREFIX, collectBackup, restoreBackup } from "./backup";
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY_ = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const META = "aula-nube:meta"; // fuera del prefijo «quimica-app:» para que no se suba a sí misma
-const TABLE = "progreso";
+const TABLE = "aula_progreso";
 
 export const cloudConfigured = Boolean(URL_ && KEY_);
 
