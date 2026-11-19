@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
+import { CloudPanel } from "@/components/CloudPanel";
 import { backupFileName, collectBackup, KEY_LABELS, parseBackup, restoreBackup, summarize, type Backup } from "@/lib/backup";
 
 type Summary = ReturnType<typeof summarize>;
@@ -97,14 +98,15 @@ export function BackupPanel() {
     <div className="space-y-6">
       <div>
         <Link href="/" className="text-sm text-muted hover:text-ink">← Inicio</Link>
-        <p className="mt-3 text-sm font-medium text-accent">Copia de seguridad · Backup</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Copia de tu progreso</h1>
+        <p className="mt-3 text-sm font-medium text-accent">Nube y copia de seguridad · Backup</p>
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Guarda tu progreso</h1>
         <p className="mt-2 max-w-3xl text-muted">
-          Tu progreso se guarda solo en este navegador. Si borras los datos de navegación, cambias de navegador o de ordenador, se pierde.
-          Descarga una copia de vez en cuando y, si hace falta, cárgala aquí para recuperarlo todo: lecciones, tests, certificaciones, repaso de fallos,
-          simulador de planta y ERP.
+          Tu progreso se guarda en este navegador. Para no perderlo si borras los datos de navegación o cambias de ordenador, guárdalo en la nube
+          con tu email, o descarga una copia de vez en cuando: lecciones, tests, certificaciones, repaso de fallos, simulador de planta y ERP.
         </p>
       </div>
+
+      <CloudPanel />
 
       {current && (
         <section className="rounded-2xl border border-line bg-surface p-5 sm:p-6">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon, type IconName } from "./icons";
 import { Search, type SearchIndex } from "./Search";
+import { CloudBadge } from "./CloudPanel";
 
 type Item = { href: string; label: string; icon: IconName; match?: string[] };
 
@@ -74,6 +75,7 @@ export function Nav({ index }: { index: SearchIndex }) {
             </div>
           ))}
         </div>
+        <CloudBadge />
         <Search index={index} />
       </nav>
     </header>
