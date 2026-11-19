@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { isRight, type Answer } from "@/certs/grading";
 import type { PoolItem } from "@/certs/pool";
 import { SRS_DAYS, today, useCertState } from "@/certs/useCertState";
+import { Bar, Card, btn } from "@/components/ui";
 import { QuestionItem } from "./QuestionItem";
 
 const SESSION = 15;
@@ -26,67 +27,74 @@ export function ReviewRunner({ items }: { items: Record<string, PoolItem> }) {
 
   if (!session) {
     return (
-      <section className="space-y-5">
-        <div className="rounded-2xl border border-line bg-surface p-5">
-          <p className="text-lg font-semibold">{due.length === 0 ? "No tienes fallos pendientes hoy" : `${due.length} pregunta${due.length === 1 ? "" : "s"} para repasar hoy`}</p>
-          <p className="mt-1 text-sm text-muted">
-            Las preguntas que fallas en simulacros, supuestos y ejercicios de fichas de seguridad entran aquí. Cada vez que aciertas una, sube de caja y tarda más en volver ({SRS_DAYS.slice(1).join(", ")} días). Si la fallas,
-            vuelve a la caja 1.
+      <Card as="section" className="p-5">
+        <h2 className="t-h2">{due.length === 0 ? "No tienes fallos pendientes hoy" : `${due.length} pregunta${due.length === 1 ? "" : "s"} para repasar hoy`}</h2>
+        <p className="mt-1 max-w-[68ch] text-sm text-muted">
+          Las preguntas que fallas en simulacros, supuestos y ejercicios de fichas de seguridad entran aquí. Cada vez que aciertas una, sube de caja y tarda más
+          en volver ({SRS_DAYS.slice(1).join(", ")} días). Si la fallas, vuelve a la caja 1.
+        </p>
+        <ul className="mt-4 grid grid-cols-5 gap-2 text-center text-sm">
+          {byBox.map((n, b) => (
+            <li key={b} className="rounded-md border border-line bg-soft/50 p-2">
+              <p className="text-xs text-muted">Caja {b + 1}</p>
+              <p className="text-lg font-semibold tabular-nums">{n}</p>
+            </li>
+          ))}
+        </ul>
+        {due.length > 0 ? (
+          <button
+            onClick={() => {
+              setSession(due.slice(0, SESSION).map(([id]) => id));
+              setI(0);
+              setRight(0);
+              setAnswer(undefined);
+              setChecked(false);
+            }}
+            className={`${btn.primary} mt-5`}
+          >
+            Repasar {Math.min(SESSION, due.length)}
+          </button>
+        ) : (
+          <p className="mt-4 text-sm">
+            Haz un{" "}
+            <Link href="/certificaciones" className="text-accent underline-offset-2 hover:underline">
+              simulacro o un supuesto práctico
+            </Link>{" "}
+            para alimentar el repaso.
           </p>
-          <div className="mt-4 grid grid-cols-5 gap-2 text-center text-sm">
-            {byBox.map((n, b) => (
-              <div key={b} className="rounded-lg border border-line p-2">
-                <p className="text-xs text-muted">Caja {b + 1}</p>
-                <p className="text-lg font-semibold tabular-nums">{n}</p>
-              </div>
-            ))}
-          </div>
-          {due.length > 0 ? (
-            <button
-              onClick={() => {
-                setSession(due.slice(0, SESSION).map(([id]) => id));
-                setI(0);
-                setRight(0);
-                setAnswer(undefined);
-                setChecked(false);
-              }}
-              className="mt-4 rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90"
-            >
-              Repasar {Math.min(SESSION, due.length)}
-            </button>
-          ) : (
-            <p className="mt-4 text-sm">
-              Haz un <Link href="/certificaciones" className="underline">simulacro o un supuesto práctico</Link> para alimentar el repaso.
-            </p>
-          )}
-        </div>
-      </section>
+        )}
+      </Card>
     );
   }
 
   if (i >= session.length)
     return (
-      <section className="rounded-2xl border border-line bg-surface p-5">
-        <p className="text-lg font-semibold">
+      <Card as="section" className="p-5">
+        <h2 className="t-h2">
           Repaso terminado: {right}/{session.length} acertadas
-        </p>
+        </h2>
         <p className="mt-1 text-sm text-muted">Las acertadas vuelven más adelante; las falladas, mañana otra vez.</p>
-        <button onClick={() => setSession(null)} className="mt-3 rounded-lg border border-line px-4 py-2 text-sm hover:bg-soft">
+        <button onClick={() => setSession(null)} className={`${btn.secondary} mt-4`}>
           Volver
         </button>
-      </section>
+      </Card>
     );
 
   const id = session[i];
   const it = items[id];
   return (
     <section className="space-y-4">
-      <p className="text-sm text-muted">
-        Pregunta {i + 1} de {session.length} · caja {state.srs[id]?.box ?? 1}
-      </p>
-      <ol className="rounded-2xl border border-line bg-surface p-5">
-        <QuestionItem n={i + 1} name={`r-${id}`} q={it.q} from={it.from} answer={answer} checked={checked} onAnswer={setAnswer} />
-      </ol>
+      <div className="flex items-center gap-3 text-sm text-muted">
+        <span>
+          Pregunta {i + 1} de {session.length} · caja {state.srs[id]?.box ?? 1}
+        </span>
+        <Bar pct={Math.round((i / session.length) * 100)} className="flex-1" label="Avance del repaso" />
+      </div>
+      <Card as="section" className="p-5">
+        <ol>
+          <QuestionItem n={i + 1} name={`r-${id}`} q={it.q} from={it.from} answer={answer} checked={checked} onAnswer={setAnswer} />
+        </ol>
+      </Card>
       {!checked ? (
         <button
           onClick={() => {
@@ -96,7 +104,7 @@ export function ReviewRunner({ items }: { items: Record<string, PoolItem> }) {
             review({ [id]: ok });
           }}
           disabled={answer === undefined || answer === ""}
-          className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90 disabled:opacity-50"
+          className={btn.primary}
         >
           Comprobar
         </button>
@@ -107,7 +115,7 @@ export function ReviewRunner({ items }: { items: Record<string, PoolItem> }) {
             setAnswer(undefined);
             setChecked(false);
           }}
-          className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90"
+          className={btn.primary}
         >
           Siguiente
         </button>

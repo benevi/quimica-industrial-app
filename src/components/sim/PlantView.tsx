@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import * as E from "@/sim/engine";
 import type { SectionId, Sim, ValveId } from "@/sim/engine";
 import { currentTask } from "./Coach";
@@ -160,7 +160,25 @@ function GlassSphere({
   );
 }
 
+/** Ámbar de señal («tu siguiente paso»), fijo porque el dibujo no cambia con el tema. */
+const SIGNAL = "#e8a317";
+
+/** true si el sistema pide reducir el movimiento: entonces las marcas de «siguiente paso» no se animan. */
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!mq) return;
+    setReduced(mq.matches);
+    const on = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+  return reduced;
+}
+
 export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (sectionIndex: number) => void; onValve?: (v: ValveId) => void }) {
+  const reduced = useReducedMotion();
   const r = s.reactor;
   const cur = E.SECTIONS[s.section].id;
   const st = (eq: EqId) => status(s, eq);
@@ -198,8 +216,8 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         className="pv-hit"
       >
         <title>{`${EQ_INFO[eq].name}\n${EQ_INFO[eq].what}${idx >= 0 ? "\nClic: ver esta etapa" : ""}`}</title>
-        <rect x={x} y={y} width={w} height={h} rx={14} fill="transparent" stroke={now ? "#1d4ed8" : "transparent"} strokeWidth={3} strokeDasharray={now ? "9 6" : undefined}>
-          {now && <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="1.2s" repeatCount="indefinite" />}
+        <rect x={x} y={y} width={w} height={h} rx={14} fill="transparent" stroke={now ? SIGNAL : "transparent"} strokeWidth={3} strokeDasharray={now ? "9 6" : undefined}>
+          {now && !reduced && <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="1.2s" repeatCount="indefinite" />}
         </rect>
         {st(eq) === "done" && (
           <g>
@@ -211,7 +229,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
     );
   };
 
-  // posición del rótulo "ESTÁS AQUÍ"
+  // posición del rótulo «Estás aquí»
   const here: Partial<Record<EqId, [number, number]>> = {
     bascula: [205, 452],
     r101: [330, 132],
@@ -224,7 +242,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
   const nowEq = (SECTION_EQ[cur] ?? []).find((e) => st(e) === "now");
 
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-[#f4f6f8]">
+    <div className="overflow-hidden rounded-[var(--radius)] border border-line bg-[#f4f6f8]">
       <svg viewBox="0 0 1040 640" className="block w-full" role="img" aria-label="Vista de planta del lote FX-101">
         <defs>
           <linearGradient id="pv-glass" x1="0" x2="1">
@@ -469,8 +487,8 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
             >
               <title>{`${v} · ${E.VALVES[v].name}\n${open ? "ABIERTA" : "CERRADA"}${can ? "\nClic: " + (open ? "cerrar" : "abrir") : ""}`}</title>
               {isTarget && (
-                <circle r={17} fill="#fde68a" stroke="#f59e0b" strokeWidth={2.5}>
-                  <animate attributeName="r" values="14;19;14" dur="1.2s" repeatCount="indefinite" />
+                <circle r={17} fill="#fdf3dc" stroke={SIGNAL} strokeWidth={2.5}>
+                  {!reduced && <animate attributeName="r" values="14;19;14" dur="1.2s" repeatCount="indefinite" />}
                 </circle>
               )}
               <g transform={vert ? "rotate(90)" : undefined}>
@@ -540,15 +558,15 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
           );
         })()}
 
-        {/* ESTÁS AQUÍ */}
+        {/* Estás aquí */}
         {nowEq && here[nowEq] && !s.halt && (
           <g>
-            <rect x={here[nowEq]![0] - 62} y={here[nowEq]![1] - 18} width={124} height={24} rx={12} fill="#1d4ed8" />
-            <text x={here[nowEq]![0]} y={here[nowEq]![1] - 1} textAnchor="middle" fill="#fff" fontSize={11.5} fontWeight={700}>▼ ESTÁS AQUÍ</text>
+            <rect x={here[nowEq]![0] - 62} y={here[nowEq]![1] - 18} width={124} height={24} rx={12} fill={SIGNAL} />
+            <text x={here[nowEq]![0]} y={here[nowEq]![1] - 1} textAnchor="middle" fill="#17201c" fontSize={12} fontWeight={600}>▼ Estás aquí</text>
           </g>
         )}
       </svg>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-[#d3dae3] bg-white px-3 py-2 text-xs text-[#475569]">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-line bg-surface px-3 py-2 text-xs text-muted">
         <span><span className="text-[#16a34a]">■</span> Agua</span>
         <span><span className="text-[#60a5fa]">■</span> Aire</span>
         <span><span className="text-[#d4a017]">■</span> Nitrógeno</span>
@@ -557,7 +575,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         <span><span className="text-[#b8ae8f]">■</span> Vacío y gases al lavador</span>
         <span><span className="text-[#16a34a]">▶◀</span> Válvula abierta</span>
         <span><span className="text-[#dc2626]">▶◀</span> Válvula cerrada</span>
-        <span className="ml-auto">Clic en un equipo: ir a su etapa · clic en una válvula: abrirla o cerrarla</span>
+        <span className="ml-auto text-ink">Pulsa un equipo para ver su etapa, o una válvula para abrirla o cerrarla</span>
       </div>
     </div>
   );

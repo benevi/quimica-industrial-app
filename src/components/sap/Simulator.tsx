@@ -27,6 +27,8 @@ import {
   type Msg,
 } from "@/sap/engine";
 import { useCertState } from "@/certs/useCertState";
+import { Icon } from "@/components/icons";
+import { Card, SectionTitle, btn as ui } from "@/components/ui";
 
 const KEY = "quimica-app:erp:v1";
 
@@ -58,9 +60,10 @@ function load(): ErpState {
   return initialState();
 }
 
-const input = "w-full rounded-md border border-line bg-surface px-2.5 py-1.5 text-sm tabular-nums focus:border-accent focus:outline-none";
-const btn = "rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90";
-const btn2 = "rounded-md border border-line px-3 py-1.5 text-sm hover:bg-soft";
+const input = "w-full rounded-md border border-line-strong bg-surface px-2.5 py-1.5 text-sm tabular-nums focus:border-accent";
+/** Botones de la pantalla del ERP: más compactos que los de la app, pero con las mismas clases */
+const btn = `${ui.primary} px-3 py-1.5`;
+const btn2 = `${ui.secondary} px-3 py-1.5`;
 const num = (v: string) => Number(v.replace(",", "."));
 
 function Field({ label, en, children }: { label: string; en?: string; children: React.ReactNode }) {
@@ -94,7 +97,7 @@ function Table({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
 }
 
 const stockLabel = { libre: "Libre utilización", calidad: "Control de calidad", bloqueado: "Bloqueado" } as const;
-const stockCls = { libre: "text-ok", calidad: "text-amber-600 dark:text-amber-400", bloqueado: "text-bad" } as const;
+const stockCls = { libre: "text-ok", calidad: "text-ink", bloqueado: "text-bad" } as const;
 
 /**
  * practice: guarda el sistema en el navegador y marca misiones.
@@ -148,8 +151,8 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
   const doneCount = missions.filter((m) => m.done(state)).length;
 
   return (
-    <div className="space-y-6">
-      <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+    <div className="space-y-8">
+      <div className="overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
         {/* barra de comandos */}
         <form
           onSubmit={(e) => {
@@ -163,10 +166,10 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
             onChange={(e) => setCmd(e.target.value)}
             placeholder="Transacción (p. ej. MMBE)"
             aria-label="Campo de comandos: escribe un código de transacción"
-            className="w-48 rounded-md border border-line bg-surface px-2.5 py-1.5 font-mono text-sm uppercase focus:border-accent focus:outline-none"
+            className="w-48 rounded-md border border-line-strong bg-surface px-2.5 py-1.5 font-mono text-sm uppercase focus:border-accent"
           />
-          <button className={btn}>Ir</button>
-          <span className="ml-auto text-xs text-muted">
+          <button className={btn2}>Ir</button>
+          <span className="ml-auto font-mono text-xs text-muted">
             Usuario {"ALUMNO"} · Mandante 100 · {TODAY.split("-").reverse().join("/")}
           </span>
         </form>
@@ -176,13 +179,14 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
           <nav className="border-b border-line p-2 md:border-b-0 md:border-r">
             {(["Datos maestros", "Producción", "Almacén", "Calidad"] as const).map((g) => (
               <div key={g} className="mb-2">
-                <p className="px-2 py-1 text-xs font-medium uppercase tracking-wide text-muted">{g}</p>
+                <p className="px-2 py-1 text-xs font-medium text-muted">{g}</p>
                 <div className="flex flex-wrap gap-1 md:block">
                   {TXS.filter((t) => t.group === g).map((t) => (
                     <button
                       key={t.code}
                       onClick={() => go(t.code)}
-                      className={`block rounded-md px-2 py-1 text-left text-sm md:w-full ${t.code === tx ? "bg-accent-soft text-ink" : "text-muted hover:bg-soft hover:text-ink"}`}
+                      aria-current={t.code === tx ? "page" : undefined}
+                      className={`block rounded-md px-2 py-1 text-left text-sm md:w-full ${t.code === tx ? "bg-accent-soft font-medium text-ink" : "text-muted hover:bg-soft hover:text-ink"}`}
                     >
                       <span className="font-mono text-xs">{t.code}</span> <span className="hidden md:inline">· {t.text}</span>
                     </button>
@@ -194,7 +198,7 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
 
           {/* pantalla */}
           <section className="min-h-[340px] p-4">
-            <h2 className="mb-3 flex flex-wrap items-baseline gap-x-2 font-semibold">
+            <h2 className="t-h3 mb-4 flex flex-wrap items-baseline gap-x-2">
               <span className="font-mono text-accent">{cur.code}</span> {cur.text}
               <span lang="en" className="text-sm font-normal text-muted">{cur.en}</span>
             </h2>
@@ -205,14 +209,20 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
         {/* barra de estado */}
         <div
           role="status"
-          className={`border-t border-line px-3 py-2 text-sm ${
-            !msg ? "text-muted" : msg.type === "E" ? "bg-bad-soft" : msg.type === "W" ? "bg-warn-soft" : "bg-ok-soft"
+          className={`flex gap-2 border-t border-line px-3 py-2 text-sm ${
+            !msg ? "bg-soft text-muted" : msg.type === "E" ? "bg-bad-soft" : msg.type === "W" ? "bg-warn-soft" : "bg-ok-soft"
           }`}
         >
           {msg ? (
             <>
-              <strong>{msg.type === "E" ? "Error" : msg.type === "W" ? "Aviso" : "Hecho"}:</strong> {msg.text}
-              {msg.gmp && !exam && <span className="mt-1 block text-xs">GMP: {msg.gmp}</span>}
+              <Icon
+                name={msg.type === "E" ? "close" : msg.type === "W" ? "hazard" : "check"}
+                className={`mt-0.5 h-4 w-4 shrink-0 ${msg.type === "E" ? "text-bad" : msg.type === "W" ? "text-ink" : "text-ok"}`}
+              />
+              <span>
+                <strong className="font-medium">{msg.type === "E" ? "Error" : msg.type === "W" ? "Aviso" : "Hecho"}:</strong> {msg.text}
+                {msg.gmp && !exam && <span className="mt-1 block text-xs">GMP: {msg.gmp}</span>}
+              </span>
             </>
           ) : (
             "Escribe una transacción o elígela en el menú."
@@ -221,45 +231,69 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
       </div>
 
       {/* misiones */}
-      {!exam && <section className="rounded-2xl border border-line bg-surface p-5">
-        <div className="mb-3 flex flex-wrap items-center gap-3">
-          <h2 className="text-lg font-semibold">
-            Misiones <span lang="en" className="text-sm font-normal text-muted">Tasks</span>
-          </h2>
-          <span className="text-sm text-muted">{doneCount}/{missions.length} hechas</span>
-          <label className="ml-auto flex items-center gap-2 text-sm text-muted">
-            <input type="checkbox" checked={showHints} onChange={(e) => setShowHints(e.target.checked)} className="accent-[var(--accent)]" />
-            Ver pistas
-          </label>
-        </div>
-        <p className="mb-3 text-sm text-muted">
-          Los exámenes prácticos de SAP dan las tareas en inglés: lee primero la frase en inglés e intenta hacerla sin pistas.
-        </p>
-        <ol className="space-y-2">
-          {missions.map((m, i) => {
-            const ok = m.done(state);
-            return (
-              <li key={m.id} className={`rounded-lg border px-3 py-2 text-sm ${ok ? "border-ok bg-ok-soft" : "border-line"}`}>
-                <p>
-                  <span aria-hidden>{ok ? "✓" : `${i + 1}.`}</span> <span lang="en" className="font-medium">{m.taskEn}</span>
-                </p>
-                <p className="text-muted">{m.title}</p>
-                {showHints && !ok && <p className="mt-1 text-xs text-accent">Pista: {m.hint}</p>}
-              </li>
-            );
-          })}
-        </ol>
-      </section>}
+      {!exam && (
+        <section aria-labelledby="mis-h">
+          <SectionTitle
+            id="mis-h"
+            en="Tasks"
+            aside={
+              <span className="flex items-center gap-4">
+                <span className="tabular-nums">
+                  {doneCount}/{missions.length} hechas
+                </span>
+                <label className="flex cursor-pointer items-center gap-2">
+                  <input type="checkbox" checked={showHints} onChange={(e) => setShowHints(e.target.checked)} className="h-4 w-4 accent-[var(--accent)]" />
+                  Ver pistas
+                </label>
+              </span>
+            }
+          >
+            Misiones
+          </SectionTitle>
+          <p className="mb-3 max-w-[68ch] text-sm text-muted">
+            Los exámenes prácticos de SAP dan las tareas en inglés: lee primero la frase en inglés e intenta hacerla sin pistas.
+          </p>
+          <Card as="div">
+            <ol className="divide-y divide-line">
+              {missions.map((m, i) => {
+                const ok = m.done(state);
+                return (
+                  <li key={m.id} className="flex gap-3 px-4 py-3 text-sm">
+                    {ok ? (
+                      <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-ok" />
+                    ) : (
+                      <span aria-hidden className="w-4 shrink-0 text-center tabular-nums text-muted">
+                        {i + 1}
+                      </span>
+                    )}
+                    <div className="min-w-0">
+                      <p>
+                        <span lang="en" className={`font-medium ${ok ? "text-muted" : ""}`}>
+                          {m.taskEn}
+                        </span>
+                        {ok && <span className="sr-only"> (hecha)</span>}
+                      </p>
+                      <p className="text-muted">{m.title}</p>
+                      {showHints && !ok && <p className="mt-1 text-xs text-accent">Pista: {m.hint}</p>}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </Card>
+        </section>
+      )}
 
       {/* informe del laboratorio */}
-      <section className="rounded-2xl border border-line bg-surface p-5">
-        <h2 className="mb-1 text-lg font-semibold">
-          Informes del laboratorio <span lang="en" className="text-sm font-normal text-muted">Lab reports</span>
-        </h2>
-        <p className="mb-3 text-sm text-muted">Resultados ficticios que el laboratorio de control de calidad entrega para cada lote. Transcríbelos tal cual en QE51N.</p>
+      <section aria-labelledby="lab-h">
+        <SectionTitle id="lab-h" en="Lab reports">
+          Informes del laboratorio
+        </SectionTitle>
+        <p className="mb-3 max-w-[68ch] text-sm text-muted">Resultados ficticios que el laboratorio de control de calidad entrega para cada lote. Transcríbelos tal cual en QE51N.</p>
         {state.lots.length === 0 ? (
-          <p className="text-sm text-muted">Aún no hay lotes de inspección: aparecen al dar entrada al producto (MIGO 101).</p>
+          <Card className="p-4 text-sm text-muted">Aún no hay lotes de inspección: aparecen al dar entrada al producto (MIGO 101).</Card>
         ) : (
+          <Card className="p-2">
           <Table
             head={["Lote de inspección", "Lote", ...characteristics.map((c) => `${c.text} (${c.unit})`)]}
             rows={state.lots.map((l) => {
@@ -267,22 +301,34 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
               return [l.id, l.batch, ...characteristics.map((c) => fmtQty(lab[c.id]))];
             })}
           />
+          </Card>
         )}
       </section>
 
       {/* audit trail */}
-      <section className="rounded-2xl border border-line bg-surface p-5">
-        <div className="mb-3 flex flex-wrap items-center gap-3">
-          <h2 className="text-lg font-semibold">
-            Registro de documentos <span lang="en" className="text-sm font-normal text-muted">Audit trail</span>
-          </h2>
-          {!exam && <button onClick={reset} className={`${btn2} ml-auto`}>Reiniciar sistema</button>}
-        </div>
-        <p className="mb-3 text-sm text-muted">Cada contabilización deja quién, qué y cuándo. Es lo que revisa un auditor (ALCOA+: atribuible y contemporáneo).</p>
-        <Table
-          head={["Documento", "Fecha y hora", "Usuario", "Transacción", "Qué"]}
-          rows={state.log.slice(0, 30).map((d) => [d.doc, new Date(d.at).toLocaleString("es-ES"), d.user, d.tx, d.text])}
-        />
+      <section aria-labelledby="log-h">
+        <SectionTitle
+          id="log-h"
+          en="Audit trail"
+          aside={
+            !exam && (
+              <button onClick={reset} className={ui.quiet}>
+                Reiniciar sistema
+              </button>
+            )
+          }
+        >
+          Registro de documentos
+        </SectionTitle>
+        <p className="mb-3 max-w-[68ch] text-sm text-muted">
+          Cada contabilización deja quién, qué y cuándo. Es lo que revisa un auditor (ALCOA+: atribuible y contemporáneo).
+        </p>
+        <Card className="p-2">
+          <Table
+            head={["Documento", "Fecha y hora", "Usuario", "Transacción", "Qué"]}
+            rows={state.log.slice(0, 30).map((d) => [d.doc, new Date(d.at).toLocaleString("es-ES"), d.user, d.tx, d.text])}
+          />
+        </Card>
       </section>
     </div>
   );
@@ -580,7 +626,7 @@ function Screen({
           </Field>
           <div className="flex flex-wrap gap-2">
             <button className={btn} onClick={() => apply(usageDecision(s, a || openLot, "A"))}>A · Aceptar</button>
-            <button className={`${btn2} border-bad text-bad`} onClick={() => apply(usageDecision(s, a || openLot, "R"))}>R · Rechazar</button>
+            <button className={`${btn2} border-bad text-bad hover:border-bad hover:text-bad`} onClick={() => apply(usageDecision(s, a || openLot, "R"))}>R · Rechazar</button>
           </div>
           <p className="text-xs text-muted">Aceptar traspasa el lote a libre utilización. Rechazar lo pasa a stock bloqueado.</p>
         </div>

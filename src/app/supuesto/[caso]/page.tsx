@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageHeader } from "@/components/ui";
 import { notFound } from "next/navigation";
 import { cases, getCase } from "@/certs/casos";
 import { caseItems } from "@/certs/pool";
@@ -22,16 +22,26 @@ export default async function CasePage({ params }: { params: Promise<{ caso: str
   const prep = preps.find((p) => p.units.some((u) => u.key === c.unit));
   const unit = prep?.units.find((u) => u.key === c.unit);
   return (
-    <div className="space-y-6">
-      <div>
-        {prep && (
-          <Link href={`/certificaciones/${prep.certId}`} className="text-sm text-muted hover:text-ink">
-            ← {prep.title}
-          </Link>
-        )}
-        <p className="mt-3 text-sm font-medium text-accent">Supuesto práctico{unit ? ` · ${unit.code} ${unit.name}` : ""}</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{c.title}</h1>
-      </div>
+    <div>
+      <PageHeader
+        crumbs={[
+          { href: "/certificaciones", label: "Certificaciones" },
+          ...(prep ? [{ href: `/certificaciones/${prep.certId}`, label: prep.title.split(" · ")[0] }] : []),
+          { label: "Supuesto práctico" },
+        ]}
+        title={c.title}
+        en="Case study"
+        icon="flask"
+        lead={
+          unit ? (
+            <>
+              Supuesto práctico de <span className="t-tag">{unit.code}</span> {unit.name}.
+            </>
+          ) : (
+            "Supuesto práctico."
+          )
+        }
+      />
       <CaseRunner c={c} items={caseItems(c.id)} />
     </div>
   );

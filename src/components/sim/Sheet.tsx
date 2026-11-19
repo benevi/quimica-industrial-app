@@ -17,7 +17,7 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
 
   const input =
     f.kind === "select" ? (
-      <select value={val} onChange={(ev) => setVal(ev.target.value)} className="w-full rounded-md border border-[#c9bfa0] bg-white text-[#1f2937] px-2 py-1 text-sm">
+      <select value={val} onChange={(ev) => setVal(ev.target.value)} aria-label={f.label} className="w-full rounded-md border border-line-strong bg-surface px-2 py-1 text-sm text-ink">
         <option value="">Elige…</option>
         {f.options!.map((o) => (
           <option key={o}>{o}</option>
@@ -31,10 +31,10 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
           inputMode={f.kind === "number" ? "decimal" : "text"}
           placeholder={f.kind === "time" ? "dd/mm hh:mm" : f.unit ?? ""}
           aria-label={f.label}
-          className="w-full min-w-0 rounded-md border border-[#c9bfa0] bg-white text-[#1f2937] px-2 py-1 font-mono text-sm"
+          className="w-full min-w-0 rounded-md border border-line-strong bg-surface px-2 py-1 font-mono text-sm text-ink"
         />
         {f.kind === "time" && (
-          <button type="button" className="shrink-0 rounded-md border border-[#d6cfb8] px-2 text-xs hover:bg-[#efe9d8]" onClick={() => setVal(fmtTime(s.clock))}>
+          <button type="button" className="shrink-0 rounded-md border border-line-strong bg-surface px-2 text-xs hover:border-accent hover:text-accent" onClick={() => setVal(fmtTime(s.clock))}>
             Ahora
           </button>
         )}
@@ -42,12 +42,15 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
     );
 
   return (
-    <div className={`border-b border-dashed border-[#d6cfb8] py-2.5 last:border-b-0 ${focus ? "-mx-2 my-1 rounded-lg border-2 border-solid border-[#f59e0b] bg-[#fff3c4] px-2" : ""}`} data-field={id}>
+    <div className={`border-b border-dashed border-line py-2.5 last:border-b-0 ${focus ? "-mx-2 my-1 rounded-md border border-solid border-signal bg-signal-soft px-2" : ""}`} data-field={id}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-        <span className="text-sm">{focus && <span className="mr-1 font-bold text-[#b45309]">→</span>}{f.label}</span>
+        <span className="text-sm">
+          {f.label}
+          {focus && <span className="ml-2 text-xs font-medium text-ink">· te toca</span>}
+        </span>
         {f.spec && (
-          <span className="text-xs text-[#6b6450]">
-            Esp.: {f.spec}
+          <span className="text-xs text-muted">
+            Esp.: <span className="font-mono">{f.spec}</span>
             {f.unit ? ` ${f.unit}` : ""}
           </span>
         )}
@@ -56,22 +59,22 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
       {e && !editing && (
         <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
           {e.history.map((h, i) => (
-            <span key={i} className="font-mono text-xs text-[#6b6450] line-through" title={`Motivo: ${h.reason}`}>
+            <span key={i} className="font-mono text-xs text-muted line-through" title={`Motivo: ${h.reason}`}>
               {h.value}
             </span>
           ))}
-          <span className="font-mono font-bold text-[#1d3fa0]">
+          <span className="font-mono font-medium text-ink">
             {e.value}
             {f.unit ? ` ${f.unit}` : ""}
           </span>
-          <span className="text-xs text-[#6b6450]">
-            OP · {fmtTime(e.time)}
+          <span className="text-xs text-muted">
+            OP · <span className="font-mono">{fmtTime(e.time)}</span>
             {e.late ? " · registro tardío" : ""}
           </span>
           {open && (
             <button
               type="button"
-              className="ml-auto text-xs text-[#6b6450] underline hover:text-[#1f2937]"
+              className="ml-auto text-xs text-muted underline underline-offset-2 hover:text-ink"
               onClick={() => {
                 setEditing(true);
                 setVal(e.value);
@@ -91,7 +94,8 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
             value={reason}
             onChange={(ev) => setReason(ev.target.value)}
             placeholder="Motivo de la corrección (obligatorio)"
-            className="w-full rounded-md border border-[#c9bfa0] bg-white text-[#1f2937] px-2 py-1 text-sm"
+            aria-label="Motivo de la corrección"
+            className="w-full rounded-md border border-line-strong bg-surface px-2 py-1 text-sm text-ink"
           />
           <div className="flex gap-2">
             <Btn
@@ -108,7 +112,7 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
             </Btn>
             <Btn onClick={() => setEditing(false)}>Cancelar</Btn>
           </div>
-          <p className="text-xs text-[#6b6450]">El valor anterior queda tachado y legible, con tu motivo en el audit trail.</p>
+          <p className="text-xs text-muted">El valor anterior queda tachado y legible, con tu motivo en el audit trail.</p>
         </div>
       )}
 
@@ -120,7 +124,8 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
               value={late}
               onChange={(ev) => setLate(ev.target.value)}
               placeholder="Registro tardío: explica por qué no se anotó en su momento"
-              className="w-full rounded-md border border-[#c9bfa0] bg-white text-[#1f2937] px-2 py-1 text-sm"
+              aria-label="Motivo del registro tardío"
+              className="w-full rounded-md border border-line-strong bg-surface px-2 py-1 text-sm text-ink"
             />
           )}
           <Btn
@@ -146,32 +151,34 @@ export function Sheet({ s, sec, act, isActive, focusId }: { s: Sim; sec: Section
   const signed = s.signatures[sec];
   const title = SECTIONS.find((x) => x.id === sec)!.title;
   return (
-    <section className="rounded-xl border border-[#c9bfa0] bg-white text-[#1f2937]">
-      <div className="flex items-center justify-between gap-2 border-b-2 border-[#1f2937] px-4 py-3">
+    <section className="rounded-[var(--radius)] border border-line bg-surface">
+      <div className="flex items-center justify-between gap-2 border-b border-line-strong px-4 py-3">
         <div>
-          <div className="text-xs uppercase tracking-wide text-[#6b6450]">Hoja de producción · FX-101 · lote 26-0147</div>
-          <h3 className="font-semibold">{title}</h3>
+          <p className="text-xs text-muted">
+            Hoja de producción <span lang="en">(batch record)</span> · <span className="font-mono">FX-101 · lote 26-0147</span>
+          </p>
+          <h3 className="t-h3">{title}</h3>
         </div>
-        {!isActive && <span className="rounded-md bg-[#fde68a] px-2 py-0.5 text-xs text-[#78350f]">Etapa no activa</span>}
+        {!isActive && <span className="shrink-0 rounded-full bg-soft px-2 py-0.5 text-xs text-muted">Etapa no activa</span>}
       </div>
       <div className="px-4">
-        {fields.length === 0 && <p className="py-3 text-sm text-[#6b6450]">Esta etapa no tiene datos que anotar a mano.</p>}
+        {fields.length === 0 && <p className="py-3 text-sm text-muted">Esta etapa no tiene datos que anotar a mano.</p>}
         {fields.map((f) => (
           <FieldRow key={f.id} s={s} id={f.id} act={act} isActive={isActive} focus={isActive && f.id === focusId} />
         ))}
       </div>
       {sec !== "cierre" && (
-        <div className="flex flex-wrap items-center gap-2 border-t border-[#d6cfb8] px-4 py-3 text-sm">
+        <div className="flex flex-wrap items-center gap-2 border-t border-line px-4 py-3 text-sm">
           {signed != null ? (
             <span>
-              Firmado por <strong>OP</strong> · {fmtTime(signed)}
+              Firmado por <strong>OP</strong> · <span className="font-mono">{fmtTime(signed)}</span>
             </span>
           ) : (
             <Btn tone="primary" disabled={s.closed} onClick={() => act((x) => sign(x, sec))}>
               Firmar la sección
             </Btn>
           )}
-          <span className="text-xs text-[#6b6450]">Firmar es declarar que lo anotado es cierto y completo.</span>
+          <span className="text-xs text-muted">Firmar es declarar que lo anotado es cierto y completo.</span>
         </div>
       )}
     </section>

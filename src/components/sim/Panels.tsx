@@ -3,6 +3,7 @@
 import { useState } from "react";
 import * as E from "@/sim/engine";
 import type { MaterialId, Sim } from "@/sim/engine";
+import { Icon } from "@/components/icons";
 import { Badge, Btn, Card, Readout } from "./ui";
 import { Trend, Vessel } from "./Reactor";
 import { CentrifugeSvg, DryerSvg, FilterSvg, MiniTrend } from "./Equipment";
@@ -17,8 +18,8 @@ export function PanelPrevias({ s, act, active }: P) {
   return (
     <div className="space-y-4">
       <Card title="Etiqueta de estado del reactor R-101">
-        <div className="rounded-lg border-2 border-ok bg-ok-soft p-3 text-sm">
-          <div className="text-base font-bold tracking-wide text-ok">LIMPIO</div>
+        <div className="rounded-md border border-ok bg-ok-soft p-3 text-sm">
+          <div className="font-mono text-base font-medium text-ok">LIMPIO</div>
           <div>Producto anterior: FX-101, lote 26-0146</div>
           <div>Limpieza terminada: 16/11 14:00 · firmado OP2 / verificado SUP</div>
           <div>Tiempo limpio máximo: 72 h</div>
@@ -29,7 +30,7 @@ export function PanelPrevias({ s, act, active }: P) {
         <p className="mb-3 text-sm text-muted">Coloca la pesa patrón de 50,00 kg. Tolerancia: ±0,10 kg. Si no cumple, la báscula no se usa.</p>
         <div className="flex flex-wrap gap-3">
           {(["B-05", "B-06"] as const).map((b) => (
-            <div key={b} className="rounded-lg border border-line p-3">
+            <div key={b} className="rounded-md border border-line p-3">
               <div className="mb-2 text-sm font-medium">Báscula {b}</div>
               {s.scaleUsed === b || s.audit.some((a) => a.what.includes(`báscula ${b}`)) ? (
                 <Readout label="Lectura con pesa de 50,00 kg" value={n2(s.scaleReading[b])} unit="kg" />
@@ -61,7 +62,7 @@ export function PanelDispensacion({ s, act, active }: P) {
   const ids = Object.keys(E.MATERIALS) as MaterialId[];
   return (
     <div className="space-y-4">
-      {!s.scaleUsed && <p className="rounded-lg bg-warn-soft p-3 text-sm">Primero verifica una báscula en la etapa 1.</p>}
+      {!s.scaleUsed && <p className="rounded-md bg-warn-soft p-3 text-sm">Primero verifica una báscula en la etapa 1.</p>}
       {ids.map((m) => {
         const mat = E.MATERIALS[m];
         const shown = E.scaleDisplay(s, m);
@@ -93,7 +94,7 @@ export function PanelDispensacion({ s, act, active }: P) {
                 <Btn key={`-${d}`} disabled={dis} onClick={() => act((x) => E.dose(x, m, -d))}>−{E.fmtNum(d, d < 0.1 ? 2 : d < 1 ? 1 : 0)}</Btn>
               ))}
               <span className="mx-1" />
-              <Btn tone="primary" disabled={dis} onClick={() => act((x) => void E.requestVerification(x, m))}>
+              <Btn disabled={dis} onClick={() => act((x) => void E.requestVerification(x, m))}>
                 Pedir verificación
               </Btn>
             </div>
@@ -170,10 +171,10 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
         title="Reactor R-101"
         right={
           <div className="flex items-center gap-1.5">
-            <Btn tone={running ? "default" : "primary"} disabled={dis} onClick={() => setRunning(!running)}>
+            <Btn pressed={running} disabled={dis} onClick={() => setRunning(!running)}>
               {running ? "Pausa" : "▶ Marcha"}
             </Btn>
-            <select aria-label="Velocidad" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="rounded-md border border-line bg-surface px-1.5 py-1 text-sm">
+            <select aria-label="Velocidad" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="rounded-md border border-line-strong bg-surface px-1.5 py-1.5 text-sm">
               <option value={1}>1 min/s</option>
               <option value={4}>4 min/s</option>
               <option value={10}>10 min/s</option>
@@ -203,8 +204,8 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
           if (slope <= 0.4 || b.T >= 40) return null;
           const mins = Math.max(0, (40 - b.T) / slope);
           return (
-            <div className="mt-3 flex items-start gap-3 rounded-lg border border-[#d97706] bg-[#fffbeb] p-3 text-sm text-[#78350f]" role="status">
-              <span className="text-xl leading-none">⚠</span>
+            <div className="mt-3 flex items-start gap-3 rounded-md border border-line bg-warn-soft p-3 text-sm text-ink" role="status">
+              <Icon name="hazard" className="h-5 w-5 shrink-0" />
               <div>
                 <strong>La temperatura sube {E.fmtNum(slope, 1)} °C/min.</strong> A este ritmo pasarás de 40 °C en unos {Math.round(mins)} min. Baja la velocidad de adición.
               </div>
@@ -217,20 +218,21 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
         <div className="space-y-3 text-sm">
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Consigna TIC-101 (°C)</span>
-            <input value={sp} onChange={(e) => setSp(e.target.value)} className="w-20 rounded-md border border-line bg-surface px-2 py-1 font-mono" aria-label="Consigna de temperatura" />
+            <input value={sp} onChange={(e) => setSp(e.target.value)} className="w-20 rounded-md border border-line-strong bg-surface px-2 py-1 font-mono" aria-label="Consigna de temperatura" />
             <Btn disabled={dis} onClick={() => { const v = E.parseNum(sp); if (v != null) act((x) => E.setSP(x, v)); }}>Aplicar</Btn>
             <span className="text-xs text-muted">actual {n1(r.sp)} °C · la hoja permite como máximo 85 °C</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Adición FV-103 (L/min)</span>
-            <div className="inline-flex overflow-hidden rounded-lg border border-line" role="group" aria-label="Velocidad de adición">
+            <div className="inline-flex overflow-hidden rounded-md border border-line-strong" role="group" aria-label="Velocidad de adición">
               {[0, 1, 2, 3, 4, 5].map((v) => (
                 <button
                   key={v}
                   type="button"
                   disabled={dis || addDone}
                   onClick={() => act((x) => E.setRate(x, v))}
-                  className={`px-3 py-1.5 text-sm font-medium disabled:opacity-40 ${r.rate === v ? (v === 0 ? "bg-[#b91c1c] text-white" : "bg-[#1d4ed8] text-white") : "bg-surface hover:bg-soft"} ${v ? "border-l border-line" : ""}`}
+                  aria-pressed={r.rate === v}
+                  className={`px-3 py-1.5 font-mono text-sm disabled:opacity-40 ${r.rate === v ? (v === 0 ? "bg-bad-soft font-medium text-bad" : "bg-accent-soft font-medium text-accent") : "bg-surface hover:bg-soft"} ${v ? "border-l border-line-strong" : ""}`}
                 >
                   {v === 0 ? "■ Cerrar" : v}
                 </button>
@@ -238,7 +240,7 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
             </div>
           </div>
           {r.rate > 0 && !s.valves["XV-104"] && !addDone && (
-            <p className="rounded-md bg-[#fef2f2] px-2 py-1 text-xs text-[#7f1d1d]">La FV-103 está abierta, pero no hay caudal: la válvula manual XV-104 de salida del D-101 está cerrada.</p>
+            <p className="rounded-md bg-bad-soft px-2 py-1 text-xs text-bad">La FV-103 está abierta, pero no hay caudal: la válvula manual XV-104 de salida del D-101 está cerrada.</p>
           )}
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-44">Agitador</span>
@@ -306,7 +308,7 @@ export function PanelFiltracion({ s, act, active }: P) {
               <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
             </div>
             <div className="flex flex-wrap gap-2">
-              <Btn tone="primary" disabled={dis || f.done} onClick={() => act(E.filterStep)}>Transferir (+20 %)</Btn>
+              <Btn disabled={dis || f.done} onClick={() => act(E.filterStep)}>Transferir (+20 %)</Btn>
               <Btn disabled={dis || f.done} onClick={() => act(E.changeCartridge)}>Parar y cambiar cartucho</Btn>
             </div>
           </div>
@@ -350,13 +352,13 @@ export function PanelCristalizacion({ s, act, active }: P) {
       <Card title="Programa de cristalización">
         <div className="grid gap-2 text-sm sm:grid-cols-2">
           <label className="flex items-center gap-2"><input type="checkbox" checked={seeded} disabled={dis} onChange={(e) => setSeeded(e.target.checked)} /> Añadir la semilla</label>
-          <label className="flex items-center gap-2">T de siembra (°C) <input className="w-20 rounded-md border border-line bg-surface px-2 py-1 font-mono" value={seedT} disabled={dis} onChange={(e) => setSeedT(e.target.value)} /></label>
-          <label className="flex items-center gap-2">Rampa hasta T final (min) <input className="w-20 rounded-md border border-line bg-surface px-2 py-1 font-mono" value={ramp} disabled={dis} onChange={(e) => setRamp(e.target.value)} /></label>
-          <label className="flex items-center gap-2">T final (°C) <input className="w-20 rounded-md border border-line bg-surface px-2 py-1 font-mono" value={finalT} disabled={dis} onChange={(e) => setFinalT(e.target.value)} /></label>
-          <label className="flex items-center gap-2">Mantener (min) <input className="w-20 rounded-md border border-line bg-surface px-2 py-1 font-mono" value={hold} disabled={dis} onChange={(e) => setHold(e.target.value)} /></label>
+          <label className="flex items-center gap-2">T de siembra (°C) <input className="w-20 rounded-md border border-line-strong bg-surface px-2 py-1 font-mono" value={seedT} disabled={dis} onChange={(e) => setSeedT(e.target.value)} /></label>
+          <label className="flex items-center gap-2">Rampa hasta T final (min) <input className="w-20 rounded-md border border-line-strong bg-surface px-2 py-1 font-mono" value={ramp} disabled={dis} onChange={(e) => setRamp(e.target.value)} /></label>
+          <label className="flex items-center gap-2">T final (°C) <input className="w-20 rounded-md border border-line-strong bg-surface px-2 py-1 font-mono" value={finalT} disabled={dis} onChange={(e) => setFinalT(e.target.value)} /></label>
+          <label className="flex items-center gap-2">Mantener (min) <input className="w-20 rounded-md border border-line-strong bg-surface px-2 py-1 font-mono" value={hold} disabled={dis} onChange={(e) => setHold(e.target.value)} /></label>
         </div>
         <div className="mt-3">
-          <Btn tone="primary" disabled={dis} onClick={() => act((x) => E.runCrystallization(x, num(seedT), seeded, num(ramp), num(finalT), num(hold)))}>
+          <Btn disabled={dis} onClick={() => act((x) => E.runCrystallization(x, num(seedT), seeded, num(ramp), num(finalT), num(hold)))}>
             Ejecutar programa
           </Btn>
         </div>
@@ -441,11 +443,11 @@ export function PanelSecado({ s, act, active }: P) {
               <Btn disabled={dis || d.loaded || !s.centri.discharged} onClick={() => act(E.dryerLoad)}>{d.loaded ? "Cargado" : "Cargar y cerrar tapa"}</Btn>
               <span>T camisa:</span>
               {[50, 55, 60, 70, 80].map((t) => (
-                <Btn key={t} tone={d.Tj === t ? "primary" : "default"} disabled={dis} onClick={() => act((x) => E.dryerSet(x, t))}>{t} °C</Btn>
+                <Btn key={t} pressed={d.Tj === t} disabled={dis} onClick={() => act((x) => E.dryerSet(x, t))}>{t} °C</Btn>
               ))}
             </div>
             <div className="flex flex-wrap gap-2">
-              <Btn tone="primary" disabled={dis || !d.loaded} onClick={() => act(E.dryHour)}>Secar 1 hora</Btn>
+              <Btn disabled={dis || !d.loaded} onClick={() => act(E.dryHour)}>Secar 1 hora</Btn>
               <Btn disabled={dis || !d.loaded || d.hours === 0} onClick={() => act((x) => void E.lodSample(x))}>Tomar muestra de LOD</Btn>
             </div>
           </div>
@@ -489,7 +491,7 @@ export function PanelEnvasado({ s, act, active }: P) {
         Doble bolsa de polietileno en bidón de cartón, 25 kg por bidón. Rendimiento = kg obtenidos / {E.fmtNum(E.THEORETICAL_KG, 1)} kg teóricos × 100.
       </p>
       <div className="mt-3">
-        <Btn tone="primary" disabled={dis || s.dryer.samples.length === 0} onClick={() => act(E.doPack)}>Descargar y envasar</Btn>
+        <Btn disabled={dis || s.dryer.samples.length === 0} onClick={() => act(E.doPack)}>Descargar y envasar</Btn>
       </div>
       {p.done && (
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">

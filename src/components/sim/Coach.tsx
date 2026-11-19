@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
+import { Icon } from "@/components/icons";
+import { btn } from "@/components/ui";
 import * as E from "@/sim/engine";
 import type { EventId, SectionId, Sim, ValveId } from "@/sim/engine";
 
@@ -157,19 +160,37 @@ export function currentTask(s: Sim): Task & { kind: "proceso" | "hoja" | "firma"
   }
   if (id === "cierre") return { ...p!, kind: "proceso" };
   if (s.signatures[id] == null) return { title: "Firma la etapa", detail: "Firmar es declarar que lo anotado es cierto y completo. Revisa antes de firmar.", kind: "firma" };
-  return { title: "Pasa a la siguiente etapa", detail: "Pulsa «Siguiente etapa» debajo de la hoja.", kind: "siguiente" };
+  return { title: "Pasa a la siguiente etapa", detail: "Pulsa «Pasar a la siguiente etapa», debajo de la hoja.", kind: "siguiente" };
 }
 
+/** Aviso rojo pequeño (incidente sin comunicar, evento en curso). */
+function Alert({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="flex gap-3 rounded-[var(--radius)] border border-bad bg-bad-soft p-4" role="alert">
+      <Icon name="hazard" className="mt-0.5 h-5 w-5 shrink-0 text-bad" />
+      <div className="min-w-0">
+        <p className="font-medium text-bad">{title}</p>
+        <p className="mt-1 text-sm leading-relaxed text-ink">{children}</p>
+      </div>
+    </div>
+  );
+}
+
+/** «Qué hacer ahora»: la única pieza llamativa de la pantalla, con el color de señal. */
 export function Coach({ s }: { s: Sim }) {
   const sec = E.SECTIONS[s.section];
   const lesson = LESSON[sec.id];
   if (s.closed) {
     return (
-      <div className="rounded-xl bg-[#166534] p-4 text-white">
-        <div className="text-xs font-semibold uppercase tracking-wide text-green-100">Lote cerrado</div>
-        <div className="mt-1 text-lg font-bold">El registro está en QA</div>
-        <p className="mt-1 text-sm text-green-50">Abre «10. Cierre y revisión de QA» para ver el informe.</p>
-      </div>
+      <section aria-labelledby="coach-h" className="rounded-[var(--radius)] border border-line bg-ok-soft p-5">
+        <p className="flex items-center gap-1.5 text-sm text-ok">
+          <Icon name="check" className="h-4 w-4" /> Lote cerrado
+        </p>
+        <h2 id="coach-h" className="mt-1 t-h3">
+          El registro está en QA
+        </h2>
+        <p className="mt-1 text-sm text-muted">Abre «10. Cierre y revisión de QA» para ver el informe.</p>
+      </section>
     );
   }
   const ev = (Object.keys(s.events) as EventId[]).find((k) => {
@@ -181,29 +202,33 @@ export function Coach({ s }: { s: Sim }) {
   return (
     <div className="space-y-3">
       {pendInc.length > 0 && (
-        <div className="rounded-xl border-2 border-[#dc2626] bg-[#fef2f2] p-4 text-[#7f1d1d]" role="alert">
-          <div className="text-xs font-bold uppercase tracking-wide">⚠ Incidente sin comunicar</div>
-          <div className="mt-1 font-semibold">{pendInc[0].title}</div>
-          <p className="mt-1 text-sm">Avisa al supervisor y abre una desviación (abajo, «Comunicación e incidencias»). Aunque hayas rehecho la fase, el incidente ocurrió y tiene que quedar documentado.</p>
-        </div>
+        <Alert title={`Incidente sin comunicar: ${pendInc[0].title}`}>
+          Avisa al supervisor y abre una desviación (abajo, «Comunicación e incidencias»). Aunque hayas rehecho la fase, el incidente ocurrió y
+          tiene que quedar documentado.
+        </Alert>
       )}
       {ev && (
-        <div className="rounded-xl border-2 border-[#dc2626] bg-[#fef2f2] p-4 text-[#7f1d1d]" role="alert">
-          <div className="text-xs font-bold uppercase tracking-wide">⚠ Algo no va bien</div>
-          <div className="mt-1 font-semibold">{EVENT_TEXT[ev]}</div>
-          <p className="mt-1 text-sm">Primero, seguridad: para lo que estés haciendo si hace falta. Después avisa al supervisor (abajo, «Comunicación e incidencias») y registra una desviación.</p>
-        </div>
+        <Alert title={EVENT_TEXT[ev]}>
+          Primero, seguridad: para lo que estés haciendo si hace falta. Después avisa al supervisor (abajo, «Comunicación e incidencias») y
+          registra una desviación.
+        </Alert>
       )}
-      <div className="rounded-xl bg-[#1d4ed8] p-4 text-[#e0ecff]">
-        <div className="text-xs font-semibold uppercase tracking-wide text-[#bfdbfe]">
-          Paso {s.section + 1} de {E.SECTIONS.length} · {sec.title.replace(/^\d+\.\s*/, "")}
+      <section aria-labelledby="coach-h" aria-live="polite" className="relative overflow-hidden rounded-[var(--radius)] border border-signal bg-signal-soft">
+        <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
+        <div className="p-5 pl-7">
+          <p className="text-sm text-muted">
+            Qué hacer ahora · paso {s.section + 1} de {E.SECTIONS.length}: <span className="text-ink">{sec.title.replace(/^\d+\.\s*/, "")}</span>
+          </p>
+          <h2 id="coach-h" className="mt-1.5 text-lg font-semibold leading-snug text-ink">
+            {t.title}
+          </h2>
+          <p className="mt-1.5 max-w-[60ch] text-sm leading-relaxed text-ink">{t.detail}</p>
+          <Link href={`/leccion/${lesson.slug}`} target="_blank" className={`${btn.quiet} -ml-2 mt-3`}>
+            <Icon name="book" className="h-4 w-4" />
+            Repasar: {lesson.title}
+          </Link>
         </div>
-        <div className="mt-1 text-lg font-bold leading-snug text-white">{t.title}</div>
-        <p className="mt-1 text-sm leading-relaxed">{t.detail}</p>
-        <Link href={`/leccion/${lesson.slug}`} target="_blank" className="mt-3 inline-block rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-[#1d4ed8] hover:bg-[#eff4ff]">
-          📖 Repasar: {lesson.title}
-        </Link>
-      </div>
+      </section>
     </div>
   );
 }

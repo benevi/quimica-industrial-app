@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { lessons } from "@/content";
-import { cards as baseCards, decks as baseDecks, type Card, type Deck } from "@/content/tarjetas";
+import { cards as baseCards, decks as baseDecks, type Card as FlashCard, type Deck } from "@/content/tarjetas";
 import { questionById } from "@/certs/pool";
 import { SRS_DAYS, today, useCertState } from "@/certs/useCertState";
 import { useProgress } from "@/lib/progress";
 import { Markdown } from "@/components/Markdown";
+import { Icon } from "@/components/icons";
+import { Bar, Card, Disclosure, SectionTitle, Status, btn } from "@/components/ui";
 
 /** Unos 20 segundos por tarjeta: 15 tarjetas ≈ 5 minutos */
 const SESSION = 15;
@@ -24,7 +26,7 @@ export function Flashcards() {
   const [tally, setTally] = useState({ known: 0, unknown: 0 });
 
   // Tarjetas de vocabulario: los términos de las lecciones que ya has completado
-  const vocabCards = useMemo<Card[]>(
+  const vocabCards = useMemo<FlashCard[]>(
     () =>
       lessons
         .filter((l) => progress[l.slug]?.done)
@@ -39,7 +41,7 @@ export function Flashcards() {
   const lessonTitle = useMemo(() => Object.fromEntries(lessons.map((l) => [l.slug, l.title])), []);
 
   const srs = state.cards ?? {};
-  const inDeck = (c: Card) => chosen.length === 0 || chosen.includes(c.deck);
+  const inDeck = (c: FlashCard) => chosen.length === 0 || chosen.includes(c.deck);
   const due = allCards
     .filter((c) => inDeck(c) && srs[c.id] && srs[c.id].due <= today())
     .sort((a, b) => srs[a.id].box - srs[b.id].box || srs[a.id].due.localeCompare(srs[b.id].due));
@@ -98,46 +100,48 @@ export function Flashcards() {
     const deck = decks.find((d) => d.id === c.deck);
     const box = srs[c.id]?.box;
     return (
-      <section className="mx-auto max-w-2xl space-y-4" aria-live="polite">
-        <div className="flex items-center justify-between text-sm text-muted">
+      <section className="mx-auto max-w-2xl space-y-4" aria-live="polite" aria-label="Sesión de repaso">
+        <div className="flex items-center justify-between gap-3 text-sm text-muted">
           <span>
-            Tarjeta {i + 1} de {queue.length} · {deck?.icon} {deck?.title}
+            Tarjeta {i + 1} de {queue.length} · {deck?.title}
           </span>
-          <button onClick={() => setQueue(null)} className="underline hover:text-ink">
+          <button type="button" onClick={() => setQueue(null)} className={btn.quiet}>
             Terminar
           </button>
         </div>
-        <div className="h-1.5 overflow-hidden rounded-full bg-soft">
-          <div className="h-full bg-accent transition-all" style={{ width: `${(i / queue.length) * 100}%` }} />
-        </div>
-        <div className="min-h-64 rounded-2xl border-2 border-line bg-surface p-6 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted">{box ? `Caja ${box}` : "Nueva"}</p>
-          <p className="mt-2 text-xl font-semibold leading-snug">{c.front}</p>
+        <Bar pct={Math.round((i / queue.length) * 100)} label={`Tarjeta ${i + 1} de ${queue.length}`} />
+        <Card className="min-h-64 p-6 sm:p-8">
+          <Status kind="todo">{box ? `Caja ${box}` : "Nueva"}</Status>
+          <p className="mt-3 text-xl font-semibold leading-snug">{c.front}</p>
           {flipped ? (
-            <div className="mt-5 border-t border-line pt-4">
+            <div className="prose-app mt-5 max-w-[68ch] border-t border-line pt-4">
               <Markdown>{c.back}</Markdown>
               {c.lesson && lessonTitle[c.lesson] && (
-                <p className="mt-3 text-xs text-muted">
+                <p className="text-xs text-muted">
                   Lección:{" "}
-                  <Link href={`/leccion/${c.lesson}`} className="underline" target="_blank">
+                  <Link href={`/leccion/${c.lesson}`} className="text-accent underline-offset-2 hover:underline" target="_blank">
                     {lessonTitle[c.lesson]}
                   </Link>
                 </p>
               )}
             </div>
           ) : (
-            <button onClick={() => setFlipped(true)} className="mt-8 w-full rounded-xl border border-dashed border-line py-6 text-muted hover:border-accent hover:text-ink">
+            <button
+              type="button"
+              onClick={() => setFlipped(true)}
+              className="mt-8 w-full rounded-md border border-dashed border-line-strong py-6 text-muted hover:border-accent hover:text-ink"
+            >
               Piensa la respuesta y dale la vuelta <span className="text-xs">(espacio)</span>
             </button>
           )}
-        </div>
+        </Card>
         {flipped && (
           <div className="grid grid-cols-2 gap-3">
-            <button onClick={() => answer(false)} className="rounded-xl border-2 border-bad bg-bad-soft px-4 py-3 font-medium">
+            <button type="button" onClick={() => answer(false)} className="rounded-md border border-bad bg-bad-soft px-4 py-3 font-medium text-ink">
               No lo sabía <span className="text-xs text-muted">(1)</span>
               <span className="block text-xs font-normal text-muted">Vuelve al final y mañana</span>
             </button>
-            <button onClick={() => answer(true)} className="rounded-xl border-2 border-ok bg-ok-soft px-4 py-3 font-medium">
+            <button type="button" onClick={() => answer(true)} className="rounded-md border border-ok bg-ok-soft px-4 py-3 font-medium text-ink">
               Lo sabía <span className="text-xs text-muted">(2)</span>
               <span className="block text-xs font-normal text-muted">Vuelve en {SRS_DAYS[Math.min((box ?? 1) + 1, 5)]} días</span>
             </button>
@@ -150,80 +154,98 @@ export function Flashcards() {
   // ── Fin de sesión ──
   if (queue) {
     return (
-      <section className="mx-auto max-w-2xl rounded-2xl border border-line bg-surface p-6">
-        <p className="text-lg font-semibold">Repaso terminado</p>
+      <Card as="section" className="mx-auto max-w-2xl p-6 sm:p-8">
+        <h2 className="t-h2" role="status">
+          Repaso terminado
+        </h2>
         <p className="mt-1 text-muted">
           {tally.known} «lo sabía» y {tally.unknown} «no lo sabía». Las que sabías vuelven dentro de unos días; las otras, mañana.
         </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <button onClick={() => setQueue(null)} className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90">
+        <div className="mt-5 flex flex-wrap gap-3">
+          <button type="button" onClick={() => setQueue(null)} className={btn.primary}>
             Volver
           </button>
           {failsDue > 0 && (
-            <Link href="/repaso" className="rounded-lg border border-line px-4 py-2 hover:bg-soft">
+            <Link href="/repaso" className={btn.secondary}>
               Repasar también {failsDue} fallo{failsDue === 1 ? "" : "s"} de examen
             </Link>
           )}
         </div>
-      </section>
+      </Card>
     );
   }
 
   // ── Portada ──
   const sessionSize = Math.min(SESSION, due.length + fresh.length);
+  const seenAll = allCards.filter((c) => srs[c.id]).length;
   return (
-    <div className="space-y-6">
-      <section className="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
-        <div className="rounded-2xl border-2 border-accent bg-accent-soft p-5">
-          <p className="text-lg font-semibold">
-            {due.length > 0 ? `${due.length} tarjeta${due.length === 1 ? "" : "s"} para repasar hoy` : "Nada pendiente hoy: toca aprender tarjetas nuevas"}
-          </p>
-          <p className="mt-1 text-sm text-muted">
-            Sesiones de {SESSION} tarjetas, unos 5 minutos: primero las que te tocan hoy y después nuevas (antes las de lecciones que ya has hecho). Mira la
-            pregunta, piensa la respuesta, dale la vuelta y sé sincero.
-          </p>
-          <button
-            onClick={start}
-            disabled={sessionSize === 0}
-            className="mt-4 rounded-lg bg-accent px-5 py-2.5 font-medium text-white hover:opacity-90 disabled:opacity-50"
-          >
-            Repaso de 5 minutos ({sessionSize})
-          </button>
-          {failsDue > 0 && (
-            <p className="mt-3 text-sm">
-              Además tienes <Link href="/repaso" className="font-medium underline">{failsDue} fallo{failsDue === 1 ? "" : "s"} de examen</Link> pendientes en el repaso de fallos.
-            </p>
-          )}
+    <div className="space-y-10">
+      <section aria-labelledby="hoy-h" className="space-y-3">
+        <div className="relative overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
+          <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
+          <div className="grid gap-5 p-6 pl-8 sm:p-7 sm:pl-10 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="min-w-0">
+              <h2 id="hoy-h" className="t-h2">
+                {due.length > 0 ? `${due.length} tarjeta${due.length === 1 ? "" : "s"} para repasar hoy` : "Nada pendiente hoy: toca aprender tarjetas nuevas"}
+              </h2>
+              <p className="mt-2 max-w-[60ch] text-sm leading-relaxed text-muted">
+                Sesiones de {SESSION} tarjetas, unos 5 minutos: primero las que te tocan hoy y después nuevas (antes las de lecciones que ya has hecho). Mira la
+                pregunta, piensa la respuesta, dale la vuelta y sé sincero.
+              </p>
+              {chosen.length > 0 && <p className="mt-2 text-sm">Repasas solo los mazos marcados.</p>}
+            </div>
+            <button type="button" onClick={start} disabled={sessionSize === 0} className={`${btn.primary} px-5 py-3 text-[15px]`}>
+              Repaso de 5 minutos ({sessionSize})
+              <Icon name="arrow" className="h-4 w-4" />
+            </button>
+          </div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-5 text-sm">
-          <p className="font-semibold">Tu avance</p>
-          <dl className="mt-2 space-y-1">
-            <div className="flex justify-between">
-              <dt className="text-muted">Tarjetas disponibles</dt>
-              <dd className="font-semibold tabular-nums">{allCards.length}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-muted">Estudiadas alguna vez</dt>
-              <dd className="font-semibold tabular-nums">{allCards.filter((c) => srs[c.id]).length}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-muted">Bien sabidas (caja 4–5)</dt>
-              <dd className="font-semibold tabular-nums">{learned}</dd>
-            </div>
+        {failsDue > 0 && (
+          <p className="text-sm text-muted">
+            Además tienes{" "}
+            <Link href="/repaso" className="font-medium text-accent underline-offset-2 hover:underline">
+              {failsDue} fallo{failsDue === 1 ? "" : "s"} de examen
+            </Link>{" "}
+            pendientes en el repaso de fallos.
+          </p>
+        )}
+      </section>
+
+      <section aria-labelledby="avance-h">
+        <SectionTitle id="avance-h">Tu avance</SectionTitle>
+        <Card>
+          <dl className="grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {(
+              [
+                ["Tarjetas disponibles", allCards.length],
+                ["Estudiadas alguna vez", seenAll],
+                ["Bien sabidas (caja 4–5)", learned],
+              ] as const
+            ).map(([k, v]) => (
+              <div key={k} className="px-5 py-4">
+                <dt className="text-sm text-muted">{k}</dt>
+                <dd className="mt-1 text-2xl font-semibold tabular-nums">{v}</dd>
+              </div>
+            ))}
           </dl>
-          <p className="mt-3 text-xs text-muted">
-            Mismo sistema que el repaso de fallos (cajas Leitner): cada acierto sube la tarjeta de caja y tarda más en volver ({SRS_DAYS.slice(1).join(", ")} días). Se
-            guarda con el resto de tu progreso y entra en la <Link href="/progreso" className="underline">copia de seguridad</Link>.
+        </Card>
+        <Disclosure className="mt-3" summary={<span className="text-sm font-medium">Cómo funciona el repaso</span>}>
+          <p className="max-w-[68ch] text-sm leading-relaxed text-muted">
+            Mismo sistema que el repaso de fallos (cajas Leitner): cada acierto sube la tarjeta de caja y tarda más en volver ({SRS_DAYS.slice(1).join(", ")} días).
+            Se guarda con el resto de tu progreso y entra en la{" "}
+            <Link href="/progreso" className="text-accent underline-offset-2 hover:underline">
+              copia de seguridad
+            </Link>
+            .
           </p>
-        </div>
+        </Disclosure>
       </section>
 
       <section aria-labelledby="mazos-h">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="mazos-h" className="text-lg font-semibold">Mazos</h2>
-          <p className="text-xs text-muted">{chosen.length ? "Repasas solo los mazos marcados" : "Toca un mazo para repasar solo ese"}</p>
-        </div>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <SectionTitle id="mazos-h" aside={chosen.length ? "Repasas solo los mazos marcados" : "Toca un mazo para repasar solo ese"}>
+          Mazos
+        </SectionTitle>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {decks.map((d) => {
             const list = allCards.filter((c) => c.deck === d.id);
             const seen = list.filter((c) => srs[c.id]).length;
@@ -233,20 +255,22 @@ export function Flashcards() {
             return (
               <button
                 key={d.id}
+                type="button"
                 aria-pressed={on}
                 onClick={() => setChosen((x) => (on ? x.filter((y) => y !== d.id) : [...x, d.id]))}
-                className={`rounded-2xl border-2 p-4 text-left transition ${on ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"}`}
+                className={`rounded-[var(--radius)] border p-4 text-left ${on ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"}`}
               >
-                <p className="font-semibold">
-                  <span aria-hidden>{d.icon}</span> {d.title}
-                </p>
-                <p className="text-xs text-muted">{d.titleEn}</p>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-soft">
-                  <div className="h-full bg-ok" style={{ width: `${list.length ? (ok / list.length) * 100 : 0}%` }} />
-                </div>
-                <p className="mt-1.5 text-xs text-muted">
+                <span className="flex items-start justify-between gap-2">
+                  <span className="font-medium">{d.title}</span>
+                  {on && <Icon name="check" className="h-5 w-5 shrink-0 text-accent" />}
+                </span>
+                <span lang="en" className="block text-xs text-muted">
+                  {d.titleEn}
+                </span>
+                <Bar pct={list.length ? Math.round((ok / list.length) * 100) : 0} color="var(--ok)" className="mt-3" label={`${d.title}: ${ok} sabidas`} />
+                <span className="mt-1.5 block text-xs text-muted">
                   {list.length} tarjetas · {seen} vistas · {ok} sabidas{dueN ? ` · ${dueN} para hoy` : ""}
-                </p>
+                </span>
               </button>
             );
           })}
@@ -257,15 +281,20 @@ export function Flashcards() {
       </section>
 
       <section aria-labelledby="todas-h">
-        <h2 id="todas-h" className="text-lg font-semibold">Leer todas las tarjetas</h2>
-        <p className="text-sm text-muted">Para repasar de un vistazo, sin puntuar.</p>
-        <div className="mt-3 space-y-2">
+        <SectionTitle id="todas-h" aside="Para repasar de un vistazo, sin puntuar.">
+          Leer todas las tarjetas
+        </SectionTitle>
+        <div className="space-y-2">
           {decks.map((d) => (
-            <details key={d.id} className="rounded-xl border border-line bg-surface">
-              <summary className="cursor-pointer px-4 py-3 font-medium hover:bg-soft">
-                {d.icon} {d.title} <span className="text-sm font-normal text-muted">({allCards.filter((c) => c.deck === d.id).length})</span>
-              </summary>
-              <ul className="divide-y divide-line border-t border-line">
+            <Disclosure
+              key={d.id}
+              summary={
+                <span className="font-medium">
+                  {d.title} <span className="text-sm font-normal text-muted">({allCards.filter((c) => c.deck === d.id).length})</span>
+                </span>
+              }
+            >
+              <ul className="-mx-4 -my-4 divide-y divide-line">
                 {allCards
                   .filter((c) => c.deck === d.id)
                   .map((c) => (
@@ -277,7 +306,7 @@ export function Flashcards() {
                     </li>
                   ))}
               </ul>
-            </details>
+            </Disclosure>
           ))}
         </div>
       </section>

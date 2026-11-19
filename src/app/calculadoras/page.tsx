@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PageHeader } from "@/components/ui";
 
 const toNum = (s: string) => {
   const n = Number(s.trim().replace(",", "."));
@@ -18,9 +19,9 @@ function Field({ label, value, onChange, unit }: { label: string; value: string;
           inputMode="decimal"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-lg border border-line bg-surface px-3 py-2 tabular-nums"
+          className="w-full rounded-md border border-line-strong bg-surface px-3 py-2 font-mono tabular-nums"
         />
-        {unit && <span className="w-14 shrink-0 text-muted">{unit}</span>}
+        {unit && <span className="w-14 shrink-0 font-mono text-muted">{unit}</span>}
       </span>
     </label>
   );
@@ -28,17 +29,22 @@ function Field({ label, value, onChange, unit }: { label: string; value: string;
 
 function Card({ title, en, children }: { title: string; en: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-line bg-surface p-5">
-      <h2 className="font-semibold">
-        {title} <span lang="en" className="text-sm font-normal text-muted">{en}</span>
+    <section className="rounded-[var(--radius)] border border-line bg-surface p-5">
+      <h2 className="t-h3">
+        {title}{" "}
+        <span lang="en" className="text-sm font-normal text-muted">
+          {en}
+        </span>
       </h2>
-      <div className="mt-3 space-y-3">{children}</div>
+      <div className="mt-4 space-y-3">{children}</div>
     </section>
   );
 }
 
 function Result({ children }: { children: React.ReactNode }) {
-  return <p className="rounded-lg bg-accent-soft px-3 py-2 text-sm tabular-nums">{children}</p>;
+  return <p className="rounded-md bg-accent-soft px-3 py-2 text-sm tabular-nums" aria-live="polite">
+      {children}
+    </p>;
 }
 
 const units = {
@@ -58,12 +64,14 @@ function UnitConverter() {
   const v = toNum(val);
   return (
     <Card title="Conversión de unidades" en="Unit converter">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Magnitud">
         {(Object.keys(units) as Mag[]).map((m) => (
           <button
             key={m}
+            type="button"
+            aria-pressed={mag === m}
             onClick={() => { setMag(m); setFrom(Object.keys(units[m])[0]); }}
-            className={`rounded-full border px-3 py-1 text-sm ${mag === m ? "border-accent bg-accent-soft" : "border-line"}`}
+            className={`rounded-full border px-3 py-1 text-sm ${mag === m ? "border-accent bg-accent-soft font-medium text-accent" : "border-line bg-surface hover:border-accent"}`}
           >
             {m === "presion" ? "Presión" : m === "masa" ? "Masa" : "Volumen"}
           </button>
@@ -73,14 +81,14 @@ function UnitConverter() {
         <div className="flex-1"><Field label="Valor" value={val} onChange={setVal} /></div>
         <label className="block text-sm">
           <span className="text-muted">Unidad</span>
-          <select value={f} onChange={(e) => setFrom(e.target.value)} className="mt-1 block rounded-lg border border-line bg-surface px-3 py-2">
+          <select value={f} onChange={(e) => setFrom(e.target.value)} className="mt-1 block rounded-md border border-line-strong bg-surface px-3 py-2">
             {keys.map((k) => <option key={k}>{k}</option>)}
           </select>
         </label>
       </div>
       <ul className="grid grid-cols-2 gap-2 text-sm">
         {keys.filter((k) => k !== f).map((k) => (
-          <li key={k} className="rounded-lg bg-soft px-3 py-2 tabular-nums">
+          <li key={k} className="rounded-md bg-soft px-3 py-2 tabular-nums">
             {v === null ? "—" : fmt((v * table[f]) / table[k], 6)} <span className="text-muted">{k}</span>
           </li>
         ))}
@@ -147,7 +155,9 @@ function Moles() {
         <Field label="Equivalentes" value={eq} onChange={setEq} unit="eq" />
         <Field label="Masa molar" value={mw2} onChange={setMw2} unit="g/mol" />
       </div>
-      <Result>= {fmt(kmol2, 4)} kmol → <strong>{fmt(m2, 3)} kg</strong> de reactivo puro</Result>
+      <Result>
+        = {fmt(kmol2, 4)} kmol, es decir, <strong>{fmt(m2, 3)} kg</strong> de reactivo puro
+      </Result>
       <p className="text-xs text-muted">Si el reactivo no es puro (p. ej. HCl 37 %), divide la masa entre su riqueza: {fmt(m2, 3)} kg / 0,37 = {fmt(m2 !== null ? m2 / 0.37 : null, 3)} kg.</p>
     </Card>
   );
@@ -192,12 +202,15 @@ function Yield() {
 
 export default function Calculadoras() {
   return (
-    <div className="space-y-5">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Calculadoras de planta</h1>
-        <p className="text-muted">Para practicar. En planta, los cálculos oficiales son los de la hoja y se verifican por un segundo operador.</p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
+    <div>
+      <PageHeader
+        crumbs={[{ href: "/", label: "Hoy" }, { label: "Calculadoras" }]}
+        title="Calculadoras de planta"
+        en="Calculators"
+        icon="calc"
+        lead="Para practicar. En planta, los cálculos oficiales son los de la hoja y se verifican por un segundo operador."
+      />
+      <div className="grid items-start gap-4 md:grid-cols-2">
         <UnitConverter />
         <Temperature />
         <Density />

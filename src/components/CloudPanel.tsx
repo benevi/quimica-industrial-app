@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Icon } from "@/components/icons";
 import { useCloud } from "@/components/CloudSync";
+import { Status, btn } from "@/components/ui";
 import { summarize } from "@/lib/backup";
 
 function when(iso: string | null) {
@@ -14,8 +15,8 @@ function when(iso: string | null) {
 function Mini({ data, title }: { data: Record<string, string>; title: string }) {
   const s = summarize(data);
   return (
-    <div className="rounded-xl bg-surface p-4 text-sm">
-      <p className="mb-2 font-semibold">{title}</p>
+    <div className="rounded-md border border-line bg-surface p-4 text-sm">
+      <p className="mb-2 font-medium">{title}</p>
       <ul className="space-y-0.5 text-muted">
         <li>Lecciones completadas: <strong className="text-ink">{s.lessonsDone}</strong></li>
         <li>Exámenes, simulacros y supuestos: <strong className="text-ink">{s.exams}</strong></li>
@@ -27,6 +28,63 @@ function Mini({ data, title }: { data: Record<string, string>; title: string }) 
   );
 }
 
+const label: Record<string, string> = {
+  syncing: "Sincronizando…",
+  synced: "Guardado en la nube",
+  error: "Sin conexión con la nube",
+  conflict: "Hay que elegir qué progreso conservar",
+};
+
+function BadPill({ children }: { children: React.ReactNode }) {
+  return <span className="inline-flex items-center gap-1 rounded-full bg-bad-soft px-2 py-0.5 text-xs font-medium text-bad">{children}</span>;
+}
+
+/** Fila de estado de la nube para el resumen de arriba de «Mi progreso» */
+export function CloudStatusRow() {
+  const cloud = useCloud();
+  let pill: React.ReactNode;
+  let text: React.ReactNode;
+  if (!cloud?.configured) {
+    pill = <Status kind="todo">No disponible</Status>;
+    text = "La nube aún no está conectada en este ordenador.";
+  } else if (cloud.status === "signed-out") {
+    pill = <Status kind="todo">Sin activar</Status>;
+    text = "Tu progreso solo está en este navegador.";
+  } else {
+    pill =
+      cloud.status === "synced" ? (
+        <Status kind="done">{label.synced}</Status>
+      ) : cloud.status === "syncing" ? (
+        <Status kind="todo">{label.syncing}</Status>
+      ) : (
+        <BadPill>{label[cloud.status] ?? label.error}</BadPill>
+      );
+    text = (
+      <>
+        Sesión: <strong className="text-ink">{cloud.email}</strong> · Última sincronización: {when(cloud.lastSync)}
+      </>
+    );
+  }
+  return (
+    <div className="flex gap-3 px-5 py-4">
+      <Icon name="cloud" className="mt-0.5 h-5 w-5 shrink-0 text-muted" />
+      <div className="min-w-0 flex-1">
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="font-medium">En la nube</span>
+          {pill}
+        </p>
+        <p className="mt-0.5 text-sm text-muted">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+/** ¿La acción principal de la página está en la nube (activarla o resolver un conflicto)? */
+export function useCloudNeedsAction() {
+  const cloud = useCloud();
+  return !!cloud?.configured && (cloud.status === "signed-out" || cloud.status === "conflict");
+}
+
 export function CloudPanel() {
   const cloud = useCloud();
   const [email, setEmail] = useState("");
@@ -35,147 +93,141 @@ export function CloudPanel() {
   const [err, setErr] = useState<string | null>(null);
   if (!cloud) return null;
 
-  const box = "rounded-2xl border border-line bg-surface p-5 sm:p-6";
+  const box = "rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6";
   const head = (
-    <div className="flex items-center gap-3">
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
-        <Icon name="cloud" />
-      </span>
-      <div>
-        <h2 className="font-semibold">Guardar en la nube · Cloud sync</h2>
-        <p className="text-sm text-muted">Inicia sesión con tu email y tu progreso se guarda solo, sin descargar archivos.</p>
-      </div>
+    <div className="mb-3">
+      <h2 id="nube-h" className="t-h2">
+        Guardar en la nube{" "}
+        <span lang="en" className="text-sm font-normal text-muted">
+          Cloud sync
+        </span>
+      </h2>
+      <p className="mt-1 max-w-[68ch] text-sm text-muted">
+        Automático. Inicia sesión con tu email y tu progreso se guarda solo, sin descargar archivos.
+      </p>
     </div>
   );
 
   if (!cloud.configured)
     return (
-      <section className={box}>
+      <section aria-labelledby="nube-h">
         {head}
-        <p className="mt-3 text-sm text-muted">
-          La nube aún no está conectada en este ordenador (falta el archivo <code>.env.local</code> con los datos de Supabase). Mientras tanto, usa la copia
-          de seguridad de abajo.
+        <p className={`${box} text-sm text-muted`}>
+          La nube aún no está conectada en este ordenador (falta el archivo <code className="font-mono">.env.local</code> con los datos de Supabase). Mientras
+          tanto, usa la copia en archivo de abajo.
         </p>
       </section>
     );
 
   if (cloud.status === "signed-out")
     return (
-      <section className={box}>
+      <section aria-labelledby="nube-h">
         {head}
-        {sent ? (
-          <p role="status" className="mt-4 rounded-xl border p-4 text-sm" style={{ borderColor: "var(--ok)", background: "var(--ok-soft)" }}>
-            Te hemos enviado un enlace a <strong>{email}</strong>. Ábrelo <strong>en este mismo navegador</strong> y volverás aquí con la sesión iniciada. Si no
-            llega en un par de minutos, mira en la carpeta de spam.
+        <div className={box}>
+          {sent ? (
+            <p role="status" className="rounded-md bg-ok-soft p-4 text-sm">
+              Te hemos enviado un enlace a <strong>{email}</strong>. Ábrelo <strong>en este mismo navegador</strong> y volverás aquí con la sesión iniciada. Si
+              no llega en un par de minutos, mira en la carpeta de spam.
+            </p>
+          ) : (
+            <form
+              className="flex flex-wrap gap-2"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setErr(null);
+                setSending(true);
+                try {
+                  await cloud.sendLink(email.trim());
+                  setSent(true);
+                } catch (x) {
+                  setErr(x instanceof Error ? x.message : "No se pudo enviar el enlace.");
+                } finally {
+                  setSending(false);
+                }
+              }}
+            >
+              <label className="sr-only" htmlFor="cloud-email">
+                Email
+              </label>
+              <input
+                id="cloud-email"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder="tu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="min-w-0 flex-1 rounded-md border border-line-strong bg-surface px-3 py-2"
+              />
+              <button disabled={sending} className={btn.primary}>
+                {sending ? "Enviando…" : "Enviarme el enlace"}
+              </button>
+            </form>
+          )}
+          {err && (
+            <p role="alert" className="mt-3 rounded-md bg-bad-soft p-3 text-sm">
+              {err}
+            </p>
+          )}
+          <p className="mt-3 max-w-[68ch] text-xs text-muted">
+            La primera vez, lo que ya tienes en este navegador se sube a la nube: no pierdes nada. Sin contraseña: cada vez que entres desde un navegador
+            nuevo te llega un enlace.
           </p>
-        ) : (
-          <form
-            className="mt-4 flex flex-wrap gap-2"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              setErr(null);
-              setSending(true);
-              try {
-                await cloud.sendLink(email.trim());
-                setSent(true);
-              } catch (x) {
-                setErr(x instanceof Error ? x.message : "No se pudo enviar el enlace.");
-              } finally {
-                setSending(false);
-              }
-            }}
-          >
-            <label className="sr-only" htmlFor="cloud-email">Email</label>
-            <input
-              id="cloud-email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="tu@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="min-w-0 flex-1 rounded-lg border border-line bg-bg px-3 py-2"
-            />
-            <button disabled={sending} className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90 disabled:opacity-60">
-              {sending ? "Enviando…" : "Enviarme el enlace"}
-            </button>
-          </form>
-        )}
-        {err && <p role="alert" className="mt-3 rounded-xl bg-warn-soft p-3 text-sm">{err}</p>}
-        <p className="mt-3 text-xs text-muted">
-          La primera vez, lo que ya tienes en este navegador se sube a la nube: no pierdes nada. Sin contraseña: cada vez que entres desde un navegador nuevo
-          te llega un enlace.
-        </p>
+        </div>
       </section>
     );
 
-  const label: Record<string, string> = {
-    syncing: "Sincronizando…",
-    synced: "Guardado en la nube",
-    error: "Sin conexión con la nube",
-    conflict: "Hay que elegir qué progreso conservar",
-  };
-
   return (
-    <section className={box}>
+    <section aria-labelledby="nube-h">
       {head}
-      <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-        <span>
-          Sesión: <strong>{cloud.email}</strong>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span
-            aria-hidden
-            className="h-2.5 w-2.5 rounded-full"
-            style={{ background: cloud.status === "synced" ? "var(--ok)" : cloud.status === "syncing" ? "var(--accent)" : "var(--bad)" }}
-          />
-          {label[cloud.status]}
-        </span>
-        <span className="text-muted">Última sincronización: {when(cloud.lastSync)}</span>
-      </div>
-      {cloud.error && cloud.status === "error" && (
-        <p role="alert" className="mt-3 rounded-xl bg-warn-soft p-3 text-sm">
-          {cloud.error} Tu progreso sigue guardado en este navegador y se subirá cuando vuelva la conexión.
+      <div className={box}>
+        <p className="text-sm">
+          Sesión iniciada como <strong>{cloud.email}</strong>.
         </p>
-      )}
-      {cloud.conflict && (
-        <div className="mt-4 rounded-2xl border-2 border-accent bg-accent-soft p-4 sm:p-5">
-          <p className="font-semibold">Este navegador y la nube tienen progresos distintos</p>
-          <p className="mt-1 text-sm text-muted">
-            Pasa si has estudiado en otro ordenador o navegador sin sesión. Elige cuál conservar; el otro se sustituye. Si dudas, descarga antes una copia
-            de este navegador (más abajo).
+        {cloud.error && cloud.status === "error" && (
+          <p role="alert" className="mt-3 rounded-md bg-bad-soft p-3 text-sm">
+            {cloud.error} Tu progreso sigue guardado en este navegador y se subirá cuando vuelva la conexión.
           </p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <Mini title="En la nube" data={cloud.conflict.remote} />
-            <Mini title="En este navegador" data={cloud.conflict.local} />
+        )}
+        {cloud.conflict && (
+          <div className="mt-4 rounded-md border border-signal bg-signal-soft p-4 sm:p-5" role="alert">
+            <p className="font-medium">Este navegador y la nube tienen progresos distintos</p>
+            <p className="mt-1 max-w-[68ch] text-sm text-muted">
+              Pasa si has estudiado en otro ordenador o navegador sin sesión. Elige cuál conservar; el otro se sustituye. Si dudas, descarga antes una copia
+              de este navegador (más abajo).
+            </p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <Mini title="En la nube" data={cloud.conflict.remote} />
+              <Mini title="En este navegador" data={cloud.conflict.local} />
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={() => cloud.choose("remote")} className={btn.primary}>
+                Usar el de la nube
+              </button>
+              <button type="button" onClick={() => cloud.choose("local")} className={btn.secondary}>
+                Usar el de este navegador
+              </button>
+            </div>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <button type="button" onClick={() => cloud.choose("remote")} className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90">
-              Usar el de la nube
-            </button>
-            <button type="button" onClick={() => cloud.choose("local")} className="rounded-lg border border-line bg-surface px-4 py-2 font-medium">
-              Usar el de este navegador
-            </button>
-          </div>
+        )}
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button type="button" onClick={() => cloud.syncNow()} className={btn.secondary}>
+            Sincronizar ahora
+          </button>
+          <button type="button" onClick={() => cloud.signOut()} className={btn.quiet}>
+            Cerrar sesión
+          </button>
         </div>
-      )}
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button type="button" onClick={() => cloud.syncNow()} className="rounded-lg border border-line px-4 py-2 font-medium hover:border-accent">
-          Sincronizar ahora
-        </button>
-        <button type="button" onClick={() => cloud.signOut()} className="rounded-lg border border-line px-4 py-2 font-medium hover:border-accent">
-          Cerrar sesión
-        </button>
+        <p className="mt-3 max-w-[68ch] text-xs text-muted">
+          Se guarda solo cada pocos segundos mientras estudias. Al cerrar sesión, el progreso se queda también en este navegador.
+        </p>
       </div>
-      <p className="mt-3 text-xs text-muted">
-        Se guarda solo cada pocos segundos mientras estudias. Al cerrar sesión, el progreso se queda también en este navegador.
-      </p>
     </section>
   );
 }
 
 /** Indicador pequeño para la barra de navegación */
-export function CloudBadge() {
+export function CloudBadge({ compact = false }: { compact?: boolean }) {
   const cloud = useCloud();
   if (!cloud?.configured) return null;
   const t =
@@ -189,6 +241,7 @@ export function CloudBadge() {
             ? "Elige qué progreso conservar"
             : "Sin conexión con la nube";
   const color = cloud.status === "synced" ? "var(--ok)" : cloud.status === "signed-out" || cloud.status === "syncing" ? "var(--muted)" : "var(--bad)";
+  if (compact) return <span title={t} aria-label={t} role="img" className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />;
   return (
     <Link href="/progreso" title={t} aria-label={t} className="relative grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted hover:bg-soft hover:text-ink">
       <Icon name="cloud" className="h-[18px] w-[18px]" />

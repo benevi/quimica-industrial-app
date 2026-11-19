@@ -7,6 +7,8 @@ import { useCertState } from "@/certs/useCertState";
 import { useProgress } from "@/lib/progress";
 import { migrate, type Sim } from "@/sim/engine";
 import { reviewBatch } from "@/sim/review";
+import { Icon } from "@/components/icons";
+import { Bar, Card, Status, btn } from "@/components/ui";
 
 /** Si hay un lote cerrado en el simulador de planta, guarda su nota para el indicador */
 function usePlantResult() {
@@ -32,50 +34,52 @@ export function Readiness({ summary, compact = false }: { summary: PrepSummary; 
   usePlantResult();
   if (!loaded || !pLoaded) return <p className="text-sm text-muted">Calculando…</p>;
   const r = readiness(summary, state, progress);
-  const color = r.status === "Listo para presentarte" ? "bg-ok-soft border-ok" : r.status === "Cerca" ? "bg-warn-soft border-line" : "bg-surface border-line";
+  const kind = r.status === "Listo para presentarte" ? "done" : r.status === "Cerca" ? "doing" : "todo";
 
   if (compact)
     return (
-      <p className="text-sm">
-        <span className="font-medium">{r.status}</span> <span className="text-muted">· {r.pct} % · {r.okCount}/{r.crit.length} criterios</span>
-      </p>
+      <div className="space-y-2 text-sm">
+        <div className="flex items-center justify-between gap-2">
+          <Status kind={kind}>{r.status}</Status>
+          <span className="tabular-nums text-muted">{r.pct} %</span>
+        </div>
+        <Bar pct={r.pct} label={`Preparación: ${r.pct} %`} />
+        <p className="text-muted">
+          {r.okCount} de {r.crit.length} criterios cumplidos
+        </p>
+      </div>
     );
 
   return (
-    <section className={`rounded-2xl border p-5 ${color}`}>
-      <div className="flex flex-wrap items-baseline gap-x-3">
-        <h2 className="text-lg font-semibold">{r.status}</h2>
-        <span className="text-sm text-muted">
-          {r.pct} % · {r.okCount} de {r.crit.length} criterios cumplidos
+    <Card as="section" className="p-5">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <h2 className="t-h2">¿Estás listo?</h2>
+        <Status kind={kind}>{r.status}</Status>
+        <span className="ml-auto text-sm tabular-nums text-muted">
+          <span className="font-semibold text-ink">{r.pct} %</span> · {r.okCount} de {r.crit.length} criterios
         </span>
       </div>
-      <div className="mt-2 h-2 overflow-hidden rounded-full bg-soft" role="progressbar" aria-valuenow={r.pct} aria-valuemin={0} aria-valuemax={100} aria-label="Preparación">
-        <div className="h-full rounded-full bg-accent" style={{ width: `${r.pct}%` }} />
-      </div>
-      <ul className="mt-4 space-y-2 text-sm">
+      <Bar pct={r.pct} className="mt-3" label="Preparación" />
+      <ul className="mt-4 divide-y divide-line text-sm">
         {r.crit.map((c) => (
-          <li key={c.key} className="flex gap-2">
-            <span aria-hidden className={c.ok ? "text-ok" : "text-muted"}>
-              {c.ok ? "✓" : "○"}
+          <li key={c.key} className="flex items-start gap-3 py-2.5">
+            <Icon name="check" className={`mt-0.5 h-4 w-4 shrink-0 ${c.ok ? "text-ok" : "text-line-strong"}`} />
+            <span className="min-w-0 flex-1">
+              <span className="font-medium">{c.label}</span>
+              <span className="block text-muted">{c.detail}</span>
             </span>
-            <span>
-              <strong>{c.label}</strong>: {c.detail}
-              {c.href && !c.ok && (
-                <>
-                  {" "}
-                  ·{" "}
-                  <Link href={c.href} className="underline">
-                    ir
-                  </Link>
-                </>
-              )}
-            </span>
+            {c.href && !c.ok && (
+              <Link href={c.href} className={`${btn.quiet} shrink-0`}>
+                Ir ahora
+              </Link>
+            )}
+            <span className="sr-only">{c.ok ? "Cumplido" : "Pendiente"}</span>
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-xs text-muted">
+      <p className="mt-3 max-w-[68ch] text-xs text-muted">
         Criterio de la app, más exigente que el aprobado: no garantiza el resultado del examen real, pero si lo cumples todo, vas con margen.
       </p>
-    </section>
+    </Card>
   );
 }

@@ -1,38 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f6f7f5;
+  /* Hoja de lote: papel frío, tinta, acero y verde de línea de proceso */
+  --bg: #f3f5f2;
   --surface: #ffffff;
-  --soft: #eef1ee;
-  --line: #dde2dd;
-  --ink: #1b2420;
-  --muted: #5b6862;
-  --accent: #0f766e;
-  --accent-soft: #e0f2ef;
+  --soft: #eaeee9;
+  --line: #d8ded8;
+  --line-strong: #b9c2bb;
+  --ink: #17201c;
+  --muted: #56625c;
+  --accent: #0d6b5b;
+  --accent-ink: #0a5649;
+  --accent-soft: #dfefe9;
   --on-accent: #ffffff;
-  --ok: #15803d;
-  --ok-soft: #e6f4ea;
+  /* Ámbar de señal: solo para «tu siguiente paso» */
+  --signal: #e8a317;
+  --signal-soft: #fdf3dc;
+  --ok: #18794e;
+  --ok-soft: #e3f3ea;
   --bad: #b42318;
   --bad-soft: #fdecea;
-  --warn-soft: #fff6e0;
+  --warn-soft: #fbf3df;
+  --sidebar: #1d2723;
+  --sidebar-ink: #dfe6e2;
+  --sidebar-muted: #8fa199;
+  --sidebar-hover: #2a3631;
+  --radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111614;
-    --surface: #18201d;
-    --soft: #212b27;
-    --line: #2d3934;
-    --ink: #e7ece9;
-    --muted: #9aa7a1;
-    --accent: #2dd4bf;
-    --accent-soft: #123b36;
-    --on-accent: #062b26;
+    --bg: #121815;
+    --surface: #19211e;
+    --soft: #222c28;
+    --line: #2e3a35;
+    --line-strong: #3f4d47;
+    --ink: #e6ece8;
+    --muted: #9caba4;
+    --accent: #3cc7a8;
+    --accent-ink: #6fdcc3;
+    --accent-soft: #143a32;
+    --on-accent: #06251f;
+    --signal: #f0b43c;
+    --signal-soft: #352a12;
     --ok: #4ade80;
     --ok-soft: #14301f;
     --bad: #f87171;
     --bad-soft: #3a1a18;
-    --warn-soft: #3a3016;
+    --warn-soft: #33290f;
+    --sidebar: #0e1311;
+    --sidebar-ink: #dfe6e2;
+    --sidebar-muted: #8a9a93;
+    --sidebar-hover: #1c2522;
   }
 }
 
@@ -50,13 +69,30 @@
   --color-bad: var(--bad);
   --color-bad-soft: var(--bad-soft);
   --color-warn-soft: var(--warn-soft);
+  --color-line-strong: var(--line-strong);
+  --color-accent-ink: var(--accent-ink);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --font-sans: var(--font-plex), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: "ss02";
 }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::selection { background: var(--accent-soft); }
+
+/* Escala tipográfica (razón 1.2) */
+.t-display { font-size: 2rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; }
+.t-h1 { font-size: 1.75rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+.t-h2 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
+.t-h3 { font-size: 1.05rem; line-height: 1.35; font-weight: 600; }
+.t-tag { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.01em; }
 
 .prose-app { line-height: 1.65; }
 .prose-app > * + * { margin-top: 0.85em; }
@@ -92,11 +128,11 @@ body {
 
 /* Colores de los bloques del temario */
 :root {
-  --b-bases: #2563eb; --b-bases-soft: #e8efff;
-  --b-lab: #7c3aed; --b-lab-soft: #f1eaff;
-  --b-planta: #c2410c; --b-planta-soft: #fdeee4;
-  --b-calidad: #047857; --b-calidad-soft: #e3f5ec;
-  --b-sis: #0e7490; --b-sis-soft: #e0f4f8;
+  --b-bases: #3b5f9e; --b-bases-soft: #edf1f8;
+  --b-lab: #6a54a3; --b-lab-soft: #f1eef8;
+  --b-planta: #b05a22; --b-planta-soft: #f8efe7;
+  --b-calidad: #2f7a55; --b-calidad-soft: #ebf4ee;
+  --b-sis: #2f6f80; --b-sis-soft: #eaf3f5;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -131,7 +167,7 @@ html { scroll-behavior: smooth; }
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink);
-  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.82rem;
   font-weight: 400;
   line-height: 1.45;
@@ -144,3 +180,8 @@ html { scroll-behavior: smooth; }
 .term-pop b { display: block; font-weight: 600; }
 .term-pop i { display: block; color: var(--accent); font-style: normal; margin-bottom: 0.2em; }
 .term:hover .term-pop, .term:focus .term-pop { opacity: 1; transform: none; }
+
+/* Quien pide menos movimiento no ve animaciones decorativas en ninguna parte */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

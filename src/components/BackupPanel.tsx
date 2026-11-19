@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
-import { CloudPanel } from "@/components/CloudPanel";
+import { CloudPanel, CloudStatusRow, useCloudNeedsAction } from "@/components/CloudPanel";
+import { useCloud } from "@/components/CloudSync";
+import { Card, PageHeader, SectionTitle, Status, btn } from "@/components/ui";
 import { backupFileName, collectBackup, KEY_LABELS, parseBackup, restoreBackup, summarize, type Backup } from "@/lib/backup";
 
 type Summary = ReturnType<typeof summarize>;
@@ -20,18 +21,18 @@ function SummaryList({ s }: { s: Summary }) {
   return (
     <dl className="grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
       {rows.map(([k, v]) => (
-        <div key={k} className="flex justify-between gap-3 border-b border-line py-1">
+        <div key={k} className="flex justify-between gap-3 border-b border-line py-1.5">
           <dt className="text-muted">{k}</dt>
-          <dd className="font-semibold tabular-nums">{v}</dd>
+          <dd className="font-medium tabular-nums">{v}</dd>
         </div>
       ))}
-      <div className="flex justify-between gap-3 border-b border-line py-1">
+      <div className="flex justify-between gap-3 border-b border-line py-1.5">
         <dt className="text-muted">Lote del simulador de planta</dt>
-        <dd className="font-semibold">{s.simulator ? "Sí" : "No"}</dd>
+        <dd className="font-medium">{s.simulator ? "Sí" : "No"}</dd>
       </div>
-      <div className="flex justify-between gap-3 border-b border-line py-1">
+      <div className="flex justify-between gap-3 border-b border-line py-1.5">
         <dt className="text-muted">Datos del simulador ERP</dt>
-        <dd className="font-semibold">{s.erp ? "Sí" : "No"}</dd>
+        <dd className="font-medium">{s.erp ? "Sí" : "No"}</dd>
       </div>
     </dl>
   );
@@ -43,6 +44,8 @@ export function BackupPanel() {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<string | null>(null);
   const input = useRef<HTMLInputElement>(null);
+  const hasCloud = !!useCloud();
+  const cloudFirst = useCloudNeedsAction();
 
   useEffect(() => {
     try {
@@ -94,94 +97,140 @@ export function BackupPanel() {
     }
   }
 
+  const lead = (
+    <>
+      Tu progreso se guarda en este navegador. Para no perderlo si borras los datos de navegación o cambias de ordenador, guárdalo en la nube con tu
+      email, o descarga una copia de vez en cuando: lecciones, tests, certificaciones, repaso de fallos, simulador de planta y ERP.
+    </>
+  );
+  const exportPrimary = !cloudFirst && !pending;
+
   return (
-    <div className="space-y-6">
-      <div>
-        <Link href="/" className="text-sm text-muted hover:text-ink">← Inicio</Link>
-        <p className="mt-3 text-sm font-medium text-accent">Nube y copia de seguridad · Backup</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Guarda tu progreso</h1>
-        <p className="mt-2 max-w-3xl text-muted">
-          Tu progreso se guarda en este navegador. Para no perderlo si borras los datos de navegación o cambias de ordenador, guárdalo en la nube
-          con tu email, o descarga una copia de vez en cuando: lecciones, tests, certificaciones, repaso de fallos, simulador de planta y ERP.
-        </p>
-      </div>
+    <div className="space-y-10">
+      <PageHeader crumbs={[{ href: "/", label: "Hoy" }, { label: "Mi progreso" }]} title="Guarda tu progreso" en="Cloud sync and backup" icon="cloud" lead={lead} />
+
+      <section aria-labelledby="estado-h">
+        <SectionTitle id="estado-h">Cómo está tu progreso ahora</SectionTitle>
+        <Card className="divide-y divide-line">
+          <div className="flex gap-3 px-5 py-4">
+            <Icon name="screen" className="mt-0.5 h-5 w-5 shrink-0 text-muted" />
+            <div className="min-w-0 flex-1">
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span className="font-medium">En este navegador</span>
+                {current && <Status kind="done">Guardado</Status>}
+              </p>
+              <p className="mt-0.5 text-sm text-muted">
+                {current ? (
+                  <>
+                    {current.lessonsDone} lecciones completadas · {current.exams} simulacros, exámenes y supuestos con nota · {current.cards} tarjetas estudiadas
+                  </>
+                ) : error ? (
+                  "No se puede leer."
+                ) : (
+                  "Leyendo…"
+                )}
+              </p>
+            </div>
+          </div>
+          {hasCloud && <CloudStatusRow />}
+          {current && (
+            <div className="px-5 py-3">
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-medium text-accent [&::-webkit-details-marker]:hidden">
+                  <Icon name="chevron" className="h-4 w-4 transition-transform group-open:rotate-90" />
+                  Ver todo lo que hay guardado en este navegador
+                </summary>
+                <div className="mt-3">
+                  <SummaryList s={current} />
+                </div>
+              </details>
+            </div>
+          )}
+        </Card>
+      </section>
 
       <CloudPanel />
 
-      {current && (
-        <section className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
-          <h2 className="mb-3 font-semibold">Lo que hay guardado ahora en este navegador</h2>
-          <SummaryList s={current} />
-        </section>
-      )}
-
-      {done && (
-        <p role="status" className="rounded-xl border p-4 text-sm" style={{ borderColor: "var(--ok)", background: "var(--ok-soft)" }}>
-          {done}
-        </p>
-      )}
-      {error && (
-        <p role="alert" className="rounded-xl border border-line bg-warn-soft p-4 text-sm">
-          {error}
-        </p>
-      )}
-
-      <section className="grid gap-4 md:grid-cols-2">
-        <div className="flex flex-col rounded-2xl border border-line bg-surface p-5 sm:p-6">
-          <span className="grid h-10 w-10 place-items-center rounded-lg bg-accent-soft text-accent">
-            <Icon name="box" />
-          </span>
-          <h2 className="mt-3 font-semibold">Exportar</h2>
-          <p className="mt-1 flex-1 text-sm text-muted">Descarga un archivo .json con todo tu progreso. No sale de tu ordenador: no se envía a ningún servidor.</p>
-          <button type="button" onClick={exportNow} className="mt-4 w-fit rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90">
-            Descargar copia
-          </button>
+      <section aria-labelledby="copia-h">
+        <div className="mb-3">
+          <h2 id="copia-h" className="t-h2">
+            Copia en archivo{" "}
+            <span lang="en" className="text-sm font-normal text-muted">
+              Backup file
+            </span>
+          </h2>
+          <p className="mt-1 max-w-[68ch] text-sm text-muted">
+            Manual. Descargas un archivo con todo tu progreso y lo guardas tú; sirve también para pasarlo a otro ordenador.
+          </p>
         </div>
 
-        <div className="flex flex-col rounded-2xl border border-line bg-surface p-5 sm:p-6">
-          <span className="grid h-10 w-10 place-items-center rounded-lg bg-accent-soft text-accent">
-            <Icon name="back" />
-          </span>
-          <h2 className="mt-3 font-semibold">Importar</h2>
-          <p className="mt-1 flex-1 text-sm text-muted">
-            Carga una copia descargada antes. Sustituye el progreso actual de este navegador por el de la copia; antes de aplicarla te enseñamos qué contiene.
-          </p>
-          <input ref={input} type="file" accept="application/json,.json" className="sr-only" onChange={onFile} aria-label="Archivo de copia" />
-          <button
-            type="button"
-            onClick={() => input.current?.click()}
-            className="mt-4 w-fit rounded-lg border border-line px-4 py-2 font-medium hover:border-accent"
-          >
-            Elegir archivo…
-          </button>
-        </div>
-      </section>
+        <Card className="divide-y divide-line">
+          <div className="flex flex-wrap items-center gap-4 p-5 sm:p-6">
+            <div className="min-w-0 flex-1">
+              <h3 className="t-h3">Exportar</h3>
+              <p className="mt-1 max-w-[60ch] text-sm text-muted">
+                Descarga un archivo .json con todo tu progreso. No sale de tu ordenador: no se envía a ningún servidor.
+              </p>
+            </div>
+            <button type="button" onClick={exportNow} className={exportPrimary ? btn.primary : btn.secondary}>
+              <Icon name="box" className="h-4 w-4" />
+              Descargar copia
+            </button>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 p-5 sm:p-6">
+            <div className="min-w-0 flex-1">
+              <h3 className="t-h3">Importar</h3>
+              <p className="mt-1 max-w-[60ch] text-sm text-muted">
+                Carga una copia descargada antes. Sustituye el progreso actual de este navegador por el de la copia; antes de aplicarla te enseñamos qué
+                contiene.
+              </p>
+            </div>
+            <input ref={input} type="file" accept="application/json,.json" className="sr-only" onChange={onFile} aria-label="Archivo de copia" />
+            <button type="button" onClick={() => input.current?.click()} className={btn.secondary}>
+              Elegir archivo…
+            </button>
+          </div>
+        </Card>
 
-      {pending && (
-        <section className="rounded-2xl border-2 border-accent bg-accent-soft p-5 sm:p-6" aria-labelledby="confirm-h">
-          <h2 id="confirm-h" className="font-semibold">¿Restaurar esta copia?</h2>
-          <p className="mt-1 text-sm text-muted">
-            {pending.name} · hecha el {new Date(pending.backup.exportedAt).toLocaleString("es-ES", { dateStyle: "long", timeStyle: "short" })}
+        {done && (
+          <p role="status" className="mt-3 rounded-md bg-ok-soft p-4 text-sm">
+            {done}
           </p>
-          <div className="mt-3 rounded-xl bg-surface p-4">
-            <SummaryList s={summarize(pending.backup.data)} />
-            <p className="mt-3 text-xs text-muted">
-              Incluye: {Object.keys(pending.backup.data).map((k) => KEY_LABELS[k] ?? k).join(" · ") || "nada"}
+        )}
+        {error && (
+          <p role="alert" className="mt-3 rounded-md bg-bad-soft p-4 text-sm">
+            {error}
+          </p>
+        )}
+
+        {pending && (
+          <section className="mt-4 rounded-[var(--radius)] border border-signal bg-signal-soft p-5 sm:p-6" aria-labelledby="confirm-h">
+            <h3 id="confirm-h" className="t-h3">
+              ¿Restaurar esta copia?
+            </h3>
+            <p className="mt-1 text-sm text-muted">
+              {pending.name} · hecha el {new Date(pending.backup.exportedAt).toLocaleString("es-ES", { dateStyle: "long", timeStyle: "short" })}
             </p>
-          </div>
-          <p className="mt-3 text-sm">
-            <strong>Ojo:</strong> lo que tengas ahora en este navegador se reemplaza. Si no estás seguro, descarga antes una copia del estado actual.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <button type="button" onClick={confirmImport} className="rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90">
-              Sí, restaurar
-            </button>
-            <button type="button" onClick={() => setPending(null)} className="rounded-lg border border-line bg-surface px-4 py-2 font-medium">
-              Cancelar
-            </button>
-          </div>
-        </section>
-      )}
+            <div className="mt-3 rounded-md border border-line bg-surface p-4">
+              <SummaryList s={summarize(pending.backup.data)} />
+              <p className="mt-3 text-xs text-muted">
+                Incluye: {Object.keys(pending.backup.data).map((k) => KEY_LABELS[k] ?? k).join(" · ") || "nada"}
+              </p>
+            </div>
+            <p className="mt-3 max-w-[68ch] text-sm">
+              <strong>Ojo:</strong> lo que tengas ahora en este navegador se reemplaza. Si no estás seguro, descarga antes una copia del estado actual.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={confirmImport} className={btn.primary}>
+                Sí, restaurar
+              </button>
+              <button type="button" onClick={() => setPending(null)} className={btn.secondary}>
+                Cancelar
+              </button>
+            </div>
+          </section>
+        )}
+      </section>
     </div>
   );
 }

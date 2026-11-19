@@ -1,17 +1,18 @@
 import { Flashcards } from "@/components/flashcards/Flashcards";
+import { PageHeader } from "@/components/ui";
 
 export const metadata = { title: "Tarjetas de repaso · Aula de Química" };
 
 export default function CardsPage() {
   return (
-    <div className="space-y-6">
-      <div>
-        <p className="text-sm font-medium text-accent">Repaso rápido · Flashcards</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Tarjetas de repaso</h1>
-        <p className="mt-2 max-w-2xl text-muted">
-          Los conceptos y las fórmulas clave del temario en tarjetas de pregunta y respuesta. Cinco minutos antes del turno bastan para que no se te olviden.
-        </p>
-      </div>
+    <div>
+      <PageHeader
+        crumbs={[{ href: "/", label: "Hoy" }, { label: "Tarjetas de repaso" }]}
+        title="Tarjetas de repaso"
+        en="Flashcards"
+        icon="cards"
+        lead="Los conceptos y las fórmulas clave del temario en tarjetas de pregunta y respuesta. Cinco minutos antes del turno bastan para que no se te olviden."
+      />
       <Flashcards />
     </div>
   );

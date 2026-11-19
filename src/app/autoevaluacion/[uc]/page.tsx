@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageHeader } from "@/components/ui";
 import { notFound } from "next/navigation";
 import { levels } from "@/content";
 import { getUnit, units } from "@/certs/autoevaluacion";
@@ -20,16 +20,19 @@ export default async function SelfPage({ params }: { params: Promise<{ uc: strin
   if (!unit) notFound();
   const levelTitles = Object.fromEntries(levels.map((l) => [l.number, l.title]));
   return (
-    <div className="space-y-6">
-      <div>
-        <Link href="/certificaciones" className="text-sm text-muted hover:text-ink">← Certificaciones</Link>
-        <p className="mt-3 text-sm font-medium text-accent">Autoevaluación · {unit.cert} · {unit.code}</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{unit.name}</h1>
-        <p className="mt-2 max-w-2xl text-muted">
-          Para cada realización profesional (lo que la norma dice que debes saber hacer), marca con sinceridad tu nivel hoy.
-          Sirve para preparar la acreditación de competencias y para saber qué estudiar.
-        </p>
-      </div>
+    <div>
+      <PageHeader
+        crumbs={[{ href: "/certificaciones", label: "Certificaciones" }, { label: `Autoevaluación ${unit.code}` }]}
+        title={unit.name}
+        en="Self-assessment"
+        icon="check"
+        lead={
+          <>
+            Unidad <span className="t-tag">{unit.code}</span> de {unit.cert}. Para cada realización profesional (lo que la norma dice que debes saber hacer),
+            marca con sinceridad tu nivel hoy. Sirve para preparar la acreditación de competencias y para saber qué estudiar.
+          </>
+        }
+      />
       <SelfAssessment unit={unit} levelTitles={levelTitles} />
     </div>
   );

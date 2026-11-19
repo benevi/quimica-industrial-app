@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { Nav } from "@/components/Nav";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Sidebar } from "@/components/shell/Sidebar";
 import { CloudSyncProvider } from "@/components/CloudSync";
 import type { SearchIndex } from "@/components/Search";
 import { allTerms, lessons, levels } from "@/content";
+
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-plex", display: "swap" });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Aula de Química Industrial",
@@ -25,24 +29,26 @@ const searchIndex: SearchIndex = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${plex.variable} ${plexMono.variable}`}>
       <body className="min-h-screen antialiased">
         <CloudSyncProvider>
-          <Nav index={searchIndex} />
-          <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+          <Sidebar index={searchIndex} />
+          <div className="lg:pl-64">
+            <main className="mx-auto max-w-5xl px-4 py-8 sm:px-8 lg:py-10">{children}</main>
+            <footer className="mx-auto max-w-5xl px-4 pb-10 text-xs leading-relaxed text-muted sm:px-8">
+              Material de estudio con ejemplos ficticios. En planta manda siempre el procedimiento vigente de tu empresa. Tu progreso se
+              guarda en este navegador: puedes{" "}
+              <Link href="/progreso" className="underline hover:text-ink">
+                guardarlo en la nube o hacer una copia
+              </Link>
+              . Imágenes y vídeos:{" "}
+              <Link href="/creditos" className="underline hover:text-ink">
+                créditos y licencias
+              </Link>
+              .
+            </footer>
+          </div>
         </CloudSyncProvider>
-        <footer className="mx-auto max-w-6xl px-4 pb-10 text-xs text-muted">
-          Material de estudio con ejemplos ficticios. En planta manda siempre el procedimiento vigente de tu empresa.{" "}
-          Tu progreso se guarda en este navegador:{" "}
-          <Link href="/progreso" className="underline hover:text-ink">
-            guárdalo en la nube o haz una copia
-          </Link>
-          . Imágenes y vídeos:{" "}
-          <Link href="/creditos" className="underline hover:text-ink">
-            créditos y licencias
-          </Link>
-          .
-        </footer>
       </body>
     </html>
   );

@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { pictograms, type GhsCode } from "@/content/fds";
 import { GhsPictogram } from "@/components/GhsPictogram";
+import { Icon } from "@/components/icons";
+import { Bar, btn } from "@/components/ui";
 
 const codes = Object.keys(pictograms) as GhsCode[];
 
@@ -30,8 +32,8 @@ export function PictogramGame() {
 
   if (!code)
     return (
-      <div className="rounded-2xl border border-line bg-surface p-5">
-        <p className="text-lg font-semibold">
+      <div className="rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6" role="status">
+        <p className="t-h3">
           {right} de {codes.length} pictogramas reconocidos
         </p>
         <p className="mt-1 text-sm text-muted">{right === codes.length ? "Perfecto: ya los distingues todos." : "Repite hasta reconocerlos todos a la primera."}</p>
@@ -42,7 +44,7 @@ export function PictogramGame() {
             setPick(null);
             setRight(0);
           }}
-          className="mt-3 rounded-lg bg-accent px-4 py-2 font-medium text-white hover:opacity-90"
+          className={`${btn.secondary} mt-4`}
         >
           Otra ronda
         </button>
@@ -50,10 +52,11 @@ export function PictogramGame() {
     );
 
   return (
-    <div className="rounded-2xl border border-line bg-surface p-5">
+    <div className="rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6">
       <p className="text-sm text-muted">
         Pictograma {i + 1} de {codes.length} · {right} aciertos
       </p>
+      <Bar pct={Math.round((i / codes.length) * 100)} className="mt-2" label={`Pictograma ${i + 1} de ${codes.length}`} />
       <div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="shrink-0 self-center">
           <GhsPictogram code={code} size={130} />
@@ -61,7 +64,7 @@ export function PictogramGame() {
         <div className="grid flex-1 gap-2">
           <p className="font-medium">¿Qué peligro indica?</p>
           {options.map((c) => {
-            let cls = "border-line hover:border-accent";
+            let cls = "border-line bg-surface hover:border-accent";
             if (pick && c === code) cls = "border-ok bg-ok-soft";
             else if (pick === c) cls = "border-bad bg-bad-soft";
             return (
@@ -72,27 +75,31 @@ export function PictogramGame() {
                   setPick(c);
                   if (c === code) setRight((x) => x + 1);
                 }}
-                className={`rounded-lg border px-3 py-2 text-left text-sm ${cls}`}
+                className={`rounded-md border px-3 py-2.5 text-left text-sm ${cls}`}
               >
                 {pictograms[c].means}
               </button>
             );
           })}
           {pick && (
-            <div className="mt-1 rounded-lg bg-soft px-3 py-2 text-sm">
+            <div className="mt-1 rounded-md bg-soft px-3 py-2.5 text-sm" role="status">
               <strong>
-                {code} · {pictograms[code].name}
+                <span className="font-mono">{code}</span> · {pictograms[code].name}
               </strong>{" "}
-              <span className="text-muted">({pictograms[code].en})</span>. Ejemplos: {pictograms[code].examples}
+              <span lang="en" className="text-muted">
+                ({pictograms[code].en})
+              </span>
+              . Ejemplos: {pictograms[code].examples}
               <div>
                 <button
                   onClick={() => {
                     setI((x) => x + 1);
                     setPick(null);
                   }}
-                  className="mt-2 rounded-lg bg-accent px-3 py-1.5 font-medium text-white hover:opacity-90"
+                  className={`${btn.secondary} mt-3`}
                 >
                   Siguiente
+                  <Icon name="arrow" className="h-4 w-4" />
                 </button>
               </div>
             </div>

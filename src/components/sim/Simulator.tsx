@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import * as E from "@/sim/engine";
 import type { Scenario, Sim } from "@/sim/engine";
 import { Sheet } from "./Sheet";
+import { Icon } from "@/components/icons";
+import { Disclosure, btn } from "@/components/ui";
 import { Badge, Btn, Card } from "./ui";
 import {
   PanelCarga, PanelCentrifugacion, PanelCristalizacion, PanelDispensacion, PanelEnvasado, PanelFiltracion,
@@ -39,22 +41,31 @@ function save(s: Sim | null) {
 
 function Start({ onStart }: { onStart: (sc: Scenario) => void }) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <Card title="Lote normal">
-        <p className="text-sm text-muted">Todo funciona. Practica la secuencia completa y la forma de registrar: lotes, pesadas, horas, IPC y firmas.</p>
-        <div className="mt-3">
-          <Btn tone="primary" onClick={() => onStart("normal")}>Empezar lote normal</Btn>
-        </div>
-      </Card>
-      <Card title="Lote con incidencias">
-        <p className="text-sm text-muted">
-          Durante el lote pasarán cosas que también pasan en planta. Tendrás que decidir: parar, avisar, registrar y abrir desviación cuando toque.
+    <section aria-labelledby="sim-start" className="max-w-3xl rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
+      <h2 id="sim-start" className="t-h2">
+        Empieza con un lote normal
+      </h2>
+      <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
+        Todo funciona. Practicas la secuencia completa y la forma de registrar: lotes, pesadas, horas, IPC y firmas. En cada momento, una
+        tarjeta ámbar te dice qué hacer.
+      </p>
+      <button type="button" onClick={() => onStart("normal")} className={`${btn.primary} mt-5 px-5 py-3 text-[15px]`}>
+        Empezar el lote
+        <Icon name="arrow" className="h-4 w-4" />
+      </button>
+      <div className="mt-8 border-t border-line pt-5 text-sm">
+        <p className="max-w-[60ch] leading-relaxed">
+          <span className="font-medium">¿Ya conoces la secuencia?</span>{" "}
+          <span className="text-muted">
+            En el lote con incidencias pasan cosas que también pasan en planta. Tendrás que decidir: parar, avisar, registrar y abrir
+            desviación cuando toque.
+          </span>
         </p>
-        <div className="mt-3">
-          <Btn tone="primary" onClick={() => onStart("incidencias")}>Empezar lote con incidencias</Btn>
-        </div>
-      </Card>
-    </div>
+        <button type="button" onClick={() => onStart("incidencias")} className={`${btn.secondary} mt-3`}>
+          Empezar un lote con incidencias
+        </button>
+      </div>
+    </section>
   );
 }
 
@@ -67,16 +78,16 @@ function Incidents({ s, act }: { s: Sim; act: (fn: (s: Sim) => void) => void }) 
     <Card title="Comunicación e incidencias">
       <div className="space-y-3 text-sm">
         <div className="flex flex-wrap gap-2">
-          <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="¿Qué pasa? (para el supervisor)" className="min-w-0 flex-1 rounded-md border border-line bg-surface px-2 py-1" />
+          <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="¿Qué pasa? (para el supervisor)" aria-label="Mensaje para el supervisor" className="min-w-0 flex-1 rounded-md border border-line-strong bg-surface px-2.5 py-1.5" />
           <Btn disabled={s.closed || note.trim().length < 3} onClick={() => { const t = note.trim(); act((x) => E.notify(x, t)); setNote(""); }}>
             Avisar al supervisor
           </Btn>
           <Btn disabled={s.closed} onClick={() => setOpen(!open)}>{open ? "Cerrar formulario" : "Abrir desviación"}</Btn>
         </div>
         {open && (
-          <div className="space-y-2 rounded-lg border border-line p-3">
-            <textarea value={what} onChange={(e) => setWhat(e.target.value)} rows={2} placeholder="Qué ha pasado: hechos, hora, equipo, valor medido y límite" className="w-full rounded-md border border-line bg-surface px-2 py-1" />
-            <textarea value={action} onChange={(e) => setAction(e.target.value)} rows={2} placeholder="Acción inmediata tomada" className="w-full rounded-md border border-line bg-surface px-2 py-1" />
+          <div className="space-y-2 rounded-md border border-line bg-soft p-3">
+            <textarea value={what} onChange={(e) => setWhat(e.target.value)} rows={2} placeholder="Qué ha pasado: hechos, hora, equipo, valor medido y límite" aria-label="Qué ha pasado" className="w-full rounded-md border border-line-strong bg-surface px-2.5 py-1.5" />
+            <textarea value={action} onChange={(e) => setAction(e.target.value)} rows={2} placeholder="Acción inmediata tomada" aria-label="Acción inmediata tomada" className="w-full rounded-md border border-line-strong bg-surface px-2.5 py-1.5" />
             <Btn tone="primary" disabled={what.trim().length < 10 || action.trim().length < 5} onClick={() => { const w = what.trim(); const a = action.trim(); act((x) => E.openDeviation(x, w, a)); setWhat(""); setAction(""); setOpen(false); }}>
               Registrar desviación
             </Btn>
@@ -87,7 +98,7 @@ function Incidents({ s, act }: { s: Sim; act: (fn: (s: Sim) => void) => void }) 
           <ul className="max-h-48 space-y-1.5 overflow-y-auto">
             {s.messages.slice().reverse().map((m, i) => (
               <li key={i}>
-                <span className="text-xs text-muted">{E.fmtTime(m.time)} · </span>
+                <span className="font-mono text-xs text-muted">{E.fmtTime(m.time)} · </span>
                 <strong>{m.from}:</strong> {m.text}
               </li>
             ))}
@@ -100,9 +111,14 @@ function Incidents({ s, act }: { s: Sim; act: (fn: (s: Sim) => void) => void }) 
 
 function AuditTrail({ s }: { s: Sim }) {
   return (
-    <details className="rounded-xl border border-line bg-surface p-4">
-      <summary className="cursor-pointer font-semibold">Audit trail ({s.audit.length} registros)</summary>
-      <p className="mt-2 text-xs text-muted">Quién hizo qué y cuándo. No se puede borrar ni editar: así lo exigen el Anexo 11 y la 21 CFR Part 11.</p>
+    <Disclosure
+      summary={
+        <span className="font-medium">
+          Audit trail <span className="font-normal text-muted">· {s.audit.length} registros</span>
+        </span>
+      }
+    >
+      <p className="text-xs text-muted">Quién hizo qué y cuándo. No se puede borrar ni editar: así lo exigen el Anexo 11 y la 21 CFR Part 11.</p>
       <ol className="mt-2 max-h-80 space-y-1 overflow-y-auto font-mono text-xs">
         {s.audit.slice().reverse().map((a, i) => (
           <li key={i}>
@@ -110,7 +126,7 @@ function AuditTrail({ s }: { s: Sim }) {
           </li>
         ))}
       </ol>
-    </details>
+    </Disclosure>
   );
 }
 
@@ -184,14 +200,19 @@ export function Simulator() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-line bg-surface px-4 py-3 text-sm">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--radius)] border border-line bg-surface px-4 py-2.5 text-sm">
         <span>
-          <strong>FX-101</strong> · lote 26-0147 · 100 kg de 4-aminofenol
+          <span className="font-mono font-medium">FX-101 · lote 26-0147</span>
+          <span className="text-muted"> · 100 kg de 4-aminofenol</span>
         </span>
         <Badge tone={s.scenario === "normal" ? "neutral" : "warn"}>{s.scenario === "normal" ? "Lote normal" : "Lote con incidencias"}</Badge>
-        <span className="font-mono">🕑 {E.fmtTime(s.clock)}</span>
+        <span className="text-muted">
+          Reloj de planta <span className="font-mono text-ink">{E.fmtTime(s.clock)}</span>
+        </span>
         <span className="ml-auto" />
-        <Btn
+        <button
+          type="button"
+          className={btn.quiet}
           onClick={() => {
             if (window.confirm("¿Empezar de cero? Se pierde el lote actual.")) {
               setRunning(false);
@@ -199,29 +220,40 @@ export function Simulator() {
             }
           }}
         >
-          Nuevo lote
-        </Btn>
+          Empezar otro lote
+        </button>
       </div>
 
-      <nav aria-label="Etapas del lote" className="flex gap-1.5 overflow-x-auto pb-1">
-        {E.SECTIONS.map((x, i) => {
-          const done = s.signatures[x.id] != null;
-          const reachable = i <= s.maxSection;
-          return (
-            <button
-              key={x.id}
-              type="button"
-              disabled={!reachable}
-              onClick={() => setView(i)}
-              className={`shrink-0 rounded-lg border px-2.5 py-1.5 text-xs ${
-                i === view ? "border-accent bg-accent-soft font-semibold" : "border-line bg-surface"
-              } disabled:opacity-40`}
-            >
-              {done ? "✓ " : i === s.section && !s.closed ? "● " : ""}
-              {x.title}
-            </button>
-          );
-        })}
+      <nav aria-label="Etapas del lote" className="-mx-1 overflow-x-auto px-1 pb-1">
+        <ol className="flex gap-1">
+          {E.SECTIONS.map((x, i) => {
+            const done = s.signatures[x.id] != null;
+            const reachable = i <= s.maxSection;
+            const current = i === s.section && !s.closed;
+            return (
+              <li key={x.id} className="shrink-0">
+                <button
+                  type="button"
+                  disabled={!reachable}
+                  onClick={() => setView(i)}
+                  aria-current={i === view ? "step" : undefined}
+                  className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs ${
+                    i === view ? "border-accent bg-accent-soft font-medium text-ink" : "border-transparent text-muted hover:border-line hover:text-ink"
+                  } disabled:cursor-not-allowed disabled:opacity-40`}
+                >
+                  {done ? (
+                    <Icon name="check" className="h-3.5 w-3.5 text-ok" />
+                  ) : current ? (
+                    <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />
+                  ) : null}
+                  {x.title}
+                  {done && <span className="sr-only">(firmada)</span>}
+                  {!done && current && <span className="sr-only">(en curso)</span>}
+                </button>
+              </li>
+            );
+          })}
+        </ol>
       </nav>
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
@@ -234,9 +266,9 @@ export function Simulator() {
       ) : (
         <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div className="space-y-4">
-            <div className="text-xs uppercase tracking-wide text-muted">
-              {view === s.section ? "Equipo en uso" : "Consultando etapa anterior"} · {sec.equipo}
-            </div>
+            <p className="text-sm text-muted">
+              {view === s.section ? "Equipo en uso" : "Consultando una etapa anterior"}: <span className="text-ink">{sec.equipo}</span>
+            </p>
             <ValveBank s={s} act={act} active={isActive} sec={sec.id} />
             {sec.id === "previas" && <PanelPrevias {...p} />}
             {sec.id === "dispensacion" && <PanelDispensacion {...p} />}
@@ -264,21 +296,24 @@ export function Simulator() {
             <Sheet s={s} sec={sec.id} act={act} isActive={isActive} focusId={isActive ? nextFieldId(s) : null} />
             {view === s.section && !s.closed && !s.halt && (
               <div className="flex justify-end">
-                <button type="button" onClick={() => redo()} className="text-xs text-muted underline hover:text-ink">↺ Rehacer esta fase desde el principio</button>
+                <button type="button" onClick={() => redo()} className="text-xs text-muted underline underline-offset-2 hover:text-ink">
+                  Rehacer esta fase desde el principio
+                </button>
               </div>
             )}
             {isActive && sec.id !== "cierre" && (
-              <div className="flex items-center justify-end gap-2">
+              <div className="flex flex-wrap items-center justify-end gap-x-3 gap-y-2">
                 <span className="text-xs text-muted">Al pasar de etapa, lo que quede sin anotar contará como registro tardío.</span>
                 <Btn
-                  tone="primary"
+                  tone={s.signatures[sec.id] != null ? "primary" : "default"}
                   onClick={() => {
                     setRunning(false);
                     act(E.advance);
                     setView(s.section + 1);
                   }}
                 >
-                  Siguiente etapa →
+                  Pasar a la siguiente etapa
+                  <Icon name="arrow" className="h-4 w-4" />
                 </Btn>
               </div>
             )}

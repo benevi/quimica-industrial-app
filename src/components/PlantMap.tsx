@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getLesson } from "@/content";
 import { blockColor, blockOfLevel } from "@/content/blocks";
 import { Icon, type IconName } from "./icons";
+import { PageHeader, btn } from "./ui";
 import { useProgress } from "@/lib/progress";
 
 type Stage = {
@@ -167,124 +168,138 @@ export function PlantMap() {
   const idx = flow.findIndex((s) => s.id === sel);
 
   return (
-    <div className="space-y-8">
-      <header>
-        <p className="text-sm font-medium text-accent">Mapa de planta · Plant map</p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">El recorrido de un lote, de la materia prima al cliente</h1>
-        <p className="mt-2 max-w-3xl text-muted">
-          Así encaja todo lo que estudias. Pulsa una etapa para ver qué pasa en ella, qué haces tú como operador y qué lecciones
-          la explican. El proceso es ficticio y general: cada producto tiene sus propias etapas.
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        crumbs={[{ href: "/", label: "Hoy" }, { label: "Mapa de planta" }]}
+        title="Mapa de planta"
+        en="Plant map"
+        icon="map"
+        lead="El recorrido de un lote, de la materia prima al cliente. Pulsa una etapa para ver qué pasa en ella, qué haces tú como operador y qué lecciones la explican."
+      />
 
-      <section aria-label="Etapas del proceso" className="rounded-2xl border border-line bg-surface p-4 sm:p-6">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted">Proceso de fabricación · paso a paso</p>
-        <ol className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-5">
-          {flow.map((s, i) => {
-            const on = s.id === sel;
-            return (
-              <li key={s.id} className="relative">
-                <button
-                  type="button"
-                  onClick={() => setSel(s.id)}
-                  aria-pressed={on}
-                  className={`flex h-full w-full flex-col items-center gap-2 rounded-xl border-2 p-3 text-center transition ${
-                    on ? "border-accent bg-accent-soft" : "border-line bg-bg hover:border-accent"
-                  }`}
-                >
-                  <span className={`grid h-12 w-12 place-items-center rounded-full ${on ? "bg-accent text-white" : "bg-surface text-accent ring-1 ring-line"}`}>
-                    <Icon name={s.icon} className="h-6 w-6" />
-                  </span>
-                  <span className="text-xs font-semibold text-muted">Etapa {i + 1}</span>
-                  <span className="text-sm font-medium leading-tight">{s.title}</span>
-                </button>
-                {i < flow.length - 1 && (i + 1) % 5 !== 0 && (
-                  <span aria-hidden className="absolute -right-5 top-1/2 hidden -translate-y-1/2 text-line lg:block">
-                    <Icon name="arrow" className="h-4 w-4 text-muted" />
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-
-        <p className="mb-3 mt-8 text-xs font-semibold uppercase tracking-wider text-muted">Presente en todas las etapas</p>
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {support.map((s) => {
-            const on = s.id === sel;
-            return (
-              <li key={s.id}>
-                <button
-                  type="button"
-                  onClick={() => setSel(s.id)}
-                  aria-pressed={on}
-                  className={`flex h-full w-full items-center gap-2 rounded-xl border-2 border-dashed px-3 py-2 text-left text-sm transition ${
-                    on ? "border-accent bg-accent-soft font-medium" : "border-line hover:border-accent"
-                  }`}
-                >
-                  <Icon name={s.icon} className="h-5 w-5 shrink-0 text-accent" />
-                  {s.title}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      <section aria-live="polite" className="grid gap-6 rounded-2xl border-2 border-accent bg-surface p-5 sm:p-6 lg:grid-cols-[1fr_1.1fr]">
-        <div>
-          <p className="text-sm font-medium text-accent">{idx >= 0 ? `Etapa ${idx + 1} de ${flow.length}` : "En todas las etapas"}</p>
-          <h2 className="flex items-center gap-2 text-xl font-semibold">
-            <Icon name={stage.icon} className="h-6 w-6 text-accent" /> {stage.title}
+      <div className="space-y-8">
+        <section aria-labelledby="mapa-proceso" className="rounded-[var(--radius)] border border-line bg-surface p-4 sm:p-6">
+          <h2 id="mapa-proceso" className="mb-4 text-sm font-medium text-muted">
+            Proceso de fabricación, paso a paso
           </h2>
-          <p className="mt-3">{stage.what}</p>
-          <div className="mt-4 rounded-xl bg-warn-soft p-4 text-sm">
-            <p className="font-semibold">Qué haces tú como operador</p>
-            <p className="mt-1">{stage.you}</p>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {idx > 0 && (
-              <button type="button" onClick={() => setSel(flow[idx - 1].id)} className="rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-soft">
-                ← {flow[idx - 1].title}
-              </button>
-            )}
-            {idx >= 0 && idx < flow.length - 1 && (
-              <button type="button" onClick={() => setSel(flow[idx + 1].id)} className="rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-soft">
-                {flow[idx + 1].title} →
-              </button>
-            )}
-            {stage.practice && (
-              <Link href={stage.practice.href} className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-white">
-                Practicar en {stage.practice.label}
-              </Link>
-            )}
-          </div>
-        </div>
-        <div>
-          <p className="mb-2 text-sm font-semibold">Lecciones que lo explican</p>
-          <ul className="space-y-2">
-            {stage.lessons.map((slug) => {
-              const l = getLesson(slug);
-              if (!l) return null;
-              const c = blockColor[blockOfLevel(l.level).id];
-              const ok = progress[slug]?.done;
+          <ol className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-5">
+            {flow.map((s, i) => {
+              const on = s.id === sel;
               return (
-                <li key={slug}>
-                  <Link href={`/leccion/${slug}`} className="flex items-center gap-3 rounded-xl border border-line p-3 hover:border-accent">
-                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-xs font-semibold" style={{ background: c.soft, color: c.fg }}>
-                      {ok ? "✓" : `N${l.level}`}
+                <li key={s.id} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setSel(s.id)}
+                    aria-pressed={on}
+                    className={`flex h-full w-full flex-col items-center gap-2 rounded-[var(--radius)] border p-3 text-center ${
+                      on ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"
+                    }`}
+                  >
+                    <span className={`grid h-10 w-10 place-items-center rounded-full ${on ? "bg-accent text-[var(--on-accent)]" : "bg-accent-soft text-accent"}`}>
+                      <Icon name={s.icon} className="h-5 w-5" />
                     </span>
-                    <span className="min-w-0">
-                      <span className="block text-sm font-medium">{l.title}</span>
-                      <span className="block truncate text-xs text-muted">{l.summary}</span>
+                    <span className="text-xs text-muted">Etapa {i + 1}</span>
+                    <span className="text-sm font-medium leading-tight">{s.title}</span>
+                  </button>
+                  {i < flow.length - 1 && (i + 1) % 5 !== 0 && (
+                    <span aria-hidden className="absolute -right-5 top-1/2 hidden -translate-y-1/2 lg:block">
+                      <Icon name="chevron" className="h-4 w-4 text-line-strong" />
                     </span>
-                  </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
+          <h2 className="mb-3 mt-8 text-sm font-medium text-muted">Presente en todas las etapas</h2>
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {support.map((s) => {
+              const on = s.id === sel;
+              return (
+                <li key={s.id}>
+                  <button
+                    type="button"
+                    onClick={() => setSel(s.id)}
+                    aria-pressed={on}
+                    className={`flex h-full w-full items-center gap-2 rounded-md border border-dashed px-3 py-2 text-left text-sm ${
+                      on ? "border-accent bg-accent-soft font-medium" : "border-line-strong hover:border-accent"
+                    }`}
+                  >
+                    <Icon name={s.icon} className="h-5 w-5 shrink-0 text-accent" />
+                    {s.title}
+                  </button>
                 </li>
               );
             })}
           </ul>
-        </div>
-      </section>
+        </section>
+
+        <section
+          aria-live="polite"
+          aria-labelledby="mapa-etapa"
+          className="grid gap-6 rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6 lg:grid-cols-[1fr_1.1fr]"
+        >
+          <div>
+            <p className="text-sm text-muted">{idx >= 0 ? `Etapa ${idx + 1} de ${flow.length}` : "En todas las etapas"}</p>
+            <h2 id="mapa-etapa" className="t-h2 mt-0.5 flex items-center gap-2">
+              <Icon name={stage.icon} className="h-6 w-6 text-accent" /> {stage.title}
+            </h2>
+            <p className="mt-3 max-w-[60ch] leading-relaxed">{stage.what}</p>
+            <div className="mt-4 rounded-md border-l-2 border-accent bg-soft p-4 text-sm">
+              <p className="font-medium">Qué haces tú como operador</p>
+              <p className="mt-1 leading-relaxed">{stage.you}</p>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {stage.practice && (
+                <Link href={stage.practice.href} className={btn.primary}>
+                  Practicar en {stage.practice.label}
+                </Link>
+              )}
+              {idx > 0 && (
+                <button type="button" onClick={() => setSel(flow[idx - 1].id)} className={btn.secondary}>
+                  <Icon name="back" className="h-4 w-4" />
+                  {flow[idx - 1].title}
+                </button>
+              )}
+              {idx >= 0 && idx < flow.length - 1 && (
+                <button type="button" onClick={() => setSel(flow[idx + 1].id)} className={btn.secondary}>
+                  {flow[idx + 1].title}
+                  <Icon name="arrow" className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+          </div>
+          <div>
+            <h3 className="mb-2 font-medium">Lecciones que lo explican</h3>
+            <ul className="space-y-2">
+              {stage.lessons.map((slug) => {
+                const l = getLesson(slug);
+                if (!l) return null;
+                const c = blockColor[blockOfLevel(l.level).id];
+                const ok = progress[slug]?.done;
+                return (
+                  <li key={slug}>
+                    <Link href={`/leccion/${slug}`} className="group flex items-center gap-3 rounded-md border border-line p-3 hover:border-accent">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md font-mono text-xs" style={{ background: c.soft, color: c.fg }}>
+                        {ok ? <Icon name="check" className="h-4 w-4" /> : `N${l.level}`}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-medium group-hover:text-accent">
+                          {l.title}
+                          {ok && <span className="sr-only"> (hecha)</span>}
+                        </span>
+                        <span className="block truncate text-xs text-muted">{l.summary}</span>
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+
+        <p className="max-w-[68ch] text-sm text-muted">El proceso es ficticio y general: cada producto tiene sus propias etapas.</p>
+      </div>
     </div>
   );
 }

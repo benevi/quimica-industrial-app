@@ -22,7 +22,7 @@ export function QAReport({ s }: { s: Sim }) {
           {areas.map((a) => {
             const k = r.findings.filter((f) => f.area === a).length;
             return (
-              <div key={a} className="rounded-lg border border-line bg-soft px-3 py-2 text-sm">
+              <div key={a} className="rounded-md border border-line bg-soft px-3 py-2 text-sm">
                 <div className="text-xs text-muted">{a}</div>
                 <div className={k === 0 ? "text-ok" : "text-bad"}>{k === 0 ? "Sin hallazgos" : `${k} hallazgo${k > 1 ? "s" : ""}`}</div>
               </div>
@@ -70,7 +70,7 @@ export function QAReport({ s }: { s: Sim }) {
                 <div className="mt-1 font-medium">{f.title}</div>
                 <div className="text-muted">{f.detail}</div>
                 {f.lesson && (
-                  <Link href={`/leccion/${f.lesson.slug}`} className="text-xs text-accent underline">
+                  <Link href={`/leccion/${f.lesson.slug}`} className="text-xs text-accent underline underline-offset-2">
                     Repasar: {f.lesson.title}
                   </Link>
                 )}

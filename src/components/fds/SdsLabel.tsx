@@ -4,7 +4,7 @@ import { GhsPictogram } from "@/components/GhsPictogram";
 /** Etiqueta CLP del producto, como la verías en el bidón */
 export function SdsLabel({ sds }: { sds: Sds }) {
   return (
-    <div className="rounded-xl border-2 border-ink bg-white p-4 text-[#111] shadow-sm">
+    <div className="rounded-[var(--radius)] border-2 border-ink bg-white p-4 text-[#111]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-lg font-bold leading-tight">{sds.product}</p>
