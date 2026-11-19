@@ -149,7 +149,7 @@ export default async function PrepPage({ params }: { params: Promise<{ id: strin
               <span lang="en" className="text-sm text-muted">
                 Syllabus
               </span>
-              <span className="mt-0.5 block text-sm text-muted">Cada punto del temario con las lecciones de la app que lo cubren.</span>
+              <span className="mt-0.5 block text-sm text-muted">Cada punto del temario con las lecciones de la app que lo cubren. Las completadas salen en verde.</span>
             </span>
           }
         >

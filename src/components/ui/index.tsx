@@ -130,7 +130,7 @@ export function Disclosure({ summary, children, defaultOpen = false, className =
 }
 
 /** Pastilla de estado: hecho, en curso, pendiente. */
-export function Status({ kind, children }: { kind: "done" | "doing" | "todo"; children: React.ReactNode }) {
-  const cls = kind === "done" ? "bg-ok-soft text-ok" : kind === "doing" ? "bg-signal-soft text-ink" : "bg-soft text-muted";
+export function Status({ kind, children }: { kind: "done" | "doing" | "todo" | "bad"; children: React.ReactNode }) {
+  const cls = kind === "bad" ? "bg-bad-soft text-bad" : kind === "done" ? "bg-ok-soft text-ok" : kind === "doing" ? "bg-signal-soft text-ink" : "bg-soft text-muted";
   return <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${cls}`}>{children}</span>;
 }

@@ -14,7 +14,7 @@ export default function NutschePage() {
       lead="El filtro-secador FD-401 hace lo que en el lote completo hacían la centrífuga y el secadero: filtra con nitrógeno, lava la torta, la sopla y la seca a vacío. Producto didáctico FX-202."
     >
       <NutscheSim />
-      <Disclosure summary={<span className="font-medium">Lo importante de un Nutsche</span>}>
+      <Disclosure className="max-w-3xl" summary={<span className="font-medium">Lo importante de un Nutsche</span>}>
         <div className="max-w-[68ch] space-y-3 text-sm leading-relaxed text-muted">
           <ul className="list-disc space-y-1 pl-5">
             <li>La presión de N₂ empuja el líquido a través de la tela; la torta de cristales se queda encima. Más presión filtra más rápido, pero por encima de la hoja la torta se compacta.</li>

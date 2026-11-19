@@ -59,7 +59,7 @@ export default function Glosario() {
       />
 
       {/* Búsqueda: siempre a mano mientras recorres la lista */}
-      <div className="sticky top-12 z-10 -mx-4 border-b border-line bg-bg/95 px-4 py-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-0">
+      <div className="sticky top-14 lg:top-0 z-10 -mx-4 border-b border-line bg-bg/95 px-4 py-3 backdrop-blur sm:-mx-8 sm:px-8">
         <label className="relative block">
           <span className="sr-only">Buscar término</span>
           <Icon name="search" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />

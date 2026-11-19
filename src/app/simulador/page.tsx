@@ -14,7 +14,7 @@ export default function SimuladorPage() {
       lead="Produce el FX-101 pasando por reactor, filtro, cristalizador, centrífuga y secadero, y anota cada dato en la hoja de producción (batch record) como en planta. Al final, QA revisa tu registro."
     >
       <Simulator />
-      <Disclosure summary={<span className="font-medium">Cómo funciona el simulador</span>}>
+      <Disclosure className="max-w-3xl" summary={<span className="font-medium">Cómo funciona el simulador</span>}>
         <div className="max-w-[68ch] space-y-3 text-sm leading-relaxed text-muted">
           <p>
             Producto didáctico FX-101: acetilación de 4-aminofenol con anhídrido acético en agua, inspirada en la síntesis de libro del

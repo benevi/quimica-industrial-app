@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageHeader } from "@/components/ui";
 import { notFound } from "next/navigation";
 import { casesForUnits } from "@/certs/casos";
 import { caseItems, unitPool } from "@/certs/pool";
@@ -23,14 +23,18 @@ export default async function MockPage({ params }: { params: Promise<{ mock: str
   const pools = Object.fromEntries(mock.units.map((u) => [u, unitPool(u)]));
   const caseList = mock.cases ? casesForUnits(mock.units).map((c) => ({ c, items: caseItems(c.id) })) : [];
   return (
-    <div className="space-y-6">
-      <div>
-        <Link href={`/certificaciones/${prep.certId}`} className="text-sm text-muted hover:text-ink">
-          ← {prep.title}
-        </Link>
-        <p className="mt-3 text-sm font-medium text-accent">Simulacro con formato de examen</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{mock.title}</h1>
-      </div>
+    <div>
+      <PageHeader
+        crumbs={[
+          { href: "/certificaciones", label: "Certificaciones" },
+          { href: `/certificaciones/${prep.certId}`, label: prep.title.split(" · ")[0] },
+          { label: "Simulacro" },
+        ]}
+        title={mock.title}
+        en="Mock exam"
+        icon="quiz"
+        lead="Simulacro con el formato del examen: lee las condiciones y empieza cuando estés listo."
+      />
       <MockRunner mock={mock} certId={prep.certId} pools={pools} caseList={caseList} />
     </div>
   );

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageHeader } from "@/components/ui";
 import { notFound } from "next/navigation";
 import { levels } from "@/content";
 import { allModules, getModule } from "@/certs/data";
@@ -22,15 +22,23 @@ export default async function ExamPage({ params }: { params: Promise<{ modulo: s
   const { cert, module } = found;
   const pool = questionsForModule(module);
   return (
-    <div className="space-y-6">
-      <div>
-        <Link href="/certificaciones" className="text-sm text-muted hover:text-ink">← Certificaciones</Link>
-        <p className="mt-3 text-sm font-medium text-accent">Simulacro · {cert.short} · {module.code}</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{module.name}</h1>
-        <p className="mt-2 text-sm text-muted">
-          Preguntas de los niveles {module.levels.map((n) => `${n} (${levels.find((l) => l.number === n)?.title})`).join(", ")} y del banco de examen del módulo.
-        </p>
-      </div>
+    <div>
+      <PageHeader
+        crumbs={[
+          { href: "/certificaciones", label: "Certificaciones" },
+          { href: `/certificaciones#${cert.id}`, label: cert.short },
+          { label: `Simulacro ${module.code}` },
+        ]}
+        title={module.name}
+        en="Module mock exam"
+        icon="quiz"
+        lead={
+          <>
+            Simulacro del módulo <span className="t-tag">{module.code}</span> de {cert.short}. Preguntas de los niveles{" "}
+            {module.levels.map((n) => `${n} (${levels.find((l) => l.number === n)?.title})`).join(", ")} y del banco de examen del módulo.
+          </>
+        }
+      />
       <ExamRunner moduleId={module.id} pool={pool} />
     </div>
   );

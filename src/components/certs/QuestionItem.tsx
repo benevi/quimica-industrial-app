@@ -25,10 +25,10 @@ export function QuestionItem({
   return (
     <li>
       <p className="font-medium">
-        {n}. {q.q}
+        <span className="mr-1 tabular-nums text-muted">{n}.</span> {q.q}
       </p>
       {q.kind === "choice" ? (
-        <div className="mt-2 grid gap-2">
+        <div className="mt-3 grid gap-2">
           {q.options.map((opt, j) => {
             const selected = answer === j;
             let cls = "border-line hover:border-accent";
@@ -36,7 +36,7 @@ export function QuestionItem({
             else if (checked && selected) cls = "border-bad bg-bad-soft";
             else if (selected) cls = "border-accent bg-accent-soft";
             return (
-              <label key={j} className={`flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-sm ${cls}`}>
+              <label key={j} className={`flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2.5 text-sm ${cls}`}>
                 <input type="radio" name={name} className="accent-[var(--accent)]" checked={selected} disabled={checked} onChange={() => onAnswer(j)} />
                 {opt}
               </label>
@@ -44,10 +44,10 @@ export function QuestionItem({
           })}
         </div>
       ) : (
-        <div className="mt-2 flex items-center gap-2">
+        <div className="mt-3 flex items-center gap-2">
           <input
             inputMode="decimal"
-            className={`w-40 rounded-lg border bg-surface px-3 py-2 text-sm tabular-nums ${checked ? (right ? "border-ok" : "border-bad") : "border-line"}`}
+            className={`w-40 rounded-md border bg-surface px-3 py-2 text-sm tabular-nums ${checked ? (right ? "border-ok" : "border-bad") : "border-line-strong"}`}
             placeholder="Tu respuesta"
             aria-label={q.unit ? `Respuesta en ${q.unit}` : "Respuesta"}
             value={(answer as string) ?? ""}
@@ -58,8 +58,8 @@ export function QuestionItem({
         </div>
       )}
       {checked && (
-        <p className={`mt-2 rounded-lg px-3 py-2 text-sm ${right ? "bg-ok-soft" : "bg-bad-soft"}`}>
-          <strong>{right ? "Correcto." : "No es correcto."}</strong>{" "}
+        <p className={`mt-2 max-w-[68ch] border-l-2 pl-3 text-sm ${right ? "border-ok" : "border-bad"}`}>
+          <strong className={right ? "text-ok" : "text-bad"}>{right ? "Correcto." : "No es correcto."}</strong>{" "}
           {q.kind === "number" && !right && (
             <>
               La respuesta es {fmt(q.answer)} {q.unit}.{" "}

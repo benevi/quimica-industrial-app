@@ -180,3 +180,8 @@ html { scroll-behavior: smooth; }
 .term-pop b { display: block; font-weight: 600; }
 .term-pop i { display: block; color: var(--accent); font-style: normal; margin-bottom: 0.2em; }
 .term:hover .term-pop, .term:focus .term-pop { opacity: 1; transform: none; }
+
+/* Quien pide menos movimiento no ve animaciones decorativas en ninguna parte */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

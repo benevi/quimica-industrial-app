@@ -60,19 +60,22 @@ export function SimShell({
 }) {
   const crumbs = [{ href: "/", label: "Hoy" }, { href: "/simulador", label: "Simulador de planta" }, { label: mode }];
   return (
-    <div
-      className={
-        wide
-          ? "relative left-1/2 w-[min(100vw_-_2rem,80rem)] -translate-x-1/2 lg:w-[min(100vw_-_20rem,80rem)]"
-          : undefined
-      }
-    >
+    <div>
       <PageHeader crumbs={crumbs} title={title} en={en} icon="reactor" lead={lead}>
         <div className="pt-3">
           <SimModes />
         </div>
       </PageHeader>
-      <div className="space-y-6">{children}</div>
+      {/* El simulador en marcha necesita más ancho que el texto: se ensancha solo el contenido, sin pisar la barra lateral */}
+      <div
+        className={
+          wide
+            ? "relative left-1/2 w-[min(100vw_-_2rem,80rem)] -translate-x-1/2 space-y-6 lg:w-[min(100vw_-_20rem,80rem)]"
+            : "space-y-6"
+        }
+      >
+        {children}
+      </div>
     </div>
   );
 }
