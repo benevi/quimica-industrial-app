@@ -175,7 +175,7 @@ export function CloudPanel() {
 }
 
 /** Indicador pequeño para la barra de navegación */
-export function CloudBadge() {
+export function CloudBadge({ compact = false }: { compact?: boolean }) {
   const cloud = useCloud();
   if (!cloud?.configured) return null;
   const t =
@@ -189,6 +189,7 @@ export function CloudBadge() {
             ? "Elige qué progreso conservar"
             : "Sin conexión con la nube";
   const color = cloud.status === "synced" ? "var(--ok)" : cloud.status === "signed-out" || cloud.status === "syncing" ? "var(--muted)" : "var(--bad)";
+  if (compact) return <span title={t} aria-label={t} role="img" className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />;
   return (
     <Link href="/progreso" title={t} aria-label={t} className="relative grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted hover:bg-soft hover:text-ink">
       <Icon name="cloud" className="h-[18px] w-[18px]" />

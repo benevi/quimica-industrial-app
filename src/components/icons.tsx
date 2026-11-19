@@ -35,6 +35,11 @@ const paths: Record<string, React.ReactNode> = {
   cards: <><rect x="7" y="3" width="13" height="15" rx="2" /><path d="M4 7v11a3 3 0 0 0 3 3h9" /><path d="M11 9h5M11 12h3" /></>,
   hazard: <><path d="M12 2.5l9.5 9.5-9.5 9.5L2.5 12z" /><path d="M12 8v5M12 16h.01" /></>,
   cloud: <><path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 9.5a4 4 0 0 1-.5 8.5z" /></>,
+  home: <><path d="M4 10.5L12 4l8 6.5V20H4z" /><path d="M10 20v-5h4v5" /></>,
+  menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  close: <path d="M6 6l12 12M18 6L6 18" />,
+  chevron: <path d="M9 6l6 6-6 6" />,
+  chart: <><path d="M4 20V4M4 20h16" /><path d="M8 16v-4M12 16V8M16 16v-6" /></>,
   lock: <><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></>,
 };
 

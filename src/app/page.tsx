@@ -1,294 +1,180 @@
 "use client";
 
 import Link from "next/link";
-import { lessons, lessonsOfLevel, levels } from "@/content";
-import { blockColor, blockOfLevel, blocks, lessonsOfBlock, levelInfo, minutesOfLevel } from "@/content/blocks";
-import { Icon, blockIcon, levelIcon, type IconName } from "@/components/icons";
-import { ProgressRing } from "@/components/ProgressRing";
-import { useProgress } from "@/lib/progress";
+import { lessons } from "@/content";
+import { blockOfLevel, levelInfo } from "@/content/blocks";
 import { operatorSlugs, operatorStages } from "@/content/operador";
+import { Icon, type IconName } from "@/components/icons";
+import { Bar, Card, SectionTitle, btn } from "@/components/ui";
+import { useProgress } from "@/lib/progress";
 
-const steps: { icon: IconName; title: string; text: string; links: { href: string; label: string }[] }[] = [
-  {
-    icon: "book",
-    title: "1. Aprende",
-    text: "Lecciones cortas en 5 pasos: idea clave, ejemplo de planta, hoja de producción, vocabulario y test.",
-    links: [{ href: "#ruta", label: "Ver la ruta" }],
-  },
-  {
-    icon: "map",
-    title: "2. Sitúate",
-    text: "El mapa de planta muestra dónde encaja cada lección en el recorrido de un lote real.",
-    links: [{ href: "/mapa", label: "Mapa de planta" }],
-  },
-  {
-    icon: "reactor",
-    title: "3. Practica",
-    text: "Fabrica un lote en el simulador, haz cálculos, lee fichas de seguridad y repasa con tarjetas 5 minutos antes del turno.",
-    links: [
-      { href: "/simulador", label: "Simulador" },
-      { href: "/calculadoras", label: "Calculadoras" },
-      { href: "/sap", label: "ERP" },
-      { href: "/fds", label: "Fichas FDS" },
-      { href: "/tarjetas", label: "Tarjetas" },
-    ],
-  },
-  {
-    icon: "badge",
-    title: "4. Certifica",
-    text: "Simulacros de examen y autoevaluación para acreditar lo que sabes.",
-    links: [{ href: "/certificaciones", label: "Certificaciones" }],
-  },
+const practice: { href: string; icon: IconName; title: string; text: string }[] = [
+  { href: "/simulador", icon: "reactor", title: "Fabrica un lote", text: "Reactor, filtro, centrífuga y secadero, con su hoja de producción." },
+  { href: "/tarjetas", icon: "cards", title: "Repasa 5 minutos", text: "Tarjetas de vocabulario y seguridad antes del turno." },
+  { href: "/calculadoras", icon: "calc", title: "Haz las cuentas", text: "Cargas en equivalentes, moles, diluciones y rendimiento." },
 ];
 
+/** Portada: una sola cosa importante (tu siguiente lección) y, debajo, cómo vas. */
 export default function Home() {
   const { progress, loaded } = useProgress();
   const isDone = (slug: string) => !!progress[slug]?.done;
-  const doneCount = lessons.filter((l) => isDone(l.slug)).length;
-  const next = lessons.find((l) => !isDone(l.slug));
-  const pct = loaded ? Math.round((doneCount / lessons.length) * 100) : 0;
-  const nextBlock = next ? blockOfLevel(next.level) : undefined;
+
   const opDone = operatorSlugs.filter(isDone).length;
-  const opPct = loaded ? Math.round((opDone / operatorSlugs.length) * 100) : 0;
   const opNextSlug = operatorSlugs.find((s) => !isDone(s));
-  const opNext = opNextSlug ? lessons.find((l) => l.slug === opNextSlug) : undefined;
+  const allDone = lessons.filter((l) => isDone(l.slug)).length;
+  const fullNext = lessons.find((l) => !isDone(l.slug));
+
+  // Mientras la ruta del operador no esté terminada, es lo primero
+  const onOperator = !!opNextSlug;
+  const next = onOperator ? lessons.find((l) => l.slug === opNextSlug) : fullNext;
+  const stageIdx = onOperator ? operatorStages.findIndex((s) => s.lessons.includes(opNextSlug!)) : -1;
+  const stage = stageIdx >= 0 ? operatorStages[stageIdx] : undefined;
+  const fresh = loaded && allDone === 0;
 
   return (
     <div className="space-y-10">
-      {/* cabecera + continuar */}
-      <section className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
-        <div className="rounded-2xl border border-line bg-surface p-6 sm:p-8">
-          <p className="text-sm font-medium text-accent">Química desde cero · Chemistry from scratch</p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">De no saber química a entender tu hoja de producción</h1>
-          <p className="mt-3 max-w-2xl text-muted">
-            {lessons.length} lecciones en {levels.length} niveles, ordenadas en {blocks.length} bloques. Sigue la ruta de arriba abajo: cada nivel se apoya en
-            los anteriores.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center gap-5">
-            <ProgressRing pct={pct} size={64} label={`${doneCount} de ${lessons.length} lecciones completadas`} />
-            <div className="text-sm">
-              <p className="text-lg font-semibold tabular-nums">
-                {doneCount} <span className="font-normal text-muted">/ {lessons.length} lecciones</span>
-              </p>
-              <p className="text-muted">
-                {blocks.map((b) => {
-                  const ls = lessonsOfBlock(b);
-                  const d = ls.filter((l) => isDone(l.slug)).length;
-                  return (
-                    <span key={b.id} className="mr-3 inline-flex items-center gap-1">
-                      <span className="h-2 w-2 rounded-full" style={{ background: blockColor[b.id].fg }} />
-                      {b.title}: {d}/{ls.length}
-                    </span>
-                  );
-                })}
-              </p>
+      <section aria-labelledby="hoy-h">
+        <h1 id="hoy-h" className="t-display">
+          {fresh ? "Empieza por aquí" : "Tu siguiente paso"}
+        </h1>
+        <p className="mt-1 text-muted">
+          {onOperator
+            ? "Sigues la ruta del operador: lo imprescindible para tu turno, en el orden en que lo vas a necesitar."
+            : fullNext
+              ? "Has terminado la ruta del operador. Ahora sigues el temario completo."
+              : "Has completado todo el temario. Repasa con tarjetas o ponte a prueba con un simulacro."}
+        </p>
+
+        {next ? (
+          <div className="relative mt-6 overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
+            <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
+            <div className="grid gap-6 p-6 pl-8 sm:p-8 sm:pl-10 md:grid-cols-[1fr_auto] md:items-end">
+              <div className="min-w-0">
+                <p className="text-sm text-muted">
+                  {stage ? (
+                    <>
+                      Ruta del operador, etapa {stageIdx + 1} de {operatorStages.length}: <span className="text-ink">{stage.title}</span>
+                    </>
+                  ) : (
+                    <>
+                      Temario, nivel {next.level}: <span className="text-ink">{levelInfo(next.level).title}</span>
+                    </>
+                  )}
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold leading-tight tracking-tight sm:text-[1.75rem]">{next.title}</h2>
+                <p lang="en" className="text-muted">
+                  {next.titleEn}
+                </p>
+                <p className="mt-3 max-w-[60ch] leading-relaxed">{next.summary}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3 md:flex-col md:items-stretch">
+                <Link href={`/leccion/${next.slug}${onOperator ? "?ruta=operador" : ""}`} className={`${btn.primary} px-5 py-3 text-[15px]`}>
+                  {fresh ? "Empezar la lección" : "Continuar"}
+                  <Icon name="arrow" className="h-4 w-4" />
+                </Link>
+                <span className="text-center text-sm text-muted">{next.minutes} minutos</span>
+              </div>
             </div>
           </div>
-        </div>
-
-        {next && nextBlock && (
-          <Link
-            href={`/leccion/${next.slug}`}
-            className="group flex flex-col justify-between rounded-2xl border-2 p-6 transition hover:-translate-y-0.5"
-            style={{ borderColor: blockColor[nextBlock.id].fg, background: blockColor[nextBlock.id].soft }}
-          >
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: blockColor[nextBlock.id].fg }}>
-                {doneCount === 0 ? "Empieza aquí" : "Tu siguiente lección"}
-              </p>
-              <p className="mt-2 text-sm text-muted">
-                Bloque {nextBlock.n} · Nivel {next.level}. {levelInfo(next.level).title}
-              </p>
-              <p className="mt-1 text-xl font-semibold">{next.title}</p>
-              <p className="mt-2 text-sm text-muted">{next.summary}</p>
-              <ol className="mt-4 space-y-1 text-sm">
-                {lessonsOfLevel(next.level).map((l) => (
-                  <li key={l.slug} className={`flex items-center gap-2 ${l.slug === next.slug ? "font-semibold" : "text-muted"}`}>
-                    <span
-                      className="grid h-4 w-4 shrink-0 place-items-center rounded-full text-[10px] text-white"
-                      style={{ background: isDone(l.slug) ? "var(--ok)" : l.slug === next.slug ? blockColor[nextBlock.id].fg : "var(--line)" }}
-                    >
-                      {isDone(l.slug) ? "✓" : ""}
-                    </span>
-                    {l.title}
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <span
-              className="mt-5 inline-flex w-fit items-center gap-2 rounded-lg px-4 py-2 font-medium text-white"
-              style={{ background: blockColor[nextBlock.id].fg }}
-            >
-              {doneCount === 0 ? "Empezar" : "Continuar"} · {next.minutes} min
-              <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-0.5" />
-            </span>
-          </Link>
+        ) : (
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/tarjetas" className={btn.primary}>
+              Repasar con tarjetas
+            </Link>
+            <Link href="/certificaciones" className={btn.secondary}>
+              Hacer un simulacro
+            </Link>
+          </div>
         )}
       </section>
 
-      {/* ruta corta del operador */}
-      <section aria-labelledby="operador-h" className="grid gap-4 rounded-2xl border-2 border-accent bg-accent-soft p-5 sm:p-6 lg:grid-cols-[1.3fr_1fr]">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Ruta corta · Operator fast track</p>
-          <h2 id="operador-h" className="mt-1 text-xl font-semibold">¿Empiezas en planta? Haz primero la ruta del operador</h2>
-          <p className="mt-2 text-sm text-muted">
-            {operatorSlugs.length} lecciones con lo imprescindible para tu día a día: seguridad, la hoja de producción, las cuentas, el reactor, la
-            centrífuga, el filtro y el secadero, el panel de control y la calidad en tu turno. Cuentan también en la ruta completa.
-          </p>
-          <ol className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-            {operatorStages.map((s, i) => {
-              const ok = loaded && s.lessons.every(isDone);
-              return (
-                <li key={s.id} className="inline-flex items-center gap-1.5">
-                  <span
-                    className="grid h-4 w-4 place-items-center rounded-full text-[10px] text-white"
-                    style={{ background: ok ? "var(--ok)" : "var(--accent)" }}
-                  >
-                    {ok ? "✓" : i + 1}
-                  </span>
-                  {s.title}
-                </li>
-              );
-            })}
-          </ol>
+      <section aria-labelledby="vas-h">
+        <SectionTitle id="vas-h">Cómo vas</SectionTitle>
+        <div className="grid gap-4 md:grid-cols-2">
+          <ProgressCard
+            href="/operador"
+            icon="shield"
+            title="Ruta del operador"
+            done={opDone}
+            total={operatorSlugs.length}
+            loaded={loaded}
+            note={onOperator && stage ? `Etapa actual: ${stage.title}` : "Terminada"}
+          />
+          <ProgressCard
+            href="/temario"
+            icon="book"
+            title="Temario completo"
+            done={allDone}
+            total={lessons.length}
+            loaded={loaded}
+            note={fullNext ? `Te toca: ${blockOfLevel(fullNext.level).title}, nivel ${fullNext.level}` : "Completado"}
+          />
         </div>
-        <div className="flex flex-col justify-between gap-4 rounded-xl bg-surface p-4">
-          <div className="flex items-center gap-4">
-            <ProgressRing pct={opPct} size={56} label={`${opDone} de ${operatorSlugs.length} lecciones de la ruta del operador`} />
-            <div className="text-sm">
-              <p className="text-lg font-semibold tabular-nums">
-                {opDone} <span className="font-normal text-muted">/ {operatorSlugs.length}</span>
-              </p>
-              <p className="text-muted">{opNext ? <>Siguiente: <strong className="text-ink">{opNext.title}</strong></> : "Ruta del operador terminada"}</p>
-            </div>
-          </div>
-          <p className="flex flex-wrap gap-2">
-            {opNext && (
-              <Link href={`/leccion/${opNext.slug}`} className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white">
-                {opDone === 0 ? "Empezar" : "Continuar"} <Icon name="arrow" className="h-4 w-4" />
-              </Link>
-            )}
-            <Link href="/operador" className="inline-flex items-center rounded-lg border border-line px-4 py-2 text-sm font-medium hover:border-accent">
-              Ver la ruta del operador
-            </Link>
-          </p>
-        </div>
+        <p className="mt-3 text-sm text-muted">
+          Las lecciones de la ruta del operador cuentan también en el temario completo.{" "}
+          <Link href="/progreso" className="text-accent underline-offset-2 hover:underline">
+            Guarda tu progreso
+          </Link>{" "}
+          para no perderlo.
+        </p>
       </section>
 
-      {/* cómo funciona */}
-      <section aria-labelledby="como" className="space-y-3">
-        <h2 id="como" className="text-sm font-semibold uppercase tracking-wider text-muted">Cómo se usa el aula</h2>
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s) => (
-            <li key={s.title} className="flex flex-col rounded-xl border border-line bg-surface p-4">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent-soft text-accent">
-                <Icon name={s.icon} />
-              </span>
-              <p className="mt-3 font-semibold">{s.title}</p>
-              <p className="mt-1 flex-1 text-sm text-muted">{s.text}</p>
-              <p className="mt-3 flex flex-wrap gap-x-3 text-sm">
-                {s.links.map((l) => (
-                  <Link key={l.href} href={l.href} className="font-medium text-accent hover:underline">
-                    {l.label} →
-                  </Link>
-                ))}
-              </p>
+      <section aria-labelledby="pr-h">
+        <SectionTitle id="pr-h">Practica lo que aprendes</SectionTitle>
+        <ul className="grid gap-3 sm:grid-cols-3">
+          {practice.map((p) => (
+            <li key={p.href}>
+              <Link
+                href={p.href}
+                className="group flex h-full gap-3 rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent"
+              >
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-accent-soft text-accent">
+                  <Icon name={p.icon} className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block font-medium group-hover:text-accent">{p.title}</span>
+                  <span className="mt-0.5 block text-sm text-muted">{p.text}</span>
+                </span>
+              </Link>
             </li>
           ))}
-        </ol>
-      </section>
-
-      {/* ruta */}
-      <section id="ruta" aria-labelledby="ruta-h" className="space-y-2">
-        <h2 id="ruta-h" className="text-2xl font-semibold tracking-tight">Tu ruta de estudio</h2>
-        <p className="text-muted">Cinco bloques, de la química básica a la liberación del lote y los sistemas informáticos que la registran. Pulsa un nivel para ver sus lecciones.</p>
-
-        <ol className="relative mt-6 space-y-10 border-l-2 border-dashed border-line pl-6 sm:pl-10">
-          {blocks.map((b) => {
-            const c = blockColor[b.id];
-            const ls = lessonsOfBlock(b);
-            const d = ls.filter((l) => isDone(l.slug)).length;
-            return (
-              <li key={b.id} className="relative">
-                <span
-                  className="absolute -left-[42px] top-0 grid h-9 w-9 place-items-center rounded-full text-white ring-4 ring-[var(--bg)] sm:-left-[58px]"
-                  style={{ background: c.fg }}
-                  aria-hidden
-                >
-                  <Icon name={blockIcon[b.id]} className="h-5 w-5" />
-                </span>
-                <div className="mb-4 flex flex-wrap items-end gap-x-4 gap-y-1">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: c.fg }}>
-                      Bloque {b.n} · {b.titleEn}
-                    </p>
-                    <h3 className="text-xl font-semibold">{b.title}</h3>
-                    <p className="text-sm text-muted">
-                      <em className="not-italic text-ink">{b.question}</em> {b.description}
-                    </p>
-                    {b.practice && (
-                      <p className="mt-1 flex flex-wrap gap-x-3 text-sm">
-                        {b.practice.map((p) => (
-                          <Link key={p.href} href={p.href} className="font-medium hover:underline" style={{ color: c.fg }}>
-                            Practica: {p.label} →
-                          </Link>
-                        ))}
-                      </p>
-                    )}
-                  </div>
-                  <span className="text-sm tabular-nums text-muted">
-                    {d}/{ls.length} lecciones
-                  </span>
-                </div>
-                <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {b.levels.map((n) => {
-                    const lv = levelInfo(n);
-                    const lls = lessonsOfLevel(n);
-                    const ld = lls.filter((l) => isDone(l.slug)).length;
-                    const lp = lls.length ? Math.round((ld / lls.length) * 100) : 0;
-                    const status = ld === 0 ? "Sin empezar" : ld === lls.length ? "Completado" : "En curso";
-                    return (
-                      <li key={n}>
-                        <Link
-                          href={`/nivel/${n}`}
-                          className="flex h-full flex-col rounded-xl border border-line bg-surface p-4 transition hover:-translate-y-0.5 hover:shadow-md"
-                          style={{ borderTop: `3px solid ${c.fg}` }}
-                        >
-                          <div className="flex items-start gap-3">
-                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg" style={{ background: c.soft, color: c.fg }}>
-                              <Icon name={levelIcon[n]} className="h-6 w-6" />
-                            </span>
-                            <div className="min-w-0">
-                              <p className="text-xs font-medium text-muted">Nivel {n}</p>
-                              <p className="font-semibold leading-snug">{lv.title}</p>
-                              <p lang="en" className="text-xs text-muted">{lv.titleEn}</p>
-                            </div>
-                          </div>
-                          <p className="mt-2 flex-1 text-sm text-muted">{lv.description}</p>
-                          <div className="mt-3 flex items-center gap-2 text-xs text-muted">
-                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-soft">
-                              <div className="h-full rounded-full" style={{ width: `${loaded ? lp : 0}%`, background: c.fg }} />
-                            </div>
-                            <span className="tabular-nums">
-                              {ld}/{lls.length}
-                            </span>
-                          </div>
-                          <p className="mt-1.5 flex justify-between text-xs text-muted">
-                            <span>
-                              {lls.length} lecciones · {Math.round(minutesOfLevel(n) / 5) * 5} min
-                            </span>
-                            <span style={status === "Completado" ? { color: "var(--ok)", fontWeight: 600 } : undefined}>{status}</span>
-                          </p>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </li>
-            );
-          })}
-        </ol>
+        </ul>
       </section>
     </div>
+  );
+}
+
+function ProgressCard({
+  href,
+  icon,
+  title,
+  done,
+  total,
+  loaded,
+  note,
+}: {
+  href: string;
+  icon: IconName;
+  title: string;
+  done: number;
+  total: number;
+  loaded: boolean;
+  note: string;
+}) {
+  const pct = loaded ? Math.round((done / total) * 100) : 0;
+  return (
+    <Card>
+      <Link href={href} className="group block p-5">
+        <div className="flex items-center gap-3">
+          <Icon name={icon} className="h-5 w-5 text-muted" />
+          <span className="flex-1 font-medium group-hover:text-accent">{title}</span>
+          <span className="text-sm tabular-nums text-muted">
+            <span className="font-semibold text-ink">{loaded ? done : "–"}</span> de {total} lecciones
+          </span>
+        </div>
+        <Bar pct={pct} className="mt-3" label={`${title}: ${pct} %`} />
+        <p className="mt-2 text-sm text-muted">{note}</p>
+      </Link>
+    </Card>
   );
 }

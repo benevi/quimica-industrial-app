@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Icon } from "./icons";
+import { Icon, type IconName } from "./icons";
+import { allNavItems } from "./shell/nav";
 
 export type SearchIndex = {
   lessons: { slug: string; title: string; titleEn: string; summary: string; level: number; levelTitle: string }[];
@@ -13,9 +14,15 @@ export type SearchIndex = {
 
 export const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
-type Hit = { kind: "lesson" | "term"; href: string; title: string; sub: string; detail: string; score: number };
+type Hit = { kind: "lesson" | "term" | "page"; icon?: IconName; href: string; title: string; sub: string; detail: string; score: number };
 
 /** Buscador global: lecciones y términos del glosario (Ctrl+K o «/»). */
+/** Abre el buscador desde cualquier botón de la app. */
+export function openSearch() {
+  window.dispatchEvent(new Event("aula:buscar"));
+}
+
+/** Buscador global (Ctrl K o /). Busca secciones de la app, lecciones y términos. */
 export function Search({ index }: { index: SearchIndex }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -33,8 +40,13 @@ export function Search({ index }: { index: SearchIndex }) {
       }
       if (e.key === "Escape") setOpen(false);
     };
+    const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("aula:buscar", onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("aula:buscar", onOpen);
+    };
   }, []);
 
   useEffect(() => {
@@ -48,6 +60,11 @@ export function Search({ index }: { index: SearchIndex }) {
     const n = norm(q.trim());
     if (n.length < 2) return [];
     const out: Hit[] = [];
+    for (const it of allNavItems) {
+      const t = norm(`${it.label} ${it.en}`);
+      if (t.includes(n) || norm(it.hint).includes(n))
+        out.push({ kind: "page", href: it.href, title: it.label, sub: "Sección de la app", detail: it.hint, icon: it.icon, score: t.startsWith(n) ? -1 : t.includes(n) ? 0.2 : 2.5 });
+    }
     for (const l of index.lessons) {
       const t = norm(`${l.title} ${l.titleEn}`);
       const s = norm(l.summary);
@@ -71,16 +88,6 @@ export function Search({ index }: { index: SearchIndex }) {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="flex shrink-0 items-center gap-2 rounded-lg border border-line bg-bg px-2.5 py-1.5 text-muted hover:text-ink"
-        aria-label="Buscar"
-      >
-        <Icon name="search" className="h-4 w-4" />
-        <span className="hidden md:inline">Buscar</span>
-        <kbd className="hidden rounded border border-line px-1 text-[10px] md:inline">Ctrl K</kbd>
-      </button>
 
       {open && createPortal(
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-[10vh]" onClick={() => setOpen(false)}>
@@ -126,13 +133,13 @@ export function Search({ index }: { index: SearchIndex }) {
                     onMouseEnter={() => setSel(i)}
                     className={`flex gap-3 rounded-xl px-3 py-2.5 ${i === sel ? "bg-accent-soft" : ""}`}
                   >
-                    <span className={`mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg ${h.kind === "lesson" ? "bg-accent text-white" : "bg-soft text-accent"}`}>
-                      <Icon name={h.kind === "lesson" ? "book" : "abc"} className="h-4 w-4" />
+                    <span className={`mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg ${h.kind === "term" ? "bg-soft text-accent" : "bg-accent text-[var(--on-accent)]"}`}>
+                      <Icon name={h.icon ?? (h.kind === "lesson" ? "book" : "abc")} className="h-4 w-4" />
                     </span>
                     <span className="min-w-0">
                       <span className="block font-medium">{h.title}</span>
                       <span className="block truncate text-xs text-muted">
-                        {h.kind === "lesson" ? "Lección" : "Término"} · {h.sub}
+                        {h.kind === "page" ? h.sub : `${h.kind === "lesson" ? "Lección" : "Término"} · ${h.sub}`}
                       </span>
                       <span className="mt-0.5 line-clamp-2 block text-sm text-muted">{h.detail}</span>
                     </span>
