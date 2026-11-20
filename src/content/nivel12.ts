@@ -1,5 +1,7 @@
 import type { Lesson } from "./types";
 import { nivel12Separacion } from "./nivel12-separacion";
+import { centrifugaAFondo } from "./nivel12-centrifuga";
+import { filtrosAFondo } from "./nivel12-filtros";
 
 const equipos: Lesson[] = [
   {
@@ -428,4 +430,5 @@ A las 8 h el LOD da 1,2 % → sigue secando. A las 12 h da 0,3 % → cumple. Se 
   },
 ];
 
-export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion];
+// Las lecciones «a fondo» van cada una en su archivo: son largas y se revisan por separado.
+export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion, centrifugaAFondo, filtrosAFondo];
