@@ -26,15 +26,15 @@ export function useProgress() {
   }, []);
 
   const save = useCallback((slug: string, p: LessonProgress) => {
-    setProgress((prev) => {
-      const next = { ...prev, [slug]: p };
-      try {
-        window.localStorage.setItem(KEY, JSON.stringify(next));
-      } catch {
-        /* sin almacenamiento disponible: el progreso solo dura esta visita */
-      }
-      return next;
-    });
+    // Se parte de lo guardado, no de lo que esta pestaña leyó al abrirse: así dos pestañas
+    // (o la sincronización con la nube) no se pisan las lecciones entre sí.
+    const next = { ...read(), [slug]: p };
+    try {
+      window.localStorage.setItem(KEY, JSON.stringify(next));
+    } catch {
+      /* sin almacenamiento disponible: el progreso solo dura esta visita */
+    }
+    setProgress(next);
   }, []);
 
   const reset = useCallback(() => {

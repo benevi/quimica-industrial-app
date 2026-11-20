@@ -20,6 +20,8 @@ export const KEY_LABELS: Record<string, string> = {
   "quimica-app:certificaciones:v1": "Certificaciones, simulacros, repaso de fallos, tarjetas y ejercicios de FDS",
   "quimica-app:simulador:v1": "Lote en curso del simulador de planta",
   "quimica-app:erp:v1": "Simulador ERP",
+  "quimica-app:nutsche:v1": "Lote en curso del filtro-secador Nutsche",
+  "quimica-app:auditoria:v1": "Auditoría de hojas de producción",
 };
 
 export function collectBackup(): Backup {

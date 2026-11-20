@@ -138,8 +138,15 @@ export function Simulator() {
   const [speed, setSpeed] = useState(4);
   const sRef = useRef<Sim | null>(null);
 
+  // Si hay un lote guardado que esta versión no sabe leer (dañado o de una versión más nueva),
+  // no se borra por el mero hecho de abrir la página: solo cuando el usuario empiece otro lote.
+  const keepStored = useRef(false);
+
   useEffect(() => {
     const st = load();
+    try {
+      keepStored.current = st == null && localStorage.getItem(KEY) != null;
+    } catch {}
     setS(st);
     if (st) setView(st.section);
     setLoaded(true);
@@ -147,7 +154,9 @@ export function Simulator() {
 
   useEffect(() => {
     sRef.current = s;
-    if (loaded) save(s);
+    if (!loaded) return;
+    if (s) keepStored.current = false;
+    if (s || !keepStored.current) save(s);
   }, [s, loaded]);
 
   const act = useCallback((fn: (x: Sim) => void) => {

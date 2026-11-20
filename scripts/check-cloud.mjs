@@ -95,32 +95,43 @@ expect(r.kind === "pulled" && pc.getItem("quimica-app:certificaciones:v1"), `5b:
 r = await C.syncOnce(U, { pull: false });
 expect(r.kind === "same", `6: ${r.kind}`);
 
-// 7. Los dos cambian a la vez → conflicto, y nada se pisa
-pc.setItem(P, JSON.stringify({ pc: true }));
+// 7. Los dos estudian a la vez → se fusiona, no se pierde nada de ninguno
+const L = (score, date = "2026-11-20T10:00:00Z") => ({ done: true, score, total: 3, date });
+pc.setItem(P, JSON.stringify({ ...JSON.parse(pc.getItem(P)), pc: L(2), comun: L(1, "2026-11-20T09:00:00Z") }));
 device(portatil);
-portatil.setItem(P, JSON.stringify({ portatil: true }));
+portatil.setItem(P, JSON.stringify({ ...JSON.parse(portatil.getItem(P)), portatil: L(3), comun: L(3, "2026-11-20T08:00:00Z") }));
 r = await C.syncOnce(U, { pull: false });
 expect(r.kind === "pushed", `7a: ${r.kind}`);
 device(pc);
 r = await C.syncOnce(U, { pull: false });
-expect(r.kind === "conflict", `7b: esperaba conflict, ${r.kind}`);
-expect(JSON.parse(table.get(U).data[P]).portatil, "7b: la nube no debe pisarse");
-// 7c. Elige lo de este navegador
-await C.resolveConflict(U, "local", r);
-expect(JSON.parse(table.get(U).data[P]).pc, "7c: la nube debe tener lo del PC");
-// 7d. El portátil (sin cambios desde su subida) baja lo del PC
+let got = JSON.parse(pc.getItem(P));
+expect(r.kind === "pulled", `7b: esperaba pulled (fusión), ${r.kind}`);
+expect(got.pc && got.portatil && got.mol && got.gases, "7b: el PC debe tener las lecciones de los dos");
+expect(got.comun.score === 3, "7b: en la lección repetida gana la mejor nota");
+got = JSON.parse(table.get(U).data[P]);
+expect(got.pc && got.portatil, "7b: la nube debe tener las lecciones de los dos");
+// 7c. El portátil (sin cambios desde su subida) baja la fusión
 device(portatil);
 r = await C.syncOnce(U);
-expect(r.kind === "pulled" && JSON.parse(portatil.getItem(P)).pc, `7d: ${r.kind}`);
+expect(r.kind === "pulled" && JSON.parse(portatil.getItem(P)).pc, `7c: ${r.kind}`);
+// 7d. Tarjetas: en la misma tarjeta gana la caja más baja (se repasa de más, nunca de menos)
+const K = "quimica-app:certificaciones:v1";
+portatil.setItem(K, JSON.stringify({ cards: { a: { box: 4, due: "2026-12-01" }, soloP: { box: 2, due: "2026-11-22" } }, cases: { x: 0.5 } }));
+r = await C.syncOnce(U, { pull: false });
+device(pc);
+pc.setItem(K, JSON.stringify({ cards: { a: { box: 1, due: "2026-11-20" } }, cases: { x: 0.9 } }));
+r = await C.syncOnce(U, { pull: false });
+got = JSON.parse(pc.getItem(K));
+expect(got.cards.a.box === 1 && got.cards.soloP && got.cases.x === 0.9, `7d: fusión de certificaciones ${JSON.stringify(got)}`);
 
-// 8. Otro navegador con progreso propio y nube con datos → conflicto (no se pierde nada sin preguntar)
+// 8. Otro navegador con progreso propio y nube con datos → se fusiona (antes obligaba a elegir)
 const tercero = new Store();
 device(tercero);
-tercero.setItem(P, JSON.stringify({ tercero: true }));
+tercero.setItem(P, JSON.stringify({ tercero: L(2) }));
 r = await C.syncOnce(U);
-expect(r.kind === "conflict", `8: ${r.kind}`);
-await C.resolveConflict(U, "remote", r);
-expect(JSON.parse(tercero.getItem(P)).pc, "8: elegir nube debe restaurar la nube");
+got = JSON.parse(tercero.getItem(P));
+expect(r.kind === "pulled" && got.tercero && got.pc && got.portatil, `8: ${r.kind}`);
+expect(JSON.parse(table.get(U).data[P]).tercero, "8: lo del tercero también sube");
 
 // 9. Otro usuario no ve los datos del primero (cada uno su fila)
 const otro = new Store();
@@ -128,5 +139,59 @@ device(otro);
 r = await C.syncOnce("user-2");
 expect(r.kind === "pushed" && Object.keys(table.get("user-2").data).length === 0, `9: ${r.kind}`);
 
-console.log(errors ? `${errors} errores` : "Sincronización con la nube: 9 escenarios OK");
+// 10. Un navegador nuevo que solo abrió el ERP no pisa la partida de la nube
+const ERP = "quimica-app:erp:v1";
+device(pc);
+pc.setItem(ERP, JSON.stringify({ version: 1, orden: "hecha" }));
+await C.syncOnce(U, { pull: false });
+const nuevo = new Store();
+device(nuevo);
+nuevo.setItem(ERP, JSON.stringify({ version: 1, orden: "inicial" }));
+r = await C.syncOnce(U);
+expect(JSON.parse(nuevo.getItem(ERP)).orden === "hecha" && JSON.parse(table.get(U).data[ERP]).orden === "hecha", "10: manda la partida de la nube");
+// 10b. Después, si la partida cambia en los dos, se queda la del navegador en uso
+nuevo.setItem(ERP, JSON.stringify({ version: 1, orden: "nuevo" }));
+device(pc);
+pc.setItem(ERP, JSON.stringify({ version: 1, orden: "pc" }));
+await C.syncOnce(U, { pull: false });
+device(nuevo);
+await C.syncOnce(U, { pull: false });
+expect(JSON.parse(nuevo.getItem(ERP)).orden === "nuevo" && JSON.parse(table.get(U).data[ERP]).orden === "nuevo", "10b: gana el navegador en uso");
+
+// 11. Cambio de cuenta en el mismo navegador: el progreso de la cuenta anterior no se mezcla con la otra
+table.set("user-3", { user_id: "user-3", data: { [P]: JSON.stringify({ deB: L(3) }) }, rev: 1, updated_at: "2026-11-20T00:00:00Z" });
+device(pc);
+r = await C.syncOnce("user-3");
+got = JSON.parse(pc.getItem(P));
+expect(r.kind === "pulled" && got.deB && !got.pc, `11: el navegador debe quedar con lo de la otra cuenta, ${r.kind}`);
+expect(!JSON.parse(table.get("user-3").data[P]).pc, "11: a la otra cuenta no se le sube lo del primero");
+expect(JSON.parse(table.get(U).data[P]).pc, "11: la nube del primero sigue intacta");
+
+// 12. Algo guardado mientras se consulta la nube no se pisa
+const lento = new Store();
+device(lento);
+lento.setItem(P, JSON.stringify({ antes: L(1) }));
+const realClient = fakeClient();
+let injected = false;
+C.__setClientForTests({
+  from() {
+    const api = realClient.from();
+    const maybeSingle = api.maybeSingle;
+    api.maybeSingle = async () => {
+      const res = await maybeSingle();
+      if (!injected) {
+        injected = true;
+        lento.setItem(P, JSON.stringify({ antes: L(1), durante: L(3) }));
+      }
+      return res;
+    };
+    return api;
+  },
+});
+r = await C.syncOnce(U);
+got = JSON.parse(lento.getItem(P));
+expect(got.durante && got.antes && got.pc, `12: debe conservar lo guardado durante la consulta ${Object.keys(got)}`);
+C.__setClientForTests(fakeClient());
+
+console.log(errors ? `${errors} errores` : "Sincronización con la nube: 12 escenarios OK");
 process.exit(errors ? 1 : 0);

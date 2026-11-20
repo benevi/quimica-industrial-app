@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as N from "@/sim/nutsche";
 import type { NState, NValve } from "@/sim/nutsche";
 import { Gauge, Lcd, MiniTrend, Pipe, Plate, Valve } from "./Equipment";
@@ -16,20 +16,28 @@ type NAct = (fn: (s: NState) => void) => void;
 export function NutscheSim() {
   const [s, setS] = useState<NState | null>(null);
   const [loaded, setLoaded] = useState(false);
+  // Una partida guardada que no se puede leer no se borra solo por abrir la página
+  const keepStored = useRef(false);
   useEffect(() => {
     try {
       const raw = localStorage.getItem(KEY);
-      if (raw) setS(N.migrateN(JSON.parse(raw) as NState));
+      if (raw) {
+        keepStored.current = true;
+        setS(N.migrateN(JSON.parse(raw) as NState));
+        keepStored.current = false;
+      }
     } catch {
-      /* partida dañada o sin almacenamiento: se empieza de cero */
+      /* partida dañada o sin almacenamiento: se empieza de cero, sin borrar lo guardado */
     }
     setLoaded(true);
   }, []);
   useEffect(() => {
     if (!loaded) return;
     try {
-      if (s) localStorage.setItem(KEY, JSON.stringify(s));
-      else localStorage.removeItem(KEY);
+      if (s) {
+        keepStored.current = false;
+        localStorage.setItem(KEY, JSON.stringify(s));
+      } else if (!keepStored.current) localStorage.removeItem(KEY);
     } catch {
       /* sin almacenamiento */
     }
