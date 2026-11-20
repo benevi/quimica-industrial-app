@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel13: Lesson[] = [
+const control: Lesson[] = [
   {
     slug: "medidas-de-proceso",
     level: 13,
@@ -92,7 +92,7 @@ La hoja pide "Pesar 85,0 kg ± 0,5 kg en la báscula B-05". Antes de pesar, el o
   {
     slug: "pid-y-simbologia",
     level: 13,
-    order: 2,
+    order: 3,
     title: "Diagramas P&ID y nomenclatura de instrumentos",
     titleEn: "P&ID diagrams and instrument tags (ISA 5.1)",
     minutes: 15,
@@ -195,7 +195,7 @@ El jefe de turno dice: "Comprueba el TI-102 de la camisa del R-101". En el P&ID 
   {
     slug: "lazos-de-control",
     level: 13,
-    order: 3,
+    order: 5,
     title: "Lazos de control y controladores PID",
     titleEn: "Control loops and PID controllers",
     minutes: 15,
@@ -285,7 +285,7 @@ TIC-101 en cascada: SP de producto 60 °C, PV 52 °C y la salida de la camisa al
   {
     slug: "dcs-scada-recetas",
     level: 13,
-    order: 4,
+    order: 7,
     title: "DCS, PLC, SCADA y recetas",
     titleEn: "DCS, PLC, SCADA and batch recipes (ISA-88)",
     minutes: 15,
@@ -363,7 +363,7 @@ El DCS ejecuta la operación "Reacción". Al llegar a la fase "Carga manual de s
   {
     slug: "alarmas-y-enclavamientos",
     level: 13,
-    order: 5,
+    order: 9,
     title: "Alarmas, enclavamientos y sistemas de seguridad",
     titleEn: "Alarms, interlocks and safety instrumented systems",
     minutes: 15,
@@ -449,3 +449,6 @@ Salta "TAHH-101: temperatura muy alta en R-101". El enclavamiento cierra la vál
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel13-tema.ts.
+export const nivel13: Lesson[] = [...control];
