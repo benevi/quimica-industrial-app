@@ -1,18 +1,15 @@
 import type { Question } from "@/content/types";
+import { matchesNumber } from "@/lib/num";
+
+export { parseNum } from "@/lib/num";
 
 export type Answer = string | number | undefined;
 
-/** Acepta coma o punto decimal y espacios; no acepta separador de miles con punto */
-export function parseNum(s: string) {
-  const n = Number(s.trim().replace(/\s/g, "").replace(",", "."));
-  return Number.isFinite(n) ? n : null;
-}
-
+/** En las numéricas acepta coma decimal, punto de millares («1.250») y una unidad al final */
 export function isRight(q: Question, a: Answer) {
   if (a === undefined || a === "") return false;
   if (q.kind === "choice") return a === q.answer;
-  const n = parseNum(String(a));
-  return n !== null && Math.abs(n - q.answer) <= Math.abs(q.answer) * q.tolerance + 1e-9;
+  return matchesNumber(String(a), q.answer, q.tolerance);
 }
 
 export const fmt = (n: number) => n.toLocaleString("es-ES", { maximumFractionDigits: 4 });

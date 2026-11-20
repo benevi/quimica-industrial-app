@@ -3,25 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { Question } from "@/content/types";
+import { isRight } from "@/certs/grading";
+import { QuestionItem } from "@/components/certs/QuestionItem";
 import { useProgress } from "@/lib/progress";
 import { useLessonRoute } from "@/components/course/useLessonRoute";
 import { btn } from "@/components/ui";
 import { Icon } from "@/components/icons";
-
-function parseNum(s: string) {
-  const n = Number(s.trim().replace(/\s/g, "").replace(",", "."));
-  return Number.isFinite(n) ? n : null;
-}
-
-function isRight(q: Question, a: string | number | undefined) {
-  if (a === undefined || a === "") return false;
-  if (q.kind === "choice") return a === q.answer;
-  const n = parseNum(String(a));
-  if (n === null) return false;
-  return Math.abs(n - q.answer) <= Math.abs(q.answer) * q.tolerance + 1e-9;
-}
-
-const fmt = (n: number) => n.toLocaleString("es-ES", { maximumFractionDigits: 4 });
 
 export function Quiz({
   slug,
@@ -34,6 +21,8 @@ export function Quiz({
   const route = useLessonRoute(slug);
   const [answers, setAnswers] = useState<Record<number, string | number>>({});
   const [checked, setChecked] = useState(false);
+  // cambia en cada repetición para que las opciones salgan en otro orden
+  const [attempt, setAttempt] = useState(0);
 
   const score = questions.filter((q, i) => isRight(q, answers[i])).length;
   const allAnswered = questions.every((_, i) => answers[i] !== undefined && answers[i] !== "");
@@ -47,6 +36,7 @@ export function Quiz({
   function retry() {
     setAnswers({});
     setChecked(false);
+    setAttempt((n) => n + 1);
   }
 
   return (
@@ -60,64 +50,18 @@ export function Quiz({
         </p>
       )}
       <ol className="mt-4 space-y-6">
-        {questions.map((q, i) => {
-          const a = answers[i];
-          const right = checked && isRight(q, a);
-          const wrong = checked && !right;
-          return (
-            <li key={i}>
-              <p className="font-medium">
-                {i + 1}. {q.q}
-              </p>
-              {q.kind === "choice" ? (
-                <div className="mt-2 grid gap-2">
-                  {q.options.map((opt, j) => {
-                    const selected = a === j;
-                    let cls = "border-line hover:border-accent";
-                    if (checked && j === q.answer) cls = "border-ok bg-ok-soft";
-                    else if (checked && selected) cls = "border-bad bg-bad-soft";
-                    else if (selected) cls = "border-accent bg-accent-soft";
-                    return (
-                      <label key={j} className={`flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2 text-sm ${cls}`}>
-                        <input
-                          type="radio"
-                          name={`q${i}`}
-                          className="accent-[var(--accent)]"
-                          checked={selected}
-                          disabled={checked}
-                          onChange={() => setAnswers({ ...answers, [i]: j })}
-                        />
-                        {opt}
-                      </label>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="mt-2 flex items-center gap-2">
-                  <input
-                    inputMode="decimal"
-                    className={`w-40 rounded-md border bg-surface px-3 py-2 text-sm tabular-nums ${
-                      right ? "border-ok" : wrong ? "border-bad" : "border-line"
-                    }`}
-                    placeholder="Tu respuesta"
-                    aria-label={`Respuesta en ${q.unit}`}
-                    value={(a as string) ?? ""}
-                    disabled={checked}
-                    onChange={(e) => setAnswers({ ...answers, [i]: e.target.value })}
-                  />
-                  <span className="text-sm text-muted">{q.unit}</span>
-                </div>
-              )}
-              {checked && (
-                <p className={`mt-2 rounded-md px-3 py-2 text-sm ${right ? "bg-ok-soft" : "bg-bad-soft"}`}>
-                  <strong>{right ? "Correcto." : "No es correcto."}</strong>{" "}
-                  {q.kind === "number" && !right && <>La respuesta es {fmt(q.answer)} {q.unit}. </>}
-                  {q.explain}
-                </p>
-              )}
-            </li>
-          );
-        })}
+        {questions.map((q, i) => (
+          <QuestionItem
+            key={i}
+            n={i + 1}
+            name={`q${i}`}
+            q={q}
+            answer={answers[i]}
+            checked={checked}
+            seed={attempt}
+            onAnswer={(a) => setAnswers((x) => ({ ...x, [i]: a }))}
+          />
+        ))}
       </ol>
 
       <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -131,7 +75,7 @@ export function Quiz({
           </button>
         ) : (
           <>
-            <p className="font-medium">
+            <p className="font-medium" role="status">
               Resultado: {score}/{questions.length}
             </p>
             <button onClick={retry} className={btn.secondary}>

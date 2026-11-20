@@ -1,5 +1,6 @@
 // Examen práctico cronometrado sobre el simulador ERP. Cada intento sortea una variante
 // (cantidad, rendimiento e historial de lotes) para que no se pueda aprender de memoria.
+import { readNumbers } from "@/lib/num";
 import { characteristics, evaluate, initialState, labFor, recipes, type ErpState } from "./engine";
 
 export const EXAM_MINUTES = 30;
@@ -53,8 +54,7 @@ export function lookups(v: ExamVariant): Lookup[] {
 function sameAnswer(expected: string | number, given: string | undefined) {
   if (given === undefined) return false;
   if (typeof expected === "number") {
-    const n = Number(given.trim().replace(/\./g, "").replace(",", "."));
-    return Number.isFinite(n) && Math.abs(n - expected) < 0.01;
+    return readNumbers(given).some((n) => Math.abs(n - expected) < 0.01);
   }
   return given.trim().toUpperCase() === expected;
 }
