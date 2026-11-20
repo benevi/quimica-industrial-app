@@ -130,7 +130,7 @@ Si una prueba **falla**, se registra una **incidencia de prueba** (*test inciden
 ### Más pruebas donde hay más riesgo
 GAMP 5 (2.ª edición) insiste en el **pensamiento crítico** (*critical thinking*): el esfuerzo se concentra en las funciones de **alto riesgo** (cálculos de cargas, estados de lote, firmas, audit trail) y se aligera en las de bajo riesgo (un informe de consulta). También admite métodos **ágiles** y pruebas **automatizadas**, siempre que la herramienta sea adecuada y la evidencia se conserve.
 
-La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*), pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos, pero su idea se ha extendido: para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
+La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*) y en **febrero de 2026** la sustituyó por una versión revisada (*Computer Software Assurance for Production and Quality Management System Software*). Está pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos, pero su idea se ha extendido: para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
 
 ### Para un desarrollador web
 Lo reconocerás: requisitos → historias de usuario, OQ → pruebas funcionales y de integración, PQ → pruebas de aceptación, RTM → cobertura de requisitos, control de cambios → *pull requests* revisados, entornos de **desarrollo**, **pruebas/validación** y **producción** separados. La diferencia es que en GMP **todo deja evidencia firmada** y QA lo aprueba.
@@ -234,7 +234,7 @@ Una hoja Excel que calcula datos GMP es un sistema informatizado. Para usarla:
 - Cada uso se guarda o se imprime como parte del registro, y el original electrónico se conserva si es el registro GMP.
 
 ### Inteligencia artificial
-El borrador del **Anexo 22** (julio de 2025, aún no en vigor) plantea reglas para modelos de IA en usos GMP críticos: define el uso previsto, exige datos de prueba independientes y medir el rendimiento. El borrador se limita a modelos **estáticos** y **deterministas**, y deja fuera de los usos críticos a los modelos que siguen aprendiendo durante el uso y a la **IA generativa** y los grandes modelos de lenguaje (*LLM*).
+El borrador del **Anexo 22** (julio de 2025; en noviembre de 2026 seguía sin publicarse como texto definitivo en EudraLex) plantea reglas para modelos de IA en usos GMP críticos: define el uso previsto, exige datos de prueba independientes y medir el rendimiento. El borrador se limita a modelos **estáticos** y **deterministas**, y deja fuera de los usos críticos a los modelos que siguen aprendiendo durante el uso y a la **IA generativa** y los grandes modelos de lenguaje (*LLM*).
 
 ### Retirada del sistema (*decommissioning*)
 Cuando un sistema se sustituye, sus datos se **migran** (con verificación de que llegan completos) o se **archivan** de forma que sigan siendo legibles durante todo el periodo de conservación. Apagar el servidor sin más no está permitido.

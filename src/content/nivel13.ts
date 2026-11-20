@@ -56,7 +56,7 @@ La hoja pide "Pesar 85,0 kg ± 0,5 kg en la báscula B-05". Antes de pesar, el o
       { es: "Presión relativa / absoluta", en: "Gauge / absolute pressure", def: "Presión respecto a la atmósfera / respecto al vacío total." },
       { es: "Célula de carga", en: "Load cell", def: "Sensor que mide peso." },
       { es: "Caudalímetro Coriolis", en: "Coriolis flowmeter", def: "Caudalímetro que mide directamente la masa." },
-      { es: "Calibración", en: "Calibration", def: "Comparación con un patrón trazable para conocer y corregir el error." },
+      { es: "Calibración", en: "Calibration", def: "Comparación con un patrón trazable para conocer el error del instrumento. Corregirlo (ajustar) es una operación aparte." },
       { es: "Patrón trazable", en: "Traceable standard", def: "Referencia cuya exactitud está ligada a patrones nacionales o internacionales." },
     ],
     quiz: [

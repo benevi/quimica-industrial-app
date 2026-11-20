@@ -101,7 +101,7 @@ La pieza más pequeña de un elemento. Tiene:
 ### Elemento (*element*)
 Tipo de átomo definido por su número de protones (**número atómico**, Z). Hay 118; en farmacia se usan pocos:
 
-| Símbolo | Elemento | Z | Masa atómica (g/mol) |
+| Símbolo | Elemento | Z | Masa atómica (u) = masa de un mol (g/mol) |
 |---|---|---|---|
 | H | Hidrógeno (*hydrogen*) | 1 | 1,008 |
 | C | Carbono (*carbon*) | 6 | 12,011 |
@@ -121,7 +121,7 @@ El paladio aparece como **catalizador** (Pd/C) en hidrogenaciones.
 - En cada casilla, el número decimal es la **masa atómica**: la usarás para calcular masas molares.
 `,
     plant: `
-En una ficha de seguridad lees "hidruro de sodio (NaH)". Na está a la izquierda de la tabla (metal muy reactivo): reacciona violentamente con agua y desprende hidrógeno inflamable. Por eso se maneja en atmósfera de nitrógeno y sin humedad.
+En una ficha de seguridad lees "hidruro de sodio (NaH)". Es un **hidruro**: lleva hidrógeno en una forma muy reactiva (H⁻) que, al tocar el agua, la descompone con violencia y desprende hidrógeno inflamable. El peligro viene de esa parte del compuesto, no solo de que lleve sodio: la sal común (NaCl) también lleva sodio y es inofensiva. El sodio metálico, que está a la izquierda de la tabla, sí reacciona con el agua por su cuenta. Por eso se maneja en atmósfera de nitrógeno y sin humedad.
 `,
     batchRecord: `
 - Fórmulas de reactivos (NaOH, HCl, Pd/C…) en la lista de materiales.
@@ -132,7 +132,7 @@ En una ficha de seguridad lees "hidruro de sodio (NaH)". Na está a la izquierda
       { es: "Átomo", en: "Atom", def: "Unidad más pequeña de un elemento." },
       { es: "Elemento", en: "Element", def: "Sustancia formada por un solo tipo de átomo." },
       { es: "Número atómico", en: "Atomic number (Z)", def: "Número de protones del núcleo." },
-      { es: "Masa atómica", en: "Atomic mass", def: "Masa media de un átomo del elemento, en g/mol." },
+      { es: "Masa atómica", en: "Atomic mass", def: "Masa media de un átomo del elemento, en unidades de masa atómica (u). El mismo número, en gramos, es lo que pesa un mol de esos átomos (g/mol)." },
       { es: "Catalizador", en: "Catalyst", def: "Sustancia que acelera una reacción sin consumirse." },
     ],
     quiz: [
@@ -445,7 +445,7 @@ Añades la sosa poco a poco vigilando la temperatura. Cerca del objetivo el pH c
       { es: "Sosa cáustica", en: "Caustic soda (NaOH)", def: "Hidróxido de sodio, base fuerte y corrosiva." },
       { es: "Neutralización", en: "Neutralization", def: "Reacción entre un ácido y una base que da sal y agua." },
       { es: "Exotérmica", en: "Exothermic", def: "Que desprende calor." },
-      { es: "Tampón", en: "Buffer", def: "Disolución de pH conocido y estable; sirve para calibrar." },
+      { es: "Tampón", en: "Buffer", def: "Disolución que mantiene el pH casi constante aunque se le añada un poco de ácido o de base. Las de pH certificado se usan para calibrar el pH-metro." },
       { es: "Precipitar", en: "Precipitate", def: "Hacer que un sólido aparezca en una disolución." },
     ],
     quiz: [

@@ -1,5 +1,5 @@
 // Certificaciones a las que prepara la app y cómo se relacionan con el temario.
-// Fuentes: fichas oficiales de los certificados de profesionalidad (RD 1970/2008 y RD 719/2011),
+// Fuentes: fichas oficiales de los certificados de profesionalidad (RD 1970/2008, actualizado por el RD 623/2013, y RD 719/2011),
 // RD 832/2014 (título de Fabricación de Productos Farmacéuticos), UPV y SAP Learning.
 // Ver /mnt/project-files/plan/certificaciones-y-sap.md para la investigación completa.
 
@@ -56,7 +56,7 @@ export const certifications: Certification[] = [
     level: "Nivel 2",
     hours: 600,
     cost: "Gratis por la vía pública",
-    how: "Cursando los módulos (hasta 250 h a distancia) o por acreditación de competencias cuando tengas 3 años y 2.000 h, o 300 h de formación relacionada.",
+    how: "Cursando los módulos (hasta 250 h a distancia) o por acreditación de competencias cuando tengas 3 años y 2.000 h, o 300 h de formación relacionada. Aviso: la cualificación profesional en la que se basa este certificado (QUI019_2) fue suprimida por el Real Decreto 522/2020, que creó la QUI675_2 «Fabricación industrial de productos farmacéuticos y afines». Antes de pedir la acreditación, confirma con el servicio de empleo de tu comunidad qué unidades de competencia se convocan ahora.",
     source: { label: "Ficha oficial (Lanbide)", url: "https://web.lanbide.eus/descargas/egailancas/certificados/ficha/QUIM0109_FIR.pdf" },
     modules: [
       { id: "mf0049", code: "MF0049_2", name: "Dispensado de materiales", hours: 180, levels: [4, 16, 17], uc: "uc0049" },

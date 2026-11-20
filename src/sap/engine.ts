@@ -217,7 +217,7 @@ export function goodsIssue(s: ErpState, orderId: string, batchId: string, qty: n
   if (!b) return err(s, `El lote ${batchId || "(vacío)"} no existe.`);
   const comp = o.components.find((c) => c.material === b.material);
   if (!comp) return err(s, `El material ${b.material} del lote ${b.id} no está en la lista de componentes de la orden.`, "Cargar un material que no está en la receta es un error de identidad: la doble verificación en dispensado existe para evitarlo.");
-  if (b.stock === "calidad") return err(s, `El lote ${b.id} está en stock de control de calidad (cuarentena).`, "Solo se pueden usar materiales aprobados por la unidad de calidad (ICH Q7, 7.3).");
+  if (b.stock === "calidad") return err(s, `El lote ${b.id} está en stock de control de calidad (cuarentena).`, "Solo se pueden usar materiales aprobados por la unidad de calidad (ICH Q7, 7.2).");
   if (b.stock === "bloqueado") return err(s, `El lote ${b.id} está bloqueado.`, "Un material rechazado o bloqueado nunca se usa en fabricación.");
   if (b.expiry < TODAY) return err(s, `El lote ${b.id} caducó el ${b.expiry.split("-").reverse().join("/")}.`, "Usar un material caducado o fuera de fecha de reanálisis es una desviación de GMP.");
   if (!(qty > 0)) return err(s, "Indica una cantidad mayor que cero.");

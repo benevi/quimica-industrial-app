@@ -29,7 +29,7 @@ Muchos procesos de síntesis química usan disolventes orgánicos y temperaturas
 Restos de la pared de las bacterias Gram negativas. Aunque las bacterias estén muertas, las endotoxinas producen **fiebre** si llegan a la sangre. **No se destruyen** con la esterilización normal: hacen falta temperaturas muy altas (despirogenación con calor seco a unos 250 °C) o evitarlas desde el principio.
 `,
     plant: `
-El agua purificada que se usa en el último lavado del producto tiene control microbiológico y de endotoxinas. Si el sistema de agua da un resultado alto, puede afectar a los lotes en los que se usó.
+El agua purificada que se usa en el último lavado del producto tiene control microbiológico. Si el API se va a usar para fabricar un medicamento estéril (por ejemplo, un inyectable), ICH Q7 (apartado 4.34) pide controlar además las **endotoxinas** (restos de bacterias que provocan fiebre) en el agua de las últimas etapas. Si el sistema de agua da un resultado alto, puede afectar a los lotes en los que se usó.
 `,
     batchRecord: `
 Identificación del agua usada (punto de uso), cumplimiento de su análisis y tiempos máximos de almacenamiento de soluciones acuosas.

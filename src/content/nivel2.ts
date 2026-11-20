@@ -488,7 +488,8 @@ Siempre van juntas: lo que uno pierde, otro lo gana. Por eso se llaman **redox**
 |---|---|---|
 | Hidrogenación (reducción) | H₂ + catalizador Pd/C | H₂ muy inflamable; el catalizador seco con disolvente puede **inflamarse solo** (pirofórico) |
 | Reducción con hidruros | NaBH₄, LiAlH₄ | Desprenden **H₂** con agua o ácidos |
-| Oxidación | Peróxido de hidrógeno, hipoclorito | Liberan oxígeno y calor; pueden descomponerse de forma violenta |
+| Oxidación | Peróxido de hidrógeno (agua oxigenada) | Libera oxígeno y calor; puede descomponerse de forma violenta |
+| Oxidación | Hipoclorito sódico (lejía) | **Con ácidos libera cloro, un gas tóxico** (frase EUH031 de su etiqueta). Nunca se mezcla con ácidos ni con sus residuos |
 
 ### Reglas de seguridad
 - Los oxidantes **nunca** se mezclan con disolventes o materia orgánica fuera del procedimiento.
