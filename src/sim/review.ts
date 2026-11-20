@@ -240,6 +240,7 @@ export function reviewBatch(s: Sim): Review {
   if (!c.seeded) F.push({ sev: "mayor", area: "Proceso", title: "Cristalización sin siembra", detail: "Sin semilla la forma cristalina y el tamaño no están controlados.", lesson: L.crist });
   if (c.ramp < 120) F.push({ sev: "mayor", area: "Proceso", title: `Enfriamiento demasiado rápido (${c.ramp} min)`, detail: "Da cristales finos: filtran peor, retienen más agua e impurezas.", lesson: L.crist });
   if (c.seeded && (c.seedT < 58 || c.seedT > 62)) F.push({ sev: "mayor", area: "Proceso", title: `Siembra fuera de rango (${c.seedT} °C)`, detail: "La hoja pide sembrar a 58–62 °C.", lesson: L.crist });
+  if (c.done && c.hold < 60) F.push({ sev: "menor", area: "Proceso", title: `Mantenimiento a temperatura final demasiado corto (${c.hold} min)`, detail: "Al llegar a 0–5 °C se mantiene al menos 60 min para que termine de cristalizar; si no, parte del producto se queda disuelto y baja el rendimiento.", lesson: L.crist });
   if (c.finalT > 5 || c.finalT < 0) F.push({ sev: "mayor", area: "Proceso", title: `Temperatura final fuera de rango (${c.finalT} °C)`, detail: "Más temperatura deja más producto disuelto en las aguas madre." });
 
   // --- Centrifugación
@@ -249,6 +250,8 @@ export function reviewBatch(s: Sim): Review {
   // --- Secado
   const d = s.dryer;
   if (d.maxTj > 60) F.push({ sev: d.maxTj > 65 ? "mayor" : "menor", area: "Proceso", title: `Temperatura de secado por encima de 60 °C (${d.maxTj} °C)`, detail: "Por encima del rango validado el producto puede degradarse.", lesson: L.secado });
+  if (d.loaded && d.hours > 0 && d.maxTj < 55) F.push({ sev: "mayor", area: "Proceso", title: `Secado por debajo de la temperatura de la hoja (${d.maxTj} °C)`, detail: "La hoja pide 55–60 °C de camisa. Un parámetro fuera de rango, también por abajo, se comunica y se documenta.", lesson: L.secado });
+  if (s.reactor.alarms.some((a) => a.text.startsWith("Arranque del agitador con"))) F.push({ sev: "crítico", area: "Seguridad", title: "Se arrancó el agitador con anhídrido acumulado", detail: "Es el desencadenante típico de una reacción fuera de control. Con reactivo acumulado se para la adición, se avisa y decide el responsable.", lesson: L.desv });
   if (s.events.vacio.active) {
     if (s.events.vacio.notified == null) F.push({ sev: "mayor", area: "Proceso", title: "No se avisó de la pérdida de vacío del secadero", detail: "Un fallo de equipo se comunica para que mantenimiento actúe.", lesson: L.secado });
     if (!hasDeviation(s, "vacío", "vacio", "secad")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la pérdida de vacío", detail: "El vacío estuvo fuera de rango (≤ 100 mbar) durante el secado.", lesson: L.desv });

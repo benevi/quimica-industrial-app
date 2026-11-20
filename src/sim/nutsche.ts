@@ -23,7 +23,7 @@ export type NStepId = "carga" | "filtrado" | "lavado1" | "lavado2" | "soplado" |
 
 /** Pasos de la hoja del FD-401, con lo que pide cada uno. */
 export const N_STEPS: { id: NStepId; title: string; spec: string }[] = [
-  { id: "carga", title: "1. Cargar la suspensión del R-201", spec: "800 L. Agitador arriba. Abrir XV-401; cerrarla al terminar." },
+  { id: "carga", title: "1. Cargar la suspensión del R-201", spec: "Antes de nada: equipo inertizado (O₂ ≤ 2 %) y toma de tierra conectada, porque la suspensión va en etanol, que es inflamable. Después, 800 L. Agitador arriba. Abrir XV-401; cerrarla al terminar." },
   { id: "filtrado", title: "2. Filtrar con N₂", spec: "XV-402 y XV-403 abiertas. Presión 0,5–1,5 barg. Parar cuando el líquido llegue a la torta: no dejar que se seque." },
   { id: "lavado1", title: "3. Primer lavado", spec: "100 L de etanol frío (≤ 5 °C) por la XV-404 y filtrar." },
   { id: "lavado2", title: "4. Segundo lavado", spec: "Otros 100 L y filtrar. La torta no debe agrietarse entre lavados." },
@@ -63,6 +63,8 @@ export type NState = {
   productKg: number;
   supervisorTold: boolean;
   findings: NFinding[];
+  /** Equipo inertizado y con toma de tierra comprobada antes de recibir la suspensión en etanol */
+  inerted?: boolean;
   log: { t: number; who: string; text: string }[];
   history: TrendPt[];
   handover: { answers: Record<string, string> | null } | null;
@@ -116,7 +118,7 @@ function blank(mode: NState["mode"]): NState {
     sp: 1.0, p: 0, r201L: SLURRY_L, liquidL: 0, cakeL: 0, filtrateL: 0, washL: 0, washes: 0,
     cracked: false, compacted: false, blows: 0, agitDown: false, agitOn: false, lumps: false,
     Tj: 20, hours: 0, lod: 35, imp: 0.4, samples: [], discharged: false, productKg: 0, supervisorTold: false,
-    findings: [], log: [], history: [], handover: null, closed: false,
+    findings: [], log: [], history: [], handover: null, closed: false, inerted: false,
   };
 }
 
@@ -154,6 +156,7 @@ export function newNutsche(mode: NState["mode"] = "normal"): NState {
   }
   // Relevo: el turno de mañana dejó el lote a medias. Se reproduce lo que hizo.
   const who = "OP turno mañana";
+  inert(s, who);
   s.valves["XV-401"] = true;
   for (let i = 0; i < 4; i++) transfer(s, who);
   s.valves["XV-401"] = false;
@@ -239,8 +242,20 @@ export function setSp(s: NState, sp: number) {
   settle(s);
 }
 
+/** Paso previo a la carga: inertizar el FD-401 y comprobar la toma de tierra. */
+export function inert(s: NState, who = "OP") {
+  if (s.inerted) return;
+  s.inerted = true;
+  passTime(s, 15);
+  log(s, "Inertiza el FD-401 con ciclos de vacío y nitrógeno (O₂ 1,2 %) y comprueba la toma de tierra", who);
+}
+
 export function transfer(s: NState, who = "OP") {
   if (s.r201L <= 0) return;
+  if (!s.inerted) {
+    note(s, "No cargues todavía: la suspensión va en etanol, que es inflamable. Primero se inertiza el equipo con nitrógeno, se comprueba el oxígeno y se conecta la toma de tierra.", "Supervisor");
+    return;
+  }
   if (!s.valves["XV-401"]) {
     note(s, "La bomba del R-201 gira pero no llega nada: la XV-401 está cerrada.");
     return;
@@ -428,5 +443,7 @@ export function results(s: NState) {
 export function migrateN(s: NState): NState {
   s.history ??= [];
   s.findings ??= [];
+  // partidas guardadas antes de existir este paso: si ya había empezado la carga, se da por hecho
+  s.inerted ??= s.r201L < SLURRY_L;
   return s;
 }

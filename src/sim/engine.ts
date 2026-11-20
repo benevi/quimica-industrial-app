@@ -607,6 +607,11 @@ export function inertN2(s: Sim) {
 }
 
 export function toggleAgit(s: Sim, on: boolean) {
+  if (on && !s.reactor.agit && s.reactor.accum > 12) {
+    // Arrancar la agitación con reactivo acumulado es lo que dispara la reacción fuera de control
+    s.reactor.alarms.push({ time: s.clock, text: `Arranque del agitador con ${fmtNum(s.reactor.accum)} L de anhídrido acumulado` });
+    msg(s, "Supervisor", `Has arrancado el agitador con ${fmtNum(s.reactor.accum)} L de anhídrido sin reaccionar dentro. Todo eso va a reaccionar ahora de golpe. Con reactivo acumulado no se rearranca por cuenta propia: se para la adición, se avisa y decide el responsable.`);
+  }
   s.reactor.agit = on;
   log(s, on ? "Pone en marcha el agitador del R-101" : "Para el agitador del R-101");
 }
@@ -709,7 +714,7 @@ export function reactorTick(s: Sim) {
   s.clock += 1;
 
   // Incidentes provocados por la operación
-  if (r.addEnd == null && r.added > 0 && !r.agit && r.accum > 12) {
+  if (r.added > 0 && !r.agit && r.accum > 12 && !s.incidents.some((i) => i.kind === "acumulacion" && s.clock - i.time < 30)) {
     raise(s, "acumulacion", { what: `Hay ${fmtNum(r.accum)} L de anhídrido acético dentro del reactor sin reaccionar porque el agitador está parado. La temperatura no sube, pero el calor está «guardado».` });
   }
   if (r.T >= 100) {
@@ -1079,8 +1084,8 @@ export const INCIDENTS: Record<IncidentKind, IncidentDef> = {
   vibracion_c201: {
     eq: "c201", sev: "mayor", critical: true, lossPct: 6,
     title: "Vibración alta en la centrífuga: parada por VSHH-201",
-    what: "Centrifugaste con la alimentación XV-201 todavía abierta. La suspensión siguió entrando con la cesta girando, la carga se repartió mal y la centrífuga empezó a vibrar hasta que saltó el enclavamiento de vibración.",
-    cause: "No se cerró la alimentación antes de centrifugar.",
+    what: "Aceleraste a la velocidad de centrifugado con la alimentación XV-201 todavía abierta. Cargar con la cesta girando despacio es lo normal, pero al subir a 1200 rpm la suspensión siguió entrando: la cesta se sobrellenó, la torta quedó desigual y la centrífuga empezó a vibrar hasta que saltó el enclavamiento de vibración.",
+    cause: "No se cerró la alimentación antes de acelerar a la velocidad de centrifugado.",
     safety: "Una cesta desequilibrada a alta velocidad puede dañar los rodamientos o romperse. Por eso existe el enclavamiento VSHH-201.",
     product: "Parte de la suspensión rebosa y sale con las aguas madres (≈ 6 % de producto).",
     gmp: "Desviación. Revisión mecánica de la centrífuga antes de volver a usarla.",
@@ -1198,11 +1203,22 @@ export function redoPhase(s: Sim, index = s.section) {
     checkpoints, incidents: s.incidents, audit: s.audit, messages: s.messages, deviations: s.deviations,
     clock: s.clock, redos: s.redos + 1,
   };
+  // Lo anotado en las fases que se repiten se anula, pero no desaparece: queda en el audit trail
+  const from = index;
+  for (const f of FIELDS) {
+    const e = s.entries[f.id];
+    if (e && SECTIONS.findIndex((x) => x.id === f.section) >= from) {
+      keep.audit.push({ time: s.clock, who: "Tú (operador)", what: `Anulado por repetición de la fase: «${f.label}» = ${e.value}${f.unit ? " " + f.unit : ""} (anotado a las ${fmtTime(e.time)})` });
+    }
+  }
+  // El producto que se perdió físicamente (derrames, venteos, aguas madres) no vuelve por repetir la fase
+  const lost = s.lossPct;
   Object.assign(s, JSON.parse(cp) as Sim, keep);
+  s.lossPct = Math.max(s.lossPct ?? 0, lost ?? 0);
   s.halt = null;
   s.clock = keep.clock + 30;
   s.sectionStart[s.section] = s.clock;
   if (sec.id === "reaccion") s.reactor.history = [{ t: s.clock, T: s.reactor.T, Tj: s.reactor.Tj }];
   log(s, `Rehace la fase «${sec.title}» desde el principio${why ? ` tras el incidente ${why.id}` : ""} (30 min de limpieza y preparación). Los datos anotados en esta fase se anulan.`);
-  msg(s, "Supervisor", `De acuerdo, repetimos «${sec.title}». Recuerda: en planta, repetir una etapa es un reproceso y necesita una desviación aprobada por Calidad.`);
+  msg(s, "Supervisor", `De acuerdo, repetimos «${sec.title}». Recuerda: en planta, repetir una etapa es un reproceso y necesita una desviación aprobada por Calidad. Lo que ya se derramó o se perdió no se recupera, y lo anotado en el primer intento se conserva anulado, no se borra.`);
 }

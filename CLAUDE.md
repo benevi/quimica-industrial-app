@@ -57,6 +57,7 @@ npm run check:certs    # bancos de preguntas, simulacros y supuestos de certific
 npm run check:repaso   # tarjetas de repaso y fichas FDS
 npm run check:media    # imágenes y vídeos: archivo existe y tiene créditos
 npm run check:cloud    # lógica de sincronización con la nube (src/lib/cloud.ts)
+npm run check:sim      # simulador de planta: lote completo, informe de QA y Nutsche (src/sim)
 ```
 
 Antes de dar un cambio por terminado: `npm run lint`, `npx tsc --noEmit`, los `check:*` afectados y `npm run build`.

@@ -265,6 +265,7 @@ function Controls({ s, act, dis }: { s: NState; act: NAct; dis: boolean }) {
       <div className="space-y-3 text-sm">
         <div className={row}>
           <span className="w-36 font-medium">Carga</span>
+          <Btn disabled={dis || !!s.inerted} onClick={() => act((x) => N.inert(x))}>{s.inerted ? "Inertizado y a tierra" : "Inertizar y comprobar tierra"}</Btn>
           <Btn disabled={dis || s.r201L <= 0} onClick={() => act((x) => N.transfer(x))}>Transferir 200 L</Btn>
           <span className="text-xs text-muted">quedan {s.r201L} L en el R-201</span>
         </div>
