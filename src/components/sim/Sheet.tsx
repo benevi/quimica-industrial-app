@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FIELDS, SECTIONS, correct, fmtTime, record, sign, type Sim, type SectionId } from "@/sim/engine";
+import { FIELDS, SECTIONS, correct, fmtTime, missingFields, record, sign, type Sim, type SectionId } from "@/sim/engine";
 import { Btn } from "./ui";
 
 export type Act = (fn: (s: Sim) => void) => void;
@@ -149,6 +149,7 @@ function FieldRow({ s, id, act, isActive, focus }: { s: Sim; id: string; act: Ac
 export function Sheet({ s, sec, act, isActive, focusId }: { s: Sim; sec: SectionId; act: Act; isActive: boolean; focusId?: string | null }) {
   const fields = FIELDS.filter((f) => f.section === sec);
   const signed = s.signatures[sec];
+  const pending = missingFields(s, sec).length;
   const title = SECTIONS.find((x) => x.id === sec)!.title;
   return (
     <section className="rounded-[var(--radius)] border border-line bg-surface">
@@ -174,11 +175,15 @@ export function Sheet({ s, sec, act, isActive, focusId }: { s: Sim; sec: Section
               Firmado por <strong>OP</strong> · <span className="font-mono">{fmtTime(signed)}</span>
             </span>
           ) : (
-            <Btn tone="primary" disabled={s.closed} onClick={() => act((x) => sign(x, sec))}>
+            <Btn tone="primary" disabled={s.closed || pending > 0} onClick={() => act((x) => sign(x, sec))}>
               Firmar la sección
             </Btn>
           )}
-          <span className="text-xs text-muted">Firmar es declarar que lo anotado es cierto y completo.</span>
+          <span className="text-xs text-muted">
+            {signed == null && pending > 0
+              ? `Aún no se puede firmar: falta${pending > 1 ? "n" : ""} ${pending} dato${pending > 1 ? "s" : ""} por anotar. La firma va al final, con el trabajo hecho y registrado.`
+              : "Firmar es declarar que lo anotado es cierto y completo."}
+          </span>
         </div>
       )}
     </section>

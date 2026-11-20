@@ -204,11 +204,13 @@ Abrir una desviación **no es un castigo**: es la forma de aprender y evitar que
 ### Clasificación habitual
 | Tipo | Ejemplo |
 |---|---|
-| **Crítica** | Puede afectar a la calidad o seguridad del paciente: material equivocado cargado |
-| **Mayor** | Afecta a un parámetro crítico pero se puede evaluar: T fuera de rango 30 min |
+| **Crítica** | Puede afectar a la calidad del producto o a la seguridad del paciente: material equivocado cargado, o un **parámetro crítico** fuera de su rango (por ejemplo, la temperatura de una reacción marcada como crítica en la hoja) |
+| **Mayor** | Se incumple un procedimiento o un parámetro **no crítico**, y hay que evaluar si afecta al producto: un tiempo de agitación no crítico superado en 30 min |
 | **Menor** | Sin impacto en calidad: registro olvidado detectado y corregido el mismo día |
 
-(Cada empresa define sus criterios en su procedimiento.)
+Un **parámetro crítico** (*critical parameter*) es, según la guía ICH Q7, el que debe mantenerse dentro de unos límites fijados de antemano para que el producto cumpla su especificación. En la hoja de producción suelen venir marcados. La misma guía pide **documentar y explicar toda desviación** e **investigar siempre las críticas** (ICH Q7, apartados 2.16 y 8.15).
+
+Los nombres «mayor» y «menor» no vienen de la norma: cada empresa define sus categorías y criterios en su procedimiento, y quien clasifica la desviación es Calidad, no el operador.
 
 ### Investigación y causa raíz (*root cause*)
 La pregunta no es "¿quién se equivocó?" sino "**¿por qué pudo pasar?**". Herramientas típicas:
@@ -426,15 +428,17 @@ En un reactor recién instalado verás etiquetas "Equipo en cualificación – n
     title: "Gestión de riesgos de calidad (ICH Q9(R1))",
     titleEn: "Quality risk management",
     minutes: 12,
-    summary: "Cómo se decide qué es importante: gravedad, probabilidad y detectabilidad.",
+    summary: "Cómo se decide qué es importante: probabilidad y gravedad del daño, y la detectabilidad como ayuda.",
     body: `
 No todo tiene la misma importancia. La **gestión de riesgos de calidad** (ICH Q9, revisada en 2023 como **Q9(R1)**) sirve para concentrar el esfuerzo donde más afecta al paciente. La revisión insiste en que las puntuaciones son **subjetivas**: hay que justificarlas con datos y no usar el número como excusa para no actuar.
 
 ### Riesgo
-Combinación de:
-- **Gravedad** (*severity*): ¿qué daño puede causar?
-- **Probabilidad** (*probability / occurrence*): ¿cuántas veces puede pasar?
-- **Detectabilidad** (*detectability*): ¿lo detectaríamos antes de que llegue al paciente?
+ICH Q9 define el **riesgo** (*risk*) como la combinación de dos cosas:
+- **Probabilidad** (*probability*) de que ocurra un daño: ¿cuántas veces puede pasar?
+- **Gravedad** (*severity*) de ese daño: ¿cuánto daño causaría?
+
+Algunas herramientas añaden un tercer factor para estimar el riesgo:
+- **Detectabilidad** (*detectability*): ¿lo detectaríamos antes de que llegue al paciente? No forma parte de la definición de riesgo, pero ayuda a priorizar: un fallo que se detecta siempre a tiempo preocupa menos que uno que pasa inadvertido.
 
 ### FMEA / AMFE
 Una herramienta muy usada. Para cada fallo posible se puntúa gravedad (G), probabilidad (P) y detección (D), por ejemplo del 1 al 10, y se calcula el **número de prioridad de riesgo**:

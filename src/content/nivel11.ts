@@ -341,7 +341,8 @@ Las temperaturas exactas dependen de la planta.
 Si una reacción desprende calor más rápido de lo que la camisa puede quitar, la temperatura sube, la reacción se acelera y desprende aún más calor. Es la **reacción descontrolada** o **fuga térmica** (*thermal runaway*): puede acabar en sobrepresión, rotura del reactor o incendio.
 
 Medidas de control:
-- **Adición dosificada** (*semi-batch*): el reactivo se añade poco a poco. Si falla el frío, **se para la adición** y la reacción se frena.
+- **Adición dosificada** (*semi-batch*): el reactivo se añade poco a poco. Si falla el frío, **se para la adición**: la reacción deja de recibir reactivo nuevo.
+- **Sin acumulación** (*accumulation*): parar la adición solo frena la reacción si el reactivo se ha ido gastando según entraba. Si se ha añadido reactivo que **no ha reaccionado todavía** (porque la masa estaba demasiado fría, el agitador parado o la reacción no había arrancado), ese reactivo sigue ahí y puede reaccionar de golpe aunque la adición esté parada. Por eso no se dosifica con la temperatura por debajo de la que marca la hoja ni sin agitación.
 - Límites de temperatura con **alarmas** y **enclavamientos** que cortan la adición.
 - Estudios de seguridad (DSC, calorimetría de reacción) que fijan la temperatura máxima segura.
 
@@ -377,7 +378,7 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
           "Seguir igual",
         ],
         answer: 1,
-        explain: "Sin adición no se genera más calor: es la forma más rápida de frenar la reacción.",
+        explain: "Al parar la adición la reacción deja de recibir reactivo nuevo: es lo primero y lo más rápido. Ojo: el reactivo que ya esté dentro sin reaccionar (acumulado) sigue desprendiendo calor, así que hay que seguir vigilando la temperatura y avisar.",
       },
       {
         kind: "choice",
@@ -391,12 +392,12 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
         q: "¿Por qué una adición dosificada (semi-batch) es más segura que cargar todo el reactivo de golpe?",
         options: [
           "Porque es más rápida",
-          "Porque si falla el frío se para la adición y deja de generarse calor; con todo cargado no se puede frenar",
+          "Porque si falla el frío se para la adición y la reacción deja de recibir reactivo; con todo cargado no se puede frenar",
           "Porque usa menos reactivo",
           "Porque no necesita agitación",
         ],
         answer: 1,
-        explain: "Con la adición controlada, el calor generado depende de lo que se añade: parar la bomba frena la reacción.",
+        explain: "Con la adición controlada, el calor generado depende de lo que se añade: al parar la bomba solo puede reaccionar lo que ya está dentro. Funciona si el reactivo se va gastando según entra; si se ha acumulado sin reaccionar, esa ventaja se pierde.",
       },
     ],
   },

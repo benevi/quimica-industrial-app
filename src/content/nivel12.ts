@@ -362,6 +362,7 @@ Se toma una muestra (IPC) y se analiza:
 
 ### Riesgos
 - Polvos y vapores inflamables, vacío, superficies calientes.
+- **El vacío se rompe con nitrógeno, no con aire**, cuando dentro hay disolvente inflamable: si entra aire en un equipo caliente lleno de vapores, se juntan los tres lados del triángulo del fuego (combustible, oxígeno y calor). Antes de abrir o descargar se **enfría** el producto y se comprueba que la presión ha vuelto a la atmosférica.
 - **Exposición** al API al tomar muestras o descargar: usar EPI y sistemas cerrados.
 `,
     plant: `

@@ -1,5 +1,5 @@
 import {
-  FIELDS, MATERIALS, SECTIONS, THEORETICAL_KG, finalImpurities, fmtNum, parseNum, scaleDisplay,
+  FIELDS, MATERIALS, SECTIONS, THEORETICAL_KG, finalImpurities, fmtNum, fmtTime, parseNum, scaleDisplay,
   type MaterialId, type Sim,
 } from "./engine";
 
@@ -94,6 +94,63 @@ export function reviewBatch(s: Sim): Review {
     if (!s.deviations.some((d) => d.time >= inc.time)) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `Sin desviación para el incidente ${inc.id}`, detail: "Cada incidente se documenta en una desviación: qué pasó, cuándo, qué se hizo y qué se ve.", lesson: L.desv });
   }
 
+  // --- Exacto: lo anotado tiene que ser un dato de verdad y coincidir con lo que pasó
+  for (const f of FIELDS) {
+    const raw = v(f.id);
+    if (raw == null || f.kind !== "number") continue;
+    if (parseNum(raw) == null) {
+      F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `Dato no numérico en «${f.label}»: «${raw}»`, detail: "Exacto: se anota el valor leído, con su número. «OK», «bien» o «cumple» no son un dato.", lesson: L.alcoa });
+    }
+  }
+  /** [campo, valor real, margen, qué se compara] */
+  const real: [string, number | null, number, string][] = [
+    ["o2", s.o2, 0.05, "el analizador AI-101"],
+    ["min_reaccion", s.reactor.inRange, 5, "el histórico de temperatura"],
+    ["t_siembra", s.cryst.done && s.cryst.seeded ? s.cryst.seedT : null, 0.5, "la temperatura real de siembra"],
+    ["min_rampa", s.cryst.done ? s.cryst.ramp : null, 1, "la rampa aplicada"],
+    ["t_final", s.cryst.done ? s.cryst.finalT : null, 0.5, "la temperatura final real"],
+    ["lavados", s.centri.washes, 0, "los lavados realizados"],
+    ["t_secado", s.dryer.loaded ? s.dryer.maxTj : null, 0.5, "la temperatura máxima de camisa"],
+    ["vacio", s.dryer.loaded && s.dryer.hours > 0 ? s.dryer.worstVac : null, 1, "la peor lectura de vacío"],
+  ];
+  for (const [id, actual, tol, what] of real) {
+    const rec = n(id);
+    if (rec == null || actual == null) continue;
+    // tiempo de reacción y vacío: solo es falso declarar más tiempo o mejor vacío del real
+    const off = id === "min_reaccion" ? rec - actual > tol : id === "vacio" ? actual - rec > tol : Math.abs(rec - actual) > tol + 1e-9;
+    if (off) {
+      const f = FIELDS.find((x) => x.id === id)!;
+      F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `«${f.label}»: lo registrado no coincide con lo que pasó`, detail: `Registro: ${v(id)}${f.unit ? " " + f.unit : ""} · ${what}: ${fmtNum(actual, 1)}${f.unit ? " " + f.unit : ""}. Exacto: se anota lo que marca el instrumento, no lo que debería marcar.`, lesson: L.alcoa });
+    }
+  }
+  if (v("bascula_id") && s.scaleUsed && v("bascula_id") !== s.scaleUsed) {
+    F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "La báscula registrada no es la que se usó", detail: `Registro: ${v("bascula_id")} · se pesó en la ${s.scaleUsed}. El equipo usado forma parte del registro del lote.`, lesson: L.alcoa });
+  }
+  if (v("servicios") === "No") {
+    F.push({ sev: "mayor", area: "Proceso", title: "Se registró que faltaban servicios y aun así se empezó", detail: "Sin glicol, vapor, nitrógeno o vacío no se arranca el lote: se avisa y se espera.", lesson: L.bpd });
+  }
+  const timeChecks: [string, number | undefined][] = [["ini_adicion", s.reactor.addStart], ["fin_adicion", s.reactor.addEnd]];
+  for (const [id, t] of timeChecks) {
+    if (v(id) == null || t == null) continue;
+    // se admite anotar la hora hasta 10 min después del hecho
+    const near = Array.from({ length: 11 }, (_, i) => fmtTime(t + i));
+    if (!near.includes(v(id)!.trim())) {
+      const f = FIELDS.find((x) => x.id === id)!;
+      F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `«${f.label}»: la hora registrada no es la real`, detail: `Registro: ${v(id)} · reloj de planta: ${fmtTime(t)}. Contemporáneo y exacto: la hora se anota en el momento, mirando el reloj.`, lesson: L.bpd });
+    }
+  }
+  // Un valor fuera de la especificación de la hoja no se deja pasar: se abre desviación
+  const yaRevisados = new Set(["tmax_adicion", "ipc_af", "lod", "rendimiento", "dp_filtro", "peso_af", "peso_aa", "peso_se", "bascula_verif", "agua_l", "o2", "lavados"]);
+  for (const f of FIELDS) {
+    if (f.kind !== "number" || yaRevisados.has(f.id)) continue;
+    const rec = n(f.id);
+    if (rec == null) continue;
+    const out = (f.min != null && rec < f.min - 1e-9) || (f.max != null && rec > f.max + 1e-9);
+    if (out && s.deviations.length === 0) {
+      F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `Valor fuera de especificación sin desviación: ${f.label}`, detail: `Registro: ${v(f.id)}${f.unit ? " " + f.unit : ""} · especificación: ${f.spec}. Un dato fuera de rango se registra tal cual y se comunica: Calidad decide con una desviación.`, lesson: L.desv });
+    }
+  }
+
   // --- Verificaciones previas
   if (v("r101_estado") && v("r101_estado") !== "Limpio y dentro de tiempo") {
     F.push({ sev: "mayor", area: "Proceso", title: "Se registró el reactor como no apto y aun así se usó", detail: "Si el estado no es «limpio y dentro de tiempo», no se empieza: se avisa y se limpia.", lesson: L.bpd });
@@ -127,7 +184,14 @@ export function reviewBatch(s: Sim): Review {
     }
   });
 
+  if (s.events.bascula.active && s.events.bascula.notified == null) {
+    F.push({ sev: "menor", area: "Proceso", title: "No se avisó de la báscula fuera de tolerancia", detail: "Una báscula que no pasa la verificación diaria se comunica y se identifica como fuera de uso, para que nadie pese en ella.", lesson: L.desv });
+  }
+
   // --- Carga e inertización
+  if (!s.afCharged && s.maxSection > SECTIONS.findIndex((x) => x.id === "carga")) {
+    F.push({ sev: "crítico", area: "Proceso", title: "No se cargó el 4-aminofenol en el reactor", detail: "Se pasó de etapa sin cargar la materia prima pesada. Sin ella no hay reacción ni producto: el lote no siguió la hoja." });
+  }
   const w = s.water;
   if (w < 295 || w > 305) F.push({ sev: "mayor", area: "Proceso", title: "Volumen de agua fuera de rango", detail: `Se cargaron ${w} L (rango 295–305 L).` });
   if (n("agua_l") != null && Math.abs(n("agua_l")! - w) > 0.5) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "El volumen de agua registrado no coincide con el totalizador", detail: `Registro ${v("agua_l")} L · totalizador ${w} L.`, lesson: L.alcoa });
@@ -165,6 +229,9 @@ export function reviewBatch(s: Sim): Review {
 
   // --- Filtración
   if (s.filter.maxDpRun > 1.5 && s.filter.changes === 0) F.push({ sev: "mayor", area: "Proceso", title: "Se filtró con la presión diferencial por encima de 1,5 bar", detail: "Un ΔP alto puede romper el cartucho y dejar pasar partículas.", lesson: L.filtros });
+  if (s.filter.maxDpRun > 1.5 && !hasDeviation(s, "filtro", "δp", "dp", "presión diferencial", "presion diferencial", "cartucho")) {
+    F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la presión diferencial alta del filtro", detail: `El ΔP llegó a ${fmtNum(s.filter.maxDpRun, 1)} bar (límite 1,5 bar). Aunque se cambie el cartucho, superar un límite de la hoja se documenta en una desviación.`, lesson: L.desv });
+  }
   if (s.events.filtro.active && s.events.filtro.notified == null) F.push({ sev: "menor", area: "Proceso", title: "No se avisó del ΔP alto del filtro", detail: "Las incidencias de equipo se comunican al supervisor.", lesson: L.filtros });
   if (n("dp_filtro") != null && n("dp_filtro")! + 0.05 < s.filter.maxDpRun) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "El ΔP máximo registrado es menor que el real", detail: `Registro ${v("dp_filtro")} bar · real ${fmtNum(s.filter.maxDpRun)} bar.`, lesson: L.alcoa });
 

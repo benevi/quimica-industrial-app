@@ -391,8 +391,19 @@ export function correct(s: Sim, fieldId: string, value: string, reason: string) 
   e.time = s.clock;
 }
 
+/** Campos de una sección que aún no tienen dato en la hoja */
+export function missingFields(s: Sim, sec: SectionId) {
+  return FIELDS.filter((f) => f.section === sec && !s.entries[f.id]);
+}
+
 export function sign(s: Sim, sec: SectionId) {
   if (s.signatures[sec] != null) return;
+  const missing = missingFields(s, sec);
+  if (missing.length) {
+    // Firmar es declarar que lo anotado es cierto y completo: no se firma una sección con huecos
+    msg(s, "Supervisor", `No firmes todavía «${SECTIONS.find((x) => x.id === sec)!.title}»: falta${missing.length > 1 ? "n" : ""} ${missing.length} dato${missing.length > 1 ? "s" : ""} por anotar (${missing.map((f) => f.label).join("; ")}). La firma va al final, cuando el trabajo está hecho y registrado.`);
+    return;
+  }
   s.signatures[sec] = s.clock;
   log(s, `Firma la sección «${SECTIONS.find((x) => x.id === sec)!.title}»`);
 }
@@ -542,7 +553,11 @@ export function chargeAF(s: Sim) {
     msg(s, "Supervisor", "No abras la boca de carga con el reactor en vacío: el polvo saldría por la línea de vacío. Rompe el vacío con N₂ y cierra la XV-103.");
     return;
   }
-  if (s.o2 > 8) {
+  if (s.p101 > 0.05) {
+    msg(s, "Supervisor", `No abras la boca de carga con presión dentro: el R-101 está a ${fmtNum(s.p101, 2)} bar. Cierra la entrada de N₂ (XV-102) y deja que la presión vuelva a la atmosférica antes de abrir.`);
+    return;
+  }
+  if (s.o2 > 2) {
     s.reactor.alarms.push({ time: s.clock, text: "Carga de sólido sin inertizar: riesgo de atmósfera inflamable" });
     raise(s, "carga_sin_inertizar", { what: `Abriste la boca de carga y empezaste a echar 4-aminofenol con un ${fmtNum(s.o2)} % de oxígeno dentro del R-101. Salta la alarma del analizador AI-101 y el supervisor para la carga.` });
     return;
@@ -584,8 +599,10 @@ export function inertN2(s: Sim) {
   s.inertStep = null;
   s.inertCycles += 1;
   s.o2 = r1(Math.max(0.1, s.o2 * 0.2));
+  // Estos 5 minutos el nitrógeno llena el vacío: el reactor termina a presión atmosférica, sin sobrepresión.
+  // Si después se deja la XV-102 abierta con el reactor cerrado, la presión sí sube (passTime).
+  s.clock += 5;
   s.p101 = 0;
-  passTime(s, 5);
   log(s, `Rompe el vacío con N₂ (ciclo nº ${s.inertCycles}): O₂ = ${fmtNum(s.o2)} %`);
 }
 
@@ -665,7 +682,8 @@ export function reactorTick(s: Sim) {
   r.accum -= reacted;
   const kmol = reacted * AA_KMOL_PER_L;
   const room = Math.max(0, 1 - r.consumed);
-  const frac = Math.min(room, kmol / AF_KMOL);
+  // sin 4-aminofenol en el reactor no hay con qué reaccionar: no se forma producto
+  const frac = s.afCharged ? Math.min(room, kmol / AF_KMOL) : 0;
   r.consumed += frac;
   r.slow += frac * 0.08;
 
@@ -1016,7 +1034,7 @@ export const INCIDENTS: Record<IncidentKind, IncidentDef> = {
     safety: "Es el inicio típico de una reacción fuera de control: si ahora arrancas el agitador, todo lo acumulado reacciona de golpe y la temperatura se dispara.",
     product: "Puntos calientes y más impurezas.",
     gmp: "Desviación: la adición no se hizo según la hoja (agitación obligatoria).",
-    plant: ["Parar la adición (FV-103 a cero).", "No arrancar el agitador de golpe: avisar al supervisor.", "Con la camisa enfriando al máximo, arrancar el agitador y vigilar la temperatura.", "Continuar la adición solo cuando lo acumulado haya reaccionado."],
+    plant: ["Parar la adición (FV-103 a cero).", "No arrancar el agitador por tu cuenta: avisar al supervisor.", "El responsable decide, según el procedimiento, si se rearranca la agitación y cómo (con la camisa enfriando al máximo y vigilando la temperatura).", "Continuar la adición solo cuando lo acumulado haya reaccionado y con autorización."],
   },
   disco_ebullicion: {
     eq: "r101", sev: "crítico", critical: true, lossPct: 12,

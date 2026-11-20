@@ -348,6 +348,12 @@ El ácido clorhídrico se compra al ~37 % p/p y la sosa al 30–50 % p/p. Si nec
 
 Para preparar 100 L de NaOH 2 M a partir de NaOH 10 M: V₁ = 2 × 100 / 10 = 20 L de la concentrada + agua hasta 100 L.
 
+Esta fórmula **con litros** solo vale cuando la concentración es **por volumen** (mol/L, g/L, % p/v). Si la concentración es **en peso** (% p/p, como la sosa al 50 % o el clorhídrico al 37 %), se hace la misma cuenta **con kilos**:
+
+> C₁ × m₁ = C₂ × m₂
+
+Para preparar 100 kg de sosa al 10 % p/p a partir de sosa al 50 % p/p: m₁ = 10 × 100 / 50 = 20 kg de la concentrada + 80 kg de agua. El motivo: al diluir cambia la densidad, así que los litros no se pueden sumar ni repartir en proporción, pero los kilos sí. Para pasar esos kilos a litros hace falta la densidad de cada solución.
+
 ⚠️ **Siempre el ácido sobre el agua**, nunca al revés: al diluir se desprende mucho calor.
 `,
     plant: `

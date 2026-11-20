@@ -45,7 +45,7 @@ Antes de manipular un producto nuevo para ti, **lee su FDS** o al menos las secc
 > Practica con fichas completas de productos de planta (metanol, tolueno, sosa, clorhídrico, nitrógeno y un intermedio) en **[Fichas de seguridad](/fds)**.
 `,
     plant: `
-Vas a cargar hidróxido sódico al 50 %. La etiqueta lleva el pictograma de corrosión, la palabra "Peligro" y la frase H314 "Provoca quemaduras graves en la piel y lesiones oculares graves". La sección 8 de la FDS indica gafas de montura integral o pantalla facial, guantes resistentes a álcalis y ropa de protección.
+Vas a cargar hidróxido sódico al 50 %. La etiqueta lleva el pictograma de corrosión, la palabra "Peligro" y la frase H314 "Provoca quemaduras graves en la piel y lesiones oculares graves". La sección 8 de la FDS indica gafas de montura integral y, encima, pantalla facial (la pantalla sola no protege los ojos de una salpicadura), guantes resistentes a álcalis y ropa de protección.
 `,
     batchRecord: `
 - Algunas hojas recuerdan los peligros y EPI de cada material al lado de la instrucción de carga.
@@ -434,11 +434,12 @@ Cada planta tiene un **plan de autoprotección** con alarmas, rutas de evacuaci�
 
 ### Vertidos (*spills*)
 1. **Avisar** y alejar a las personas; si es grande, inflamable o tóxico, activar la emergencia.
-2. **EPI** adecuado antes de acercarse.
-3. **Contener**: cerrar la fuente si es seguro, rodear con material absorbente o barreras, proteger los **sumideros** (desagües).
-4. **Absorber** con el material indicado (no usar serrín con oxidantes).
-5. Recoger como **residuo peligroso** y limpiar.
-6. Registrar el incidente.
+2. Si el producto es **inflamable**: quitar las **fuentes de ignición** (nada de chispas, equipos no aptos ni superficies calientes) y **ventilar**.
+3. **EPI** adecuado antes de acercarse: el que indique la sección 8 de la FDS para ese producto, también el tipo de guante y la protección respiratoria.
+4. **Contener**: cerrar la fuente si es seguro, rodear con material absorbente o barreras, proteger los **sumideros** (desagües).
+5. **Absorber** con el material indicado (no usar serrín con oxidantes).
+6. Recoger como **residuo peligroso** y limpiar.
+7. Registrar el incidente.
 
 ### Residuos (*waste*)
 Regulados por la **Ley 7/2022** de residuos y codificados con la **Lista Europea de Residuos** (*LER*). Reglas básicas:
@@ -451,7 +452,7 @@ Regulados por la **Ley 7/2022** de residuos y codificados con la **Lista Europea
 Los disolventes que escapan al aire (**COV**, compuestos orgánicos volátiles) están limitados (RD 117/2003). Por eso se condensan los venteos, se usan lavadores de gases (*scrubbers*) y oxidadores térmicos.
 `,
     plant: `
-Al desconectar una manguera caen unos 2 L de metanol al suelo. El operador avisa, se pone guantes y gafas, coloca un tapón sobre el sumidero cercano, absorbe con el kit de derrames, deposita el material en el contenedor de residuos sólidos contaminados con disolvente y comunica el incidente.
+Al desconectar una manguera caen unos 2 L de metanol al suelo. El metanol es inflamable y tóxico, también a través de la piel. El operador avisa, comprueba que no hay fuentes de ignición cerca y que la extracción funciona, se pone el EPI que indica la ficha (gafas de montura integral y guantes de caucho butilo; el nitrilo fino solo aguanta salpicaduras breves), coloca un tapón sobre el sumidero cercano, absorbe con el kit de derrames, deposita el material en el contenedor de residuos sólidos contaminados con disolvente y comunica el incidente.
 `,
     batchRecord: `
 - Destino de aguas madre, lavados y destilados ("a residuo halogenado R-H", "a recuperación").
