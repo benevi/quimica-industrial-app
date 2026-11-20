@@ -38,7 +38,7 @@ export const nivel11: Lesson[] = [
 ### Válvulas manuales y automáticas: abrir y cerrar
 - **Manual**: la mueve el operador con una **palanca** (bola, mariposa: ¼ de vuelta) o un **volante** (asiento, diafragma: varias vueltas). En las de palanca, **palanca paralela a la tubería = abierta**; perpendicular = cerrada.
 - **Automática todo/nada** (*on/off valve*, en el P&ID suele llamarse **XV**): la abre o la cierra el sistema de control con un **actuador neumático** (*pneumatic actuator*) que recibe aire de instrumentos a través de una **electroválvula** (*solenoid valve*).
-- **Válvula de control** (*control valve*, **FCV**, **TCV**…): no solo abre o cierra, sino que se queda en cualquier posición intermedia (0–100 %) que le pide el controlador.
+- **Válvula de control** (*control valve*; en los planos, **FV**, **TV**, **LV**… según la variable que controla, y en muchas plantas **FCV**, **TCV**…): no solo abre o cierra, sino que se queda en cualquier posición intermedia (0–100 %) que le pide el controlador.
 
 **Posición de fallo** (*fail-safe position*): qué hace la válvula si se corta el aire o la electricidad. Se elige para que el proceso quede **seguro**:
 | Posición de fallo | Abreviatura | Ejemplo |

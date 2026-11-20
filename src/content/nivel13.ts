@@ -125,7 +125,7 @@ Ejemplos:
 - **TIC-101**: indicador-controlador de temperatura (el que regula).
 - **PSV-205**: válvula de seguridad de presión.
 - **LAHH-310**: alarma de nivel muy alto.
-- **FCV-120**: válvula de control de caudal.
+- **FV-120**: válvula de control de caudal (*flow valve*): la primera letra es la variable del lazo (F, caudal) y la V indica que es la válvula. En muchas plantas la verás escrita **FCV-120**; es una costumbre extendida, pero la forma de la norma es FV.
 - **XV-130**: válvula automática todo/nada; sus finales de carrera son **ZSO-130** (abierta) y **ZSC-130** (cerrada).
 
 ### Símbolos básicos
