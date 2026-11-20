@@ -205,8 +205,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "El líquido se ha enfriado y ya no puede fluir más",
       ],
       answer: 2,
-      explain:
-        "A presión constante el caudal baja porque la torta es cada vez más gruesa y opone más resistencia. Es el comportamiento normal de una filtración con torta.",
+      explain: "A presión constante el caudal baja porque la torta es cada vez más gruesa y opone más resistencia. Es el comportamiento normal de una filtración con torta.",
     },
     {
       kind: "choice",
@@ -218,8 +217,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "No hay límite si la bomba es muy potente",
       ],
       answer: 0,
-      explain:
-        "Con vacío, arriba queda la presión atmosférica (1 bar, más o menos) y abajo, como mucho, nada. La diferencia no puede pasar de 1 bar, aproximadamente.",
+      explain: "Con vacío, arriba queda la presión atmosférica (1 bar, más o menos) y abajo, como mucho, nada. La diferencia no puede pasar de 1 bar, aproximadamente.",
     },
     {
       kind: "number",
@@ -239,8 +237,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "Alisar la torta con el agitador, como diga la hoja",
       ],
       answer: 3,
-      explain:
-        "En el alisado el agitador se apoya en la torta y gira para cerrar las grietas. Si no se cierran, el lavado se escapa por ellas. Se anota y se comunica.",
+      explain: "En el alisado el agitador se apoya en la torta y gira para cerrar las grietas. Si no se cierran, el lavado se escapa por ellas. Se anota y se comunica.",
     },
     {
       kind: "choice",
@@ -252,8 +249,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "En la resuspensión no se usa disolvente, solo nitrógeno a presión",
       ],
       answer: 1,
-      explain:
-        "En la resuspensión el agitador mezcla la torta con disolvente limpio hasta formar una suspensión, y luego se vuelve a filtrar. En el desplazamiento el disolvente atraviesa la torta sin deshacerla.",
+      explain: "En la resuspensión el agitador mezcla la torta con disolvente limpio hasta formar una suspensión, y luego se vuelve a filtrar. En el desplazamiento el disolvente atraviesa la torta sin deshacerla.",
     },
     {
       kind: "number",
@@ -273,8 +269,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "Porque al perder líquido se agrieta y el lavado se va por las grietas",
       ],
       answer: 3,
-      explain:
-        "Al perder líquido la torta se encoge y se raja. Las grietas son un atajo para el disolvente, que sale sin lavar el resto de la torta.",
+      explain: "Al perder líquido la torta se encoge y se raja. Las grietas son un atajo para el disolvente, que sale sin lavar el resto de la torta.",
     },
     {
       kind: "choice",
@@ -286,8 +281,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "Que la membrana estaba demasiado mojada al ensayar",
       ],
       answer: 1,
-      explain:
-        "Cuanto mayor es el agujero, menos presión hace falta para que pase el gas. Un valor por debajo del mínimo indica un filtro no íntegro; no se usa y se comunica.",
+      explain: "Cuanto mayor es el agujero, menos presión hace falta para que pase el gas. Un valor por debajo del mínimo indica un filtro no íntegro; no se usa y se comunica.",
     },
     {
       kind: "number",
@@ -307,8 +301,7 @@ Descargas por la válvula lateral a un contenedor acoplado: 196 kg. Sobre la pla
         "Abriendo despacio la válvula de descarga lateral",
       ],
       answer: 0,
-      explain:
-        "Dentro hay vapores de disolvente y superficies calientes. Si entrara aire, aportaría el oxígeno que falta para que pudieran arder. Por eso el vacío se rompe con nitrógeno.",
+      explain: "Dentro hay vapores de disolvente y superficies calientes. Si entrara aire, aportaría el oxígeno que falta para que pudieran arder. Por eso el vacío se rompe con nitrógeno.",
     },
   ],
 };
