@@ -4,7 +4,7 @@ export const nivel12Separacion: Lesson[] = [
   {
     slug: "extraccion-liquido-liquido",
     level: 12,
-    order: 6,
+    order: 5,
     title: "Extracción líquido-líquido y separación de fases",
     titleEn: "Liquid-liquid extraction and phase separation",
     minutes: 15,
@@ -88,7 +88,7 @@ El operador anota hora de parada de agitación, hora de separación, volumen de 
   {
     slug: "destilacion",
     level: 12,
-    order: 7,
+    order: 6,
     title: "Destilación y concentración",
     titleEn: "Distillation and concentration",
     minutes: 15,
@@ -173,7 +173,7 @@ Mezclas que hierven a temperatura fija y destilan con composición constante, as
   {
     slug: "cristalizacion",
     level: 12,
-    order: 8,
+    order: 7,
     title: "Cristalización",
     titleEn: "Crystallization",
     minutes: 18,
@@ -260,7 +260,7 @@ Maduración (*aging*) con agitación suave, **filtración o centrifugación**, *
   {
     slug: "molienda-y-tamizado",
     level: 12,
-    order: 9,
+    order: 14,
     title: "Molienda, micronización y tamizado",
     titleEn: "Milling, micronization and sieving",
     minutes: 12,
@@ -340,7 +340,7 @@ Antes de micronizar se comprueba que la malla del tamiz de seguridad está ínte
   {
     slug: "limpieza-de-equipos",
     level: 12,
-    order: 10,
+    order: 15,
     title: "Limpieza de equipos y validación de limpieza",
     titleEn: "Equipment cleaning and cleaning validation",
     minutes: 18,

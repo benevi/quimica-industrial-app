@@ -93,7 +93,7 @@ Si el reactor es vitrificado y el procedimiento dice "ΔT máxima camisa-masa 60
   {
     slug: "carga-e-inertizacion",
     level: 12,
-    order: 2,
+    order: 3,
     title: "Carga de materiales e inertización",
     titleEn: "Charging and inerting",
     minutes: 15,
@@ -182,7 +182,7 @@ Haces los tres ciclos, el medidor marca 2,1 % O₂ → cumple. Lo anotas con hor
   {
     slug: "centrifuga",
     level: 12,
-    order: 3,
+    order: 8,
     title: "La centrífuga",
     titleEn: "The centrifuge",
     minutes: 15,
@@ -263,7 +263,7 @@ Vas anotando rpm, tiempos y volúmenes. Si salta la alarma de vibración, paras 
   {
     slug: "filtros",
     level: 12,
-    order: 4,
+    order: 10,
     title: "Filtros: Nutsche y filtro-secador",
     titleEn: "Filters: Nutsche and filter-dryer",
     minutes: 12,
@@ -339,7 +339,7 @@ Filtras en un filtro-secador a 1,5 barg de N₂. Al principio el ΔP es 0,3 bar;
   {
     slug: "secaderos",
     level: 12,
-    order: 5,
+    order: 12,
     title: "Secaderos",
     titleEn: "Dryers",
     minutes: 15,
