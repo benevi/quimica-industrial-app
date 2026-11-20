@@ -93,7 +93,7 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
 - `src/app/`: páginas. Rutas principales: `/` (Hoy), `/operador`, `/temario`, `/nivel/[n]`, `/leccion/[slug]`, `/mapa`,
   `/glosario`, `/simulador` (+ `/auditoria`, `/nutsche`), `/sap`, `/calculadoras`, `/tarjetas`, `/repaso`, `/fds`,
   `/certificaciones`, `/examen`, `/simulacro`, `/supuesto`, `/autoevaluacion`, `/progreso`, `/creditos`.
-- `src/content/`: lecciones, un archivo por nivel (`nivelN.ts`; las lecciones largas «a fondo» van en `nivelN-tema.ts`; 124 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
+- `src/content/`: lecciones, un archivo por nivel (`nivelN.ts`; las lecciones largas «a fondo» van en `nivelN-tema.ts`; 125 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
   bloques de la ruta en `blocks.ts`, índice en `index.ts`. El contenido de `src/content` manda sobre `docs/temario.md`
   si no coinciden.
   - `operador.ts`: ruta corta del operador (28 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
