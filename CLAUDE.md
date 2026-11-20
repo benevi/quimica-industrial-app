@@ -38,6 +38,15 @@ Tiene tres partes:
      usen las nuevas incorporaciones. Su punto de partida es la ruta del operador (`src/content/operador.ts`).
      No se empieza hasta que Victor lo diga. Sigue valiendo la regla de confidencialidad: nada de datos, documentos
      ni procedimientos reales de la empresa salvo que la empresa los aporte y lo autorice por escrito.
+- **Simulador del reactor, lo más realista posible** (petición de Victor, noviembre de 2026): cuando se trabaje en el
+  simulador del reactor, el objetivo es practicar lo más cerca posible de la realidad de planta. Eso significa, entre
+  otras cosas: un modelo físico creíble (calentar y enfriar con Q = U·A·ΔT y tiempos reales, no minutos; presión que
+  responde a temperatura, nitrógeno y vacío; agitación que afecta a la mezcla y al calor; acumulación de reactivo),
+  mandos y pantallas como los de un sistema de control real (consignas, modos manual y automático, alarmas con
+  prioridades, enclavamientos, tendencias), secuencia completa de una operación (comprobaciones previas,
+  inertización con sus ciclos, cargas, adición dosificada, reflujo o destilación, muestreo, descarga, limpieza),
+  hoja de producción completa y averías realistas. Los números del modelo tienen que cuadrar entre sí y con las
+  lecciones «a fondo» del nivel 12. Proceso, producto y equipos siguen siendo ficticios.
 - **Exactitud**: Victor **no puede revisar el contenido técnico**, así que cada dato, norma y cálculo se verifica con
   fuentes fiables (ICH, EudraLex, Farmacopea, CLP/REACH, BOE para títulos de FP, fabricantes) antes de escribirlo.
   Si algo no se puede verificar, no se inventa: se dice.
