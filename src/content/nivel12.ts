@@ -1,5 +1,10 @@
 import type { Lesson } from "./types";
 import { nivel12Separacion } from "./nivel12-separacion";
+import { centrifugaAFondo } from "./nivel12-centrifuga";
+import { filtrosAFondo } from "./nivel12-filtros";
+import { inertizacionAFondo } from "./nivel12-inertizacion";
+import { reactorAFondo } from "./nivel12-reactor";
+import { secadoAFondo } from "./nivel12-secado";
 
 const equipos: Lesson[] = [
   {
@@ -93,7 +98,7 @@ Si el reactor es vitrificado y el procedimiento dice "ΔT máxima camisa-masa 60
   {
     slug: "carga-e-inertizacion",
     level: 12,
-    order: 2,
+    order: 3,
     title: "Carga de materiales e inertización",
     titleEn: "Charging and inerting",
     minutes: 15,
@@ -182,7 +187,7 @@ Haces los tres ciclos, el medidor marca 2,1 % O₂ → cumple. Lo anotas con hor
   {
     slug: "centrifuga",
     level: 12,
-    order: 3,
+    order: 8,
     title: "La centrífuga",
     titleEn: "The centrifuge",
     minutes: 15,
@@ -263,7 +268,7 @@ Vas anotando rpm, tiempos y volúmenes. Si salta la alarma de vibración, paras 
   {
     slug: "filtros",
     level: 12,
-    order: 4,
+    order: 10,
     title: "Filtros: Nutsche y filtro-secador",
     titleEn: "Filters: Nutsche and filter-dryer",
     minutes: 12,
@@ -339,7 +344,7 @@ Filtras en un filtro-secador a 1,5 barg de N₂. Al principio el ΔP es 0,3 bar;
   {
     slug: "secaderos",
     level: 12,
-    order: 5,
+    order: 12,
     title: "Secaderos",
     titleEn: "Dryers",
     minutes: 15,
@@ -428,4 +433,5 @@ A las 8 h el LOD da 1,2 % → sigue secando. A las 12 h da 0,3 % → cumple. Se 
   },
 ];
 
-export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion];
+// Las lecciones «a fondo» van cada una en su archivo: son largas y se revisan por separado.
+export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion, centrifugaAFondo, filtrosAFondo, inertizacionAFondo, reactorAFondo, secadoAFondo];
