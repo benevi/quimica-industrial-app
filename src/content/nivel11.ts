@@ -160,7 +160,8 @@ Una **bomba** (*pump*) da energía a un líquido para moverlo a otro sitio o a m
 
 **De desplazamiento positivo** (*positive displacement*)
 - Mueven un volumen fijo por ciclo: **membrana neumática** (*AODD, air-operated double diaphragm*), **engranajes** (*gear*), **lóbulos**, **peristáltica**, **pistón**.
-- **Nunca** se cierra la impulsión con la bomba en marcha: la presión sube hasta romper algo. Llevan **válvula de alivio**.
+- En las de **engranajes, lóbulos, pistón y peristáltica** **nunca** se cierra la impulsión con la bomba en marcha: como empujan un volumen fijo, la presión sube hasta romper algo. Por eso llevan **válvula de alivio** (*relief valve*).
+- La de **membrana neumática** es la excepción: con la salida cerrada simplemente **se para sola**, porque no puede dar más presión que la del aire comprimido que la mueve. Aun así, la manguera y la línea tienen que aguantar esa presión.
 - La de membrana neumática es muy común en plantas químicas: aguanta trabajar en vacío y suspensiones, y no tiene motor eléctrico (útil en zonas ATEX).
 
 ### Problemas típicos
@@ -192,7 +193,7 @@ Al trasvasar una suspensión con una bomba de membrana, el operador nota golpes 
     quiz: [
       {
         kind: "choice",
-        q: "¿Qué no debes hacer nunca con una bomba de desplazamiento positivo en marcha?",
+        q: "¿Qué no debes hacer nunca con una bomba de engranajes o de lóbulos en marcha?",
         options: [
           "Abrir la aspiración",
           "Cerrar la válvula de impulsión",
@@ -200,7 +201,7 @@ Al trasvasar una suspensión con una bomba de membrana, el operador nota golpes 
           "Vigilar fugas",
         ],
         answer: 1,
-        explain: "Mueve un volumen fijo: con la salida cerrada la presión sube hasta romper la bomba o la línea.",
+        explain: "Mueve un volumen fijo en cada vuelta: con la salida cerrada la presión sube hasta romper la bomba o la línea. La de membrana neumática es distinta: con la salida cerrada se para sola.",
       },
       {
         kind: "number",

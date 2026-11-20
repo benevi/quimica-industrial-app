@@ -15,7 +15,7 @@ El **reactor** (*reactor, vessel*) es el corazón de la planta: un depósito cer
 
 ### Tipos según el material
 - **Acero inoxidable** (*stainless steel*, AISI 316L): resistente y fácil de limpiar. No aguanta bien ácidos con cloruros (HCl).
-- **Acero vitrificado** (*glass-lined*): acero recubierto por dentro de vidrio. Aguanta ácidos, pero el vidrio puede **romperse por golpes o por choque térmico** (cambios bruscos de temperatura). Por eso hay límites de diferencia de temperatura entre camisa y masa.
+- **Acero vitrificado** (*glass-lined*): acero recubierto por dentro de vidrio. Aguanta casi todos los ácidos, con excepciones importantes: el **ácido fluorhídrico** y los fluoruros lo atacan a cualquier concentración, y también el **ácido fosfórico concentrado y caliente** y las **bases fuertes calientes** (la sosa concentrada tiene un límite de temperatura que da el fabricante). Por eso las limpiezas con sosa en un reactor vitrificado tienen marcadas temperatura y concentración. Además, el vidrio puede **romperse por golpes o por choque térmico** (cambios bruscos de temperatura). Por eso hay límites de diferencia de temperatura entre camisa y masa.
 - **Hastelloy** u otras aleaciones: para condiciones muy corrosivas.
 
 ### Partes
@@ -114,7 +114,13 @@ Métodos habituales:
 - **Ciclos de vacío y nitrógeno** (*vacuum/N₂ purge cycles*): hacer vacío y romperlo con nitrógeno, varias veces.
 - **Ciclos de presión** (*pressure purge*): presurizar con N₂ y despresurizar.
 
-Se comprueba con un **medidor de oxígeno**: el límite típico es **O₂ < 5 %** (lo define cada procedimiento).
+Se comprueba con un **medidor de oxígeno**. El límite lo fija cada procedimiento (son habituales valores como O₂ < 5 % o < 2 %) y sale de la **concentración límite de oxígeno** (*LOC, limiting oxygen concentration*): el porcentaje de oxígeno por debajo del cual esa sustancia ya no puede arder, haya la cantidad de vapor que haya. El LOC es distinto para cada sustancia, y la planta trabaja con un margen por debajo.
+
+**Cuánto baja el oxígeno en cada ciclo.** En un ciclo de vacío y nitrógeno, el oxígeno queda multiplicado por el cociente entre la presión baja y la presión alta, las dos en presión **absoluta**:
+
+> O₂ final = O₂ inicial × (P baja / P alta)ⁿ, con n el número de ciclos
+
+Ejemplo: se parte de aire (21 % de O₂), se hace vacío hasta 200 mbar absolutos y se rompe con nitrógeno hasta 1000 mbar. Cada ciclo multiplica por 200 / 1000 = 0,2. Tras un ciclo queda 4,2 %; tras dos, 0,84 %. Si el vacío es peor (por ejemplo 500 mbar), cada ciclo solo multiplica por 0,5 y hacen falta más ciclos. Al abrir la boca de hombre entra aire y parte de la inertización se pierde.
 
 ### Electricidad estática (*static electricity*)
 Al verter líquidos o polvos se generan cargas que pueden dar una chispa. Por eso: **pinzas de puesta a tierra** (*earthing / grounding clamps*) en bidones y contenedores, y cargas de sólidos inflamables con sistemas cerrados.
@@ -187,8 +193,9 @@ Después de cristalizar tenemos una **suspensión** (*slurry, suspension*): cris
 La **centrífuga** (*centrifuge*) hace girar la suspensión muy rápido dentro de una **cesta** (*basket*) con una **tela filtrante** (*filter cloth / filter bag*). El líquido atraviesa la tela y el sólido se queda pegado a la pared formando una **torta** (*cake*).
 
 ### Tipos habituales
-- **Vertical de descarga por arriba o por abajo** (*top/bottom discharge*), con **rascador** (*peeler / plough*) para sacar la torta.
-- **Horizontal de rasqueta** (*horizontal peeler centrifuge*).
+- **Vertical de descarga superior** (*top discharge*): la torta se saca por arriba, a mano con pala o izando el **saco filtrante** (*filter bag*) con un polipasto. Es la operación en la que el operador está más cerca del producto.
+- **Vertical de descarga inferior** (*bottom discharge*): un **rascador** (*scraper / plough*) despega la torta y la deja caer por el fondo, sin abrir la tapa.
+- **Horizontal de rasqueta** (*horizontal peeler centrifuge*): una cuchilla (*peeler*) rasca la torta con la cesta girando y la lleva a la tolva de descarga.
 - **De tela invertida** (*inverting filter centrifuge*): la tela se da la vuelta para soltar la torta.
 
 ### Ciclo típico
@@ -343,7 +350,7 @@ El sólido que sale de la centrífuga o del filtro está **húmedo** de disolven
 ### Tipos
 | Tipo | En inglés | Cómo funciona |
 |---|---|---|
-| Estufa de bandejas | *Tray dryer* | El producto se extiende en bandejas dentro de una cámara con vacío |
+| Estufa de bandejas | *Tray dryer*; con vacío, *vacuum tray dryer* | El producto se extiende en bandejas dentro de una cámara caliente. Las hay de aire caliente y de vacío; con disolventes y productos sensibles al calor se usa la de vacío |
 | Secadero cónico / de doble cono | *Conical / double-cone dryer* | Recipiente que gira o tiene un tornillo interno que remueve el sólido |
 | Secadero de paletas | *Paddle dryer* | Paletas giratorias que mueven el producto sobre paredes calientes |
 | Filtro-secador | *Filter dryer* | El mismo equipo de la filtración |

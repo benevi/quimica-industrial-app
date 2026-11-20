@@ -129,7 +129,9 @@ Ejemplos:
 - **XV-130**: válvula automática todo/nada; sus finales de carrera son **ZSO-130** (abierta) y **ZSC-130** (cerrada).
 
 ### Símbolos básicos
-- **Círculo**: instrumento. Con una raya horizontal: está en el **panel o en el sistema de control**; sin raya: instalado **en campo**.
+- **Círculo**: instrumento suelto. Sin raya: instalado **en campo**, junto al equipo. Con una **raya horizontal continua**: en un sitio al que llega el operador, como el panel o la sala de control. Con raya **discontinua**: detrás del panel, no accesible normalmente.
+- **Círculo dentro de un cuadrado**: función del **sistema de control** (pantalla y control compartidos, como en un DCS). Es el símbolo que más verás en un P&ID moderno: el indicador o el controlador no es un aparato suelto, sino una pantalla del sistema.
+- Las formas exactas cambian algo entre ediciones de la norma y entre empresas: cada P&ID trae una hoja de **leyenda** (*legend sheet*) que manda.
 - Líneas continuas gruesas: tuberías de proceso. Líneas discontinuas: señales eléctricas.
 - Cada equipo lleva su **código**: R-101 (reactor), P-101 (bomba), E-101 (intercambiador), T-101 o TK-101 (tanque), C-101 (centrífuga, aunque varía según la empresa).
 

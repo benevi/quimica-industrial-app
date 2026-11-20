@@ -260,7 +260,9 @@ Situaciones peligrosas:
 ### Aumento adiabático de temperatura
 Cuánto subiría la temperatura si **no se retirara nada de calor**:
 
-> ΔT adiabático = calor de reacción (kJ/kg) / calor específico (kJ/kg·K)
+> ΔT adiabático = calor de reacción (kJ por kg de **masa total** de reacción) / calor específico (kJ/kg·K)
+
+El calor va referido a toda la masa que hay en el reactor (reactivos y disolvente), no solo al reactivo. Si el dato viene en kJ por mol o por kg de reactivo, primero hay que repartirlo entre toda la masa.
 
 Con 250 kJ/kg y 2,0 kJ/(kg·K): ΔT = **125 °C**. Si partes de 20 °C, podrías llegar a 145 °C: por encima del punto de ebullición de muchos disolventes.
 

@@ -217,6 +217,19 @@ La pregunta no es "¿quién se equivocó?" sino "**¿por qué pudo pasar?**". He
 - **5 porqués** (*5 Whys*): preguntar "¿por qué?" sucesivamente hasta llegar a la causa de fondo.
 - **Diagrama de Ishikawa** o espina de pescado (*fishbone*): agrupa posibles causas en 6M: Mano de obra, Método, Máquina, Material, Medida y Medio ambiente.
 
+### ¿Y si el lote no sale bien? Reprocesar, retrabajar, recuperar y mezclar
+Cuando un lote o un intermedio no cumple, hay palabras que parecen iguales y no lo son. La guía ICH Q7 las separa así:
+
+| Qué es | Ejemplo | ¿Se puede? |
+|---|---|---|
+| **Continuar el paso** | El control en proceso dice que el secado aún no ha terminado: se sigue secando | Sí. Es parte del proceso normal, no es reprocesar (ICH Q7, 14.21) |
+| **Reprocesar** (*reprocessing*): repetir un paso que **ya forma parte** del proceso | Volver a cristalizar o a filtrar un lote | En general es aceptable, con evaluación y aprobación de Calidad. Si hay que hacerlo en la mayoría de los lotes, debe pasar a formar parte del proceso (14.20) |
+| **Retrabajar** (*reworking*): aplicar un paso **distinto** de los del proceso | Purificar con otro disolvente que la hoja no contempla | Solo tras **investigar** por qué no cumple, y con evaluación, análisis y, si procede, estudios de estabilidad que demuestren que el producto es equivalente (14.30 y 14.31) |
+| **Recuperar** (*recovery*) | Aprovechar el producto de las aguas madres, o destilar un disolvente para volver a usarlo | Sí, con procedimientos aprobados, si lo recuperado cumple su especificación y queda documentado (14.40 a 14.43) |
+| **Mezclar lotes** (*blending*) | Juntar varios lotes pequeños en uno | Solo si **cada lote cumple por separado** antes de mezclar. Nunca se mezcla un lote fuera de especificación con otros para que el conjunto cumpla (8.41) |
+
+Ninguna de estas decisiones es del operador: las toma Calidad y quedan escritas. Lo que sí es tuyo es avisar a tiempo y registrar lo que pasó.
+
 Ejemplo de 5 porqués: la temperatura subió → la refrigeración no respondió → la válvula estaba cerrada → nadie la abrió tras el mantenimiento → el procedimiento de mantenimiento no incluía comprobar la posición de válvulas. **Causa raíz**: procedimiento incompleto.
 `,
     plant: `
@@ -233,6 +246,9 @@ Durante una adición la temperatura llega a 31 °C y el máximo es 25 °C. Paras
       { es: "Los 5 porqués", en: "5 Whys", def: "Técnica de preguntar «¿por qué?» varias veces para llegar a la causa raíz." },
       { es: "Diagrama de Ishikawa", en: "Fishbone / Ishikawa diagram", def: "Diagrama que agrupa posibles causas por categorías (6M)." },
       { es: "Evaluación de impacto", en: "Impact assessment", def: "Análisis de si una desviación afecta a la calidad del producto." },
+      { es: "Reproceso", en: "Reprocessing", def: "Repetir un paso que ya forma parte del proceso establecido, por ejemplo volver a cristalizar." },
+      { es: "Retrabajo", en: "Reworking", def: "Tratar un lote que no cumple con un paso distinto de los del proceso establecido. Exige investigación previa." },
+      { es: "Mezcla de lotes", en: "Blending", def: "Unir lotes que cumplen cada uno su especificación para formar un lote homogéneo." },
     ],
     quiz: [
       {

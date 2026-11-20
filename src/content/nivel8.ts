@@ -94,7 +94,7 @@ La densidad sirve para **identificar** un líquido, comprobar la **concentració
 - **Densidad aparente** (*bulk density*): masa de polvo / volumen que ocupa sin compactar.
 - **Densidad compactada** (*tapped density*): tras golpear la probeta un número fijo de veces.
 
-Con ellas se calcula el **índice de Hausner** = compactada / aparente. Valores bajos (cerca de 1,0–1,25) indican que el polvo **fluye bien**; valores altos, que fluye mal. Importa para descargar, envasar y para el cliente que fabricará comprimidos.
+Con ellas se calcula el **índice de Hausner** = compactada / aparente. Cuanto más bajo, mejor fluye el polvo. La Farmacopea Europea (capítulo 2.9.36) usa esta escala: 1,00–1,11 **excelente**; 1,12–1,18 **buena**; 1,19–1,25 **aceptable**; 1,26–1,34 **pasable**; por encima, mala o muy mala. Importa para descargar, envasar y para el cliente que fabricará comprimidos.
 
 ### Viscosidad (*viscosity*)
 Resistencia de un líquido a fluir. El agua a 20 °C tiene ~1 mPa·s; un aceite, cientos. Se mide con **viscosímetros** capilares o rotacionales. En planta afecta a bombeos, filtraciones y agitación. La viscosidad **baja al calentar**.
@@ -230,7 +230,7 @@ Parámetros del molino (velocidad, tamiz) y resultado del tamaño de partícula.
 Descripción visual: "polvo cristalino blanco o casi blanco". Un cambio de color, grumos o partículas extrañas es una **alerta** aunque el resto de análisis cumpla.
 
 ### Color y limpidez de la disolución
-Se disuelve el producto y se compara con **patrones de color** y de **opalescencia** de la farmacopea (Ph. Eur. 2.2.1 y 2.2.2). Detecta impurezas coloreadas o insolubles.
+Se disuelve el producto y se compara con los patrones de **opalescencia** (turbidez; Ph. Eur. 2.2.1) y de **color** (Ph. Eur. 2.2.2) de la farmacopea. Detecta impurezas coloreadas o insolubles.
 
 ### Términos de solubilidad de la farmacopea
 Volumen de disolvente necesario para disolver 1 g:
