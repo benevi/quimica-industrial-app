@@ -26,7 +26,18 @@ Tiene tres partes:
 ## Reglas del proyecto
 
 - **Idioma**: todo en español, con el término técnico en inglés al lado la primera vez (p. ej. «hoja de producción (*batch record*)»).
-- **Nivel**: formación completa y extensa, como un título oficial. Nada superficial.
+- **Nivel**: formación completa y extensa, como un título oficial. Nada superficial. El contenido es siempre
+  didáctico y parte de cero: se da por hecho que quien lee no sabe nada de química.
+- **Dos ediciones** (decisión de Victor, noviembre de 2026):
+  1. **Edición completa** (esta, la que se está construyendo): solo para Victor, con mucho contenido, para estudiarlo
+     todo en profundidad. Es la prioridad. La auditoría de noviembre de 2026 midió 27 horas de estudio frente a las
+     610 del certificado QUIE0108 y las 2000 de un ciclo de FP: hay que ampliarla, empezando por reactores,
+     centrífugas, filtros y secaderos.
+  2. **Edición de operador** (después, cuando la completa esté lista): una versión aparte con solo lo imprescindible
+     para trabajar como operador de planta, pensada para presentarla a la empresa de Victor y, si les gusta, que la
+     usen las nuevas incorporaciones. Su punto de partida es la ruta del operador (`src/content/operador.ts`).
+     No se empieza hasta que Victor lo diga. Sigue valiendo la regla de confidencialidad: nada de datos, documentos
+     ni procedimientos reales de la empresa salvo que la empresa los aporte y lo autorice por escrito.
 - **Exactitud**: Victor **no puede revisar el contenido técnico**, así que cada dato, norma y cálculo se verifica con
   fuentes fiables (ICH, EudraLex, Farmacopea, CLP/REACH, BOE para títulos de FP, fabricantes) antes de escribirlo.
   Si algo no se puede verificar, no se inventa: se dice.
