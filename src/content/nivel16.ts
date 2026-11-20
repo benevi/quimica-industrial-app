@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { sistemaDeCalidadAFondo } from "./nivel16-calidad";
 import { desviacionesYCapaAFondo } from "./nivel16-desviaciones";
+import { cambiosYRiesgosAFondo } from "./nivel16-cambios";
 
 const gmp: Lesson[] = [
   {
@@ -511,4 +512,4 @@ Si se añade lectura de código de barras en la carga, P baja a 1 y el NPR baja 
   },
 ];
 
-export const nivel16: Lesson[] = [...gmp, sistemaDeCalidadAFondo, desviacionesYCapaAFondo];
+export const nivel16: Lesson[] = [...gmp, sistemaDeCalidadAFondo, desviacionesYCapaAFondo, cambiosYRiesgosAFondo];
