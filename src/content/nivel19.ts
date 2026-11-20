@@ -328,7 +328,7 @@ Vas a cargar un saco de reactivo y el escáner dice "Lote en cuarentena". No se 
 | Paso | Transacción | Qué hace |
 |---|---|---|
 | 1 | **COR1** | Crear la orden de proceso a partir de la receta maestra |
-| 2 | **COR2** | Liberar la orden (ya se puede fabricar) |
+| 2 | **COR2** | Modificar la orden; desde aquí se **libera** (a partir de ese momento ya se puede fabricar) |
 | 3 | **MIGO**, movimiento **261** | Salida de mercancía: consumir lotes de materia prima para la orden |
 | 4 | **COR6N** | Notificar cada fase (hecha, cuánto se obtuvo) |
 | 5 | **MIGO**, movimiento **101** | Entrada de mercancía: el producto entra en stock **en control de calidad** |

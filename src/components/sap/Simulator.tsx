@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   characteristics,
   confirmPhase,
@@ -112,14 +112,25 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
   const [showHints, setShowHints] = useState(false);
   const { state: cert, completeMission } = useCertState();
 
-  useEffect(() => setS(exam && initial ? initial : load()), [exam, initial]);
+  // Lo que había al abrir: no se guarda nada hasta que el usuario haga algo, para que solo entrar
+  // en la página no cuente como progreso (y no pise lo de otro dispositivo al sincronizar).
+  const pristine = useRef<string | null>(null);
+  useEffect(() => {
+    const st = exam && initial ? initial : load();
+    pristine.current = JSON.stringify(st);
+    setS(st);
+  }, [exam, initial]);
   useEffect(() => {
     if (!s) return;
     onState?.(s);
     if (exam) return;
-    try {
-      window.localStorage.setItem(KEY, JSON.stringify(s));
-    } catch {}
+    const json = JSON.stringify(s);
+    if (json !== pristine.current) {
+      pristine.current = null;
+      try {
+        window.localStorage.setItem(KEY, json);
+      } catch {}
+    }
     for (const m of missions) if (m.done(s) && !cert.missions[m.id]) completeMission(m.id);
   }, [s, cert.missions, completeMission, exam, onState]);
 

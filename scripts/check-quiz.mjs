@@ -18,5 +18,14 @@ for (const f of files) {
     if (!m[2].includes(ans)) { console.error(`${f}: la respuesta ${ans} no aparece en la explicación: ${m[2]}`); errors++; }
   }
 }
+// lectura de números escritos a mano (src/lib/num.ts)
+const { createJiti } = await import("jiti");
+const { readNumbers, matchesNumber } = await createJiti(import.meta.url).import(new URL("../src/lib/num.ts", import.meta.url).pathname);
+const cases = [["1.250", [1250, 1.25]], ["41.800", [41800, 41.8]], ["1,25", [1.25]], ["1.013,25", [1013.25]], ["0.250", [0.25]], ["85 %", [85]], ["12 kg", [12]], ["", []], ["abc", []]];
+for (const [input, want] of cases) {
+  const got = readNumbers(input);
+  if (JSON.stringify(got) !== JSON.stringify(want)) { console.error(`Lectura de «${input}»: ${JSON.stringify(got)}, se esperaba ${JSON.stringify(want)}`); errors++; }
+}
+if (!matchesNumber("1.250", 1250, 0.01) || matchesNumber("", 0, 0.01)) { console.error("matchesNumber no acepta el punto de millares o acepta una respuesta vacía"); errors++; }
 console.log(`${files.length} archivos, ${slugs.size} lecciones, ${errors} errores`);
 process.exit(errors ? 1 : 0);

@@ -65,7 +65,7 @@ export const pictograms: Record<GhsCode, { name: string; en: string; means: stri
   GHS09: {
     name: "Medio ambiente",
     en: "Environment",
-    means: "Peligroso para el medio ambiente acuático (agudo 1, crónico 1 y 2). No lleva palabra de advertencia por sí solo.",
+    means: "Peligroso para el medio ambiente acuático (agudo 1, crónico 1 y 2). Con las categorías agudo 1 y crónico 1 la palabra de advertencia es «Atención»; con crónico 2 lleva el pictograma pero no palabra de advertencia.",
     examples: "Muchos intermedios y principios activos, sales de cobre.",
   },
 };
@@ -398,7 +398,7 @@ export const sdsList: Sds[] = [
       `Estable. **Reacciona violentamente con ácidos.** Con aluminio, zinc y estaño desprende hidrógeno. Absorbe CO₂ del aire.`,
       `Muy corrosivo para todos los tejidos. Produce quemaduras profundas que al principio pueden doler poco. En los ojos causa lesiones graves y permanentes, incluso ceguera.`,
       `Eleva mucho el pH del agua: dañino para los organismos acuáticos hasta que se neutraliza. No se acumula.`,
-      `Neutralizar antes de eliminar. Residuo peligroso, LER orientativo 06 02 05* (otras bases).`,
+      `Neutralizar antes de eliminar. Residuo peligroso, LER orientativo 06 02 04* (hidróxido potásico e hidróxido sódico).`,
       `**UN 1824** · HIDRÓXIDO SÓDICO EN SOLUCIÓN · Clase 8 · Grupo de embalaje II.`,
       `REACH, CLP. APQ: ITC MIE APQ-6 (almacenamiento de líquidos corrosivos).`,
       `${FOOTER("10/01/2026")}`,
@@ -550,7 +550,7 @@ export const sdsList: Sds[] = [
       `Componente natural del aire. Sin efectos.`,
       `Devolver las botellas al proveedor. No liberar en lugares cerrados.`,
       `**UN 1066** · NITRÓGENO COMPRIMIDO · Clase 2.2 (gas no inflamable, no tóxico).`,
-      `Equipos a presión: Real Decreto 2060/2008. Botellas de gas: ITC MIE APQ-5.`,
+      `Equipos a presión: Real Decreto 809/2021 (Reglamento de equipos a presión, que derogó el Real Decreto 2060/2008). Botellas de gas: ITC MIE APQ-5.`,
       `${FOOTER("05/05/2026")}`,
     ],
     questions: [

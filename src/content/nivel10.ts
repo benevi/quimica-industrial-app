@@ -167,7 +167,8 @@ No aparece en la hoja de producción, pero todos los IPC y análisis que la acom
     summary: "Qué ocurre cuando un análisis no cumple y por qué no basta con repetirlo.",
     body: `
 ### Definiciones
-- **OOS** (*Out of Specification*): resultado fuera de la especificación o del límite del IPC.
+- **OOS** (*Out of Specification*): resultado de un análisis fuera de la especificación.
+- Un **control en proceso** (*IPC, in-process control*) que todavía no cumple **no siempre es un OOS**. Si el control sirve para vigilar o ajustar el proceso (por ejemplo, la humedad de un secado que aún no ha terminado), se actúa como diga la hoja: seguir secando y repetir el control. ICH Q7 (apartado 8.36) dice que en esos casos normalmente no hace falta una investigación OOS. Sí se trata como OOS cuando la hoja no prevé qué hacer o el control es un criterio de aceptación del intermedio.
 - **OOT** (*Out of Trend*): dentro de especificación pero diferente de lo habitual (por ejemplo, una impureza que siempre sale 0,02 % y hoy sale 0,09 %).
 
 ### Investigación de un OOS (guía FDA y procedimientos internos)
@@ -318,12 +319,14 @@ Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en 
     summary: "El documento final que acompaña al API y los pasos para que QA libere un lote.",
     body: `
 ### Certificado de análisis (*Certificate of Analysis, CoA*)
-Documento que acompaña a cada lote de API. Según ICH Q7 incluye:
-- Nombre del producto, número de lote, fecha de fabricación y fecha de re-análisis o caducidad.
-- Cada **ensayo**, su **criterio de aceptación** y el **resultado** obtenido (con números, no solo "cumple" cuando el resultado es numérico).
-- Referencia a la especificación o farmacopea.
-- **Firma** de la persona autorizada de la unidad de calidad, con fecha.
-- Nombre y dirección del fabricante.
+Documento con los resultados de los análisis de un lote. Según ICH Q7 (apartado 11.4) se emite para cada lote **cuando el cliente lo solicita**; en la práctica casi todos los envíos de API lo llevan. Según esa guía incluye:
+- Nombre del producto (y su grado, si procede), número de lote y **fecha de liberación** (*date of release*).
+- Fecha de caducidad o de re-análisis.
+- Cada **ensayo**, sus **límites de aceptación** y el **resultado** obtenido (con números, no solo "cumple", cuando el resultado es numérico).
+- **Fecha y firma** de la persona autorizada de la unidad de calidad.
+- Nombre, dirección y teléfono del **fabricante original**.
+
+Muchos certificados añaden además la fecha de fabricación y la referencia a la especificación o farmacopea. Es habitual y útil, aunque ICH Q7 no lo exige.
 
 ### Liberación del lote (*batch release*)
 QA solo libera si todo cuadra:

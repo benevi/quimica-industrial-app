@@ -18,20 +18,20 @@ En GMP, **lo que no está escrito no se ha hecho**. Y lo escrito tiene que ser f
 | **L**egible | *Legible* | ¿Se puede leer, hoy y dentro de 10 años? |
 | **C**ontemporáneo | *Contemporaneous* | ¿Se registró en el momento? |
 | **O**riginal | *Original* | ¿Es el primer registro, no una copia? |
-| **A**preciso | *Accurate* | ¿Refleja exactamente lo que pasó? |
+| Ex**a**cto | *Accurate* | ¿Refleja exactamente lo que pasó? |
 | **C**ompleto | *Complete* | ¿Está todo, sin huecos? |
 | **C**onsistente | *Consistent* | ¿Fechas y horas siguen un orden lógico? |
 | **D**uradero | *Enduring* | ¿Se conservará? |
 | **D**isponible | *Available* | ¿Se puede consultar cuando haga falta? |
 
-Las cinco primeras son "ALCOA"; las cuatro últimas son el "+".
+Las cinco primeras son "ALCOA"; las cuatro últimas son el "+". La sigla sale de las iniciales **en inglés** (*Attributable, Legible, Contemporaneous, Original, Accurate*); en español la última A es **exacto**.
 `,
     plant: `
 **Bien hecho**: lees 23,4 °C en el panel, lo anotas en ese momento en la hoja con bolígrafo indeleble, pones la hora del reloj de planta y tus iniciales.
 
 **Mal hecho** (y por qué):
 - Apuntarlo en el guante y pasarlo después → no es **original** ni **contemporáneo**.
-- Escribir 23 °C "porque es lo mismo" → no es **preciso**.
+- Escribir 23 °C "porque es lo mismo" → no es **exacto**.
 - Dejar la casilla de hora vacía → no es **completo**.
 - Que firme un compañero por ti → no es **atribuible**, y es una falta grave.
 `,

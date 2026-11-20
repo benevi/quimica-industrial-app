@@ -260,7 +260,9 @@ Situaciones peligrosas:
 ### Aumento adiabático de temperatura
 Cuánto subiría la temperatura si **no se retirara nada de calor**:
 
-> ΔT adiabático = calor de reacción (kJ/kg) / calor específico (kJ/kg·K)
+> ΔT adiabático = calor de reacción (kJ por kg de **masa total** de reacción) / calor específico (kJ/kg·K)
+
+El calor va referido a toda la masa que hay en el reactor (reactivos y disolvente), no solo al reactivo. Si el dato viene en kJ por mol o por kg de reactivo, primero hay que repartirlo entre toda la masa.
 
 Con 250 kJ/kg y 2,0 kJ/(kg·K): ΔT = **125 °C**. Si partes de 20 °C, podrías llegar a 145 °C: por encima del punto de ebullición de muchos disolventes.
 
@@ -488,7 +490,8 @@ Siempre van juntas: lo que uno pierde, otro lo gana. Por eso se llaman **redox**
 |---|---|---|
 | Hidrogenación (reducción) | H₂ + catalizador Pd/C | H₂ muy inflamable; el catalizador seco con disolvente puede **inflamarse solo** (pirofórico) |
 | Reducción con hidruros | NaBH₄, LiAlH₄ | Desprenden **H₂** con agua o ácidos |
-| Oxidación | Peróxido de hidrógeno, hipoclorito | Liberan oxígeno y calor; pueden descomponerse de forma violenta |
+| Oxidación | Peróxido de hidrógeno (agua oxigenada) | Libera oxígeno y calor; puede descomponerse de forma violenta |
+| Oxidación | Hipoclorito sódico (lejía) | **Con ácidos libera cloro, un gas tóxico** (frase EUH031 de su etiqueta). Nunca se mezcla con ácidos ni con sus residuos |
 
 ### Reglas de seguridad
 - Los oxidantes **nunca** se mezclan con disolventes o materia orgánica fuera del procedimiento.

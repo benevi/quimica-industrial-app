@@ -29,7 +29,7 @@ Muchos procesos de síntesis química usan disolventes orgánicos y temperaturas
 Restos de la pared de las bacterias Gram negativas. Aunque las bacterias estén muertas, las endotoxinas producen **fiebre** si llegan a la sangre. **No se destruyen** con la esterilización normal: hacen falta temperaturas muy altas (despirogenación con calor seco a unos 250 °C) o evitarlas desde el principio.
 `,
     plant: `
-El agua purificada que se usa en el último lavado del producto tiene control microbiológico y de endotoxinas. Si el sistema de agua da un resultado alto, puede afectar a los lotes en los que se usó.
+El agua purificada que se usa en el último lavado del producto tiene control microbiológico. Si el API se va a usar para fabricar un medicamento estéril (por ejemplo, un inyectable), ICH Q7 (apartado 4.34) pide controlar además las **endotoxinas** (restos de bacterias que provocan fiebre) en el agua de las últimas etapas. Si el sistema de agua da un resultado alto, puede afectar a los lotes en los que se usó.
 `,
     batchRecord: `
 Identificación del agua usada (punto de uso), cumplimiento de su análisis y tiempos máximos de almacenamiento de soluciones acuosas.
@@ -160,6 +160,26 @@ La norma **ISO 14644-1** clasifica por partículas por m³ de aire. Las GMP euro
 | B | Entorno del grado A | ISO 5 |
 | C | Etapas menos críticas de productos estériles | ISO 7 |
 | D | Etapas de menor riesgo | ISO 8 |
+
+Los límites del Anexo 1 (versión de 2022) para clasificar una sala, en **partículas por m³ de aire**:
+
+| Grado | ≥ 0,5 µm, en reposo | ≥ 0,5 µm, en funcionamiento | ≥ 5 µm, en reposo | ≥ 5 µm, en funcionamiento |
+|---|---|---|---|---|
+| A | 3 520 | 3 520 | No especificado | No especificado |
+| B | 3 520 | 352 000 | No especificado | 2 930 |
+| C | 352 000 | 3 520 000 | 2 930 | 29 300 |
+| D | 3 520 000 | No predeterminado | 29 300 | No predeterminado |
+
+«En reposo» (*at rest*) es con la instalación en marcha pero sin personas trabajando; «en funcionamiento» (*in operation*), con el proceso y el personal. Las personas son la mayor fuente de partículas: por eso el límite en funcionamiento es más alto.
+
+Y los límites de **microorganismos** al cualificar la sala (UFC, unidades formadoras de colonias):
+
+| Grado | Aire (UFC/m³) | Placa de sedimentación de 90 mm (UFC en 4 h) | Placa de contacto de 55 mm (UFC por placa) |
+|---|---|---|---|
+| A | Sin crecimiento | Sin crecimiento | Sin crecimiento |
+| B | 10 | 5 | 5 |
+| C | 100 | 50 | 25 |
+| D | 200 | 100 | 50 |
 
 Para **API no estériles**, las etapas finales (secado, molienda, envasado) suelen hacerse en salas controladas, a menudo con requisitos parecidos a un grado D. Los **API estériles** requieren grados A/B.
 

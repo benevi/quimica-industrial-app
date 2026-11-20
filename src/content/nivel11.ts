@@ -38,7 +38,7 @@ export const nivel11: Lesson[] = [
 ### Válvulas manuales y automáticas: abrir y cerrar
 - **Manual**: la mueve el operador con una **palanca** (bola, mariposa: ¼ de vuelta) o un **volante** (asiento, diafragma: varias vueltas). En las de palanca, **palanca paralela a la tubería = abierta**; perpendicular = cerrada.
 - **Automática todo/nada** (*on/off valve*, en el P&ID suele llamarse **XV**): la abre o la cierra el sistema de control con un **actuador neumático** (*pneumatic actuator*) que recibe aire de instrumentos a través de una **electroválvula** (*solenoid valve*).
-- **Válvula de control** (*control valve*, **FCV**, **TCV**…): no solo abre o cierra, sino que se queda en cualquier posición intermedia (0–100 %) que le pide el controlador.
+- **Válvula de control** (*control valve*; en los planos, **FV**, **TV**, **LV**… según la variable que controla, y en muchas plantas **FCV**, **TCV**…): no solo abre o cierra, sino que se queda en cualquier posición intermedia (0–100 %) que le pide el controlador.
 
 **Posición de fallo** (*fail-safe position*): qué hace la válvula si se corta el aire o la electricidad. Se elige para que el proceso quede **seguro**:
 | Posición de fallo | Abreviatura | Ejemplo |
@@ -160,7 +160,8 @@ Una **bomba** (*pump*) da energía a un líquido para moverlo a otro sitio o a m
 
 **De desplazamiento positivo** (*positive displacement*)
 - Mueven un volumen fijo por ciclo: **membrana neumática** (*AODD, air-operated double diaphragm*), **engranajes** (*gear*), **lóbulos**, **peristáltica**, **pistón**.
-- **Nunca** se cierra la impulsión con la bomba en marcha: la presión sube hasta romper algo. Llevan **válvula de alivio**.
+- En las de **engranajes, lóbulos, pistón y peristáltica** **nunca** se cierra la impulsión con la bomba en marcha: como empujan un volumen fijo, la presión sube hasta romper algo. Por eso llevan **válvula de alivio** (*relief valve*).
+- La de **membrana neumática** es la excepción: con la salida cerrada simplemente **se para sola**, porque no puede dar más presión que la del aire comprimido que la mueve. Aun así, la manguera y la línea tienen que aguantar esa presión.
 - La de membrana neumática es muy común en plantas químicas: aguanta trabajar en vacío y suspensiones, y no tiene motor eléctrico (útil en zonas ATEX).
 
 ### Problemas típicos
@@ -192,7 +193,7 @@ Al trasvasar una suspensión con una bomba de membrana, el operador nota golpes 
     quiz: [
       {
         kind: "choice",
-        q: "¿Qué no debes hacer nunca con una bomba de desplazamiento positivo en marcha?",
+        q: "¿Qué no debes hacer nunca con una bomba de engranajes o de lóbulos en marcha?",
         options: [
           "Abrir la aspiración",
           "Cerrar la válvula de impulsión",
@@ -200,7 +201,7 @@ Al trasvasar una suspensión con una bomba de membrana, el operador nota golpes 
           "Vigilar fugas",
         ],
         answer: 1,
-        explain: "Mueve un volumen fijo: con la salida cerrada la presión sube hasta romper la bomba o la línea.",
+        explain: "Mueve un volumen fijo en cada vuelta: con la salida cerrada la presión sube hasta romper la bomba o la línea. La de membrana neumática es distinta: con la salida cerrada se para sola.",
       },
       {
         kind: "number",
@@ -341,7 +342,8 @@ Las temperaturas exactas dependen de la planta.
 Si una reacción desprende calor más rápido de lo que la camisa puede quitar, la temperatura sube, la reacción se acelera y desprende aún más calor. Es la **reacción descontrolada** o **fuga térmica** (*thermal runaway*): puede acabar en sobrepresión, rotura del reactor o incendio.
 
 Medidas de control:
-- **Adición dosificada** (*semi-batch*): el reactivo se añade poco a poco. Si falla el frío, **se para la adición** y la reacción se frena.
+- **Adición dosificada** (*semi-batch*): el reactivo se añade poco a poco. Si falla el frío, **se para la adición**: la reacción deja de recibir reactivo nuevo.
+- **Sin acumulación** (*accumulation*): parar la adición solo frena la reacción si el reactivo se ha ido gastando según entraba. Si se ha añadido reactivo que **no ha reaccionado todavía** (porque la masa estaba demasiado fría, el agitador parado o la reacción no había arrancado), ese reactivo sigue ahí y puede reaccionar de golpe aunque la adición esté parada. Por eso no se dosifica con la temperatura por debajo de la que marca la hoja ni sin agitación.
 - Límites de temperatura con **alarmas** y **enclavamientos** que cortan la adición.
 - Estudios de seguridad (DSC, calorimetría de reacción) que fijan la temperatura máxima segura.
 
@@ -377,7 +379,7 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
           "Seguir igual",
         ],
         answer: 1,
-        explain: "Sin adición no se genera más calor: es la forma más rápida de frenar la reacción.",
+        explain: "Al parar la adición la reacción deja de recibir reactivo nuevo: es lo primero y lo más rápido. Ojo: el reactivo que ya esté dentro sin reaccionar (acumulado) sigue desprendiendo calor, así que hay que seguir vigilando la temperatura y avisar.",
       },
       {
         kind: "choice",
@@ -391,12 +393,12 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
         q: "¿Por qué una adición dosificada (semi-batch) es más segura que cargar todo el reactivo de golpe?",
         options: [
           "Porque es más rápida",
-          "Porque si falla el frío se para la adición y deja de generarse calor; con todo cargado no se puede frenar",
+          "Porque si falla el frío se para la adición y la reacción deja de recibir reactivo; con todo cargado no se puede frenar",
           "Porque usa menos reactivo",
           "Porque no necesita agitación",
         ],
         answer: 1,
-        explain: "Con la adición controlada, el calor generado depende de lo que se añade: parar la bomba frena la reacción.",
+        explain: "Con la adición controlada, el calor generado depende de lo que se añade: al parar la bomba solo puede reaccionar lo que ya está dentro. Funciona si el reactivo se va gastando según entra; si se ha acumulado sin reaccionar, esa ventaja se pierde.",
       },
     ],
   },

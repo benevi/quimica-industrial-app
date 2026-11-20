@@ -51,6 +51,7 @@ export const preps: ExamPrep[] = [
       { label: "Escala", value: "0 a 10; hay que sacar al menos 5 en la prueba final (y en cada unidad formativa)" },
       { label: "Nota del módulo", value: "30 % evaluación continua + 70 % prueba final" },
       { label: "Si suspendes", value: "Segunda convocatoria con una prueba paralela" },
+      { label: "Para presentarte", value: "Haber asistido al menos al 75 % de las horas del módulo si es presencial, o haber hecho todas las actividades si es teleformación" },
       { label: "Por experiencia", value: "Acreditación de competencias: entrevista, observación en el puesto o simulación práctica" },
     ],
     formatNote:

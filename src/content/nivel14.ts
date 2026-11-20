@@ -115,7 +115,7 @@ El aire tiene un **20,9 %** de oxígeno. El nitrógeno **no huele, no se ve y no
 Para destilar, secar y transferir. Lo generan **bombas de vacío** (de anillo líquido, secas de tornillo…). Los vapores que salen se condensan antes de la bomba para recuperar disolvente y no contaminar.
 `,
     plant: `
-Un compañero quiere mirar dentro de un reactor vacío pero inertizado para ver si quedan restos. Le paras: el reactor contiene nitrógeno. Para inspeccionarlo hay que ventilar, medir O₂ y seguir el procedimiento de espacio confinado o usar una cámara o linterna desde fuera.
+Un compañero quiere mirar dentro de un reactor vacío pero inertizado para ver si quedan restos. Le paras: el reactor contiene nitrógeno. Tampoco vale asomarse "solo un momento" con una linterna: junto a la boca de hombre abierta ya falta oxígeno. Si hay que mirar dentro sin entrar, se hace por la mirilla o con una cámara, con iluminación apta para zona ATEX y sin acercar la cara a la boca. Si hay que acercarse o entrar, primero se ventila, se mide el O₂ y se sigue el procedimiento de espacio confinado con su permiso.
 `,
     batchRecord: `
 - Comprobación de inertización: "O₂ ≤ x % (lectura del analizador)".

@@ -11,7 +11,7 @@ export const nivel12Separacion: Lesson[] = [
     summary: "Cómo se pasa el producto de un líquido a otro aprovechando que no se mezclan.",
     body: `
 ### La idea
-Dos líquidos **inmiscibles** (por ejemplo, agua y tolueno) forman **dos fases** (*phases*). El de menor densidad queda arriba. Cada sustancia se reparte entre las dos según dónde se disuelva mejor.
+Dos líquidos **inmiscibles** (por ejemplo, agua y tolueno) forman **dos fases** (*phases*). El de menor densidad queda arriba. Ojo: **la fase orgánica no siempre es la de arriba**. El tolueno y el acetato de etilo pesan menos que el agua y flotan, pero el diclorometano y otros disolventes clorados pesan más y quedan **abajo**. Antes de separar hay que saber cuál es cuál. Cada sustancia se reparte entre las dos según dónde se disuelva mejor.
 
 - **Fase orgánica** (*organic phase*): el disolvente orgánico.
 - **Fase acuosa** (*aqueous phase*): el agua (a veces con sales, ácido o base).
