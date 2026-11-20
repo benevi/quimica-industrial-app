@@ -2,6 +2,8 @@ import type { Lesson } from "./types";
 import { permisosAFondo } from "./nivel15-permisos";
 import { epiAFondo } from "./nivel15-epi";
 import { exposicionAFondo } from "./nivel15-exposicion";
+import { atexAFondo } from "./nivel15-atex";
+import { emergenciasYResiduosAFondo } from "./nivel15-emergencias";
 
 const seguridad: Lesson[] = [
   {
@@ -503,4 +505,4 @@ Al desconectar una manguera caen unos 2 L de metanol al suelo. El metanol es inf
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel15-tema.ts.
-export const nivel15: Lesson[] = [...seguridad, permisosAFondo, epiAFondo, exposicionAFondo];
+export const nivel15: Lesson[] = [...seguridad, permisosAFondo, epiAFondo, exposicionAFondo, atexAFondo, emergenciasYResiduosAFondo];
