@@ -1,4 +1,6 @@
 import type { Lesson } from "./types";
+import { sistemaDeCalidadAFondo } from "./nivel16-calidad";
+import { desviacionesYCapaAFondo } from "./nivel16-desviaciones";
 
 const gmp: Lesson[] = [
   {
@@ -97,7 +99,7 @@ Un compañero te dice: "este paso siempre lo hacemos un poco distinto, va más r
   {
     slug: "buenas-practicas-documentacion",
     level: 16,
-    order: 2,
+    order: 3,
     title: "Buenas prácticas de documentación",
     titleEn: "Good Documentation Practices (GDP)",
     minutes: 15,
@@ -184,7 +186,7 @@ El 245 sigue legible, se ve quién lo corrigió, cuándo y por qué.
   {
     slug: "desviaciones",
     level: 16,
-    order: 3,
+    order: 5,
     title: "Desviaciones e investigaciones",
     titleEn: "Deviations and investigations",
     minutes: 15,
@@ -287,7 +289,7 @@ Durante una adición la temperatura llega a 31 °C y el máximo es 25 °C. Paras
   {
     slug: "capa-y-control-de-cambios",
     level: 16,
-    order: 4,
+    order: 6,
     title: "CAPA y control de cambios",
     titleEn: "CAPA and change control",
     minutes: 12,
@@ -357,7 +359,7 @@ Mantenimiento quiere sustituir una bomba por otro modelo "igual pero más modern
   {
     slug: "cualificacion-y-validacion",
     level: 16,
-    order: 5,
+    order: 8,
     title: "Cualificación y validación",
     titleEn: "Qualification and validation",
     minutes: 15,
@@ -440,7 +442,7 @@ En un reactor recién instalado verás etiquetas "Equipo en cualificación – n
   {
     slug: "gestion-de-riesgos",
     level: 16,
-    order: 6,
+    order: 10,
     title: "Gestión de riesgos de calidad (ICH Q9(R1))",
     titleEn: "Quality risk management",
     minutes: 12,
@@ -509,4 +511,4 @@ Si se añade lectura de código de barras en la carga, P baja a 1 y el NPR baja 
   },
 ];
 
-export const nivel16: Lesson[] = [...gmp];
+export const nivel16: Lesson[] = [...gmp, sistemaDeCalidadAFondo, desviacionesYCapaAFondo];
