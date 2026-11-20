@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { lazosAFondo } from "./nivel13-lazos";
 import { pidAFondo } from "./nivel13-pid";
+import { sistemaDeControlAFondo } from "./nivel13-sistema";
 
 const control: Lesson[] = [
   {
@@ -453,4 +454,4 @@ Salta "TAHH-101: temperatura muy alta en R-101". El enclavamiento cierra la vál
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel13-tema.ts.
-export const nivel13: Lesson[] = [...control, lazosAFondo, pidAFondo];
+export const nivel13: Lesson[] = [...control, lazosAFondo, pidAFondo, sistemaDeControlAFondo];
