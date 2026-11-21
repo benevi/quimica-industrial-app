@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel5: Lesson[] = [
+const muestreo: Lesson[] = [
   {
     slug: "plan-de-muestreo",
     level: 5,
@@ -81,7 +81,7 @@ Llegan 30 bidones de un disolvente. √30 + 1 = 6,5. El procedimiento de esta pl
   {
     slug: "toma-de-muestras",
     level: 5,
-    order: 2,
+    order: 3,
     title: "Toma de muestras de sólidos y líquidos",
     titleEn: "Taking samples",
     minutes: 15,
@@ -158,7 +158,7 @@ IPC del reactor a 60 °C. Conectas el vial a la válvula tomamuestras, purgas lo
   {
     slug: "conservacion-y-custodia",
     level: 5,
-    order: 3,
+    order: 5,
     title: "Conservación, transporte y cadena de custodia",
     titleEn: "Sample storage and chain of custody",
     minutes: 10,
@@ -223,7 +223,7 @@ Tomas una muestra para Karl Fischer del producto seco. La metes en un vial de vi
   {
     slug: "preparacion-de-la-muestra",
     level: 5,
-    order: 4,
+    order: 7,
     title: "Preparación de la muestra en el laboratorio",
     titleEn: "Sample preparation",
     minutes: 12,
@@ -287,3 +287,6 @@ En el registro analítico: pesadas, volúmenes de cada matraz y pipeta, diluyent
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel5-tema.ts.
+export const nivel5: Lesson[] = [...muestreo];
