@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel8: Lesson[] = [
+const fisicos: Lesson[] = [
   {
     slug: "punto-de-fusion-dsc",
     level: 8,
@@ -78,7 +78,7 @@ Punto de fusión en la especificación de intermedios y API; datos de DSC en est
   {
     slug: "densidad-viscosidad",
     level: 8,
-    order: 2,
+    order: 3,
     title: "Densidad y viscosidad",
     titleEn: "Density and viscosity",
     minutes: 12,
@@ -142,7 +142,7 @@ Densidad de soluciones preparadas; densidad aparente y compactada en el CoA de a
   {
     slug: "tamano-de-particula",
     level: 8,
-    order: 3,
+    order: 5,
     title: "Tamaño de partícula y tamizado",
     titleEn: "Particle size",
     minutes: 12,
@@ -220,7 +220,7 @@ Parámetros del molino (velocidad, tamiz) y resultado del tamaño de partícula.
   {
     slug: "aspecto-solubilidad",
     level: 8,
-    order: 4,
+    order: 7,
     title: "Aspecto, color y solubilidad",
     titleEn: "Appearance, colour and solubility",
     minutes: 10,
@@ -290,3 +290,6 @@ Aspecto del producto al descargar (a veces se registra en la hoja); aspecto en e
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel8-tema.ts.
+export const nivel8: Lesson[] = [...fisicos];
