@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel9: Lesson[] = [
+const micro: Lesson[] = [
   {
     slug: "microorganismos-y-contaminacion",
     level: 9,
@@ -73,7 +73,7 @@ Identificación del agua usada (punto de uso), cumplimiento de su análisis y ti
   {
     slug: "recuento-microbiano-endotoxinas",
     level: 9,
-    order: 2,
+    order: 3,
     title: "Ensayos microbiológicos: recuento y endotoxinas",
     titleEn: "Microbial enumeration and endotoxin testing",
     minutes: 15,
@@ -138,7 +138,7 @@ Resultados microbiológicos en el CoA. Tardan días, por eso el lote puede esper
   {
     slug: "salas-limpias",
     level: 9,
-    order: 3,
+    order: 5,
     title: "Salas limpias y su clasificación",
     titleEn: "Clean rooms and classification",
     minutes: 15,
@@ -242,7 +242,7 @@ Comprobación de presiones diferenciales, temperatura y humedad de la sala antes
   {
     slug: "vestimenta-y-comportamiento",
     level: 9,
-    order: 4,
+    order: 7,
     title: "Vestimenta y comportamiento en zonas limpias",
     titleEn: "Gowning and clean-room behaviour",
     minutes: 10,
@@ -309,3 +309,6 @@ A veces se registra la entrada a la sala o la comprobación de vestimenta.
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel9-tema.ts.
+export const nivel9: Lesson[] = [...micro];
