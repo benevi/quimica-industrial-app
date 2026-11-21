@@ -1,6 +1,10 @@
 import type { Lesson } from "./types";
+import { mantenimientoAFondo } from "./nivel14-mantenimiento";
+import { gasesDePlantaAFondo } from "./nivel14-gases";
+import { hvacYSalasAFondo } from "./nivel14-hvac";
+import { aguaAFondo } from "./nivel14-agua";
 
-export const nivel14: Lesson[] = [
+const servicios: Lesson[] = [
   {
     slug: "agua-farmaceutica",
     level: 14,
@@ -88,7 +92,7 @@ La hoja indica "Lavar la torta con 200 L de agua purificada del punto de uso PU-
   {
     slug: "aire-y-nitrogeno",
     level: 14,
-    order: 2,
+    order: 3,
     title: "Aire comprimido, nitrógeno y vacío",
     titleEn: "Compressed air, nitrogen and vacuum",
     minutes: 12,
@@ -162,7 +166,7 @@ Un compañero quiere mirar dentro de un reactor vacío pero inertizado para ver 
   {
     slug: "hvac-y-presiones",
     level: 14,
-    order: 3,
+    order: 5,
     title: "HVAC: aire de las salas y cascada de presiones",
     titleEn: "HVAC: room air and pressure cascades",
     minutes: 12,
@@ -239,7 +243,7 @@ En la sala de envasado del API (con requisitos similares a un grado D; los grado
   {
     slug: "mantenimiento-gmp",
     level: 14,
-    order: 4,
+    order: 7,
     title: "Mantenimiento en entorno GMP",
     titleEn: "Maintenance in a GMP environment",
     minutes: 15,
@@ -320,3 +324,6 @@ El agitador del R-102 hace un ruido nuevo. El operador detiene el lote según el
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel14-tema.ts.
+export const nivel14: Lesson[] = [...servicios, mantenimientoAFondo, gasesDePlantaAFondo, hvacYSalasAFondo, aguaAFondo];
