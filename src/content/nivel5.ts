@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { custodiaAFondo } from "./nivel5-custodia";
 
 const muestreo: Lesson[] = [
   {
@@ -289,4 +290,4 @@ En el registro analítico: pesadas, volúmenes de cada matraz y pipeta, diluyent
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel5-tema.ts.
-export const nivel5: Lesson[] = [...muestreo];
+export const nivel5: Lesson[] = [...muestreo, custodiaAFondo];
