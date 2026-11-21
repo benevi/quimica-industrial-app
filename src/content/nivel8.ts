@@ -1,5 +1,6 @@
 import type { Lesson } from "./types";
 import { aspectoAFondo } from "./nivel8-aspecto";
+import { densidadAFondo } from "./nivel8-densidad";
 
 const fisicos: Lesson[] = [
   {
@@ -95,13 +96,13 @@ La densidad sirve para **identificar** un líquido, comprobar la **concentració
 - **Densidad aparente** (*bulk density*): masa de polvo / volumen que ocupa sin compactar.
 - **Densidad compactada** (*tapped density*): tras golpear la probeta un número fijo de veces.
 
-Con ellas se calcula el **índice de Hausner** = compactada / aparente. Cuanto más bajo, mejor fluye el polvo. La Farmacopea Europea (capítulo 2.9.36) usa esta escala: 1,00–1,11 **excelente**; 1,12–1,18 **buena**; 1,19–1,25 **aceptable**; 1,26–1,34 **pasable**; por encima, mala o muy mala. Importa para descargar, envasar y para el cliente que fabricará comprimidos.
+Con ellas se calcula el **índice de Hausner** = compactada / aparente. Cuanto más bajo, mejor fluye el polvo. La farmacopea tiene una escala que clasifica la fluidez según este índice; es de pago y aquí no la reproducimos: el límite de cada producto lo fija su especificación. Importa para descargar, envasar y para el cliente que fabricará comprimidos.
 
 ### Viscosidad (*viscosity*)
 Resistencia de un líquido a fluir. El agua a 20 °C tiene ~1 mPa·s; un aceite, cientos. Se mide con **viscosímetros** capilares o rotacionales. En planta afecta a bombeos, filtraciones y agitación. La viscosidad **baja al calentar**.
 `,
     plant: `
-Un polvo tiene densidad aparente 0,50 g/mL y compactada 0,62 g/mL. Índice de Hausner = 0,62 / 0,50 = **1,24** → fluye razonablemente bien.
+Un polvo tiene densidad aparente 0,50 g/mL y compactada 0,62 g/mL. Índice de Hausner = 0,62 / 0,50 = **1,24**: el polvo se asienta algo al golpearlo. Si cumple o no lo dice la especificación del producto.
 `,
     batchRecord: `
 Densidad de soluciones preparadas; densidad aparente y compactada en el CoA de algunos API.
@@ -172,7 +173,7 @@ Ejemplo: d90 ≤ 50 µm significa que el 90 % de las partículas mide menos de 5
 - Con la **molienda** y el **tamizado** posterior.
 `,
     plant: `
-La especificación del cliente pide d90 ≤ 100 µm. Tras secar, el producto da d90 = 180 µm. Se muele siguiendo la hoja (molino de pines a cierta velocidad) y se repite el análisis: d90 = 85 µm → cumple.
+La especificación del cliente pide d90 ≤ 100 µm. Tras secar, el producto da d90 = 180 µm. Se muele siguiendo la hoja (molino de pines a cierta velocidad) y se repite el análisis: d90 = 85 µm, que cumple.
 `,
     batchRecord: `
 Parámetros del molino (velocidad, tamiz) y resultado del tamaño de partícula.
@@ -293,4 +294,4 @@ Aspecto del producto al descargar (a veces se registra en la hoja); aspecto en e
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel8-tema.ts.
-export const nivel8: Lesson[] = [...fisicos, aspectoAFondo];
+export const nivel8: Lesson[] = [...fisicos, aspectoAFondo, densidadAFondo];
