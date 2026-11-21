@@ -1,5 +1,6 @@
 import type { Lesson } from "./types";
 import { trazabilidadAFondo } from "./nivel17-trazabilidad";
+import { recepcionAFondo } from "./nivel17-recepcion";
 
 const logistica: Lesson[] = [
   {
@@ -323,4 +324,4 @@ Un cliente reclama partículas negras en un bidón. Con el número de lote, Cali
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel17-tema.ts.
-export const nivel17: Lesson[] = [...logistica, trazabilidadAFondo];
+export const nivel17: Lesson[] = [...logistica, trazabilidadAFondo, recepcionAFondo];
