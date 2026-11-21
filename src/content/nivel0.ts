@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel0: Lesson[] = [
+const bases0: Lesson[] = [
   {
     slug: "matematicas-utiles",
     level: 0,
@@ -83,7 +83,7 @@ La hoja dice: *"Cargar 6,0 L de agua por cada kg de producto húmedo"*. Tu produ
   {
     slug: "unidades-y-conversiones",
     level: 0,
-    order: 2,
+    order: 3,
     title: "Unidades y conversiones",
     titleEn: "Units and conversions",
     minutes: 15,
@@ -157,7 +157,7 @@ En el panel ves 0,12 bar absolutos. 0,12 bar = 120 mbar → **cumple** (120 ≤ 
   {
     slug: "densidad",
     level: 0,
-    order: 3,
+    order: 5,
     title: "Densidad: de litros a kilos",
     titleEn: "Density",
     minutes: 10,
@@ -233,7 +233,7 @@ Si te equivocas y cargas 300 L pensando que son 300 kg, en realidad cargas 300 �
   {
     slug: "planta-de-api",
     level: 0,
-    order: 4,
+    order: 7,
     title: "Cómo es una planta de API",
     titleEn: "Inside an API plant",
     minutes: 12,
@@ -307,3 +307,6 @@ Un día típico: recibes el turno (*shift handover*), revisas en qué paso está
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel0-tema.ts.
+export const nivel0: Lesson[] = [...bases0];
