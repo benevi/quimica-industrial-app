@@ -1,5 +1,6 @@
 import type { Lesson } from "./types";
 import { cicloAFondo } from "./nivel21-ciclo";
+import { csvAFondo } from "./nivel21-csv";
 
 /** Nivel 21. Validación de sistemas informatizados: ciclo de vida completo. */
 const validacion: Lesson[] = [
@@ -131,7 +132,7 @@ Si una prueba **falla**, se registra una **incidencia de prueba** (*test inciden
 ### Más pruebas donde hay más riesgo
 GAMP 5 (2.ª edición) insiste en el **pensamiento crítico** (*critical thinking*): el esfuerzo se concentra en las funciones de **alto riesgo** (cálculos de cargas, estados de lote, firmas, audit trail) y se aligera en las de bajo riesgo (un informe de consulta). También admite métodos **ágiles** y pruebas **automatizadas**, siempre que la herramienta sea adecuada y la evidencia se conserve.
 
-La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*) y en **febrero de 2026** la sustituyó por una versión revisada (*Computer Software Assurance for Production and Quality Management System Software*). Está pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos, pero su idea se ha extendido: para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
+La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*) y en **febrero de 2026** la sustituyó por una versión revisada (*Computer Software Assurance for Production and Quality Management System Software*). Está pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos ni para principios activos; su idea central es que, para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
 
 ### Para un desarrollador web
 Lo reconocerás: requisitos → historias de usuario, OQ → pruebas funcionales y de integración, PQ → pruebas de aceptación, RTM → cobertura de requisitos, control de cambios → *pull requests* revisados, entornos de **desarrollo**, **pruebas/validación** y **producción** separados. La diferencia es que en GMP **todo deja evidencia firmada** y QA lo aprueba.
@@ -304,4 +305,4 @@ Informática anuncia un parche urgente de Windows para las estaciones del SCADA.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel21-tema.ts.
-export const nivel21: Lesson[] = [...validacion, cicloAFondo];
+export const nivel21: Lesson[] = [...validacion, cicloAFondo, csvAFondo];
