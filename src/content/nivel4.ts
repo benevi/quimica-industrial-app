@@ -1,5 +1,6 @@
 import type { Lesson } from "./types";
 import { reactivosPatronesAFondo } from "./nivel4-patrones";
+import { volumetricoAFondo } from "./nivel4-volumetrico";
 
 const laboratorio: Lesson[] = [
   {
@@ -478,4 +479,4 @@ El IPC de humedad da 0,9 % y el límite es 0,5 %. El laboratorio no "repite hast
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel4-tema.ts.
-export const nivel4: Lesson[] = [...laboratorio, reactivosPatronesAFondo];
+export const nivel4: Lesson[] = [...laboratorio, reactivosPatronesAFondo, volumetricoAFondo];
