@@ -1,6 +1,12 @@
 import type { Lesson } from "./types";
+import { equilibrioAFondo } from "./nivel2-equilibrio";
+import { estequiometriaAFondo } from "./nivel2-estequiometria";
+import { termoquimicaAFondo } from "./nivel2-termoquimica";
+import { cineticaAFondo } from "./nivel2-cinetica";
+import { balanceAFondo } from "./nivel2-balance";
+import { redoxAFondo } from "./nivel2-redox";
 
-export const nivel2: Lesson[] = [
+const reacciones: Lesson[] = [
   {
     slug: "ecuaciones-y-estequiometria",
     level: 2,
@@ -157,7 +163,7 @@ El limitante es el **anhídrido**: quedará aminofenol sin reaccionar, que es un
   {
     slug: "rendimiento-y-balance",
     level: 2,
-    order: 3,
+    order: 4,
     title: "Rendimiento, pureza y balance de materia",
     titleEn: "Yield, purity and mass balance",
     minutes: 12,
@@ -234,7 +240,7 @@ Rendimiento = 58,9 / 69,26 × 100 = **85,0 %**. Rango de la hoja: 80–90 % → 
   {
     slug: "calor-de-reaccion",
     level: 2,
-    order: 4,
+    order: 6,
     title: "Calor de reacción y reacciones descontroladas",
     titleEn: "Reaction heat and thermal runaway",
     minutes: 18,
@@ -323,7 +329,7 @@ A los 40 minutos la T llega a 25,5 °C. Detienes la bomba, esperas a que baje co
   {
     slug: "velocidad-y-catalisis",
     level: 2,
-    order: 5,
+    order: 8,
     title: "Velocidad de reacción y catalizadores",
     titleEn: "Reaction rate and catalysis",
     minutes: 12,
@@ -397,7 +403,7 @@ A las 3 h el IPC da 1,8 % → sigues 1 h. A las 4 h da 0,6 % → cumple, pasas a
   {
     slug: "equilibrio-quimico",
     level: 2,
-    order: 6,
+    order: 10,
     title: "Equilibrio químico",
     titleEn: "Chemical equilibrium",
     minutes: 12,
@@ -471,7 +477,7 @@ En una esterificación la hoja dice *"Reflujo con tolueno separando agua en el D
   {
     slug: "oxidacion-reduccion",
     level: 2,
-    order: 7,
+    order: 12,
     title: "Oxidación y reducción",
     titleEn: "Oxidation and reduction (redox)",
     minutes: 15,
@@ -546,7 +552,7 @@ Fin de una hidrogenación: *"Despresurizar, purgar 3 veces con N₂, filtrar el 
   {
     slug: "reacciones-en-api",
     level: 2,
-    order: 8,
+    order: 14,
     title: "Tipos de reacción habituales en API",
     titleEn: "Common reaction types in API manufacturing",
     minutes: 15,
@@ -622,3 +628,6 @@ En la hoja ves "Etapa 3: desprotección Boc con HCl en isopropanol". No hace fal
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel2-tema.ts.
+export const nivel2: Lesson[] = [...reacciones, equilibrioAFondo, estequiometriaAFondo, termoquimicaAFondo, cineticaAFondo, balanceAFondo, redoxAFondo];
