@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { espectroscopiaAFondo } from "./nivel7-espectroscopia";
 import { cromatografiaAFondo } from "./nivel7-cromatografia";
+import { gcAFondo } from "./nivel7-gc";
 
 const instrumental: Lesson[] = [
   {
@@ -523,4 +524,4 @@ Ensayos especiales en el CoA final o en investigaciones de desviaciones.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel7-tema.ts.
-export const nivel7: Lesson[] = [...instrumental, espectroscopiaAFondo, cromatografiaAFondo];
+export const nivel7: Lesson[] = [...instrumental, espectroscopiaAFondo, cromatografiaAFondo, gcAFondo];
