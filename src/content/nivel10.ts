@@ -1,5 +1,6 @@
 import type { Lesson } from "./types";
 import { estabilidadAFondo } from "./nivel10-estabilidad";
+import { especificacionesAFondo } from "./nivel10-especificaciones";
 
 const calidad: Lesson[] = [
   {
@@ -384,4 +385,4 @@ La hoja de producción completa es una de las bases de la liberación del lote.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel10-tema.ts.
-export const nivel10: Lesson[] = [...calidad, estabilidadAFondo];
+export const nivel10: Lesson[] = [...calidad, estabilidadAFondo, especificacionesAFondo];
