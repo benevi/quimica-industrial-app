@@ -1,6 +1,8 @@
 import type { Lesson } from "./types";
 import { salasAFondo } from "./nivel9-salas";
 import { vestimentaAFondo } from "./nivel9-vestimenta";
+import { microAFondo } from "./nivel9-micro";
+import { ensayosMicroAFondo } from "./nivel9-ensayos";
 
 const micro: Lesson[] = [
   {
@@ -87,7 +89,7 @@ Se siembra la muestra en **medios de cultivo** (*culture media*) y se incuba. Ca
 - **TAMC** (*Total Aerobic Microbial Count*): bacterias y hongos aerobios, en agar de soja y caseína (**TSA**), a 30–35 °C, 3–5 días.
 - **TYMC** (*Total Yeasts and Moulds Count*): hongos, en agar **Sabouraud**, a 20–25 °C, 5–7 días.
 
-Para sustancias de uso farmacéutico no estériles, la Ph. Eur. (5.1.4) fija como criterio general **TAMC ≤ 10³ UFC/g** y **TYMC ≤ 10² UFC/g**.
+Para sustancias de uso farmacéutico no estériles, la Farmacopea Europea fija criterios generales de aceptación; es de pago y aquí no los reproducimos: el límite de cada principio activo lo dice su especificación.
 
 ### Microorganismos específicos (Ph. Eur. 2.6.13)
 Se buscan algunos que no deben estar, por ejemplo ***Escherichia coli***, ***Salmonella***, ***Pseudomonas aeruginosa*** o ***Staphylococcus aureus***, según el uso del producto.
@@ -99,7 +101,7 @@ Usa un reactivo de la sangre del cangrejo herradura (***Limulus***) que reaccion
 En el laboratorio de microbiología se trabaja en **cabinas de flujo laminar** o de seguridad biológica, con material estéril, para no contaminar la muestra.
 `,
     plant: `
-Resultado de un lote: TAMC 50 UFC/g, TYMC < 10 UFC/g, E. coli ausente en 1 g. Especificación: TAMC ≤ 1000, TYMC ≤ 100, E. coli ausente → cumple.
+Resultado de un lote: TAMC 50 UFC/g, TYMC < 10 UFC/g, E. coli ausente en 1 g. Especificación (valores de ejemplo): TAMC ≤ 1000, TYMC ≤ 100, E. coli ausente. El lote cumple.
 `,
     batchRecord: `
 Resultados microbiológicos en el CoA. Tardan días, por eso el lote puede esperar en cuarentena a estos resultados.
@@ -313,4 +315,4 @@ A veces se registra la entrada a la sala o la comprobación de vestimenta.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel9-tema.ts.
-export const nivel9: Lesson[] = [...micro, salasAFondo, vestimentaAFondo];
+export const nivel9: Lesson[] = [...micro, salasAFondo, vestimentaAFondo, microAFondo, ensayosMicroAFondo];
