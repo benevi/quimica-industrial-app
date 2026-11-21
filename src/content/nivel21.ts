@@ -1,7 +1,7 @@
 import type { Lesson } from "./types";
 
 /** Nivel 21. Validación de sistemas informatizados: ciclo de vida completo. */
-export const nivel21: Lesson[] = [
+const validacion: Lesson[] = [
   {
     slug: "validacion-de-sistemas",
     level: 21,
@@ -81,7 +81,7 @@ Un compañero ha hecho una hoja de Excel para calcular las cargas "porque es má
   {
     slug: "ciclo-de-vida-validacion",
     level: 21,
-    order: 2,
+    order: 3,
     title: "Validar un sistema paso a paso: del URS al informe",
     titleEn: "Computerized system validation in practice: from URS to report",
     minutes: 20,
@@ -199,7 +199,7 @@ Tu planta va a implantar un MES nuevo. Te eligen como **usuario clave** para la 
   {
     slug: "sistemas-en-operacion",
     level: 21,
-    order: 3,
+    order: 5,
     title: "Mantener un sistema validado: cambios, incidencias y revisión periódica",
     titleEn: "Keeping systems validated: change control, incidents and periodic review",
     minutes: 18,
@@ -301,3 +301,6 @@ Informática anuncia un parche urgente de Windows para las estaciones del SCADA.
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel21-tema.ts.
+export const nivel21: Lesson[] = [...validacion];
