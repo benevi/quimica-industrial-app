@@ -1,7 +1,7 @@
 import type { Lesson } from "./types";
 
 /** Nivel 19. Los sistemas en el día a día: LIMS, MES, SCADA y ERP (SAP). */
-export const nivel19: Lesson[] = [
+const mes: Lesson[] = [
   {
     slug: "lims",
     level: 19,
@@ -84,7 +84,7 @@ Tomas el IPC de la etapa de reacción. Imprimes la etiqueta del LIMS para "Lote 
   {
     slug: "mes-y-ebr",
     level: 19,
-    order: 2,
+    order: 3,
     title: "MES y hoja de producción electrónica",
     titleEn: "MES and electronic batch record",
     minutes: 15,
@@ -154,7 +154,7 @@ En la pantalla aparece: "Paso 12: cargar 254,0 kg de metanol (rango 252,0–256,
   {
     slug: "scada-e-historiador",
     level: 19,
-    order: 3,
+    order: 5,
     title: "SCADA, historiador y datos de proceso",
     titleEn: "SCADA, process historian and process data",
     minutes: 15,
@@ -230,7 +230,7 @@ En el lote 26-0412 la temperatura de reacción debía mantenerse en 55–60 °C.
   {
     slug: "erp-y-trazabilidad",
     level: 19,
-    order: 4,
+    order: 7,
     title: "ERP y trazabilidad de materiales",
     titleEn: "ERP and material traceability",
     minutes: 10,
@@ -307,7 +307,7 @@ Vas a cargar un saco de reactivo y el escáner dice "Lote en cuarentena". No se 
   {
     slug: "sap-en-planta",
     level: 19,
-    order: 5,
+    order: 9,
     title: "SAP en la planta: órdenes, movimientos y decisión de empleo",
     titleEn: "SAP in the plant: process orders, goods movements and usage decision",
     minutes: 18,
@@ -413,3 +413,6 @@ Vas a cargar el reactivo ficticio **RX-3**. En la tableta escaneas el bidón: el
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel19-tema.ts.
+export const nivel19: Lesson[] = [...mes];
