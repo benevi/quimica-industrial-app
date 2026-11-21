@@ -2,6 +2,7 @@ import type { Lesson } from "./types";
 import { plantaAFondo } from "./nivel0-planta";
 import { densidadAFondo } from "./nivel0-densidad";
 import { unidadesAFondo } from "./nivel0-unidades";
+import { matematicasAFondo } from "./nivel0-matematicas";
 
 const bases0: Lesson[] = [
   {
@@ -312,4 +313,4 @@ Un día típico: recibes el turno (*shift handover*), revisas en qué paso está
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel0-tema.ts.
-export const nivel0: Lesson[] = [...bases0, plantaAFondo, densidadAFondo, unidadesAFondo];
+export const nivel0: Lesson[] = [...bases0, plantaAFondo, densidadAFondo, unidadesAFondo, matematicasAFondo];
