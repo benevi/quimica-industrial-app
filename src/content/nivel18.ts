@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { maestrosAFondo } from "./nivel18-maestros";
 
 /** Nivel 18. Arquitectura de sistemas GMP: el mapa, los datos y la ciberseguridad. */
 const sistemas: Lesson[] = [
@@ -300,4 +301,4 @@ Un técnico externo llega para revisar la centrífuga y quiere conectar su port�
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel18-tema.ts.
-export const nivel18: Lesson[] = [...sistemas];
+export const nivel18: Lesson[] = [...sistemas, maestrosAFondo];
