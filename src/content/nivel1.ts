@@ -1,6 +1,12 @@
 import type { Lesson } from "./types";
+import { disolucionesAFondo } from "./nivel1-disoluciones";
+import { molAFondo } from "./nivel1-mol";
+import { atomosAFondo } from "./nivel1-atomos";
+import { materiaAFondo } from "./nivel1-materia";
+import { acidosBasesAFondo } from "./nivel1-acidos";
+import { enlacesAFondo } from "./nivel1-enlaces";
 
-export const nivel1: Lesson[] = [
+const bases: Lesson[] = [
   {
     slug: "la-materia",
     level: 1,
@@ -87,7 +93,7 @@ Etapa típica: *"Calentar a 65 °C hasta disolución completa, filtrar en calien
   {
     slug: "atomos-y-tabla-periodica",
     level: 1,
-    order: 2,
+    order: 3,
     title: "Átomos y tabla periódica",
     titleEn: "Atoms and the periodic table",
     minutes: 15,
@@ -163,7 +169,7 @@ En una ficha de seguridad lees "hidruro de sodio (NaH)". Es un **hidruro**: llev
   {
     slug: "enlaces-y-polaridad",
     level: 1,
-    order: 3,
+    order: 5,
     title: "Enlaces, moléculas y polaridad",
     titleEn: "Bonds, molecules and polarity",
     minutes: 12,
@@ -239,7 +245,7 @@ Se descarga la fase inferior por la válvula de fondo vigilando el visor hasta v
   {
     slug: "el-mol",
     level: 1,
-    order: 4,
+    order: 7,
     title: "El mol: contar moléculas pesando",
     titleEn: "The mole",
     minutes: 18,
@@ -321,7 +327,7 @@ El paracetamol tiene precisamente M = 151,2 g/mol: es un buen ejemplo para pract
   {
     slug: "disoluciones",
     level: 1,
-    order: 5,
+    order: 9,
     title: "Disoluciones y concentración",
     titleEn: "Solutions and concentration",
     minutes: 15,
@@ -401,7 +407,7 @@ La hoja dice "Disolver en 8 vol de etanol". El material de partida pesa 25,0 kg 
   {
     slug: "acidos-bases-ph",
     level: 1,
-    order: 6,
+    order: 11,
     title: "Ácidos, bases y pH",
     titleEn: "Acids, bases and pH",
     minutes: 15,
@@ -479,3 +485,6 @@ Añades la sosa poco a poco vigilando la temperatura. Cerca del objetivo el pH c
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel1-tema.ts.
+export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo, atomosAFondo, materiaAFondo, acidosBasesAFondo, enlacesAFondo];
