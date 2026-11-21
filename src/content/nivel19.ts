@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { mesAFondo } from "./nivel19-mes";
 import { limsAFondo } from "./nivel19-lims";
+import { erpAFondo } from "./nivel19-erp";
 
 /** Nivel 19. Los sistemas en el día a día: LIMS, MES, SCADA y ERP (SAP). */
 const mes: Lesson[] = [
@@ -417,4 +418,4 @@ Vas a cargar el reactivo ficticio **RX-3**. En la tableta escaneas el bidón: el
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel19-tema.ts.
-export const nivel19: Lesson[] = [...mes, mesAFondo, limsAFondo];
+export const nivel19: Lesson[] = [...mes, mesAFondo, limsAFondo, erpAFondo];

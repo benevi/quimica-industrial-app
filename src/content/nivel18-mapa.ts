@@ -80,7 +80,7 @@ Sigamos un lote de un principio activo ficticio, el **API-XR55**, por todos los 
 | 9 | MES y LIMS | Tomas el control en proceso; el LIMS registra la muestra e imprime la etiqueta | Número de muestra, punto, hora, quién la tomó |
 | 10 | LIMS | El laboratorio analiza, compara con la especificación y aprueba el resultado | Resultado, cumple o no cumple, analista y revisor |
 | 11 | Centrífuga, secadero y MES | El producto se aísla, se seca y se envasa; cada bidón recibe su etiqueta | Peso de cada bidón, rendimiento real |
-| 12 | MES a ERP | El MES informa del consumo real de materiales y del producto obtenido | Consumos y entrada de producto en stock bloqueado |
+| 12 | MES a ERP | El MES informa del consumo real de materiales y del producto obtenido | Consumos y entrada de producto en stock en control de calidad (cuarentena) |
 | 13 | LIMS, eQMS y MES | Calidad revisa la hoja de producción, el resultado final y las desviaciones abiertas | Revisión firmada, desviaciones cerradas |
 | 14 | ERP | La unidad de calidad toma la decisión y el lote cambia de estado en el ERP | Lote liberado o rechazado, quién y cuándo |
 
