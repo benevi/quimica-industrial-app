@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { karlFischerAFondo } from "./nivel6-kf";
 
 const clasico: Lesson[] = [
   {
@@ -366,4 +367,4 @@ Resultados en el CoA con los decimales de la especificación y la palabra "cumpl
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel6-tema.ts.
-export const nivel6: Lesson[] = [...clasico];
+export const nivel6: Lesson[] = [...clasico, karlFischerAFondo];
