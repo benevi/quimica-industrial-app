@@ -1,4 +1,6 @@
 import type { Lesson } from "./types";
+import { salasAFondo } from "./nivel9-salas";
+import { vestimentaAFondo } from "./nivel9-vestimenta";
 
 const micro: Lesson[] = [
   {
@@ -311,4 +313,4 @@ A veces se registra la entrada a la sala o la comprobación de vestimenta.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel9-tema.ts.
-export const nivel9: Lesson[] = [...micro];
+export const nivel9: Lesson[] = [...micro, salasAFondo, vestimentaAFondo];
