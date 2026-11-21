@@ -2,6 +2,7 @@ import type { Lesson } from "./types";
 import { mantenimientoAFondo } from "./nivel14-mantenimiento";
 import { gasesDePlantaAFondo } from "./nivel14-gases";
 import { hvacYSalasAFondo } from "./nivel14-hvac";
+import { aguaAFondo } from "./nivel14-agua";
 
 const servicios: Lesson[] = [
   {
@@ -325,4 +326,4 @@ El agitador del R-102 hace un ruido nuevo. El operador detiene el lote según el
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel14-tema.ts.
-export const nivel14: Lesson[] = [...servicios, mantenimientoAFondo, gasesDePlantaAFondo, hvacYSalasAFondo];
+export const nivel14: Lesson[] = [...servicios, mantenimientoAFondo, gasesDePlantaAFondo, hvacYSalasAFondo, aguaAFondo];
