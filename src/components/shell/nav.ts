@@ -34,7 +34,7 @@ export const navGroups: NavGroup[] = [
         en: "Full course",
         icon: "book",
         match: ["/nivel", "/leccion"],
-        hint: "165 lecciones en 22 niveles, de las bases a los sistemas.",
+        hint: "166 lecciones en 22 niveles, de las bases a los sistemas.",
       },
       { href: "/mapa", label: "Mapa de planta", en: "Plant map", icon: "map", hint: "Dónde encaja cada lección en el recorrido de un lote." },
       { href: "/glosario", label: "Glosario", en: "Glossary", icon: "abc", hint: "Todos los términos en español e inglés." },
