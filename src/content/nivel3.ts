@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel3: Lesson[] = [
+const organica: Lesson[] = [
   {
     slug: "carbono-y-formulas",
     level: 3,
@@ -103,7 +103,7 @@ Al recibir un bidón, la etiqueta pone "Propan-2-ol (isopropanol), CAS 67-63-0".
   {
     slug: "grupos-funcionales",
     level: 3,
-    order: 2,
+    order: 3,
     title: "Grupos funcionales",
     titleEn: "Functional groups",
     minutes: 15,
@@ -190,7 +190,7 @@ En el paso 3 de un proceso ficticio se **acetila un alcohol**: sobre la solució
   {
     slug: "disolventes-organicos",
     level: 3,
-    order: 3,
+    order: 5,
     title: "Disolventes orgánicos y disolventes residuales",
     titleEn: "Organic solvents and residual solvents (ICH Q3C)",
     minutes: 18,
@@ -287,7 +287,7 @@ Un API se cristaliza en metanol y se lava con heptano. La especificación pide m
   {
     slug: "isomeros-y-quiralidad",
     level: 3,
-    order: 4,
+    order: 7,
     title: "Isómeros y quiralidad",
     titleEn: "Isomers and chirality",
     minutes: 15,
@@ -370,7 +370,7 @@ En un proceso ficticio, el intermedio racémico se trata con ácido (R)-mandéli
   {
     slug: "polimorfismo-y-sales",
     level: 3,
-    order: 5,
+    order: 9,
     title: "Polimorfismo, sales y solvatos",
     titleEn: "Polymorphism, salts and solvates",
     minutes: 15,
@@ -463,7 +463,7 @@ La hoja de cristalización dice: "Enfriar de 60 a 45 °C en ≥ 1 h, sembrar con
   {
     slug: "impurezas-ich",
     level: 3,
-    order: 6,
+    order: 11,
     title: "Impurezas en el API",
     titleEn: "Impurities in drug substances (ICH Q3A, Q3C, Q3D, M7)",
     minutes: 18,
@@ -564,3 +564,6 @@ Un API de 500 mg/día da una impureza desconocida a 0,12 %. Supera el umbral de 
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel3-tema.ts.
+export const nivel3: Lesson[] = [...organica];
