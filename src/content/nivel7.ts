@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel7: Lesson[] = [
+const instrumental: Lesson[] = [
   {
     slug: "espectroscopia-uv-vis",
     level: 7,
@@ -84,7 +84,7 @@ Resultados de contenido o identificación en el informe analítico.
   {
     slug: "espectroscopia-infrarrojo",
     level: 7,
-    order: 2,
+    order: 3,
     title: "Infrarrojo (IR) y Raman: la huella dactilar de la molécula",
     titleEn: "Infrared and Raman spectroscopy",
     minutes: 12,
@@ -158,7 +158,7 @@ Identificación de materias primas antes de liberarlas; identidad del API en el 
   {
     slug: "cromatografia-principios",
     level: 7,
-    order: 3,
+    order: 5,
     title: "Cromatografía: cómo se separan las mezclas",
     titleEn: "Chromatography principles",
     minutes: 15,
@@ -236,7 +236,7 @@ Resultados IPC expresados en "% área" del material de partida o de impurezas.
   {
     slug: "hplc",
     level: 7,
-    order: 4,
+    order: 7,
     title: "HPLC: cromatografía líquida",
     titleEn: "High-Performance Liquid Chromatography",
     minutes: 18,
@@ -316,7 +316,7 @@ IPC de reacción y de pureza; en el CoA final: contenido, impurezas individuales
   {
     slug: "cromatografia-de-gases",
     level: 7,
-    order: 5,
+    order: 9,
     title: "Cromatografía de gases (GC)",
     titleEn: "Gas chromatography",
     minutes: 12,
@@ -383,7 +383,7 @@ Disolventes residuales en el análisis final; a veces como IPC de fin de secado.
   {
     slug: "potenciometria-conductimetria",
     level: 7,
-    order: 6,
+    order: 11,
     title: "Potenciometría y conductimetría",
     titleEn: "Potentiometry and conductivity",
     minutes: 12,
@@ -456,7 +456,7 @@ pH y conductividad con identificación del equipo y su calibración del día.
   {
     slug: "otras-tecnicas",
     level: 7,
-    order: 7,
+    order: 13,
     title: "Otras técnicas: DRX, RMN, masas, ICP",
     titleEn: "Other techniques: XRPD, NMR, MS, ICP",
     minutes: 10,
@@ -519,3 +519,6 @@ Ensayos especiales en el CoA final o en investigaciones de desviaciones.
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel7-tema.ts.
+export const nivel7: Lesson[] = [...instrumental];
