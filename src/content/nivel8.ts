@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { aspectoAFondo } from "./nivel8-aspecto";
 
 const fisicos: Lesson[] = [
   {
@@ -292,4 +293,4 @@ Aspecto del producto al descargar (a veces se registra en la hoja); aspecto en e
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel8-tema.ts.
-export const nivel8: Lesson[] = [...fisicos];
+export const nivel8: Lesson[] = [...fisicos, aspectoAFondo];
