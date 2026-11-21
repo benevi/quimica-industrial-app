@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { cicloAFondo } from "./nivel21-ciclo";
 
 /** Nivel 21. Validación de sistemas informatizados: ciclo de vida completo. */
 const validacion: Lesson[] = [
@@ -303,4 +304,4 @@ Informática anuncia un parche urgente de Windows para las estaciones del SCADA.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel21-tema.ts.
-export const nivel21: Lesson[] = [...validacion];
+export const nivel21: Lesson[] = [...validacion, cicloAFondo];
