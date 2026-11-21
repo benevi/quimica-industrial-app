@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { equilibrioAFondo } from "./nivel2-equilibrio";
 
 const reacciones: Lesson[] = [
   {
@@ -624,4 +625,4 @@ En la hoja ves "Etapa 3: desprotección Boc con HCl en isopropanol". No hace fal
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel2-tema.ts.
-export const nivel2: Lesson[] = [...reacciones];
+export const nivel2: Lesson[] = [...reacciones, equilibrioAFondo];
