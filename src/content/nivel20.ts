@@ -1,11 +1,11 @@
 import type { Lesson } from "./types";
 
 /** Nivel 20. Integridad de datos y registros electrónicos (ALCOA+ está en nivel20-alcoa.ts). */
-export const nivel20: Lesson[] = [
+const datos: Lesson[] = [
   {
     slug: "part-11-y-anexo-11",
     level: 20,
-    order: 2,
+    order: 3,
     title: "Las normas: 21 CFR Part 11, Anexo 11 y guías de integridad de datos",
     titleEn: "The rules: 21 CFR Part 11, EU GMP Annex 11 and data integrity guidance",
     minutes: 20,
@@ -131,7 +131,7 @@ Una inspección revisa el sistema de cromatografía del laboratorio. Pide ver el
   {
     slug: "audit-trail-y-firma-electronica",
     level: 20,
-    order: 3,
+    order: 5,
     title: "Audit trail y firma electrónica",
     titleEn: "Audit trail and electronic signatures",
     minutes: 12,
@@ -212,7 +212,7 @@ Te levantas a tomar una muestra y dejas el terminal del MES abierto. Un compañe
   {
     slug: "accesos-copias-y-archivo",
     level: 20,
-    order: 4,
+    order: 7,
     title: "Usuarios, revisión del audit trail, copias de seguridad y archivo",
     titleEn: "User access, audit trail review, backup and archiving",
     minutes: 18,
@@ -322,3 +322,6 @@ El MES se cae a las 3:00 en plena carga de disolvente. El supervisor activa el p
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel20-tema.ts.
+export const nivel20: Lesson[] = [...datos];
