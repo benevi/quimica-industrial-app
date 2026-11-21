@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { cicloAFondo } from "./nivel21-ciclo";
 import { csvAFondo } from "./nivel21-csv";
+import { operacionAFondo } from "./nivel21-operacion";
 
 /** Nivel 21. Validación de sistemas informatizados: ciclo de vida completo. */
 const validacion: Lesson[] = [
@@ -223,7 +224,7 @@ Los **parches de seguridad** del sistema operativo también pasan por aquí, a m
 Si el sistema falla (se cuelga, calcula mal, pierde una conexión), la incidencia se **registra**, se evalúa si afecta a algún lote o dato, se investiga la **causa raíz** y, si procede, se abre una **desviación** y una **CAPA**.
 
 ### Evaluación periódica (apartado 11)
-Cada cierto tiempo (por ejemplo, cada 1–3 años según el riesgo) se revisa el sistema: cambios acumulados, incidencias, desviaciones, accesos, copias de seguridad probadas, rendimiento y si la documentación sigue al día. La conclusión puede ser "sigue validado" o "hay que revalidar".
+Cada cierto tiempo, con la frecuencia que fija la empresa según el riesgo, se revisa el sistema: cambios acumulados, incidencias, desviaciones, accesos, copias de seguridad probadas, rendimiento y si la documentación sigue al día. La conclusión puede ser "sigue validado" o "hay que revalidar".
 
 ### Proveedores y nube (apartado 3)
 Cada vez más sistemas son **SaaS** (*Software as a Service*) en la nube. La empresa **sigue siendo responsable** de sus datos GMP. Hace falta un **acuerdo formal** con el proveedor (calidad, seguridad, copias, dónde están los datos, cómo se devuelven si se termina el contrato) y evaluarlo según el riesgo, a veces con auditoría.
@@ -305,4 +306,4 @@ Informática anuncia un parche urgente de Windows para las estaciones del SCADA.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel21-tema.ts.
-export const nivel21: Lesson[] = [...validacion, cicloAFondo, csvAFondo];
+export const nivel21: Lesson[] = [...validacion, cicloAFondo, csvAFondo, operacionAFondo];
