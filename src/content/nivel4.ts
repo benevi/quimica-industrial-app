@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel4: Lesson[] = [
+const laboratorio: Lesson[] = [
   {
     slug: "material-y-seguridad-laboratorio",
     level: 4,
@@ -82,7 +82,7 @@ En el laboratorio no se usa la hoja de producción, sino **cuadernos de laborato
   {
     slug: "balanzas-y-pesada",
     level: 4,
-    order: 2,
+    order: 3,
     title: "Balanzas y cómo pesar bien",
     titleEn: "Balances and weighing",
     minutes: 15,
@@ -156,7 +156,7 @@ Debes pesar 25,0 kg de un sólido en una báscula de planta de 60 kg. Antes, ver
   {
     slug: "material-volumetrico",
     level: 4,
-    order: 3,
+    order: 5,
     title: "Material volumétrico y cómo medir volúmenes",
     titleEn: "Volumetric glassware",
     minutes: 12,
@@ -233,7 +233,7 @@ En el laboratorio de planta preparas NaOH 1 M en un matraz aforado de 1 L. La di
   {
     slug: "metrologia-calibracion",
     level: 4,
-    order: 4,
+    order: 7,
     title: "Metrología: calibración, exactitud y precisión",
     titleEn: "Metrology and calibration",
     minutes: 15,
@@ -310,7 +310,7 @@ La sonda de temperatura del reactor R-101 se calibra cada 6 meses. En la calibra
   {
     slug: "reactivos-patrones-soluciones",
     level: 4,
-    order: 5,
+    order: 9,
     title: "Reactivos, patrones y soluciones",
     titleEn: "Reagents, standards and solutions",
     minutes: 15,
@@ -394,7 +394,7 @@ En el laboratorio de planta, la solución de HCl 1 M para ajustar pH en IPC tien
   {
     slug: "buenas-practicas-laboratorio",
     level: 4,
-    order: 6,
+    order: 11,
     title: "Buenas prácticas en el laboratorio de control de calidad",
     titleEn: "Good practices in the QC lab",
     minutes: 12,
@@ -475,3 +475,6 @@ El IPC de humedad da 0,9 % y el límite es 0,5 %. El laboratorio no "repite hast
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel4-tema.ts.
+export const nivel4: Lesson[] = [...laboratorio];
