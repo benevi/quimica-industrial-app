@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { disolucionesAFondo } from "./nivel1-disoluciones";
 import { molAFondo } from "./nivel1-mol";
+import { atomosAFondo } from "./nivel1-atomos";
 
 const bases: Lesson[] = [
   {
@@ -483,4 +484,4 @@ Añades la sosa poco a poco vigilando la temperatura. Cerca del objetivo el pH c
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel1-tema.ts.
-export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo];
+export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo, atomosAFondo];
