@@ -1,6 +1,7 @@
 import type { Lesson } from "./types";
 import { polimorfismoAFondo } from "./nivel3-polimorfismo";
 import { impurezasAFondo } from "./nivel3-impurezas";
+import { quiralidadAFondo } from "./nivel3-quiralidad";
 
 const organica: Lesson[] = [
   {
@@ -568,4 +569,4 @@ Un API de 500 mg/día da una impureza desconocida a 0,12 %. Supera el umbral de 
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel3-tema.ts.
-export const nivel3: Lesson[] = [...organica, polimorfismoAFondo, impurezasAFondo];
+export const nivel3: Lesson[] = [...organica, polimorfismoAFondo, impurezasAFondo, quiralidadAFondo];
