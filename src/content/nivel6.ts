@@ -1,6 +1,6 @@
 import type { Lesson } from "./types";
 
-export const nivel6: Lesson[] = [
+const clasico: Lesson[] = [
   {
     slug: "volumetrias-acido-base",
     level: 6,
@@ -88,7 +88,7 @@ En la hoja de análisis: masa pesada, volumen gastado, blanco, factor del valora
   {
     slug: "volumetrias-redox-complexometria",
     level: 6,
-    order: 2,
+    order: 3,
     title: "Volumetrías redox y complexometría",
     titleEn: "Redox and complexometric titrations",
     minutes: 12,
@@ -157,7 +157,7 @@ Análisis de servicios (agua, salmueras) y de materias primas con métodos de fa
   {
     slug: "gravimetria",
     level: 6,
-    order: 3,
+    order: 5,
     title: "Gravimetría: analizar pesando",
     titleEn: "Gravimetric analysis",
     minutes: 12,
@@ -228,7 +228,7 @@ LOD como IPC de fin de secado; residuo de calcinación en el análisis final del
   {
     slug: "karl-fischer",
     level: 6,
-    order: 4,
+    order: 7,
     title: "Valoración Karl Fischer: medir el agua",
     titleEn: "Karl Fischer titration",
     minutes: 15,
@@ -298,7 +298,7 @@ KF como IPC (agua en disolventes, en el producto antes de una reacción sensible
   {
     slug: "calculo-y-expresion-de-resultados",
     level: 6,
-    order: 5,
+    order: 9,
     title: "Cálculo y expresión de resultados",
     titleEn: "Calculating and reporting results",
     minutes: 12,
@@ -364,3 +364,6 @@ Resultados en el CoA con los decimales de la especificación y la palabra "cumpl
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel6-tema.ts.
+export const nivel6: Lesson[] = [...clasico];
