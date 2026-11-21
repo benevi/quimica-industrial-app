@@ -1,7 +1,7 @@
 import type { Lesson } from "./types";
 
 /** Nivel 18. Arquitectura de sistemas GMP: el mapa, los datos y la ciberseguridad. */
-export const nivel18: Lesson[] = [
+const sistemas: Lesson[] = [
   {
     slug: "sistemas-isa-95",
     level: 18,
@@ -106,7 +106,7 @@ Cinco sistemas distintos han tocado el mismo lote, y todos dejan rastro.
   {
     slug: "datos-maestros-e-integracion",
     level: 18,
-    order: 2,
+    order: 3,
     title: "Datos maestros, bases de datos e interfaces",
     titleEn: "Master data, databases and interfaces",
     minutes: 18,
@@ -209,7 +209,7 @@ Un error en un solo dato, multiplicado por cada lote que lo usó.
   {
     slug: "ciberseguridad-ot",
     level: 18,
-    order: 3,
+    order: 5,
     title: "Redes industriales y ciberseguridad",
     titleEn: "OT networks and cybersecurity (IEC 62443)",
     minutes: 15,
@@ -298,3 +298,6 @@ Un técnico externo llega para revisar la centrífuga y quiere conectar su port�
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel18-tema.ts.
+export const nivel18: Lesson[] = [...sistemas];
