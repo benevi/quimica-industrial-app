@@ -1,4 +1,5 @@
 import type { Lesson } from "./types";
+import { alcoaAFondo } from "./nivel20-alcoafondo";
 
 /** Nivel 20. Integridad de datos y registros electrónicos (ALCOA+ está en nivel20-alcoa.ts). */
 const datos: Lesson[] = [
@@ -324,4 +325,4 @@ El MES se cae a las 3:00 en plena carga de disolvente. El supervisor activa el p
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel20-tema.ts.
-export const nivel20: Lesson[] = [...datos];
+export const nivel20: Lesson[] = [...datos, alcoaAFondo];
