@@ -1,6 +1,8 @@
 import type { Lesson } from "./types";
 import { alcoaAFondo } from "./nivel20-alcoafondo";
 import { accesosAFondo } from "./nivel20-accesos";
+import { normasAFondo } from "./nivel20-normas";
+import { auditAFondo } from "./nivel20-audit";
 
 /** Nivel 20. Integridad de datos y registros electrónicos (ALCOA+ está en nivel20-alcoa.ts). */
 const datos: Lesson[] = [
@@ -71,7 +73,7 @@ Además: **11.50** (la firma muestra nombre, fecha y hora, y significado) y **11
 | 17 | Archivo | Datos accesibles y legibles durante todo el periodo de conservación |
 
 ### Qué está cambiando
-En **julio de 2025** la Comisión Europea publicó un **borrador** de un Anexo 11 mucho más extenso (más detalle en gestión de identidades y accesos, revisión del audit trail, seguridad, servicios en la nube y proveedores), junto con la revisión del Capítulo 4 (documentación) y un **Anexo 22 nuevo sobre inteligencia artificial**. La consulta pública cerró en octubre de 2025. **Mientras no se publique la versión final, sigue en vigor el Anexo 11 de 2011.** (Comprobado en la página de EudraLex en noviembre de 2026: el Anexo 11 vigente sigue siendo la revisión de enero de 2011.)
+En **julio de 2025** la Comisión Europea publicó un **borrador** de un Anexo 11 mucho más extenso (más detalle en gestión de identidades y accesos, revisión del audit trail, seguridad, servicios en la nube y proveedores), junto con la revisión del Capítulo 4 (documentación) y un **Anexo 22 nuevo sobre inteligencia artificial**. La consulta pública cerró en octubre de 2025. **Mientras no se publique la versión final, sigue en vigor el Anexo 11 de 2011.** (Comprobado en la página de EudraLex el 21 de noviembre de 2026: el Anexo 11 y el Capítulo 4 vigentes siguen siendo los de enero de 2011 y no aparece ningún Anexo 22.) Para un principio activo, la norma europea obligatoria es la parte II (apartado 5.4, que reproduce ICH Q7); el Anexo 11 sirve de referencia. Lo explica a fondo «Part 11, anexo 11 y sus borradores a fondo».
 
 ### Registros híbridos, estáticos y dinámicos
 - **Registro híbrido**: parte en papel y parte electrónica (un cromatograma impreso y firmado). El dato electrónico **se conserva igualmente**: la impresión no lo sustituye.
@@ -326,4 +328,4 @@ El MES se cae a las 3:00 en plena carga de disolvente. El supervisor activa el p
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel20-tema.ts.
-export const nivel20: Lesson[] = [...datos, alcoaAFondo, accesosAFondo];
+export const nivel20: Lesson[] = [...datos, alcoaAFondo, accesosAFondo, normasAFondo, auditAFondo];
