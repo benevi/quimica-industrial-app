@@ -120,7 +120,7 @@ Hay dos familias, según la guía del INSST.
 
 Los filtros A, B, E y K llevan además una clase, 1, 2 o 3: capacidad baja, media o alta. Los filtros P llevan clase 1, 2 o 3 según su eficacia: baja, media o alta. Un filtro A2P3 es de vapores orgánicos de capacidad media y de partículas de alta eficacia.
 
-Las mascarillas FFP1, FFP2 y FFP3 son medias máscaras filtrantes: la propia mascarilla es el filtro de partículas, de clase 1, 2 o 3. Solo paran partículas. No paran vapores de disolvente. Si llevan las letras NR, son para un solo turno.
+Las mascarillas FFP1, FFP2 y FFP3 (de *filtering facepiece*, pieza facial filtrante) son medias máscaras filtrantes: la propia mascarilla es el filtro de partículas, de clase 1, 2 o 3. Solo paran partículas. No paran vapores de disolvente. Si llevan las letras NR, son para un solo turno.
 
 **El ajuste a la cara.** Una máscara funciona si todo el aire entra por el filtro. Si entra por el borde, entra sucio. El INSST advierte de que el vello facial, las cicatrices o un pañuelo pueden romper la hermeticidad. Por eso con barba una máscara ajustada no sirve: se usa otro tipo de equipo, que decide la empresa. Hay dos comprobaciones distintas. La **prueba de ajuste** (*fit test*) la hace personal formado para saber si ese modelo y esa talla sellan en tu cara. La **comprobación de ajuste** (*seal check*) la haces tú cada vez que te la pones, como indique el fabricante.
 

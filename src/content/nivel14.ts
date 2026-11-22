@@ -28,7 +28,7 @@ Las monografías de la **Farmacopea Europea** (*Purified water*, *Water for inje
 - **Conductividad** (*conductivity*): indica sales disueltas. PW: ≤ 5,1 µS/cm a 25 °C; WFI: ≤ 1,3 µS/cm a 25 °C (ensayo en línea, etapa 1).
 - **TOC** (*Total Organic Carbon*, carbono orgánico total): ≤ 0,5 mg/L.
 - **Microbiología** (límites de acción): PW ≤ 100 UFC/mL; WFI ≤ 10 UFC/100 mL.
-- **Endotoxinas** (solo WFI): < 0,25 UI/mL.
+- **Endotoxinas** (solo WFI): < 0,25 UI/mL (unidades internacionales por mililitro).
 
 ### Cómo se produce el agua purificada
 1. **Pretratamiento**: filtros, descalcificador (*softener*), carbón activo o bisulfito (quitar el cloro).

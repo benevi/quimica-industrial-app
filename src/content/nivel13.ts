@@ -108,7 +108,7 @@ La hoja pide "Pesar 85,0 kg ± 0,5 kg en la báscula B-05". Antes de pesar, el o
 - **Diagrama de flujo de proceso** (*PFD, Process Flow Diagram*): equipos principales y corrientes, con caudales y temperaturas de diseño.
 - **P&ID** (*Piping and Instrumentation Diagram*): **todas** las tuberías, válvulas, instrumentos y lazos de control. Es el documento de referencia para operar y para hacer mantenimiento.
 
-### Códigos de instrumentos (norma ISA 5.1)
+### Códigos de instrumentos (norma ISA 5.1 de la *International Society of Automation*, la sociedad internacional de automatización)
 Formato: **letras + número de lazo**. La **primera letra** es la variable medida; las siguientes, la función.
 
 | Primera letra | Variable | Letras siguientes | Función |

@@ -191,7 +191,7 @@ Antes de empezar, se comprueba que en la sala y los equipos **no queda nada** de
 ### Etiquetas
 Las etiquetas del API llevan como mínimo: **nombre** del producto, **número de lote**, y la información necesaria de almacenamiento, fecha de reanálisis o caducidad y peso. Se imprimen o se emiten de forma controlada:
 - Se emite el número exacto necesario.
-- Se comprueba la primera etiqueta (texto, lote) y se adjunta un **especimen** al registro.
+- Se comprueba la primera etiqueta (texto, lote) y se adjunta un **espécimen** al registro.
 - Al terminar se hace la **conciliación**: emitidas = usadas + destruidas + devueltas. Una diferencia sin explicar se investiga, porque podría haber una etiqueta en el envase equivocado.
 
 ### Pesos
@@ -205,7 +205,7 @@ Se emiten 20 etiquetas para un lote que se envasará en 18 bidones. Se usan 18, 
 `,
     batchRecord: `
 - Despeje de línea: realizado por / verificado por, con hora.
-- Etiquetas emitidas, usadas, destruidas y devueltas; especimen adjunto.
+- Etiquetas emitidas, usadas, destruidas y devueltas; espécimen adjunto.
 - Para cada envase: número, peso bruto, tara, neto, número de precinto.
 - Muestras de retención tomadas.
 `,

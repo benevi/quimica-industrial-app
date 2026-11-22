@@ -268,7 +268,7 @@ Para liberar la amina, cargas la sal en el reactor R-306 con tolueno y agua y a�
     },
     {
       kind: "choice",
-      q: "En la liberación de la amina, la hoja dice «T ≤ 25 °C y separar fases antes de 4 h». El TT marca 31 °C y la separación se ha retrasado. ¿Qué riesgo químico hay detrás de esos límites?",
+      q: "En la liberación de la amina, la hoja dice «T ≤ 25 °C y separar fases antes de 4 h». La sonda de temperatura del reactor marca 31 °C y la separación se ha retrasado. ¿Qué riesgo químico hay detrás de esos límites?",
       options: [
         "Que el enantiómero racemice y aumente el otro, que no se quita lavando",
         "Que el producto cambie de fórmula molecular y pese más en el secadero",

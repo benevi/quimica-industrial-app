@@ -16,7 +16,7 @@ const seguridad: Lesson[] = [
     summary: "Cómo leer la etiqueta de un producto químico y dónde buscar toda la información de seguridad.",
     body: `
 ### El sistema de etiquetado
-En la UE lo regula el **Reglamento CLP** (CE 1272/2008), basado en el sistema mundial **GHS/SGA**. Cada envase lleva:
+En la UE lo regula el **Reglamento CLP** (CE 1272/2008), basado en el **Sistema Globalmente Armonizado** de la ONU (en inglés *GHS*; en español, SGA). Cada envase lleva:
 - **Pictogramas** (*hazard pictograms*): rombos con borde rojo.
 - **Palabra de advertencia** (*signal word*): **"Peligro"** (*Danger*, el más grave) o **"Atención"** (*Warning*).
 - **Indicaciones de peligro** o **frases H** (*hazard statements*): qué peligro tiene. Ejemplo: H225 "Líquido y vapores muy inflamables".
@@ -36,7 +36,7 @@ En la UE lo regula el **Reglamento CLP** (CE 1272/2008), basado en el sistema mu
 | Medio ambiente (pez y árbol) | GHS09 | Peligroso para el medio acuático |
 
 ### Ficha de datos de seguridad (FDS)
-En inglés *Safety Data Sheet* (SDS). Exigida por el reglamento **REACH**; tiene **16 secciones** siempre en el mismo orden. Las que más usarás:
+En inglés *Safety Data Sheet* (SDS). Exigida por el reglamento **REACH** (registro, evaluación, autorización y restricción de sustancias químicas); tiene **16 secciones** siempre en el mismo orden. Las que más usarás:
 - **Sección 2**: identificación de los peligros (pictogramas, frases H y P).
 - **Sección 4**: primeros auxilios.
 - **Sección 5**: lucha contra incendios.
