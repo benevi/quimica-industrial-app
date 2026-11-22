@@ -114,7 +114,7 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   hoja con revisión de calidad. Parámetros y coherencia con las lecciones en `docs/simulador-reactor.md`.
 - `src/components/sim/`: vista de planta, paneles SCADA de equipos (`Equipment.tsx`), pestañas entre modos (`SimModes.tsx`),
   pantalla del reactor en `reactor/`.
-- `src/certs/`: certificaciones. `prep.ts` (temario oficial), `bancos/*` y `casos.ts` (**añadir solo al final**: el índice
+- `src/certs/`: certificaciones. `misiones-planta.ts` (misiones de los simuladores, ids estables), `prep.ts` (temario oficial), `bancos/*` y `casos.ts` (**añadir solo al final**: el índice
   es el id del repaso), `data.ts`, `autoevaluacion.ts`, `useCertState.ts` (Leitner compartido con las tarjetas).
 - `src/sap/`: simulador ERP (`engine.ts`) y su examen (`exam.ts`).
 - `src/lib/`: `progress.ts` (progreso en localStorage), `backup.ts` (exportar/importar), `cloud.ts` (Supabase).
@@ -158,7 +158,8 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   E (el lote FX-101 pasa al ERP y se registra allí, misión 10) y la etapa de limpieza. El lote completo tiene las 13 incidencias
   del apartado 3.2 (`EVENTS` en `engine.ts`; las 4 de siempre en `CLASICAS`): báscula, etiqueta, oxígeno, puesta a tierra,
   agitador, frío, sonda, IPC, filtro, junta, vibración, vacío y LOD (las de documentación se practican en la auditoría).
-  Queda: misiones de certificaciones ligadas al simulador (3.7). Decidir con
+  Hecha también la 3.7: misiones de planta en las certificaciones QUIE0108 y GMP (lista en `src/certs/misiones-planta.ts`,
+  comprobación en `src/sim/misiones.ts`; se marcan solas al terminar cada simulador). Decidir con
   Victor si el verde de las válvulas abiertas se queda como código de planta.
 - Pendiente además: biotecnología (módulos FP 1390/1393) queda fuera del
   temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP

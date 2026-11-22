@@ -6,6 +6,8 @@ import { Badge, Btn, Card } from "@/components/sim/ui";
 import { type State, fmt, fmtHora } from "@/sim/reactor/model";
 import { type Hoja, type PasoId, CAMPOS, PASOS, anotar, fueraDeSpec, revisar } from "@/sim/reactor/hoja";
 import { GUIA } from "@/sim/reactor/guia";
+import { misionesReactor } from "@/sim/misiones";
+import { MisionesAviso } from "@/components/certs/MisionesAviso";
 
 /** Hoja de producción por pasos: instrucciones, datos con su hora de anotación y firma de cada paso. */
 export function HojaPanel({ s, hoja, setHoja }: { s: State; hoja: Hoja; setHoja: (fn: (h: Hoja) => void) => void }) {
@@ -109,6 +111,9 @@ export function Review({ s, hoja }: { s: State; hoja: Hoja }) {
   const tone = (g: string) => (g === "crítica" ? "bad" : g === "mayor" ? "warn" : "neutral");
   return (
     <Card title="Revisión del lote por calidad">
+      <div className="mb-3">
+        <MisionesAviso ids={misionesReactor(s, hoja)} />
+      </div>
       <p className="mb-3 font-medium">{r.veredicto}</p>
       <ul className="mb-3 space-y-0.5 text-sm text-muted">
         {r.resumen.map((t) => (

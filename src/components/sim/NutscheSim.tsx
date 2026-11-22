@@ -7,6 +7,8 @@ import { Gauge, Lcd, MiniTrend, Pipe, Plate, Valve } from "./Equipment";
 import { Icon } from "@/components/icons";
 import { btn } from "@/components/ui";
 import { ValveRow } from "./Valves";
+import { misionesNutsche } from "@/sim/misiones";
+import { MisionesAviso } from "@/components/certs/MisionesAviso";
 import { Badge, Btn, Card, Readout } from "./ui";
 
 const KEY = "quimica-app:nutsche:v1";
@@ -338,6 +340,9 @@ function Review({ s }: { s: NState }) {
   const res = N.results(s);
   return (
     <Card title="Revisión de QA y resultados del laboratorio">
+      <div className="mb-4">
+        <MisionesAviso ids={misionesNutsche(s)} />
+      </div>
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <h4 className="mb-2 text-sm font-semibold">Observaciones</h4>

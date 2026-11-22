@@ -4,6 +4,7 @@ import { casesForUnits } from "@/certs/casos";
 import { showGrade } from "@/certs/grading";
 import { bankSize, prepSummary, unitLessons, unitPool } from "@/certs/pool";
 import { getPrep, preps } from "@/certs/prep";
+import { MisionesPlanta } from "@/components/certs/MisionesPlanta";
 import { Readiness } from "@/components/certs/Readiness";
 import { SyllabusProgress } from "@/components/certs/SyllabusProgress";
 import { Icon } from "@/components/icons";
@@ -58,6 +59,8 @@ export default async function PrepPage({ params }: { params: Promise<{ id: strin
       />
 
       <Readiness summary={summary} />
+
+      <MisionesPlanta certId={p.certId} />
 
       <section aria-labelledby="sim-h">
         <SectionTitle id="sim-h" en="Mock exams">

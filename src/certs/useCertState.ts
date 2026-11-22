@@ -14,7 +14,7 @@ export type CertState = {
   exams: Record<string, { best: ExamResult; last: ExamResult }>;
   /** Autoevaluación: id de unidad → RP → valor 1–4 */
   self: Record<string, Record<string, number>>;
-  /** Misiones del simulador ERP completadas */
+  /** Misiones completadas (simulador ERP y simuladores de planta, con prefijo «pl-») → fecha */
   missions: Record<string, string>;
   /** Repaso espaciado (Leitner): id de pregunta → caja 1–5 y fecha en que vuelve */
   srs: Record<string, SrsCard>;
@@ -124,6 +124,18 @@ export function useCertState() {
     [update],
   );
 
+  /** Marca varias misiones a la vez (las que ya estaban hechas conservan su fecha) */
+  const completeMissions = useCallback(
+    (ids: string[]) =>
+      update((s) => {
+        const nuevas = ids.filter((id) => !s.missions[id]);
+        if (!nuevas.length) return s;
+        const at = new Date().toISOString();
+        return { ...s, missions: { ...s.missions, ...Object.fromEntries(nuevas.map((id) => [id, at])) } };
+      }),
+    [update],
+  );
+
   /** Registra respuestas (id → acierto) en el repaso espaciado */
   const review = useCallback(
     (marks: Record<string, boolean>) =>
@@ -190,7 +202,7 @@ export function useCertState() {
     [update],
   );
 
-  return { state, loaded, answerCard, saveFds, toggleStep, saveExam, rate, completeMission, review, saveMock, saveCase, saveSapExam, savePlant };
+  return { state, loaded, answerCard, saveFds, toggleStep, saveExam, rate, completeMission, completeMissions, review, saveMock, saveCase, saveSapExam, savePlant };
 }
 
 /** Nota de aprobado de los simulacros de la app (criterio propio, no oficial) */
