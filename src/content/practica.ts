@@ -49,6 +49,7 @@ export const practicas: Record<string, Practica[]> = {
   "desviaciones-y-capa-a-fondo": [LOTE(undefined, "Con incidencias: decide cuándo abrir una desviación.")],
   "recepcion-y-cuarentena": [LOTE("etiqueta", "La etiqueta de un bidón no coincide con la orden.")],
   "oos-y-oot": [LOTE("ipc", "El control en proceso sale fuera de límite.")],
+  "turno-y-factor-humano-a-fondo": [NUTSCHE],
   "pictogramas-y-fds": [FDS],
   "pictogramas-y-fds-a-fondo": [FDS],
   "sap-en-planta": [SAP],

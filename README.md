@@ -1,7 +1,7 @@
 # Aula de Química Industrial
 
 App web para aprender química desde cero hasta el trabajo en una planta de principios activos (API), con GMP y ALCOA+.
-Tiene tres partes: el **Aula** (225 lecciones en 22 niveles, muchas de ellas «a fondo», con test, vocabulario y glosario),
+Tiene tres partes: el **Aula** (228 lecciones en 22 niveles, muchas de ellas «a fondo», con test, vocabulario y glosario),
 el **simulador de planta** (lote completo, reactor R-204 con modelo físico y averías, filtro-secador Nutsche y auditoría de
 hojas) y la preparación de **certificaciones** con un simulador de ERP tipo SAP.
 

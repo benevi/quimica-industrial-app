@@ -5,6 +5,7 @@ export type Sigla = { sigla: string; es: string; en?: string };
 
 export const siglas: Sigla[] = [
   { sigla: "ADR", es: "Acuerdo europeo sobre transporte internacional de mercancías peligrosas por carretera" },
+  { sigla: "AISI", es: "Instituto estadounidense del hierro y el acero: su numeración se usa para los aceros inoxidables (304, 316L)", en: "American Iron and Steel Institute" },
   { sigla: "AEMPS", es: "Agencia Española de Medicamentos y Productos Sanitarios" },
   { sigla: "ALCOA+", es: "Atribuible, legible, contemporáneo, original y exacto; el + añade completo, coherente, duradero y disponible", en: "Attributable, Legible, Contemporaneous, Original, Accurate (+ Complete, Consistent, Enduring, Available)" },
   { sigla: "API", es: "Principio activo farmacéutico", en: "Active Pharmaceutical Ingredient" },
@@ -64,6 +65,7 @@ export const siglas: Sigla[] = [
   { sigla: "LOQ", es: "Límite de cuantificación", en: "Limit Of Quantitation" },
   { sigla: "LC-MS / GC-MS", es: "Cromatografía de líquidos o de gases acoplada a espectrometría de masas", en: "Liquid / Gas Chromatography–Mass Spectrometry" },
   { sigla: "LII / LSI", es: "Límite inferior / superior de inflamabilidad", en: "LEL / UEL, Lower / Upper Explosive Limit" },
+  { sigla: "LIE / LSE", es: "Límite inferior / superior de explosividad (otra forma de llamar a LII / LSI); los detectores de gas suelen dar la lectura en % del LIE", en: "LEL / UEL" },
   { sigla: "MACO", es: "Arrastre máximo admisible de un producto al siguiente en la limpieza", en: "Maximum Allowable CarryOver" },
   { sigla: "MES", es: "Sistema de ejecución de fabricación", en: "Manufacturing Execution System" },
   { sigla: "MHRA", es: "Agencia reguladora de medicamentos del Reino Unido", en: "Medicines and Healthcare products Regulatory Agency" },
