@@ -1,6 +1,7 @@
 // Hoja de producción (batch record) de la etapa 1 del intermedio ficticio AX-22 en el reactor R-204,
 // y revisión final del lote: compara lo anotado con lo que guardó el sistema (historiador) y con la hoja.
-import { type State, P, fmt, fmtHora, nivel, o2, pGauge, tmLeida } from "./model";
+import { type State, P, activa, fmt, fmtHora, nivel, o2, pGauge, tmLeida } from "./model";
+import { GUIA } from "./guia";
 
 export type PasoId =
   | "previas"
@@ -125,7 +126,7 @@ export const CAMPOS: Campo[] = [
   { id: "fondo", paso: "previas", label: "Válvula de fondo XV-204F", kind: "select", options: ["Cerrada", "Abierta"], spec: "Cerrada", real: (s) => (s.inputs.fondo ? "Abierta" : "Cerrada") },
   { id: "pdisco", paso: "previas", label: "PI-204D entre disco y válvula de seguridad", unit: "bar g", spec: "0,00", kind: "number", max: 0.02, real: (s) => s.pDisco, tol: 0.02 },
   { id: "barrera", paso: "previas", label: "Nivel del líquido de barrera LI-204S", unit: "%", spec: "40 – 80", kind: "number", min: 40, max: 80, real: (s) => s.barrera, tol: 3 },
-  { id: "n2", paso: "previas", label: "Presión de nitrógeno de red PI-N2", unit: "bar g", spec: "≥ 4,0", kind: "number", min: 4, real: (s) => (s.faultActive && s.fault === "nitrogeno" ? 0.3 : P.pN2Red), tol: 0.2 },
+  { id: "n2", paso: "previas", label: "Presión de nitrógeno de red PI-N2", unit: "bar g", spec: "≥ 4,0", kind: "number", min: 4, real: (s) => (activa(s, "nitrogeno") ? 0.3 : P.pN2Red), tol: 0.2 },
 
   { id: "ciclo1", paso: "inertizacion", label: "Ciclo 1: presión mínima", unit: "mbar abs", spec: "≤ 200", kind: "number", max: 200, real: (s) => s.ciclos[0]?.pMin ?? null, tol: 10 },
   { id: "ciclo2", paso: "inertizacion", label: "Ciclo 2: presión mínima", unit: "mbar abs", spec: "≤ 200", kind: "number", max: 200, real: (s) => s.ciclos[1]?.pMin ?? null, tol: 10 },
@@ -142,7 +143,7 @@ export const CAMPOS: Campo[] = [
 
   { id: "iniAd", paso: "adicion", label: "Hora de inicio de la adición", kind: "time", real: (s) => s.inicioAdicion, cuando: (s) => sOrNull(s.inicioAdicion) },
   { id: "finAd", paso: "adicion", label: "Hora de fin de la adición", kind: "time", real: (s) => s.finAdicion, cuando: (s) => sOrNull(s.finAdicion) },
-  { id: "kgB", paso: "adicion", label: "B adicionado (FQ-205)", unit: "kg", spec: "597 – 603", kind: "number", min: 597, max: 603, real: (s) => s.bAlimentado, tol: 3 },
+  { id: "kgB", paso: "adicion", label: "B adicionado (FQ-205)", unit: "kg", spec: "597 – 603", kind: "number", min: 597, max: 603, real: (s) => s.bIndicado, tol: 3 },
   { id: "tminAd", paso: "adicion", label: "Temperatura mínima durante la adición (tendencia)", unit: "°C", spec: "≥ 68", kind: "number", min: 68, real: (s) => s.minTmAdicion, tol: 1 },
   { id: "tmaxAd", paso: "adicion", label: "Temperatura máxima durante la adición (tendencia)", unit: "°C", spec: "≤ 75", kind: "number", max: 75, real: (s) => s.maxTmAdicion, tol: 1 },
 
@@ -217,6 +218,7 @@ export function revisar(s: State, h: Hoja): { hallazgos: Hallazgo[]; veredicto: 
     if (s.maxTmAdicion !== null && s.maxTmAdicion > 75) add("mayor", `La masa llegó a ${fmt(s.maxTmAdicion)} °C durante la adición (máximo 75).`);
     if (s.minTmAdicion !== null && s.minTmAdicion < 68) add("mayor", `La masa bajó a ${fmt(s.minTmAdicion)} °C durante la adición (mínimo 68): riesgo de acumulación.`);
   }
+  if (s.bAlimentado > 603) add("mayor", `Entraron ${fmt(s.bAlimentado, 0)} kg de B, más de los 600 de la hoja (la báscula del depósito lo confirma).`);
   if (s.maxTm >= 80 && s.inicioAdicion !== null && (s.finAdicion === null || s.maxTmAdicion === null || s.maxTmAdicion >= 80))
     add("crítica", "Disparó el interlock de temperatura muy alta (80 °C) durante la adición.");
   if (s.tiempoDTexcedido > 0) add("mayor", `La diferencia camisa-masa superó los 50 °C durante ${fmt(s.tiempoDTexcedido / 60, 0)} min: riesgo para el vitrificado.`);
@@ -237,12 +239,15 @@ export function revisar(s: State, h: Hoja): { hallazgos: Hallazgo[]; veredicto: 
   if (s.mDescargado > 0 && s.mDescargado < mEsperada(s) - 50) add("mayor", `Descarga incompleta: ${fmt(s.mDescargado, 0)} kg.`);
   if (s.alarms.some((a) => !a.acked)) add("menor", "Quedaron alarmas sin reconocer al terminar.");
 
-  // Averías
-  if (s.faultDesde !== null) {
-    if (s.avisoAveria === null) add("mayor", "Hubo una avería y no consta ningún aviso al jefe de turno ni a mantenimiento.");
-    else if (s.avisoAveria - s.faultDesde > 30 * 60) add("menor", `El aviso de la avería llegó ${fmt((s.avisoAveria - s.faultDesde) / 60, 0)} min después de empezar.`);
-    if (incidencias === "") add("mayor", "La avería no aparece en las incidencias de la hoja.");
+  // Averías: aviso, respuesta y registro de cada una
+  const ocurridas = s.faults.filter((f) => f.desde !== null);
+  for (const f of ocurridas) {
+    const nombre = GUIA[f.id].titulo;
+    if (f.aviso === null) add("mayor", `${nombre}: no consta ningún aviso al jefe de turno ni a mantenimiento.`);
+    else if (f.aviso - (f.desde as number) > 30 * 60) add("menor", `${nombre}: el aviso llegó ${fmt((f.aviso - (f.desde as number)) / 60, 0)} min después de empezar.`);
+    if (f.respuesta === null) add("mayor", `${nombre}: no se hizo lo que pedía la situación (${GUIA[f.id].clave}).`);
   }
+  if (ocurridas.length > 0 && incidencias === "") add("mayor", "Las averías del turno no aparecen en las incidencias de la hoja.");
 
   // Hoja: datos sin anotar, inexactos, fuera de especificación sin explicar, no contemporáneos
   for (const c of CAMPOS) {

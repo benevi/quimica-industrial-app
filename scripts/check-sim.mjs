@@ -186,7 +186,7 @@ function reactorLote(opts = {}) {
   const s = RM.newState(fault);
   const h = RH.newHoja();
   const i = s.inputs;
-  const run = (sec, cond) => { for (let k = 0; k < sec; k++) { RM.step(s, 1); if (cond && cond()) return true; } return false; };
+  const run = (sec, cond) => { for (let k = 0; k < sec; k++) { RM.step(s, 1); if (opts.onStep) opts.onStep(s); if (cond && cond()) return true; } return false; };
   const note = (id, v) => RH.anotar(h, s, id, String(v).replace(".", ","));
   const firma = (p) => { h.firmas[p] = s.t; };
   const o2Ciclo = [];
@@ -206,19 +206,19 @@ function reactorLote(opts = {}) {
   i.ticMasaOn = true; i.jMode = "CAS"; i.tMasaSp = tAd;
   run(4 * 3600, () => s.tm >= tAd - 0.5);
   const calentamiento = (s.t - t0) / 60;
-  note("horaCal", RM.fmtHora(s.t)); run(600); note("tmCal", RM.fmt(RM.tmLeida(s), 1)); firma("calentamiento");
+  note("horaCal", RM.fmtHora(s.t)); run(600); run(3 * 3600, () => s.tm >= 68 && s.tm <= 74); note("tmCal", RM.fmt(RM.tmLeida(s), 1)); firma("calentamiento");
   i.feedSp = opts.feed ?? 600; i.dosif = true;
   let maxB = 0;
-  run(3 * 3600, () => { maxB = Math.max(maxB, s.mB); if (opts.onAdicion) opts.onAdicion(s); return s.bAlimentado >= 600; });
+  run(5 * 3600, () => { maxB = Math.max(maxB, s.mB); if (opts.onAdicion) opts.onAdicion(s); return s.bAlimentado >= 600; });
   i.dosif = false;
   if (s.inicioAdicion !== null) note("iniAd", RM.fmtHora(s.inicioAdicion));
   if (s.finAdicion !== null) note("finAd", RM.fmtHora(s.finAdicion));
-  note("kgB", RM.fmt(s.bAlimentado, 1)); note("tminAd", RM.fmt(s.minTmAdicion ?? 0, 1)); note("tmaxAd", RM.fmt(s.maxTmAdicion ?? 0, 1)); firma("adicion");
+  note("kgB", RM.fmt(s.bIndicado, 1)); note("tminAd", RM.fmt(s.minTmAdicion ?? 0, 1)); note("tmaxAd", RM.fmt(s.maxTmAdicion ?? 0, 1)); firma("adicion");
   i.tMasaSp = 125;
   run(4 * 3600, () => s.inicioReflujo !== null);
   if (s.inicioReflujo !== null) note("iniRef", RM.fmtHora(s.inicioReflujo));
   note("tmRef", RM.fmt(RM.tmLeida(s), 1));
-  run(7200, () => s.tiempoReflujo >= 7200);
+  run(5 * 3600, () => s.tiempoReflujo >= 7200);
   note("finRef", RM.fmtHora(s.t));
   firma("reflujo");
   RM.tomarMuestra(s); note("horaIpc", RM.fmtHora(s.t));
@@ -231,6 +231,7 @@ function reactorLote(opts = {}) {
   i.fondo = true; run(7200, () => RM.volLiquido(s) < 0.5); i.agitOn = false; run(7200, () => RM.mLiquido(s) < 5); i.fondo = false;
   note("kgDesc", Math.round(s.mDescargado)); note("estadoFin", "Sucio"); firma("descarga");
   if (opts.incidencias) note("incidencias", opts.incidencias);
+  RM.ackAlarm(s);
   firma("cierre");
   RM.ackAlarm(s);
   return { s, h, o2Ciclo, calentamiento, maxB, r: RH.revisar(s, h) };
@@ -276,14 +277,15 @@ function reactorLote(opts = {}) {
     incidencias: "Pérdida de agua de refrigeración durante la adición: se paró la adición y se avisó.",
     onAdicion: (s) => {
       if (s.alarms.some((a) => a.id === "CWL" && a.active) && !avisado) { s.inputs.dosif = false; RM.avisar(s, "sin agua de torre en la TCU"); avisado = true; }
-      if (avisado && s.reparacionEn === null && !s.faultActive && !s.inputs.dosif && s.tm < 73) s.inputs.dosif = true;
+      if (avisado && !RM.activa(s, "agua") && !s.inputs.dosif && s.tm < 73 && s.finAdicion === null) s.inputs.dosif = true;
     },
   });
-  expect(avisado && L.s.avisoAveria !== null, "12: la avería de agua dispara su alarma y se puede avisar");
+  expect(avisado && RM.averia(L.s, "agua").aviso !== null, "12: la avería de agua dispara su alarma y se puede avisar");
   expect(L.s.maxTmAdicion < 80 && L.s.finAdicion !== null, `12: parando la adición a tiempo no se llega a 80 °C y se termina tras la reparación (${L.s.maxTmAdicion.toFixed(1)}, ${L.s.bAlimentado.toFixed(0)} kg)`);
   expect(!L.r.hallazgos.some((x) => x.texto.includes("no consta ningún aviso")), "12: el aviso queda registrado en la revisión");
   const sinAviso = reactorLote({ fault: "agua" });
   expect(sinAviso.r.hallazgos.some((x) => x.texto.includes("no consta ningún aviso")), "12: sin aviso, la revisión lo señala");
+  expect(sinAviso.r.hallazgos.some((x) => x.texto.includes("no se hizo lo que pedía")), "12: sin respuesta, la revisión lo señala");
 }
 {
   // Avería: fuga en el vacío. No se llega a 200 mbar abs y el interlock I-05 no deja cargar.
@@ -296,5 +298,51 @@ function reactorLote(opts = {}) {
   expect(RM.o2(s) > 2 && RM.puedeCargar(s) !== null, `13: con ${RM.o2(s).toFixed(1)} % de O₂ el interlock no deja cargar`);
 }
 
-console.log(errors ? `${errors} errores` : "Simulador de planta: 13 escenarios OK");
+
+{
+  // Un operador que reacciona como dice la guía resuelve cada avería sin hallazgos críticos
+  const bueno = (s) => {
+    const i = s.inputs;
+    for (const f of s.faults) {
+      if (f.estado === "activa") {
+        if (f.aviso === null) RM.avisar(s, "avería " + f.id);
+        if (f.id === "agua") i.medio = "glicol";
+        if (f.id === "sensor") i.sondaB = true;
+        if (f.id === "valvulaB") i.aislaB = true;
+        if (f.id === "caudalimetro" && i.feedSp > 480) i.feedSp = 480;
+        if (f.id === "barrera") RM.rellenarBarrera(s);
+        if (f.id === "agitador") i.dosif = false;
+        if (f.id === "condensador") { i.ticMasaOn = false; i.jMode = "MAN"; i.jOut = 0; }
+      }
+      if (f.estado === "resuelta" && f.fin !== null && s.t - f.fin < 5) {
+        if (f.id === "condensador" || f.id === "corte") { i.ticMasaOn = true; i.jMode = "CAS"; }
+        if (f.id === "corte" || f.id === "agitador") i.agitOn = true;
+
+      }
+    }
+    if (RM.activa(s, "caudalimetro") && s.bAlimentado >= 600) i.dosif = false;
+    // Tras el disparo del agitador: reanudar la adición solo con agitación estable y la masa en su intervalo
+    const ag = RM.averia(s, "agitador");
+    if (ag && ag.estado === "resuelta" && s.finAdicion === null && !i.dosif && s.rpm > 85 && s.tm > 68 && s.tm < 73) i.dosif = true;
+  };
+  const aparecidas = [];
+  for (const f of RM.FAULTS) {
+    const L = reactorLote({ fault: f.id, onStep: bueno, incidencias: "Avería " + f.title + ": se avisó y se actuó según la guía." });
+    const st = RM.averia(L.s, f.id);
+    if (st.desde !== null) aparecidas.push(f.id);
+    expect(st.desde !== null, `14: la avería «${f.id}» aparece en su fase`);
+    expect(st.respuesta !== null, `14: la respuesta correcta a «${f.id}» queda registrada`);
+    const crit = L.r.hallazgos.filter((x) => x.grav === "crítica");
+    expect(crit.length === 0, `14: «${f.id}» bien llevada no deja hallazgos críticos (${crit.map((x) => x.texto).join(" | ")})`);
+  }
+  const sucia = reactorLote({ fault: "camisaSucia" });
+  const limpia = reactorLote();
+  expect(sucia.calentamiento > limpia.calentamiento, `14: con la camisa sucia calentar tarda más (${sucia.calentamiento.toFixed(0)} frente a ${limpia.calentamiento.toFixed(0)} min)`);
+  expect(sucia.s.maxTmAdicion > limpia.s.maxTmAdicion + 1, `14: con la camisa sucia la masa sube más en la adición (${sucia.s.maxTmAdicion.toFixed(1)} frente a ${limpia.s.maxTmAdicion.toFixed(1)} °C)`);
+  const corte = reactorLote({ fault: "corte", onStep: bueno });
+  expect(corte.s.alarms.length >= 0 && RM.averia(corte.s, "corte").fin !== null, "14: tras el corte vuelve la corriente");
+  const turno = RM.newState(["vacio", "agua", "corte"]);
+  expect(turno.faults.length === 3, "14: el turno real admite varias averías a la vez");
+}
+console.log(errors ? `${errors} errores` : "Simulador de planta: 14 escenarios OK");
 process.exit(errors ? 1 : 0);

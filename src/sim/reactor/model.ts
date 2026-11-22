@@ -68,7 +68,7 @@ export const P = {
   caudalCarga: 1.45, // kg/s (unos 100 L/min de solución)
   caudalDescarga: 2.0, // kg/s
   feedMax: 1200, // kg/h de la bomba dosificadora
-  depositoB: 620, // kg de B en el depósito de dosificación D-205
+  depositoB: 650, // kg de B en el depósito de dosificación D-205 (con báscula WI-205)
   rpmMax: 120,
 } as const;
 
@@ -82,18 +82,44 @@ export type Fault =
   | "condensador"
   | "disco"
   | "nitrogeno"
-  | "barrera";
+  | "barrera"
+  | "valvulaB"
+  | "caudalimetro"
+  | "camisaSucia"
+  | "tcuAtascada"
+  | "corte";
 
+/** Averías que se pueden elegir, con la fase en la que aparecen. */
 export const FAULTS: { id: Fault; title: string; when: string }[] = [
+  { id: "vacio", title: "Entra aire por una junta mientras se hace vacío", when: "en la inertización" },
+  { id: "camisaSucia", title: "La camisa está sucia por fuera y transmite peor el calor", when: "todo el lote" },
+  { id: "sensor", title: "La sonda de temperatura principal se queda congelada", when: "al calentar" },
+  { id: "disco", title: "El disco de ruptura empieza a fugar", when: "al calentar" },
+  { id: "tcuAtascada", title: "La válvula de la unidad de la camisa se atasca", when: "al calentar" },
+  { id: "caudalimetro", title: "El caudalímetro de la adición marca de menos", when: "durante la adición" },
   { id: "agua", title: "Se pierde el agua de refrigeración de la unidad de la camisa", when: "durante la adición" },
   { id: "agitador", title: "El agitador dispara por sobreintensidad", when: "durante la adición" },
-  { id: "sensor", title: "La sonda de temperatura principal se queda congelada", when: "al calentar" },
-  { id: "vacio", title: "Entra aire por una junta mientras se hace vacío", when: "en la inertización" },
+  { id: "valvulaB", title: "La válvula de la adición no cierra bien y sigue pasando B", when: "al terminar la adición" },
   { id: "condensador", title: "Falla el agua del condensador", when: "durante el reflujo" },
-  { id: "disco", title: "El disco de ruptura empieza a fugar", when: "al calentar" },
-  { id: "nitrogeno", title: "Se queda sin presión la red de nitrógeno", when: "al enfriar" },
+  { id: "corte", title: "Corte de corriente de tres minutos", when: "durante el reflujo" },
   { id: "barrera", title: "Baja el nivel del líquido de barrera del cierre", when: "durante el reflujo" },
+  { id: "nitrogeno", title: "Se queda sin presión la red de nitrógeno", when: "al enfriar" },
 ];
+
+export type FaultState = {
+  id: Fault;
+  estado: "pendiente" | "activa" | "resuelta";
+  desde: number | null;
+  fin: number | null;
+  aviso: number | null; // cuándo avisó el operador
+  reparacion: number | null; // cuándo llega mantenimiento
+  respuesta: number | null; // cuándo hizo el operador lo que había que hacer
+  pistas: number; // pistas pedidas
+  dato: number; // valor congelado (sonda, salida de la TCU…)
+};
+
+/** Las averías que no arregla mantenimiento durante el lote. */
+const SIN_REPARACION: Fault[] = ["camisaSucia", "corte"];
 
 export type LoopMode = "MAN" | "AUTO" | "CAS";
 export type Medio = "agua" | "glicol";
@@ -123,6 +149,7 @@ export type Inputs = {
   aguaCond: boolean;
   destilar: boolean; // false = reflujo
   sondaB: boolean; // el control usa la sonda redundante TT-204B en lugar de TT-204A
+  aislaB: boolean; // válvula manual de aislamiento XV-205 de la línea de B cerrada
 };
 
 export type AlarmPriority = "alta" | "media" | "baja";
@@ -142,7 +169,8 @@ export type State = {
   mImp: number;
   mDest: number; // destilado en el depósito D-204
   mDescargado: number;
-  bAlimentado: number; // totalizador FQ-205
+  bAlimentado: number; // B que ha entrado de verdad
+  bIndicado: number; // lo que marca el totalizador FQ-205
   solCargada: number; // totalizador FQ-204
   // Temperaturas
   tm: number;
@@ -164,8 +192,8 @@ export type State = {
   u: number; // salida de la TCU, −100 a 100
   tmSensorCongelado: number | null;
   // Averías
-  fault: Fault | null;
-  faultActive: boolean;
+  faults: FaultState[];
+  sinCorriente: boolean;
   // Interlocks disparados (primer aviso) y alarmas
   trips: string[];
   alarms: Alarm[];
@@ -193,9 +221,6 @@ export type State = {
   ciclos: { pMin: number; pMax: number }[];
   enCiclo: { pMin: number; pMax: number; fase: "vacio" | "n2" } | null;
   eventos: { t: number; texto: string }[]; // acciones y avisos del operador, para la revisión
-  avisoAveria: number | null; // cuándo avisó el operador de la avería
-  faultDesde: number | null; // cuándo empezó la avería
-  reparacionEn: number | null;
   inputs: Inputs;
 };
 
@@ -238,7 +263,7 @@ export function areaMojada(s: State) {
 
 export function coefU(s: State) {
   const f = s.rpm > 1 ? Math.min(1.2, Math.max(0.3, Math.pow(s.rpm / P.rpmRef, 0.6))) : 0.2;
-  return P.U0 * f * P.ensuciamiento;
+  return P.U0 * f * P.ensuciamiento * (activa(s, "camisaSucia") ? 0.6 : 1);
 }
 
 function volGas(s: State) {
@@ -305,12 +330,27 @@ export function tmControl(s: State) {
   return s.inputs.sondaB ? s.tm : tmLeida(s);
 }
 
-/** Caudal real de la dosificadora, en kg/h. */
+/** Caudal real de B que entra al reactor, en kg/h. */
 export function feedReal(s: State) {
-  return s.inputs.dosif && !s.trips.some((t) => FEED_TRIPS.includes(t)) && s.bAlimentado < P.depositoB
-    ? Math.min(Math.max(s.inputs.feedSp, 0), P.feedMax)
-    : 0;
+  const i = s.inputs;
+  if (i.aislaB || s.bAlimentado >= P.depositoB) return 0;
+  const bomba = i.dosif && !s.sinCorriente && !s.trips.some((t) => FEED_TRIPS.includes(t));
+  if (bomba) {
+    const sp = Math.min(Math.max(i.feedSp, 0), P.feedMax);
+    // Con el caudalímetro descalibrado, el lazo cree que va a la consigna y en realidad mete un 25 % más
+    return activa(s, "caudalimetro") ? Math.min(P.feedMax * 1.25, sp * 1.25) : sp;
+  }
+  // La válvula de la línea no cierra del todo: pasa B por gravedad desde el depósito
+  return activa(s, "valvulaB") ? 40 : 0;
 }
+
+/** Lo que marca el caudalímetro FI-205. */
+export function feedIndicado(s: State) {
+  return activa(s, "caudalimetro") ? feedReal(s) * 0.8 : feedReal(s);
+}
+
+/** Báscula del depósito de B (WI-205), en kg. */
+export const pesoDepositoB = (s: State) => P.depositoB - s.bAlimentado;
 
 /* ───────────────────────────── Alarmas e interlocks ───────────────────────────── */
 
@@ -337,6 +377,9 @@ export const ALARMS: AlarmDef[] = [
   { id: "EMI", tag: "FI-V", text: "Sale vapor de tolueno por el venteo: el condensador no condensa todo", prio: "media" },
   { id: "PSV", tag: "PSV-204", text: "Disco de ruptura roto o válvula de seguridad abierta", prio: "alta" },
   { id: "SAM", tag: "M-204", text: "Agitador en marcha por debajo del volumen mínimo (500 L)", prio: "baja" },
+  { id: "ENE", tag: "UPS", text: "Fallo de alimentación eléctrica: motores y bombas parados", prio: "alta" },
+  { id: "FPS", tag: "FI-205", text: "Caudal de B con la dosificadora parada", prio: "media" },
+  { id: "JDV", tag: "TIC-204J", text: "La camisa no sigue su consigna (desviación de más de 35 °C)", prio: "media" },
 ];
 
 /** Interlocks que paran la adición. */
@@ -352,7 +395,8 @@ export const INTERLOCKS: Record<string, string> = {
 
 /* ───────────────────────────── Arranque ───────────────────────────── */
 
-export function newState(fault: Fault | null = null): State {
+export function newState(faults: Fault[] | Fault | null = null): State {
+  const lista = faults === null ? [] : Array.isArray(faults) ? faults : [faults];
   const nAire = (P.pAtm * 1e5 * P.volTotal) / (P.R * K(P.tAmbiente));
   return {
     t: 0,
@@ -363,6 +407,7 @@ export function newState(fault: Fault | null = null): State {
     mDest: 0,
     mDescargado: 0,
     bAlimentado: 0,
+    bIndicado: 0,
     solCargada: 0,
     tm: P.tAmbiente,
     tj: P.tAmbiente,
@@ -379,8 +424,8 @@ export function newState(fault: Fault | null = null): State {
     jSpCalc: P.tAmbiente,
     u: 0,
     tmSensorCongelado: null,
-    fault,
-    faultActive: false,
+    faults: lista.map((id) => ({ id, estado: "pendiente", desde: null, fin: null, aviso: null, reparacion: null, respuesta: null, pistas: 0, dato: 0 })),
+    sinCorriente: false,
     trips: [],
     alarms: [],
     hist: [],
@@ -404,9 +449,6 @@ export function newState(fault: Fault | null = null): State {
     ciclos: [],
     enCiclo: null,
     eventos: [],
-    avisoAveria: null,
-    faultDesde: null,
-    reparacionEn: null,
     inputs: {
       agitOn: false,
       agitSp: 90,
@@ -428,43 +470,133 @@ export function newState(fault: Fault | null = null): State {
       aguaCond: true,
       destilar: false,
       sondaB: false,
+      aislaB: false,
     },
   };
 }
 
 /* ───────────────────────────── Averías ───────────────────────────── */
 
-function activarAveria(s: State) {
-  if (!s.fault || s.faultActive) return;
+export const activa = (s: State, id: Fault) => s.faults.some((f) => f.id === id && f.estado === "activa");
+export const averia = (s: State, id: Fault) => s.faults.find((f) => f.id === id);
+export const hayAveriaActiva = (s: State) => s.faults.some((f) => f.estado === "activa");
+
+function disparo(s: State, f: FaultState): boolean {
   const i = s.inputs;
   const dosificando = s.inicioAdicion !== null && s.finAdicion === null;
-  const minutosAdicion = s.inicioAdicion !== null ? (s.t - s.inicioAdicion) / 60 : 0;
-  let go = false;
-  switch (s.fault) {
-    case "agua":
-    case "agitador":
-      go = dosificando && minutosAdicion > 15;
-      break;
-    case "sensor":
-    case "disco":
-      go = s.tm > 45 && s.inicioAdicion === null;
-      break;
+  const minAd = s.inicioAdicion !== null ? (s.t - s.inicioAdicion) / 60 : 0;
+  const antesDeAdicion = s.inicioAdicion === null;
+  switch (f.id) {
     case "vacio":
-      go = i.vacio;
-      break;
+      return i.vacio;
+    case "camisaSucia":
+      return true;
+    case "sensor":
+      return s.tm > 45 && antesDeAdicion;
+    case "disco":
+      return s.tm > 55 && antesDeAdicion;
+    case "tcuAtascada":
+      return s.tm > 58 && antesDeAdicion && s.u > 20;
+    case "caudalimetro":
+      return dosificando && minAd > 1;
+    case "agua":
+      return dosificando && minAd > 15;
+    case "agitador":
+      return dosificando && minAd > 30;
+    case "valvulaB":
+      return s.finAdicion !== null && !i.dosif;
     case "condensador":
+      return s.tiempoReflujo > 20 * 60;
+    case "corte":
+      return s.tiempoReflujo > 45 * 60;
     case "barrera":
-      go = s.tiempoReflujo > 20 * 60;
-      break;
+      return s.tiempoReflujo > 60 * 60;
     case "nitrogeno":
-      go = s.finAdicion !== null && s.tiempoReflujo > 0 && s.tm < 95;
-      break;
+      return s.finAdicion !== null && s.tiempoReflujo > 0 && s.tm < 95;
   }
-  if (!go) return;
-  s.faultActive = true;
-  s.faultDesde = s.t;
-  if (s.fault === "sensor") s.tmSensorCongelado = Math.round(s.tm * 10) / 10;
-  if (s.fault === "agitador") s.agitDisparado = true;
+}
+
+function activarAverias(s: State) {
+  for (const f of s.faults) {
+    if (f.estado === "pendiente" && disparo(s, f)) {
+      f.estado = "activa";
+      f.desde = s.t;
+      if (f.id === "sensor") s.tmSensorCongelado = Math.round(s.tm * 10) / 10;
+      if (f.id === "agitador") s.agitDisparado = true;
+      if (f.id === "tcuAtascada") f.dato = s.u;
+      if (f.id === "corte") s.sinCorriente = true;
+    }
+    if (f.estado !== "activa") continue;
+    // Reparación por mantenimiento
+    if (f.reparacion !== null && s.t >= f.reparacion) {
+      f.estado = "resuelta";
+      f.fin = s.t;
+      if (f.id === "sensor") s.tmSensorCongelado = null;
+      if (f.id === "agitador") s.agitDisparado = false;
+      s.eventos.push({ t: s.t, texto: "Mantenimiento da por resuelta la avería" });
+    }
+    // El corte de corriente vuelve solo a los 3 minutos; todo arranca parado
+    if (f.id === "corte" && f.desde !== null && s.t - f.desde >= 180 && s.sinCorriente) {
+      s.sinCorriente = false;
+      f.estado = "resuelta";
+      f.fin = s.t;
+      const i = s.inputs;
+      i.agitOn = false;
+      i.dosif = false;
+      i.carga = false;
+      i.vacio = false;
+      i.fondo = false;
+      i.ticMasaOn = false;
+      i.jMode = "MAN";
+      i.jOut = 0;
+      s.iMasa = 0;
+      s.iJacket = 0;
+    }
+  }
+}
+
+const URGENTES: Fault[] = ["agua", "agitador", "condensador", "caudalimetro", "sensor", "tcuAtascada", "valvulaB", "corte"];
+
+/** Comprueba si el operador ya ha hecho lo que pide cada avería. */
+function evaluarRespuestas(s: State) {
+  const i = s.inputs;
+  for (const f of s.faults) {
+    if (f.respuesta !== null || f.desde === null) continue;
+    if (f.estado === "pendiente") continue;
+    // En las averías que piden actuar ya, lo que se haga pasada una hora no cuenta como respuesta
+    if (URGENTES.includes(f.id) && s.t - f.desde > 3600) continue;
+    let ok = false;
+    switch (f.id) {
+      case "agua":
+        // Cuenta si actúas tú antes de que el interlock de 80 °C tenga que hacerlo por ti
+        ok = s.finAdicion === null && (i.medio === "glicol" || (!i.dosif && !s.trips.includes("I-02") && s.maxTm < 80));
+        break;
+      case "agitador":
+        ok = !i.dosif && f.aviso !== null;
+        break;
+      case "sensor":
+        ok = i.sondaB;
+        break;
+      case "condensador":
+        ok = s.u <= 0 || !i.ticMasaOn || i.tMasaSp < 100 || i.jMode === "MAN";
+        break;
+      case "barrera":
+        ok = f.aviso !== null && s.barrera >= 40;
+        break;
+      case "valvulaB":
+        ok = i.aislaB;
+        break;
+      case "caudalimetro":
+        ok = f.aviso !== null && (!i.dosif || feedReal(s) <= 660);
+        break;
+      case "corte":
+        ok = f.estado === "resuelta" && s.rpm > 45 && (feedReal(s) === 0 || s.rpm > 45);
+        break;
+      default:
+        ok = f.aviso !== null; // vacío, disco, nitrógeno, camisa sucia, TCU atascada: lo primero es avisar
+    }
+    if (ok) f.respuesta = s.t;
+  }
 }
 
 /* ───────────────────────────── Paso de simulación ───────────────────────────── */
@@ -499,13 +631,8 @@ function trip(s: State, id: string, on: boolean) {
 /** Avanza la simulación dt segundos (paso interno de 1 s). */
 export function step(s: State, dt = 1) {
   const i = s.inputs;
-  activarAveria(s);
-  if (s.reparacionEn !== null && s.t >= s.reparacionEn) {
-    repararAveria(s);
-    s.reparacionEn = null;
-    s.eventos.push({ t: s.t, texto: "Mantenimiento da por resuelta la avería" });
-  }
-  const fa = s.faultActive ? s.fault : null;
+  activarAverias(s);
+  const fa = (id: Fault) => activa(s, id);
 
   const nivelPct = nivel(s);
   const hayLiquido = mLiquido(s) > 5;
@@ -522,11 +649,11 @@ export function step(s: State, dt = 1) {
   if (s.trips.includes("I-04") || s.trips.includes("I-05")) i.carga = false;
 
   /* Agitador */
-  const agitPuede = i.agitOn && !s.agitDisparado;
+  const agitPuede = i.agitOn && !s.agitDisparado && !s.sinCorriente;
   const rpmObj = agitPuede ? Math.min(Math.max(i.agitSp, 0), P.rpmMax) : 0;
   s.rpm += (rpmObj - s.rpm) * Math.min(1, dt / 8);
   if (s.rpm < 0.5 && rpmObj === 0) s.rpm = 0;
-  if (fa === "barrera") s.barrera = Math.max(0, s.barrera - (dt * 40) / 3600);
+  if (fa("barrera")) s.barrera = Math.max(0, s.barrera - (dt * 40) / 3600);
 
   /* Control de temperatura: cascada masa → camisa */
   const tmMedida = tmControl(s);
@@ -554,6 +681,9 @@ export function step(s: State, dt = 1) {
   if (s.trips.includes("I-02")) u = -100;
   if (s.trips.includes("I-03") && u > 0) u = 0;
   s.u = u;
+  // Válvula atascada: la salida que llega de verdad a la TCU se queda donde estaba; sin corriente no hay TCU
+  if (fa("tcuAtascada")) u = averia(s, "tcuAtascada")?.dato ?? u;
+  if (s.sinCorriente) u = 0;
 
   const tFrio = i.medio === "glicol" ? P.tGlicol : P.tAguaTorre;
   const qTcu =
@@ -561,7 +691,7 @@ export function step(s: State, dt = 1) {
       ? s.tj < P.tJacketMax
         ? (u / 100) * P.qCalorMax
         : 0
-      : fa === "agua" && i.medio === "agua"
+      : fa("agua") && i.medio === "agua"
         ? 0
         : (u / 100) * P.UAfrio * Math.max(0, s.tj - tFrio);
 
@@ -571,7 +701,7 @@ export function step(s: State, dt = 1) {
 
   /* Materia: carga, adición, descarga */
   let qFeed = 0;
-  if (i.carga && !s.trips.includes("I-04") && !s.trips.includes("I-05")) {
+  if (i.carga && !s.sinCorriente && !s.trips.includes("I-04") && !s.trips.includes("I-05")) {
     const m = P.caudalCarga * dt;
     s.mSol += m;
     s.solCargada += m;
@@ -583,11 +713,12 @@ export function step(s: State, dt = 1) {
     const m = (feed / 3600) * dt;
     s.mB += m;
     s.bAlimentado += m;
+    s.bIndicado += (feedIndicado(s) / 3600) * dt;
     qFeed += m * P.cpB * (P.tFeed - s.tm);
     if (s.inicioAdicion === null) s.inicioAdicion = s.t;
   }
   if (s.inicioAdicion !== null && s.finAdicion === null && s.bAlimentado >= 597) s.finAdicion = s.t;
-  if (i.fondo && hayLiquido) {
+  if (i.fondo && hayLiquido && !s.sinCorriente) {
     if (s.tmAlDescargar === null) {
       s.tmAlDescargar = s.tm;
       s.pAlDescargar = pg;
@@ -636,7 +767,7 @@ export function step(s: State, dt = 1) {
       // Hierve: el exceso de energía se va en vapor hacia el condensador
       const mv = (qNet * dt) / P.hVap;
       const tFrioCond = P.tAguaCond;
-      const qcMax = i.aguaCond && fa !== "condensador" ? P.UAcond * Math.max(0, tb - tFrioCond) : 2000;
+      const qcMax = i.aguaCond && !fa("condensador") && !s.sinCorriente ? P.UAcond * Math.max(0, tb - tFrioCond) : 2000;
       const mc = Math.min(mv, (qcMax * dt) / P.hVap);
       let mu = mv - mc;
       if (i.destilar) {
@@ -667,7 +798,7 @@ export function step(s: State, dt = 1) {
   const vg = volGas(s);
   const pa2 = pAbs(s);
   const pg2 = pa2 - P.pAtm;
-  const n2Disponible = !(fa === "nitrogeno");
+  const n2Disponible = !(fa("nitrogeno"));
   let n2Flow = 0;
   if (i.xvN2 && n2Disponible && pg2 < P.pN2Red - 0.5) n2Flow = P.flujoN2;
   if (i.picOn && n2Disponible && pg2 < i.pSp - 0.02 && !s.trips.includes("I-03")) n2Flow = Math.max(n2Flow, P.flujoN2 * 0.5);
@@ -684,8 +815,8 @@ export function step(s: State, dt = 1) {
     s.nN2 *= 1 - frac;
     s.nO2 *= 1 - frac;
   }
-  if (i.vacio && pa2 > 0.02) {
-    const pUlt = fa === "vacio" ? 0.45 : P.pUltimoVacio;
+  if (i.vacio && !s.sinCorriente && pa2 > 0.02) {
+    const pUlt = fa("vacio") ? 0.45 : P.pUltimoVacio;
     const efic = Math.max(0, (pa2 - pUlt) / pa2);
     const frac = Math.min(0.5, (P.bombaVacio * dt * efic) / vg);
     const pIn = (nInertes(s) * P.R * T) / vg / 1e5;
@@ -700,7 +831,7 @@ export function step(s: State, dt = 1) {
     }
   }
   // Fuga de aire con vacío
-  if (fa === "vacio" && pa2 < P.pAtm) {
+  if (fa("vacio") && pa2 < P.pAtm) {
     const aire = P.fugaAire * dt * ((P.pAtm - pa2) / P.pAtm);
     s.nN2 += aire * 0.79;
     s.nO2 += aire * 0.21;
@@ -714,7 +845,7 @@ export function step(s: State, dt = 1) {
 
   /* Disco de ruptura y válvula de seguridad */
   const pg3 = pGauge(s);
-  if (fa === "disco") s.pDisco = Math.min(pg3, s.pDisco + (dt * 0.2) / 3600 + Math.max(0, pg3 - s.pDisco) * 0.0005 * dt);
+  if (fa("disco")) s.pDisco = Math.min(pg3, s.pDisco + (dt * 0.2) / 3600 + Math.max(0, pg3 - s.pDisco) * 0.0005 * dt);
   if (!s.discoRoto && pg3 >= P.discoRotura) s.discoRoto = true;
   if (s.discoRoto) s.pDisco = pg3;
   s.psvAbierta = s.discoRoto && pg3 >= P.psvTarado * 0.95;
@@ -766,16 +897,20 @@ export function step(s: State, dt = 1) {
   setAlarm(s, "OAH", hayLiquido && o2(s) > 2);
   setAlarm(s, "SAL", i.dosif && s.rpm < 45);
   setAlarm(s, "AGT", s.agitDisparado);
-  setAlarm(s, "FAH", feed > 720);
-  setAlarm(s, "CWL", fa === "agua" && i.medio === "agua");
-  setAlarm(s, "CCL", (fa === "condensador" || !i.aguaCond) && s.tm > 80);
-  setAlarm(s, "N2L", fa === "nitrogeno");
+  setAlarm(s, "FAH", feedIndicado(s) > 720);
+  setAlarm(s, "CWL", fa("agua") && i.medio === "agua");
+  setAlarm(s, "CCL", (fa("condensador") || !i.aguaCond) && s.tm > 80);
+  setAlarm(s, "N2L", fa("nitrogeno"));
   setAlarm(s, "BAL", s.barrera < 30);
   setAlarm(s, "EMI", s.vaporVenteo > 1);
+  setAlarm(s, "ENE", s.sinCorriente);
+  setAlarm(s, "FPS", feedIndicado(s) > 5 && !i.dosif);
+  setAlarm(s, "JDV", i.jMode !== "MAN" && hayLiquido && Math.abs(s.tj - s.jSpCalc) > 35);
   setAlarm(s, "SAM", s.rpm > 1 && hayLiquido && volLiquido(s) < P.volMinAgitacion);
   if (s.rpm > 1 && hayLiquido && volLiquido(s) < P.volMinAgitacion) s.agitBajoMinimo += dt;
   setAlarm(s, "PSV", s.discoRoto);
 
+  evaluarRespuestas(s);
   s.t += dt;
   if (s.t % 10 < dt) {
     s.hist.push({
@@ -783,7 +918,7 @@ export function step(s: State, dt = 1) {
       tm: Math.round(tmMedida * 10) / 10,
       tj: Math.round(s.tj * 10) / 10,
       p: Math.round(pGauge(s) * 1000) / 1000,
-      feed: Math.round(feed),
+      feed: Math.round(feedIndicado(s)),
       nivel: Math.round(nivel(s) * 10) / 10,
       rpm: Math.round(s.rpm),
     });
@@ -808,13 +943,6 @@ export function rellenarBarrera(s: State) {
   s.barrera = 65;
 }
 
-/** Repone el servicio averiado (lo hace mantenimiento cuando el operador lo avisa). */
-export function repararAveria(s: State) {
-  if (!s.faultActive) return;
-  if (s.fault === "sensor") s.tmSensorCongelado = null;
-  s.faultActive = false;
-  s.fault = null;
-}
 
 /** El interlock I-05 impide cargar disolvente si la atmósfera no es inerte. */
 export function puedeCargar(s: State): string | null {
@@ -828,13 +956,29 @@ export function evento(s: State, texto: string) {
   s.eventos.push({ t: s.t, texto });
 }
 
-/** Aviso al jefe de turno y a mantenimiento. Si hay una avería activa, mantenimiento la resuelve en 20 min. */
+/** Aviso al jefe de turno y a mantenimiento. Mantenimiento resuelve en 20 min las averías activas que se pueden reparar. */
 export function avisar(s: State, texto: string) {
   evento(s, "Aviso: " + texto);
-  if (s.faultActive && s.avisoAveria === null) {
-    s.avisoAveria = s.t;
-    s.reparacionEn = s.t + 20 * 60;
+  for (const f of s.faults) {
+    if (f.estado !== "activa" || f.aviso !== null) continue;
+    f.aviso = s.t;
+    if (!SIN_REPARACION.includes(f.id)) f.reparacion = s.t + 20 * 60;
   }
+}
+
+/** Próxima reparación prevista, si hay alguna. */
+export function proximaReparacion(s: State): number | null {
+  const r = s.faults.filter((f) => f.estado === "activa" && f.reparacion !== null).map((f) => f.reparacion as number);
+  return r.length ? Math.min(...r) : null;
+}
+
+/** Pista para la avería activa que aún no tiene respuesta. Devuelve el id y el número de pista (0 o 1). */
+export function pedirPista(s: State): { id: Fault; n: number } | null {
+  const f = s.faults.find((x) => x.estado !== "pendiente" && x.respuesta === null);
+  if (!f) return null;
+  const n = Math.min(f.pistas, 1);
+  f.pistas += 1;
+  return { id: f.id, n };
 }
 
 export function tomarMuestra(s: State): string | null {

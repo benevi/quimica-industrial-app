@@ -27,7 +27,8 @@ export default function ReactorPage() {
             <li>La temperatura manda en cascada: TIC-204 mira la masa y le da la consigna a la camisa TIC-204J, sin dejar que se separen más de 50 °C. En manual eres tú quien mueve la camisa.</li>
             <li>Si adicionas con la masa fría, el reactivo se acumula sin reaccionar; al calentar después reacciona de golpe. Si adicionas demasiado rápido, la camisa no da abasto.</li>
             <li>Los interlocks paran la adición si se para el agitador, si la masa llega a 80 °C o si la presión llega a 1,5 bar g, y no dejan cargar disolvente con más de un 2 % de oxígeno.</li>
-            <li>Al terminar, calidad revisa la hoja: compara lo que anotaste con lo que guardó el sistema, mira si anotaste a tiempo y qué hiciste con cada alarma y avería.</li>
+            <li>Hay trece averías posibles, cada una en su momento del lote. En el modo «turno real» te saldrán dos o tres sin avisar: tienes que verlas en las lecturas, las alarmas y las tendencias, decidir qué hacer y avisar. Si te atascas, pide una pista.</li>
+            <li>Al terminar, calidad revisa la hoja: compara lo que anotaste con lo que guardó el sistema y mira si anotaste a tiempo. Para cada avería te dice cuándo empezó, cuándo avisaste, si hiciste lo correcto y qué tenías que haber visto y hecho, con las lecciones que lo explican.</li>
           </ul>
           <p className="text-xs">Modelo didáctico. Proceso, producto, equipos y límites son ficticios; en planta manda el procedimiento vigente (SOP) y la hoja de cada lote.</p>
         </div>

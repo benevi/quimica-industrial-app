@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Badge, Btn, Card } from "@/components/sim/ui";
-import { type State, fmtHora } from "@/sim/reactor/model";
+import { type State, fmt, fmtHora } from "@/sim/reactor/model";
 import { type Hoja, type PasoId, CAMPOS, PASOS, anotar, fueraDeSpec, revisar } from "@/sim/reactor/hoja";
+import { GUIA } from "@/sim/reactor/guia";
 
 /** Hoja de producción por pasos: instrucciones, datos con su hora de anotación y firma de cada paso. */
 export function HojaPanel({ s, hoja, setHoja }: { s: State; hoja: Hoja; setHoja: (fn: (h: Hoja) => void) => void }) {
@@ -113,17 +115,35 @@ export function Review({ s, hoja }: { s: State; hoja: Hoja }) {
           <li key={t}>{t}</li>
         ))}
       </ul>
+      <Averias s={s} />
       {r.hallazgos.length === 0 ? (
-        <p className="text-sm">Sin hallazgos.</p>
+        <p className="mt-4 text-sm">Sin hallazgos.</p>
       ) : (
-        <ul className="space-y-1.5 text-sm">
-          {r.hallazgos.map((h, k) => (
-            <li key={k} className="flex gap-2">
-              <Badge tone={tone(h.grav) as "bad" | "warn" | "neutral"}>{h.grav}</Badge>
-              <span>{h.texto}</span>
-            </li>
-          ))}
-        </ul>
+        <>
+          <h4 className="mt-4 font-medium">Hallazgos del proceso y de la hoja</h4>
+          <ul className="mt-2 space-y-1.5 text-sm">
+            {r.hallazgos
+              .filter((h) => h.grav !== "menor")
+              .map((h, k) => (
+                <li key={k} className="flex gap-2">
+                  <Badge tone={tone(h.grav) as "bad" | "warn" | "neutral"}>{h.grav}</Badge>
+                  <span>{h.texto}</span>
+                </li>
+              ))}
+          </ul>
+          {r.hallazgos.some((h) => h.grav === "menor") && (
+            <details className="mt-2 text-sm">
+              <summary className="cursor-pointer text-muted">Observaciones menores de documentación ({r.hallazgos.filter((h) => h.grav === "menor").length})</summary>
+              <ul className="mt-2 space-y-1">
+                {r.hallazgos
+                  .filter((h) => h.grav === "menor")
+                  .map((h, k) => (
+                    <li key={k}>{h.texto}</li>
+                  ))}
+              </ul>
+            </details>
+          )}
+        </>
       )}
       {s.eventos.length > 0 && (
         <details className="mt-3 text-sm">
@@ -138,5 +158,65 @@ export function Review({ s, hoja }: { s: State; hoja: Hoja }) {
         </details>
       )}
     </Card>
+  );
+}
+
+/** Explicación de cada avería del lote: qué pasó, qué hiciste y qué había que hacer. */
+function Averias({ s }: { s: State }) {
+  if (s.faults.length === 0) return null;
+  const min = (a: number, b: number) => fmt((a - b) / 60, 0);
+  return (
+    <section className="mt-2 space-y-3">
+      <h4 className="font-medium">Averías del lote y cómo se resuelven</h4>
+      {s.faults.map((f) => {
+        const g = GUIA[f.id];
+        return (
+          <article key={f.id} className="rounded-md border border-line p-3 text-sm">
+            <h5 className="font-medium">{g.titulo}</h5>
+            {f.desde === null ? (
+              <p className="text-muted">No llegó a aparecer en este lote (no se dio la situación que la provoca).</p>
+            ) : (
+              <ul className="mt-1 space-y-0.5">
+                <li>Empezó a las {fmtHora(f.desde)}.</li>
+                <li>{f.aviso !== null ? `Avisaste a las ${fmtHora(f.aviso)}, ${min(f.aviso, f.desde)} min después.` : "No avisaste."}</li>
+                <li>
+                  {f.respuesta !== null ? (
+                    <>Hiciste lo que pedía la situación ({g.clave}) a las {fmtHora(f.respuesta)}, {min(f.respuesta, f.desde)} min después.</>
+                  ) : (
+                    <span className="text-bad">No llegaste a {g.clave}.</span>
+                  )}
+                </li>
+                <li>{f.pistas > 0 ? `Pediste ${f.pistas} ${f.pistas === 1 ? "pista" : "pistas"}.` : "Sin pistas."}</li>
+              </ul>
+            )}
+            <details className="mt-2" open={f.desde !== null && f.respuesta === null}>
+              <summary className="cursor-pointer text-accent">Qué tenías que ver y qué había que hacer</summary>
+              <div className="mt-2 space-y-2">
+                <div>
+                  <p className="font-medium">Síntomas</p>
+                  <ul className="list-disc pl-5 text-muted">{g.sintomas.map((t) => <li key={t}>{t}</li>)}</ul>
+                </div>
+                <div>
+                  <p className="font-medium">Qué hacer</p>
+                  <ol className="list-decimal pl-5 text-muted">{g.pasos.map((t) => <li key={t}>{t}</li>)}</ol>
+                </div>
+                <p><span className="font-medium">Por qué. </span><span className="text-muted">{g.porque}</span></p>
+                <p><span className="font-medium">En planta. </span><span className="text-muted">{g.enPlanta}</span></p>
+                <p className="text-muted">
+                  Repasa:{" "}
+                  {g.lecciones.map((l, k) => (
+                    <span key={l.slug}>
+                      {k > 0 && " · "}
+                      <Link className="underline" href={`/leccion/${l.slug}`}>{l.titulo}</Link>
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </details>
+          </article>
+        );
+      })}
+      <p className="text-xs text-muted">Guía didáctica sobre un equipo ficticio. En planta manda el procedimiento vigente (SOP); ante la duda, se para en lugar seguro y se avisa.</p>
+    </section>
   );
 }

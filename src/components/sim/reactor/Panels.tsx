@@ -11,7 +11,9 @@ import {
   ackAlarm,
   areaMojada,
   coefU,
+  feedIndicado,
   feedReal,
+  pesoDepositoB,
   fmt,
   fmtHora,
   nivel,
@@ -161,7 +163,7 @@ export function Synoptic({ s }: { s: State }) {
         {tag(8, 120, "TI-204A masa", fmt(tmLeida(s)) + " °C")}
         {tag(8, 160, "TI-204B masa", fmt(s.tm) + " °C")}
         {tag(8, 200, "TI-204J camisa", fmt(s.tj) + " °C")}
-        {tag(8, 240, "FI-205 B", fmt(feedReal(s), 0) + " kg/h")}
+        {tag(8, 240, "FI-205 B", fmt(feedIndicado(s), 0) + " kg/h")}
         {tag(540, 120, "PI-204", fmt(pGauge(s), 3) + " bar g")}
         {tag(540, 160, "LI-204 nivel", fmt(nivel(s)) + " %")}
         {tag(540, 200, "AI-204 O₂", fmt(o2(s), 2) + " %")}
@@ -336,8 +338,9 @@ export function Faceplates({ s, set, onMsg }: { s: State; set: Set; onMsg: (m: s
       <Face tag="FIC-205" title="Adición del reactivo B">
         <Toggle label="Dosificadora P-205" on={i.dosif} onClick={() => inp((x) => (x.dosif = !x.dosif))} />
         <NumInput label="Consigna de caudal" value={i.feedSp} unit="kg/h" min={0} max={P.feedMax} stepv={10} onSet={(v) => inp((x) => (x.feedSp = v))} />
+        <Toggle label="XV-205 aislamiento manual de B" on={!i.aislaB} onClick={() => inp((x) => (x.aislaB = !x.aislaB))} title="Abierta (en marcha) o cerrada (parado)" />
         <p className="text-xs text-muted">
-          FI-205 {fmt(feedReal(s), 0)} kg/h · FQ-205 {fmt(s.bAlimentado, 1)} kg · calor de reacción {fmt(qr)} kW
+          FI-205 {fmt(feedIndicado(s), 0)} kg/h · FQ-205 {fmt(s.bIndicado, 1)} kg · báscula del depósito WI-205 {fmt(pesoDepositoB(s), 1)} kg · calor de reacción {fmt(qr)} kW
         </p>
       </Face>
 
@@ -447,7 +450,7 @@ export function Readouts({ s }: { s: State }) {
       <Readout label="Masa TI-204A" value={fmt(tmLeida(s))} unit="°C" alert={s.alarms.some((a) => a.active && a.tag === "TI-204")} />
       <Readout label="Camisa − masa" value={fmt(dT)} unit="°C" alert={Math.abs(dT) > P.dTmax} />
       <Readout label="Presión PI-204" value={fmt(pGauge(s), 3)} unit="bar g" alert={pGauge(s) > 0.5} />
-      <Readout label="Adición FI-205" value={fmt(feedReal(s), 0)} unit="kg/h" alert={feedReal(s) > 720} />
+      <Readout label="Adición FI-205" value={fmt(feedIndicado(s), 0)} unit="kg/h" alert={feedIndicado(s) > 720} />
     </div>
   );
 }

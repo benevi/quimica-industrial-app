@@ -2,7 +2,7 @@
 
 Ruta: `/simulador/reactor`. Código: `src/sim/reactor/model.ts` (física, control, alarmas, interlocks y averías),
 `src/sim/reactor/hoja.ts` (hoja de producción y revisión) y `src/components/sim/reactor/` (pantalla).
-Pruebas: escenarios 9 a 13 de `npm run check:sim`.
+Pruebas: escenarios 9 a 14 de `npm run check:sim` (el 14 lleva cada avería con un operador que sigue la guía y comprueba que se reconoce la respuesta sin hallazgos críticos).
 
 Proceso, producto (AX-21, B, AX-22), equipos (R-204, T-210, P-205…) y límites son **ficticios**. El modelo es didáctico:
 sirve para practicar causa y efecto con números coherentes, no para diseñar procesos reales.
@@ -24,8 +24,17 @@ sirve para practicar causa y efecto con números coherentes, no para diseñar pr
   ±50 °C de la masa; PIC-204 de presión con nitrógeno y venteo; FIC-205 de adición.
 - **Interlocks**: I-01 agitador parado o lento, I-02 masa a 80 °C en adición, I-03 presión de 1,5 bar g, I-04 nivel del
   90 %, I-05 oxígeno por encima del 2 % al cargar disolvente.
-- **Averías**: agua de la camisa, disparo del agitador, sonda congelada, fuga de vacío, agua del condensador, fuga del
-  disco de ruptura, falta de nitrógeno y líquido de barrera bajo. Mantenimiento las resuelve 20 min después del aviso.
+- **Averías** (13): fuga de aire con vacío, camisa sucia, sonda congelada, fuga del disco de ruptura, válvula de la
+  camisa atascada, caudalímetro de B descalibrado, sin agua de refrigeración, disparo del agitador, válvula de B que
+  pasa, sin agua en el condensador, corte de corriente, pérdida de líquido de barrera y falta de nitrógeno. Cada una
+  aparece en su fase del lote. Mantenimiento resuelve en 20 min las reparables cuando se avisa; la camisa sucia no se
+  arregla durante el lote y el corte de corriente vuelve solo a los 3 min con todo parado.
+- **Modos**: sin averías, una avería elegida, una sorpresa o «turno real» (una avería por tramo del lote, dos o tres en
+  total). Nadie dice qué pasa: hay que verlo en lecturas, alarmas y tendencias.
+- **Aprender a resolverlas**: botón de pista (dos por avería, de menos a más) y, en la revisión, para cada avería: cuándo
+  empezó, cuándo avisaste, si hiciste lo que pedía la situación y a tiempo (las urgentes cuentan solo en la primera hora),
+  síntomas, pasos, por qué, cómo es en planta y qué lecciones repasar (`src/sim/reactor/guia.ts`). Las pistas pedidas
+  constan en la revisión.
 
 ## Coherencia con las lecciones (comprobada en `check:sim`)
 

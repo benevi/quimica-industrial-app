@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Badge, Btn, Card } from "@/components/sim/ui";
-import { type Fault, type State, FAULTS, avisar, fmt, fmtHora, newState, step, tomarMuestra } from "@/sim/reactor/model";
+import { type Fault, type State, FAULTS, avisar, fmt, fmtHora, newState, pedirPista, proximaReparacion, step, tomarMuestra } from "@/sim/reactor/model";
+import { GUIA } from "@/sim/reactor/guia";
 import { type Hoja, newHoja } from "@/sim/reactor/hoja";
 import { AlarmList, Faceplates, Readouts, Synoptic, Trends } from "./Panels";
 import { HojaPanel, Review } from "./HojaPanel";
@@ -22,6 +23,7 @@ export function ReactorSim() {
   const [msg, setMsg] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");
   const [reviewing, setReviewing] = useState(false);
+  const [pista, setPista] = useState<string | null>(null);
   const loaded = useRef(false);
 
   // Recupera la partida guardada en este navegador
@@ -30,7 +32,7 @@ export function ReactorSim() {
       const raw = localStorage.getItem(KEY);
       if (raw) {
         const d = JSON.parse(raw) as Saved;
-        if (d?.s?.inputs) {
+        if (d?.s?.inputs && Array.isArray(d.s.faults)) {
           sim.current = d.s;
           setHojaState(d.hoja ?? newHoja());
           setStarted(!!d.started);
@@ -91,10 +93,20 @@ export function ReactorSim() {
   const s = sim.current;
 
   const start = () => {
-    let f: Fault | null = null;
-    if (scenario === "sorpresa") f = FAULTS[Math.floor(Math.random() * FAULTS.length)].id;
-    else if (scenario !== "ninguna") f = scenario as Fault;
+    let f: Fault[] = [];
+    const pick = (ids: Fault[]) => ids[Math.floor(Math.random() * ids.length)];
+    if (scenario === "sorpresa") f = [pick(FAULTS.map((x) => x.id))];
+    else if (scenario === "turno") {
+      // Una avería en cada tramo del lote, con alguna probabilidad de que falte una
+      f = [
+        pick(["vacio", "camisaSucia", "sensor", "disco", "tcuAtascada"]),
+        pick(["caudalimetro", "agua", "agitador", "valvulaB"]),
+        pick(["condensador", "corte", "barrera", "nitrogeno"]),
+      ];
+      if (Math.random() < 0.3) f.splice(Math.floor(Math.random() * 3), 1);
+    } else if (scenario !== "ninguna") f = [scenario as Fault];
     sim.current = newState(f);
+    setPista(null);
     setHojaState(newHoja());
     setStarted(true);
     setReviewing(false);
@@ -123,10 +135,15 @@ export function ReactorSim() {
             Vas a llevar tú solo la etapa 1 del intermedio ficticio AX-22 en el reactor vitrificado R-204 de 6000 L: comprobaciones, inertización, carga, calentamiento, adición
             dosificada, reflujo, muestra, enfriamiento y descarga. El tiempo es real: calentar lleva más de una hora. Puedes acelerarlo hasta 300 veces y pausarlo.
           </p>
+          <p>
+            Con averías, nadie te dirá qué pasa: tendrás que verlo en las lecturas, las alarmas y las tendencias, decidir qué hacer y avisar. Si te atascas, pide una pista. Al terminar, la
+            revisión te explica cada avería: qué síntomas tenías que ver, qué había que hacer y por qué.
+          </p>
           <label className="flex flex-wrap items-center gap-2">
             <span className="text-muted">Averías</span>
             <select className="w-full max-w-full rounded border border-line-strong bg-surface px-2 py-1 sm:w-auto" value={scenario} onChange={(e) => setScenario(e.target.value)}>
               <option value="ninguna">Sin averías</option>
+              <option value="turno">Turno real: dos o tres averías sorpresa en distintos momentos</option>
               <option value="sorpresa">Una avería sorpresa</option>
               {FAULTS.map((f) => (
                 <option key={f.id} value={f.id}>
@@ -219,7 +236,21 @@ export function ReactorSim() {
                   >
                     Enviar aviso
                   </Btn>
-                  {s.reparacionEn !== null && <p className="text-xs text-muted">Mantenimiento viene en camino: llega hacia las {fmtHora(s.reparacionEn)}.</p>}
+                  {proximaReparacion(s) !== null && <p className="text-xs text-muted">Mantenimiento viene en camino: llega hacia las {fmtHora(proximaReparacion(s) as number)}.</p>}
+                  <div className="border-t border-line pt-3">
+                    <Btn
+                      onClick={() =>
+                        set((x) => {
+                          const p = pedirPista(x);
+                          setPista(p ? `Pista ${p.n + 1}: ${GUIA[p.id].pistas[p.n]}` : "No veo nada fuera de lo normal ahora mismo: sigue la hoja y vigila lecturas, alarmas y tendencias.");
+                        })
+                      }
+                    >
+                      Pedir pista
+                    </Btn>
+                    {pista && <p className="mt-2 text-sm">{pista}</p>}
+                    <p className="mt-1 text-xs text-muted">Las pistas pedidas constan en la revisión.</p>
+                  </div>
                 </div>
               </Card>
               <HojaPanel s={s} hoja={hoja} setHoja={setHoja} />
