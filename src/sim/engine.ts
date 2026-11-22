@@ -177,7 +177,8 @@ export type Incident = {
   notified?: number;
 };
 
-export type EventId = "bascula" | "etiqueta" | "oxigeno" | "agitador" | "frio" | "ipc" | "filtro" | "vibracion" | "vacio" | "lod";
+export type EventId =
+  | "bascula" | "etiqueta" | "oxigeno" | "tierra" | "agitador" | "frio" | "sonda" | "ipc" | "filtro" | "junta" | "vibracion" | "vacio" | "lod";
 export type SimEvent = {
   active: boolean;
   start?: number;
@@ -187,6 +188,10 @@ export type SimEvent = {
   tries?: number;
   /** Litros de anhídrido añadidos con el agitador parado (incidencia del agitador). */
   addedStopped?: number;
+  /** Momento en que empieza la avería, si es antes de que se note (deriva de la sonda). */
+  since?: number;
+  /** El equipo se aisló (válvulas cerradas) para repararlo. */
+  isolated?: boolean;
 };
 
 export type Point = { t: number; T: number; Tj: number };
@@ -277,10 +282,13 @@ export const EVENTS: { id: EventId; title: string; when: string }[] = [
   { id: "bascula", title: "La báscula B-05 no pasa la verificación diaria", when: "en las verificaciones previas" },
   { id: "etiqueta", title: "La etiqueta de un bidón no coincide con la orden", when: "en la pesada" },
   { id: "oxigeno", title: "El oxígeno no baja del 2 % al inertizar", when: "en la carga" },
+  { id: "tierra", title: "La pinza de puesta a tierra no da continuidad", when: "en la carga del sólido" },
   { id: "agitador", title: "El agitador se para durante la adición", when: "en la reacción" },
   { id: "frio", title: "Falla el frío de la camisa durante la adición", when: "en la reacción" },
+  { id: "sonda", title: "La sonda de temperatura del reactor da una lectura incoherente", when: "en la reacción" },
   { id: "ipc", title: "El control en proceso sale fuera de límite", when: "en la reacción" },
   { id: "filtro", title: "El cartucho del filtro F-301 se colmata", when: "en la filtración" },
+  { id: "junta", title: "Gotea una junta del filtro F-301", when: "en la filtración" },
   { id: "vibracion", title: "La centrífuga se para por vibración alta", when: "en la centrifugación" },
   { id: "vacio", title: "Se pierde el vacío del secadero", when: "en el secado" },
   { id: "lod", title: "La pérdida por secado (LOD) no baja", when: "en el secado" },
@@ -503,6 +511,9 @@ export function notify(s: Sim, text: string) {
     }
     if (ev === "oxigeno") msg(s, "Supervisor", "Para la inertización y no cargues el sólido: con oxígeno por encima del 2 % no se abre la boca de carga. Si el vacío no aguanta, entra aire por una junta. Mantenimiento la revisa (unos 20 minutos) y después repites los ciclos.");
     if (ev === "agitador") msg(s, "Supervisor", "Para la adición si no lo has hecho y no intentes rearrancar el motor. Sin agitación el anhídrido no se mezcla y se acumula: no se añade nada más hasta que el agitador vuelva a girar. Mantenimiento revisa el motor; unos 20 minutos.");
+    if (ev === "tierra") msg(s, "Supervisor", "Bien hecho: sin continuidad no se carga. Un polvo que cae por la tolva se carga de electricidad estática y, sin tierra, puede saltar una chispa. Viene el electricista a revisar la pinza y el cable; unos 15 minutos. Después vuelves a comprobar y cargas.");
+    if (ev === "sonda") msg(s, "Supervisor", "Bien visto. Instrumentación pasa el control de temperatura a la sonda de respaldo TI-103 mientras revisa la TI-101. Vigila la temperatura real y registra la desviación: la masa ha podido estar por encima de 85 °C.");
+    if (ev === "junta") msg(s, "Supervisor", "Para la transferencia y aísla el filtro: cierra la XV-105 y la XV-106. Nada de apretar la brida con el filtro en servicio. Es solución caliente con ácido acético: aléjate del charco hasta que lo recojan con el equipo de protección. Mantenimiento cambia la junta; unos 20 minutos.");
     if (ev === "ipc") msg(s, "Supervisor", "Recibido. Es lo que prevé la hoja: mantén 75–85 °C 30 minutos más y repite el IPC. El resultado que no cumple se queda registrado; no se repite la muestra sin prolongar la reacción.");
     if (ev === "vibracion") msg(s, "Supervisor", "Haz bien en no rearrancar. Déjala parada y no abras la tapa. Mantenimiento revisa la máquina y, si es carga desequilibrada, la redistribuimos a baja velocidad; unos 20 minutos. Anota la hora, la fase y la velocidad.");
     if (ev === "lod") {
@@ -518,7 +529,7 @@ export function notify(s: Sim, text: string) {
 }
 
 function activeUnnotified(s: Sim): EventId | null {
-  const order: EventId[] = ["frio", "agitador", "oxigeno", "etiqueta", "ipc", "filtro", "vibracion", "vacio", "lod", "bascula"];
+  const order: EventId[] = ["frio", "agitador", "junta", "sonda", "oxigeno", "tierra", "etiqueta", "ipc", "filtro", "vibracion", "vacio", "lod", "bascula"];
   for (const id of order) {
     const e = s.events[id];
     if (e.active && e.start != null && e.start <= s.clock && e.notified == null) return id;
@@ -605,6 +616,8 @@ export function requestVerification(s: Sim, m: MaterialId): string | null {
 export function toggleValve(s: Sim, v: ValveId) {
   const open = !s.valves[v];
   s.valves[v] = open;
+  const j = s.events.junta;
+  if (!open && j.active && j.resolved == null && !s.valves["XV-105"] && !s.valves["XV-106"]) j.isolated = true;
   passTime(s, 1);
   log(s, `${open ? "Abre" : "Cierra"} la válvula ${v} (${VALVES[v].name})`);
   if (open && ((v === "XV-102" && s.valves["XV-103"]) || (v === "XV-103" && s.valves["XV-102"]))) {
@@ -625,8 +638,26 @@ export function chargeWater(s: Sim, liters: number) {
   if (s.water > 450) raise(s, "desborde_r101", { what: `El totalizador FQ-101 marca ${s.water} L. El R-101 se ha llenado hasta la tapa y el agua ha salido por la línea de vapores hacia el condensador y la línea de vacío.` });
 }
 
-export function chargeAF(s: Sim) {
+export function chargeAF(s: Sim, sinTierra = false) {
   if (s.afCharged) return;
+  const g = s.events.tierra;
+  if (eventOn(s, "tierra") && g.resolved == null) {
+    if (g.notified != null) {
+      s.clock = Math.max(s.clock, g.notified + 15);
+      g.resolved = s.clock;
+      msg(s, "Mantenimiento", "El cable de la pinza de tierra estaba roto por dentro, junto a la pinza. Cable sustituido; el comprobador da continuidad. Puedes cargar.");
+    } else if (!sinTierra) {
+      if (!g.active) {
+        g.active = true;
+        g.start = s.clock;
+      }
+      msg(s, "Estación de carga", "Conectas la pinza de tierra del bidón al punto de la tolva, pero el comprobador de tierra no da continuidad: la luz no se enciende en verde. Repites la conexión y sigue igual.");
+      return;
+    } else {
+      g.tries = (g.tries ?? 0) + 1;
+      log(s, "Carga el sólido sin continuidad en la puesta a tierra");
+    }
+  }
   if (s.valves["XV-103"] || s.inertStep === "vacio") {
     msg(s, "Supervisor", "No abras la boca de carga con el reactor en vacío: el polvo saldría por la línea de vacío. Rompe el vacío con N₂ y cierra la XV-103.");
     return;
@@ -823,8 +854,23 @@ export function reactorTick(s: Sim) {
   const k2 = 0.06 * Math.pow(2, (r.T - 80) / 10) * (eventOn(s, "ipc") ? 0.55 : 1);
   r.slow = Math.max(0, r.slow - r.slow * Math.min(1, k2));
 
-  // Control de temperatura (cascada simplificada)
-  let tjTarget = r.sp + 2 * (r.sp - r.T);
+  // Incidencia «sonda»: a los 15 min de mantenimiento a temperatura, la TI-101 empieza a leer de menos (deriva).
+  // El lazo controla con lo que lee, así que la masa real se calienta por encima de 85 °C sin que TI-101 lo muestre.
+  const probe = s.events.sonda;
+  if (eventOn(s, "sonda") && probe.since == null && r.addEnd != null && r.inRange >= 15) probe.since = s.clock;
+  if (probe.since != null && !probe.active && Math.abs(probeOffset(s)) > 3) {
+    probe.active = true;
+    probe.start = s.clock;
+    r.alarms.push({ time: s.clock, text: "TDAH-101: discrepancia entre TI-101 y la sonda de respaldo TI-103 (> 3 °C)" });
+  }
+  if (probe.active && probe.resolved == null && probe.notified != null && s.clock >= probe.notified + 10) {
+    probe.resolved = s.clock;
+    msg(s, "Instrumentación", "La TI-101 tenía la conexión del cabezal con humedad y leía de menos. Sustituida y comprobada con un termómetro patrón. El lazo vuelve a la TI-101.");
+  }
+
+  // Control de temperatura (cascada simplificada), con lo que lee la sonda que manda en el lazo
+  const Tmeas = probe.notified != null ? r.T : r.T + probeOffset(s);
+  let tjTarget = r.sp + 2 * (r.sp - Tmeas);
   tjTarget = Math.max(5, Math.min(140, tjTarget));
   if (coolingDown) tjTarget = Math.max(tjTarget, r.T);
   r.Tj += (tjTarget - r.Tj) * 0.35;
@@ -867,8 +913,20 @@ export function reactorTick(s: Sim) {
     r.maxTreact = Math.max(r.maxTreact, r.T);
     if (r.T >= 75 && r.T <= 85) r.inRange += 1;
   }
-  r.history.push({ t: s.clock, T: r1(r.T), Tj: r1(r.Tj) });
+  r.history.push({ t: s.clock, T: r1(tiMasa(s)), Tj: r1(r.Tj) });
   if (r.history.length > 600) r.history.shift();
+}
+
+/** Error de la TI-101 (°C) con la incidencia «sonda»: deriva hasta 10 °C por debajo de la temperatura real. */
+export function probeOffset(s: Sim) {
+  const e = s.events.sonda;
+  if (!e || e.since == null || e.resolved != null) return 0;
+  return -Math.min(10, 0.5 * (s.clock - e.since));
+}
+
+/** Lo que marca la TI-101 (la sonda de la masa que ve el operador). La TI-103 de respaldo marca la real. */
+export function tiMasa(s: Sim) {
+  return s.reactor.T + probeOffset(s);
 }
 
 export function residualAF(s: Sim) {
@@ -908,6 +966,16 @@ export function filterStep(s: Sim) {
     s.contam = true;
     return;
   }
+  const j = s.events.junta;
+  if (j.active && j.resolved == null && j.notified != null) {
+    if (!j.isolated) {
+      msg(s, "Mantenimiento", "No podemos cambiar la junta con el filtro en servicio: aísla el F-301 cerrando la XV-105 y la XV-106.");
+      return;
+    }
+    s.clock = Math.max(s.clock, j.notified + 20);
+    j.resolved = s.clock;
+    msg(s, "Mantenimiento", "Junta de la brida del portacartuchos cambiada y derrame recogido. Prueba sin fugas: puedes seguir la transferencia.");
+  }
   if (!f.history.length) f.history.push({ t: s.clock, dp: f.dp, pct: f.progress });
   f.running = true;
   f.progress = Math.min(100, f.progress + 20);
@@ -921,6 +989,17 @@ export function filterStep(s: Sim) {
     }
   } else {
     f.dp = r1(0.3 + f.progress * 0.006);
+  }
+  if (eventOn(s, "junta") && f.progress >= 60 && !f.done) {
+    if (!j.active) {
+      j.active = true;
+      j.start = s.clock;
+      msg(s, "Sala de filtración", "Gotea la brida del portacartuchos del F-301: cae solución caliente al suelo y se está formando un charco. Huele a vinagre (ácido acético).");
+    } else if (j.resolved == null && j.notified == null) {
+      // Seguir transfiriendo con la fuga: se pierde producto y el charco crece
+      j.tries = (j.tries ?? 0) + 1;
+      s.lossPct += 1;
+    }
   }
   f.maxDpRun = Math.max(f.maxDpRun, f.dp);
   f.history.push({ t: s.clock, dp: f.dp, pct: f.progress });

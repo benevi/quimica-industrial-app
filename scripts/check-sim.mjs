@@ -58,6 +58,10 @@ function perfect(scenario, events, bad = []) {
     }
   }
   E.chargeAF(s);
+  if (s.events.tierra.active && !s.afCharged) {
+    if (mal("tierra")) E.chargeAF(s, true);
+    else { E.notify(s, "la pinza de tierra no da continuidad"); dev("Pinza de puesta a tierra de la estación de carga sin continuidad", "No cargo y aviso"); E.chargeAF(s); }
+  }
   rec("agua_l", s.water); rec("o2", E.fmtNum(s.o2));
   next();
 
@@ -82,7 +86,12 @@ function perfect(scenario, events, bad = []) {
   }
   rec("fin_adicion", E.fmtTime(s.reactor.addEnd)); rec("tmax_adicion", E.fmtNum(s.reactor.maxTadd));
   valve("XV-104"); E.setSP(s, 80);
-  while (s.reactor.inRange < 60 && guard++ < 3000) E.reactorTick(s);
+  while (s.reactor.inRange < 60 && guard++ < 3000) {
+    E.reactorTick(s);
+    if (s.events.sonda.active && s.events.sonda.notified == null && !mal("sonda")) {
+      E.notify(s, "TI-101 y TI-103 no coinciden"); dev("Discrepancia de temperatura entre TI-101 y la sonda de respaldo TI-103", "Aviso a instrumentación");
+    }
+  }
   E.requestIPC(s); for (let i = 0; i < 21; i++) E.reactorTick(s);
   while (s.ipc.at(-1).value > 0.5 && guard++ < 3100) {
     const prev = s.ipc.at(-1);
@@ -97,6 +106,12 @@ function perfect(scenario, events, bad = []) {
   // 5. Filtración
   valve("XV-105", "XV-106");
   while (!s.filter.done && guard++ < 4000) {
+    const j = s.events.junta;
+    if (j.active && j.resolved == null && j.notified == null && !mal("junta")) {
+      valve("XV-105", "XV-106"); E.notify(s, "gotea la junta del F-301");
+      dev("Fuga en la junta de la brida del portacartuchos del F-301", "Paro, aíslo el filtro y aviso");
+      valve("XV-105", "XV-106");
+    }
     if (s.filter.dp > 1.5) {
       valve("XV-105", "XV-106"); E.notify(s, "ΔP alta en el filtro"); E.changeCartridge(s);
       E.openDeviation(s, "Presión diferencial alta en el filtro F-301: 2,1 bar", "Paro y cambio el cartucho");
@@ -450,16 +465,18 @@ function reactorLote(opts = {}) {
   expect(S.usageDecision(st2, st2.lots.at(-1).id, "A").msg.type === "E", "16: no se acepta un lote que el informe de QA no deja liberar");
 }
 
-// 17. Las seis incidencias nuevas (y las cuatro de siempre) bien gestionadas: nota máxima, pendiente de desviaciones
+// 17. Las incidencias nuevas (y las cuatro de siempre) bien gestionadas: nota máxima, pendiente de desviaciones
 {
   const all = E.EVENTS.map((e) => e.id);
   const s17 = perfect(null, all);
   const r17 = R.reviewBatch(s17);
-  expect(r17.decision === "Pendiente de desviaciones" && r17.score === 100, `17: lote con las 10 incidencias bien gestionado → ${r17.decision} ${r17.score} ${titles(r17)}`);
+  expect(r17.decision === "Pendiente de desviaciones" && r17.score === 100, `17: lote con todas las incidencias bien gestionado → ${r17.decision} ${r17.score} ${titles(r17)}`);
   for (const id of all) expect(s17.events[id].active, `17: la incidencia ${id} debe haber salido`);
   expect(s17.o2 <= 2, `17: tras cambiar la junta el O₂ debe bajar de 2 %: ${s17.o2}`);
   expect(s17.ipc.length >= 2 && s17.ipc[0].value > 0.5 && s17.ipc.at(-1).value <= 0.5, `17: el primer IPC no cumple y el repetido sí: ${s17.ipc.map((i) => i.value)}`);
   expect(!s17.incidents.length, `17: no debe haber incidentes: ${s17.incidents.map((i) => i.kind)}`);
+  expect(s17.reactor.maxTreact <= 90, `17: con la sonda bien gestionada la masa no pasa de 90 °C: ${s17.reactor.maxTreact}`);
+  expect(s17.events.junta.isolated && s17.events.junta.resolved != null, "17: la junta se cambia con el filtro aislado");
   // Un lote antiguo sin las incidencias nuevas se completa al cargarlo
   const old = JSON.parse(JSON.stringify(E.newSim("normal")));
   delete old.events.lod; delete old.eventsOn.lod;
@@ -487,6 +504,9 @@ function reactorLote(opts = {}) {
   const bads = [
     ["agitador", /Se siguió añadiendo anhídrido con el agitador parado/],
     ["ipc", /Se repitió el IPC sin prolongar/],
+    ["tierra", /Se cargó el polvo sin continuidad/],
+    ["sonda", /No se actuó ante la discrepancia/],
+    ["junta", /Se siguió transfiriendo con la junta goteando/],
     ["vibracion", /Se rearrancó la centrífuga/],
     ["lod", /No se avisó de que el LOD no bajaba/],
   ];

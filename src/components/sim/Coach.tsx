@@ -34,6 +34,9 @@ const EVENT_TEXT: Record<EventId, string> = {
   bascula: "La báscula B-05 no ha pasado la verificación con la pesa patrón.",
   etiqueta: "Las etiquetas del bidón de 4-aminofenol no coinciden con la orden.",
   oxigeno: "El vacío del R-101 no aguanta y el oxígeno no baja del 2 %.",
+  tierra: "La pinza de puesta a tierra no da continuidad.",
+  sonda: "Las dos sondas de temperatura del reactor no coinciden (TDAH-101).",
+  junta: "Gotea una junta del filtro F-301.",
   agitador: "El agitador del R-101 se ha parado en plena adición.",
   frio: "La camisa del reactor ha dejado de enfriar (fallo del glicol).",
   ipc: "El IPC de fin de reacción no cumple (4-aminofenol > 0,50 %).",
@@ -47,6 +50,9 @@ const EVENT_TEXT: Record<EventId, string> = {
 const EVENT_HELP: Partial<Record<EventId, string>> = {
   etiqueta: "Con la identidad de una materia prima en duda no se pesa ni se carga. No elijas otro lote por tu cuenta: avisa al supervisor y registra una desviación.",
   oxigeno: "No cargues el sólido con más de un 2 % de oxígeno. Repetir ciclos no sirve si entra aire: avisa al supervisor y registra una desviación.",
+  tierra: "Sin puesta a tierra comprobada no se carga polvo: una chispa de electricidad estática puede inflamar el polvo o los vapores. Avisa al supervisor y registra una desviación.",
+  sonda: "Compara TI-101 con la sonda de respaldo TI-103: si no coinciden, el lazo puede estar calentando de más sin que se vea. No te fíes de una sola lectura: avisa al supervisor y registra una desviación.",
+  junta: "Para la transferencia y aísla el filtro cerrando la XV-105 y la XV-106. No aprietes la brida en servicio y no pises el charco: es solución caliente con ácido. Avisa al supervisor y registra una desviación.",
   agitador: "Para la adición ya: sin agitación el anhídrido se acumula sin reaccionar. No intentes rearrancar el motor. Avisa al supervisor y registra una desviación.",
   ipc: "La hoja ya dice qué hacer: mantén 75–85 °C 30 minutos más y repite el IPC. No pases de etapa ni repitas la muestra sin prolongar. Informa al supervisor.",
   vibracion: "Deja que frene sola, no la rearranques y no abras la tapa. Avisa al supervisor y registra una desviación.",
@@ -118,6 +124,12 @@ function processTask(s: Sim): Task | null {
     case "filtracion":
       if (!s.filter.done) {
         const f = s.filter;
+        const j = s.events.junta;
+        if (j.active && j.resolved == null && !j.isolated) {
+          const c = closeLeft(s, "filtracion");
+          if (c) return { ...c, detail: `${E.VALVES[c.valve!].name}. Con una fuga se para la transferencia y se aísla el filtro antes de que nadie toque la brida.` };
+        }
+        if (j.active && j.resolved == null && j.notified == null) return { title: "Avisa de la fuga", detail: "Con el filtro aislado, avisa al supervisor para que mantenimiento cambie la junta." };
         const ev = s.events.filtro;
         if (ev.active && ev.resolved == null) {
           const c = closeLeft(s, "filtracion");

@@ -37,6 +37,7 @@ const L = {
   valvulas: { slug: "tuberias-y-valvulas", title: "Tuberías y válvulas" },
   limpieza: { slug: "limpieza-de-equipos", title: "Limpieza de equipos" },
   reactor: { slug: "reactor-a-fondo", title: "El reactor a fondo" },
+  solidos: { slug: "solidos-a-fondo", title: "Manejo de sólidos a fondo" },
   inertFondo: { slug: "inertizacion-a-fondo", title: "Inertización a fondo" },
   centriFondo: { slug: "centrifuga-a-fondo", title: "La centrífuga a fondo" },
   secadoFondo: { slug: "secado-a-fondo", title: "Secado a fondo" },
@@ -220,6 +221,12 @@ export function reviewBatch(s: Sim): Review {
     if (ox.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó de la fuga de vacío del R-101", detail: "Si el vacío no aguanta, entra aire por una junta: por muchos ciclos que hagas, el oxígeno no baja. Se avisa a mantenimiento antes de seguir.", lesson: L.inertFondo });
     if (!hasDeviation(s, "oxígeno", "oxigeno", "o₂", "o2", "fuga", "junta", "inertiz")) F.push({ sev: "menor", area: "Documentación (ALCOA+)", title: "Sin desviación por la fuga del R-101", detail: "Una avería del equipo durante el lote, aunque se repare a tiempo, queda registrada.", lesson: L.desv });
   }
+  const tierra = s.events.tierra;
+  if (tierra.active) {
+    if ((tierra.tries ?? 0) > 0) F.push({ sev: "crítico", area: "Seguridad", title: "Se cargó el polvo sin continuidad en la puesta a tierra", detail: "El polvo que cae se carga de electricidad estática. Sin tierra comprobada, una chispa puede inflamar el polvo o los vapores. Sin continuidad no se carga: se avisa y se repara.", lesson: L.solidos });
+    else if (tierra.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó de la pinza de tierra sin continuidad", detail: "Una protección contra la electricidad estática que no funciona se comunica para que se repare.", lesson: L.solidos });
+    if (!hasDeviation(s, "tierra", "continuidad", "pinza", "estática", "estatica")) F.push({ sev: "menor", area: "Documentación (ALCOA+)", title: "Sin desviación por la puesta a tierra sin continuidad", detail: "La avería y la espera hasta repararla se registran con su hora.", lesson: L.desv });
+  }
   if (s.reactor.alarms.some((a) => a.text.startsWith("Carga de sólido sin inertizar"))) F.push({ sev: "mayor", area: "Seguridad", title: "Carga del sólido antes de inertizar", detail: "Primero se inertiza el reactor y después se carga el polvo.", lesson: L.inert });
 
   // --- Reacción
@@ -248,6 +255,11 @@ export function reviewBatch(s: Sim): Review {
     if ((ag.addedStopped ?? 0) > 0) F.push({ sev: "mayor", area: "Seguridad", title: `Se siguió añadiendo anhídrido con el agitador parado (${fmtNum(ag.addedStopped!)} L)`, detail: "Sin agitación el reactivo no se mezcla, se acumula y puede reaccionar de golpe cuando vuelva a girar. La adición se para en cuanto se pierde la agitación.", lesson: L.reactor });
     if ((ag.tries ?? 0) > 0) F.push({ sev: "menor", area: "Seguridad", title: "Se intentó rearrancar el agitador con la protección disparada", detail: "Una protección que salta indica un problema. El equipo lo revisa mantenimiento antes de volver a arrancarlo.", lesson: L.alarmas });
     if (!hasDeviation(s, "agitador", "agitación", "agitacion", "motor")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la parada del agitador", detail: "La adición se interrumpió por una avería: se documenta con la hora, lo añadido y lo que se hizo.", lesson: L.desv });
+  }
+  const sonda = s.events.sonda;
+  if (sonda.active) {
+    if (sonda.notified == null) F.push({ sev: "mayor", area: "Proceso", title: "No se actuó ante la discrepancia de las sondas de temperatura", detail: `La TI-101 leía de menos y el lazo calentó la masa hasta ${fmtNum(r.maxTreact)} °C reales. Si dos medidas de lo mismo no coinciden, no se elige la que gusta: se avisa a instrumentación.`, lesson: L.medidas });
+    if (!hasDeviation(s, "sonda", "ti-101", "ti-103", "discrepancia", "temperatura")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por el fallo de la sonda TI-101", detail: "Durante un tiempo la temperatura registrada no era la real: calidad tiene que evaluar el impacto en el lote.", lesson: L.desv });
   }
   // Repetir el IPC sin prolongar la reacción es buscar un resultado que cumpla («testing into compliance»)
   const ipcs = s.ipc;
@@ -287,6 +299,12 @@ export function reviewBatch(s: Sim): Review {
   if (s.centri.washes !== 2) F.push({ sev: "mayor", area: "Proceso", title: `Lavados de la torta: ${s.centri.washes} (la hoja pide 2)`, detail: "El lavado elimina las aguas madre, que contienen las impurezas.", lesson: L.centri });
   if (n("torta") != null && Math.abs(n("torta")! - s.centri.wetCake) > 0.15) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "El peso de torta registrado no coincide con la báscula", detail: `Registro ${v("torta")} kg · báscula ${fmtNum(s.centri.wetCake)} kg.`, lesson: L.alcoa });
 
+  const junta = s.events.junta;
+  if (junta.active) {
+    if (junta.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó de la fuga en la junta del filtro", detail: "Una fuga de solución caliente con ácido es un riesgo para las personas y una pérdida de producto: se para, se aísla y se avisa.", lesson: L.filtros });
+    if ((junta.tries ?? 0) > 0) F.push({ sev: "mayor", area: "Seguridad", title: "Se siguió transfiriendo con la junta goteando", detail: `Se transfirió ${junta.tries} veces más con la fuga: se perdió producto y el charco de solución caliente siguió creciendo.`, lesson: L.filtros });
+    if (!hasDeviation(s, "junta", "fuga", "gotea", "brida", "derrame")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la fuga del filtro", detail: "Hubo pérdida de producto y una reparación en mitad de la transferencia: se registra.", lesson: L.desv });
+  }
   const vib = s.events.vibracion;
   if (vib.active) {
     if (vib.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó del disparo por vibración de la centrífuga", detail: "Una centrífuga que vibra puede romperse a alta velocidad. Se deja parar, no se rearranca y se avisa.", lesson: L.centriFondo });

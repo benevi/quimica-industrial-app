@@ -155,10 +155,10 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   seguir ampliando).
 - Plan del simulador (`docs/plan/simulador-lotes-gmp.md`): hechas a 22/11/2026 las fases B (modo guiado en
   `src/sim/guiado.ts` e incidencias elegibles o al azar), D (botones «Practicar» en las lecciones, `src/content/practica.ts`),
-  E (el lote FX-101 pasa al ERP y se registra allí, misión 10) y la etapa de limpieza. El lote completo tiene 10 incidencias
-  (`EVENTS` en `engine.ts`; las 4 de siempre en `CLASICAS`): báscula, etiqueta, oxígeno, agitador, frío, IPC, filtro,
-  vibración, vacío y LOD. Queda: sonda incoherente, puesta a tierra y fuga en junta (apartado 3.2; las de documentación
-  ya se practican en la auditoría) y misiones de certificaciones ligadas al simulador (3.7). Decidir con
+  E (el lote FX-101 pasa al ERP y se registra allí, misión 10) y la etapa de limpieza. El lote completo tiene las 13 incidencias
+  del apartado 3.2 (`EVENTS` en `engine.ts`; las 4 de siempre en `CLASICAS`): báscula, etiqueta, oxígeno, puesta a tierra,
+  agitador, frío, sonda, IPC, filtro, junta, vibración, vacío y LOD (las de documentación se practican en la auditoría).
+  Queda: misiones de certificaciones ligadas al simulador (3.7). Decidir con
   Victor si el verde de las válvulas abiertas se queda como código de planta.
 - Pendiente además: biotecnología (módulos FP 1390/1393) queda fuera del
   temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP
