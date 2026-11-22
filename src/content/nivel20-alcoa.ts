@@ -30,10 +30,10 @@ Las cinco primeras son "ALCOA"; las cuatro últimas son el "+". La sigla sale de
 **Bien hecho**: lees 23,4 °C en el panel, lo anotas en ese momento en la hoja con bolígrafo indeleble, pones la hora del reloj de planta y tus iniciales.
 
 **Mal hecho** (y por qué):
-- Apuntarlo en el guante y pasarlo después → no es **original** ni **contemporáneo**.
-- Escribir 23 °C "porque es lo mismo" → no es **exacto**.
-- Dejar la casilla de hora vacía → no es **completo**.
-- Que firme un compañero por ti → no es **atribuible**, y es una falta grave.
+- Apuntarlo en el guante y pasarlo después: no es **original** ni **contemporáneo**.
+- Escribir 23 °C "porque es lo mismo": no es **exacto**.
+- Dejar la casilla de hora vacía: no es **completo**.
+- Que firme un compañero por ti: no es **atribuible**, y es una falta grave.
 `,
     batchRecord: `
 - Cada casilla con dato, hora, iniciales o firma.

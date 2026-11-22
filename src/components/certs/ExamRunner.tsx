@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCountdown } from "@/lib/useCountdown";
+import { useState } from "react";
 import type { Question } from "@/content/types";
 import { shuffle } from "@/certs/draw";
 import { isRight } from "@/certs/grading";
@@ -19,30 +20,21 @@ export function ExamRunner({ moduleId, pool }: { moduleId: string; pool: { q: Qu
   const [items, setItems] = useState<{ q: Question; from: string }[] | null>(null);
   const [answers, setAnswers] = useState<Record<number, string | number>>({});
   const [checked, setChecked] = useState(false);
-  const [left, setLeft] = useState(0);
   const [started, setStarted] = useState(false);
   const [seed, setSeed] = useState(0);
+
+  const { left, start: startTimer } = useCountdown(started && !checked, () => finish());
 
   function start() {
     const picked = shuffle(pool).slice(0, MAX);
     setItems(picked);
     setAnswers({});
     setChecked(false);
-    setLeft(picked.length * SECONDS_PER_Q);
+    startTimer(picked.length * SECONDS_PER_Q);
     setStarted(true);
     setSeed(Math.floor(Math.random() * 1e9));
   }
 
-  useEffect(() => {
-    if (!started || checked) return;
-    if (left <= 0) {
-      finish();
-      return;
-    }
-    const t = setTimeout(() => setLeft((x) => x - 1), 1000);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [started, checked, left]);
 
   function finish() {
     if (!items) return;

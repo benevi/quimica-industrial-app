@@ -19,7 +19,7 @@ export function PanelPrevias({ s, act, active }: P) {
     <div className="space-y-4">
       <Card title="Etiqueta de estado del reactor R-101">
         <div className="rounded-md border border-ok bg-ok-soft p-3 text-sm">
-          <div className="font-mono text-base font-medium text-ok">LIMPIO</div>
+          <div className="font-mono text-base font-medium text-ok">Limpio</div>
           <div>Producto anterior: FX-101, lote 26-0146</div>
           <div>Limpieza terminada: 16/11 14:00 · firmado OP2 / verificado SUP</div>
           <div>Tiempo limpio máximo: 72 h</div>
@@ -138,7 +138,7 @@ export function PanelCarga({ s, act, active }: P) {
             </div>
           </li>
           <li>
-            Inertizar con ciclos de vacío y nitrógeno hasta O₂ ≤ 2,0 %. Cada ciclo: abrir XV-103 → vacío → cerrar XV-103 → abrir XV-102 → N₂ → cerrar XV-102. Nunca las dos abiertas a la vez.
+            Inertizar con ciclos de vacío y nitrógeno hasta O₂ ≤ 2,0 %. Cada ciclo: abrir XV-103, hacer vacío, cerrar XV-103; abrir XV-102, meter N₂, cerrar XV-102. Nunca las dos abiertas a la vez.
             <div className="mt-1 flex flex-wrap gap-1.5">
               <Btn disabled={dis || s.inertStep === "vacio"} onClick={() => act(E.inertVacuum)}>Hacer vacío (XV-103)</Btn>
               <Btn disabled={dis || s.inertStep !== "vacio"} onClick={() => act(E.inertN2)}>Romper con N₂ (XV-102)</Btn>
@@ -296,7 +296,7 @@ export function PanelFiltracion({ s, act, active }: P) {
   const broken = s.incidents.some((i) => i.kind === "rotura_cartucho" && !i.redone);
   return (
     <div className="space-y-4">
-      <Card title="Transferencia R-101 → F-301 → R-102">
+      <Card title="Transferencia de R-101 a R-102 por el filtro F-301">
         <div className="flex flex-wrap items-start gap-4">
           <FilterSvg dp={f.dp} progress={f.progress} running={f.running} v105={s.valves["XV-105"]} v106={s.valves["XV-106"]} broken={broken} done={f.done} />
           <div className="min-w-[14rem] flex-1 space-y-3">

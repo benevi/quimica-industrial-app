@@ -254,7 +254,7 @@ Gracias al ERP, MES y LIMS se puede contestar en minutos:
 Esto es imprescindible si hay que **retirar** un producto del mercado (*recall*).
 
 ### Cómo se conectan los sistemas
-ERP (qué fabricar y con qué) → MES (cómo se fabrica, paso a paso) → sistema de control de planta (DCS) que mueve válvulas y lee sensores. En paralelo, el LIMS gestiona las muestras y su aprobación, que el ERP usa para cambiar el estado del lote.
+El ERP dice qué fabricar y con qué; el MES, cómo se fabrica paso a paso; y el sistema de control de planta (DCS) mueve válvulas y lee sensores. En paralelo, el LIMS gestiona las muestras y su aprobación, que el ERP usa para cambiar el estado del lote.
 
 **Practica:** en el [simulador de ERP tipo SAP](/sap) puedes crear una orden, consumir lotes y ver cómo cambia su estado.
 `,

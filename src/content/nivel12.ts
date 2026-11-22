@@ -136,7 +136,7 @@ El orden importa: no es lo mismo echar ácido sobre agua que agua sobre ácido. 
     plant: `
 La hoja dice: *"Inertizar R-102 con 3 ciclos vacío/N₂. Verificar O₂ < 5 %. Cargar 450 kg de tolueno."*
 
-Haces los tres ciclos, el medidor marca 2,1 % O₂ → cumple. Lo anotas con hora y firma. Conectas la pinza de tierra al contenedor de tolueno antes de bombear.
+Haces los tres ciclos, el medidor marca 2,1 % O₂. Lo anotas con hora y firma. Conectas la pinza de tierra al contenedor de tolueno antes de bombear.
 `,
     batchRecord: `
 - Número de ciclos de inertización y % O₂ medido.
@@ -380,7 +380,7 @@ Se toma una muestra (IPC) y se analiza:
     plant: `
 La hoja dice: *"Secar a vacío (≤ 50 mbar) con T camisa 45 °C hasta LOD ≤ 0,5 %. Primer IPC a las 8 h."*
 
-A las 8 h el LOD da 1,2 % → sigue secando. A las 12 h da 0,3 % → cumple. Se registran las dos muestras, con hora y resultado, y la decisión.
+A las 8 h el LOD da 1,2 %: sigue secando. A las 12 h da 0,3 %: cumple. Se registran las dos muestras, con hora y resultado, y la decisión.
 `,
     batchRecord: `
 - T camisa, T producto y vacío cada cierto tiempo.

@@ -245,7 +245,7 @@ Casi ningún instrumento analiza la muestra "tal cual". Antes hay que **preparar
 ### Factor de dilución
 Si tomas 1 mL y lo llevas a 50 mL, el factor de dilución es **50**. Si haces dos diluciones seguidas, los factores se **multiplican**:
 
-> 1 → 10 mL (×10) y luego 1 → 100 mL (×100): factor total = **1000**
+> 1 mL enrasado a 10 mL (×10) y luego 1 mL enrasado a 100 mL (×100): factor total = **1000**
 
 Al calcular el resultado, la concentración medida se multiplica por el factor de dilución.
 `,

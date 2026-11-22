@@ -564,7 +564,7 @@ export const sdsList: Sds[] = [
           "Es un error de la etiqueta",
         ],
         answer: 1,
-        explain: "La palabra la fija la clase y categoría. Gas a presión → «Atención». Ojo: el riesgo de asfixia no tiene clase CLP y va en «otros peligros» (sección 2).",
+        explain: "La palabra la fija la clase y categoría. Para un gas a presión, «Atención». Ojo: el riesgo de asfixia no tiene clase CLP y va en «otros peligros» (sección 2).",
       },
       {
         kind: "choice",

@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { useCountdown } from "@/lib/useCountdown";
 import { EXAM_MINUTES, EXAM_PASS, examState, grade, lookups, randomVariant, type ExamVariant, type GradedTask } from "@/sap/exam";
 import type { ErpState } from "@/sap/engine";
 import { useCertState } from "@/certs/useCertState";
@@ -15,12 +16,13 @@ export function ExamMode() {
   const { state: cert, saveSapExam } = useCertState();
   const [run, setRun] = useState<Run | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [left, setLeft] = useState(0);
   const [result, setResult] = useState<{ tasks: GradedTask[]; score: number; total: number } | null>(null);
   const erp = useRef<ErpState | null>(null);
   const onState = useCallback((s: ErpState) => {
     erp.current = s;
   }, []);
+
+  const { left, start: startTimer } = useCountdown(!!run && !result, () => finish());
 
   function start() {
     const v = randomVariant();
@@ -29,7 +31,7 @@ export function ExamMode() {
     setRun({ v, initial });
     setAnswers({});
     setResult(null);
-    setLeft(EXAM_MINUTES * 60);
+    startTimer(EXAM_MINUTES * 60);
   }
 
   function finish() {
@@ -40,16 +42,6 @@ export function ExamMode() {
     window.scrollTo({ top: 0 });
   }
 
-  useEffect(() => {
-    if (!run || result) return;
-    if (left <= 0) {
-      finish();
-      return;
-    }
-    const t = setTimeout(() => setLeft((x) => x - 1), 1000);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [run, result, left]);
 
   const best = cert.sapExam?.best;
 

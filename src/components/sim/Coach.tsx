@@ -49,7 +49,7 @@ function processTask(s: Sim): Task | null {
       for (const m of Object.keys(E.MATERIALS) as E.MaterialId[]) {
         const mat = E.MATERIALS[m];
         if (s.verifications[m] != null) continue;
-        if (!s.lotsUsed[m]) return { title: `Elige el lote de ${mat.name}`, detail: "Solo vale un lote con estado APROBADO y dentro de fecha. Mira la etiqueta de cada envase." };
+        if (!s.lotsUsed[m]) return { title: `Elige el lote de ${mat.name}`, detail: "Solo vale un lote con estado «Aprobado» y dentro de fecha. Mira la etiqueta de cada envase." };
         if (Math.abs(s.dosed[m] - mat.target) > mat.tol) return { title: `Pesa ${E.fmtNum(mat.target, mat.target < 1 ? 2 : 1)} kg de ${mat.name}`, detail: `Añade o quita producto con los botones hasta que la báscula marque ${E.fmtNum(mat.target - mat.tol, 2)}–${E.fmtNum(mat.target + mat.tol, 2)} kg.` };
         return { title: `Anota lote y peso de ${mat.name} y pide la verificación`, detail: "Escribe en la hoja exactamente lo que marca la báscula. Después, un compañero lo comprueba y firma." };
       }

@@ -8,7 +8,7 @@ import { blockColor, blockOfLevel, blocks, type BlockId } from "@/content/blocks
 import { Icon } from "@/components/icons";
 import { Card, PageHeader } from "@/components/ui";
 
-const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+import { norm } from "@/lib/text";
 const letterOf = (s: string) => {
   const c = norm(s).charAt(0).toUpperCase();
   return /[A-Z]/.test(c) ? c : "#";

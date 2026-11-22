@@ -37,11 +37,6 @@ export function lessonsOfLevel(level: number) {
   return lessons.filter((l) => l.level === level);
 }
 
-export function nextLesson(slug: string) {
-  const i = lessons.findIndex((l) => l.slug === slug);
-  return i >= 0 ? lessons[i + 1] : undefined;
-}
-
 export const allTerms = lessons
   .flatMap((l) => l.terms.map((t) => ({ ...t, lesson: l.slug, lessonTitle: l.title })))
   .sort((a, b) => a.es.localeCompare(b.es, "es"));

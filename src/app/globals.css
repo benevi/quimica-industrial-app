@@ -127,14 +127,6 @@ svg [role="button"]:focus-visible { outline: 3px solid var(--accent); outline-of
 .prose-app code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .prose-app :not(pre) > code { background: var(--soft); border-radius: 0.25rem; padding: 0.05em 0.3em; font-size: 0.9em; }
 
-@keyframes sim-spin {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  [style*="sim-spin"] { animation: none !important; }
-}
-
 /* Colores de los bloques del temario */
 :root {
   --b-bases: #3b5f9e; --b-bases-soft: #edf1f8;

@@ -24,9 +24,9 @@ Todo lo que ocupa espacio y tiene masa es **materia** (*matter*).
 - **Gas** (*gas*): ocupa todo el espacio. Nitrógeno, vapores de disolvente.
 
 ### Cambios de estado
-- **Fusión** (*melting*): sólido → líquido. El **punto de fusión** sirve para identificar un producto puro.
-- **Ebullición / evaporación** (*boiling / evaporation*): líquido → gas. Con vacío, un líquido hierve a **menor temperatura**; por eso se destila a vacío, para no dañar el producto.
-- **Condensación** (*condensation*): gas → líquido. Ocurre en el condensador del reactor.
+- **Fusión** (*melting*): paso de sólido a líquido. El **punto de fusión** sirve para identificar un producto puro.
+- **Ebullición / evaporación** (*boiling / evaporation*): paso de líquido a gas. Con vacío, un líquido hierve a **menor temperatura**; por eso se destila a vacío, para no dañar el producto.
+- **Condensación** (*condensation*): paso de gas a líquido. Ocurre en el condensador del reactor.
 - **Cristalización** (*crystallization*): un sólido aparece ordenado a partir de una disolución.
 
 ### Mezclas y sustancias puras
@@ -363,7 +363,7 @@ Para preparar 100 kg de sosa al 10 % p/p a partir de sosa al 50 % p/p: m₁ = 10
 ⚠️ **Siempre el ácido sobre el agua**, nunca al revés: al diluir se desprende mucho calor.
 `,
     plant: `
-La hoja dice "Disolver en 8 vol de etanol". El material de partida pesa 25,0 kg → 8 × 25,0 = **200 L** de etanol (unos 158 kg, porque la densidad es 0,79).
+La hoja dice "Disolver en 8 vol de etanol". El material de partida pesa 25,0 kg, así que 8 × 25,0 = **200 L** de etanol (unos 158 kg, porque la densidad es 0,79).
 `,
     batchRecord: `
 - Preparación de soluciones (NaOH 2 M, HCl 1 M…) con pesos, volúmenes y verificación.

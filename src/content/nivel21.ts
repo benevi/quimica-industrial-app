@@ -27,7 +27,7 @@ Guía de la industria (ISPE) para validar sistemas con un enfoque **basado en ri
 | 5 | Software a medida | Programa desarrollado para la empresa | Alto |
 
 ### Ciclo de vida
-Requisitos del usuario (**URS**) → especificaciones → configuración o desarrollo → pruebas (IQ, OQ, PQ) → informe de validación → uso con **control de cambios**, copias de seguridad, gestión de accesos y revisiones periódicas → retirada (conservando los datos).
+Por orden: requisitos del usuario (**URS**), especificaciones, configuración o desarrollo, pruebas (IQ, OQ, PQ), informe de validación, uso con **control de cambios**, copias de seguridad, gestión de accesos y revisiones periódicas, y retirada (conservando los datos).
 
 ### Qué significa para ti
 - Solo se usan **sistemas validados** y la versión aprobada.
@@ -136,7 +136,7 @@ GAMP 5 (2.ª edición) insiste en el **pensamiento crítico** (*critical thinkin
 La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*) y en **febrero de 2026** la sustituyó por una versión revisada (*Computer Software Assurance for Production and Quality Management System Software*). Está pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos ni para principios activos; su idea central es que, para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
 
 ### Para un desarrollador web
-Lo reconocerás: requisitos → historias de usuario, OQ → pruebas funcionales y de integración, PQ → pruebas de aceptación, RTM → cobertura de requisitos, control de cambios → *pull requests* revisados, entornos de **desarrollo**, **pruebas/validación** y **producción** separados. La diferencia es que en GMP **todo deja evidencia firmada** y QA lo aprueba.
+Lo reconocerás: los requisitos son tus historias de usuario; la OQ, las pruebas funcionales y de integración; la PQ, las pruebas de aceptación; la RTM, la cobertura de requisitos; el control de cambios, los *pull requests* revisados; y hay entornos de **desarrollo**, **pruebas/validación** y **producción** separados. La diferencia es que en GMP **todo deja evidencia firmada** y QA lo aprueba.
 `,
     plant: `
 Tu planta va a implantar un MES nuevo. Te eligen como **usuario clave** para la PQ: durante dos semanas fabricas "lotes de prueba" en el entorno de validación siguiendo guiones. En uno, el sistema acepta un peso fuera de rango sin pedir comentario. Lo anotas como resultado obtenido, marcas "No pasa" y se abre una incidencia de prueba. El proveedor lo corrige en una versión nueva, se repite la prueba y pasa.

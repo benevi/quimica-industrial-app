@@ -46,7 +46,7 @@ Pasos para calcular cuánto producto sale como máximo (**rendimiento teórico**
 Partes de **50,0 kg** de 4-aminofenol (M = 109,13 g/mol).
 
 1. 50,0 / 109,13 = 0,4582 kmol de aminofenol.
-2. Proporción 1:1 → 0,4582 kmol de paracetamol como máximo.
+2. Proporción 1:1: 0,4582 kmol de paracetamol como máximo.
 3. 0,4582 × 151,16 = **69,26 kg** de paracetamol teórico.
 
 Si el proceso pide 1,1 eq de anhídrido acético (M = 102,09): 0,4582 × 1,1 × 102,09 = **51,45 kg** de anhídrido.
@@ -193,7 +193,7 @@ Cada hoja tiene un **rango esperado** (p. ej. 80–90 %). Un rendimiento fuera d
     plant: `
 Teórico: 69,26 kg. Obtenido: 58,9 kg de producto seco.
 
-Rendimiento = 58,9 / 69,26 × 100 = **85,0 %**. Rango de la hoja: 80–90 % → cumple.
+Rendimiento = 58,9 / 69,26 × 100 = **85,0 %**. Rango de la hoja: 80–90 %: cumple.
 `,
     batchRecord: `
 - Peso de producto obtenido, rendimiento calculado y rango esperado.
@@ -356,7 +356,7 @@ No se sabe "a ojo". Se toma una muestra y se analiza: **control en proceso** (*I
     plant: `
 La hoja dice *"Mantener a 60 ± 2 °C. IPC a las 3 h: material de partida ≤ 1,0 %. Si no cumple, mantener 1 h más y repetir."*
 
-A las 3 h el IPC da 1,8 % → sigues 1 h. A las 4 h da 0,6 % → cumple, pasas al siguiente paso. Registras ambos resultados.
+A las 3 h el IPC da 1,8 %: sigues 1 h. A las 4 h da 0,6 %: cumple, pasas al siguiente paso. Registras ambos resultados.
 `,
     batchRecord: `
 - Tiempo de reacción y temperatura.

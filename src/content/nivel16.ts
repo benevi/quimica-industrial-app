@@ -235,7 +235,7 @@ Cuando un lote o un intermedio no cumple, hay palabras que parecen iguales y no 
 
 Ninguna de estas decisiones es del operador: las toma Calidad y quedan escritas. Lo que sí es tuyo es avisar a tiempo y registrar lo que pasó.
 
-Ejemplo de 5 porqués: la temperatura subió → la refrigeración no respondió → la válvula estaba cerrada → nadie la abrió tras el mantenimiento → el procedimiento de mantenimiento no incluía comprobar la posición de válvulas. **Causa raíz**: procedimiento incompleto.
+Ejemplo de 5 porqués: la temperatura subió porque la refrigeración no respondió; no respondió porque la válvula estaba cerrada; estaba cerrada porque nadie la abrió tras el mantenimiento; y nadie la abrió porque el procedimiento de mantenimiento no incluía comprobar la posición de válvulas. **Causa raíz**: procedimiento incompleto.
 `,
     plant: `
 Durante una adición la temperatura llega a 31 °C y el máximo es 25 °C. Paras la adición, anotas la hora y el valor real (31 °C), avisas al supervisor. Él abre la desviación y QA evaluará si el lote está afectado (por ejemplo con análisis adicionales de impurezas).
@@ -313,7 +313,7 @@ Cualquier cambio que pueda afectar a la calidad se **propone, evalúa y aprueba 
 - Cambio de un parámetro del proceso o de un procedimiento.
 - Cambio en un sistema informático.
 
-Pasos: propuesta → evaluación de impacto (calidad, validación, regulatorio, seguridad) → aprobación por QA → ejecución → cierre con verificación.
+Pasos: propuesta, evaluación de impacto (calidad, validación, regulatorio, seguridad), aprobación por QA, ejecución y cierre con verificación.
 
 Un cambio hecho sin control de cambios es una **desviación**, aunque el cambio sea una mejora.
 `,

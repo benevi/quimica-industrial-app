@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCountdown } from "@/lib/useCountdown";
+import { useState } from "react";
 import type { Case } from "@/certs/casos";
 import { isRight, showGrade, type Answer } from "@/certs/grading";
 import { drawMock } from "@/certs/draw";
@@ -33,7 +34,8 @@ export function MockRunner({
   const [drawn, setDrawn] = useState<Drawn | null>(null);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [checked, setChecked] = useState(false);
-  const [left, setLeft] = useState(0);
+
+  const { left, start: startTimer } = useCountdown(!!drawn && !checked, () => finish());
 
   function start() {
     const test = drawMock(mock, pools);
@@ -41,20 +43,10 @@ export function MockRunner({
     setDrawn({ test, kase });
     setAnswers({});
     setChecked(false);
-    setLeft(mock.minutes * 60);
+    startTimer(mock.minutes * 60);
     window.scrollTo({ top: 0 });
   }
 
-  useEffect(() => {
-    if (!drawn || checked) return;
-    if (left <= 0) {
-      finish();
-      return;
-    }
-    const t = setTimeout(() => setLeft((x) => x - 1), 1000);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [drawn, checked, left]);
 
   function grade(d: Drawn) {
     const testOk = d.test.filter((it) => isRight(it.q, answers[it.id])).length;

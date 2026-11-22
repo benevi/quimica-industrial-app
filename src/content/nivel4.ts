@@ -113,7 +113,7 @@ En el laboratorio no se usa la hoja de producción, sino **cuadernos de laborato
 - Registrar el valor completo (o imprimir el ticket).
 `,
     plant: `
-Debes pesar 25,0 kg de un sólido en una báscula de planta de 60 kg. Antes, verificas con la pesa patrón de 20 kg: marca 20,005 kg y el criterio es ±0,02 kg → cumple. Lo anotas en el cuaderno de la báscula y luego haces la pesada.
+Debes pesar 25,0 kg de un sólido en una báscula de planta de 60 kg. Antes, verificas con la pesa patrón de 20 kg: marca 20,005 kg y el criterio es ±0,02 kg: cumple. Lo anotas en el cuaderno de la báscula y luego haces la pesada.
 `,
     batchRecord: `
 - Identificación de la báscula y su verificación del día.
@@ -338,7 +338,7 @@ Una solución de NaOH "0,1 M" nunca es exactamente 0,1000 M. Se **valora** frent
 
 > concentración real = concentración nominal × factor
 
-Ejemplo: factor 0,987 → 0,1 × 0,987 = **0,0987 M**.
+Ejemplo: con factor 0,987, la concentración real es 0,1 × 0,987 = **0,0987 M**.
 
 ### Etiqueta de una solución preparada
 Nombre y concentración · factor (si aplica) · fecha de preparación · **caducidad** · quién la preparó · referencia al registro de preparación.

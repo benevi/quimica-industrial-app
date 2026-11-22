@@ -37,12 +37,5 @@ export function useProgress() {
     setProgress(next);
   }, []);
 
-  const reset = useCallback(() => {
-    try {
-      window.localStorage.removeItem(KEY);
-    } catch {}
-    setProgress({});
-  }, []);
-
-  return { progress, loaded, save, reset };
+  return { progress, loaded, save };
 }
