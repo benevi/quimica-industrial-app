@@ -45,7 +45,7 @@ type StartOpts = { guided?: boolean; events: E.EventId[] };
 
 /** Pantalla de inicio: lote guiado, lote normal o lote con las incidencias que elijas (o al azar). */
 function Start({ onStart }: { onStart: (o: StartOpts) => void }) {
-  const [sel, setSel] = useState<E.EventId[]>(E.EVENTS.map((e) => e.id));
+  const [sel, setSel] = useState<E.EventId[]>(E.CLASICAS);
   // Desde una lección se puede llegar con ?modo=guiado o ?incidencia=frio
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);

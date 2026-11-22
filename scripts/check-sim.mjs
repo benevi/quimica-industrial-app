@@ -10,16 +10,21 @@ const N = await jiti.import(root + "/sim/nutsche.ts");
 let errors = 0;
 const expect = (cond, msg) => { if (!cond) { console.error("ERROR", msg); errors++; } };
 
-/** Fabrica un lote siguiendo la hoja al pie de la letra */
-function perfect(scenario) {
-  const s = E.newSim(scenario);
+/**
+ * Fabrica un lote siguiendo la hoja al pie de la letra. Con `events`, el lote lleva esas incidencias y se gestionan bien;
+ * `bad` lista los errores que se quieren cometer a propósito (para comprobar que el informe de QA los ve).
+ */
+function perfect(scenario, events, bad = []) {
+  const s = events ? E.newSim("incidencias", { events }) : E.newSim(scenario);
+  const mal = (x) => bad.includes(x);
+  const dev = (what, action) => E.openDeviation(s, what, action);
   const rec = (id, v) => E.record(s, id, String(v));
   const next = () => { E.sign(s, E.SECTIONS[s.section].id); E.advance(s); };
   const valve = (...ids) => ids.forEach((v) => E.toggleValve(s, v));
   let guard = 0;
 
   // 1. Verificaciones previas
-  if (scenario === "incidencias") { E.chooseScale(s, "B-05"); E.notify(s, "báscula B-05 fuera de tolerancia"); }
+  if (E.eventOn(s, "bascula")) { E.chooseScale(s, "B-05"); E.notify(s, "báscula B-05 fuera de tolerancia"); }
   E.chooseScale(s, "B-06");
   rec("r101_estado", "Limpio y dentro de tiempo"); rec("bascula_id", "B-06"); rec("bascula_verif", "50,01"); rec("servicios", "Sí");
   next();
@@ -28,6 +33,10 @@ function perfect(scenario) {
   const lots = { af: "AF-24115", aa: "AA-0921", se: "SE-0098" };
   for (const m of ["af", "aa", "se"]) {
     E.selectLot(s, m, lots[m]);
+    if (m === "af" && s.events.etiqueta.active && !mal("etiqueta")) {
+      E.notify(s, "etiquetas del bidón de 4-aminofenol no coinciden");
+      dev("Bidón de 4-aminofenol con etiqueta de proveedor AF-24113 y etiqueta de estado AF-24115", "No lo uso, lo aparto y aviso");
+    }
     if (m === "se") for (let i = 0; i < 5; i++) E.dose(s, m, 0.1);
     else {
       for (let i = 0; i < 10; i++) E.dose(s, m, 10);
@@ -42,7 +51,12 @@ function perfect(scenario) {
   // 3. Carga e inertización
   valve("XV-101"); for (let i = 0; i < 3; i++) E.chargeWater(s, 100); valve("XV-101");
   E.toggleAgit(s, true);
-  while (s.o2 > 2 && guard++ < 20) { valve("XV-103"); E.inertVacuum(s); valve("XV-103"); valve("XV-102"); E.inertN2(s); valve("XV-102"); }
+  while (s.o2 > 2 && guard++ < 20) {
+    valve("XV-103"); E.inertVacuum(s); valve("XV-103"); valve("XV-102"); E.inertN2(s); valve("XV-102");
+    if (s.events.oxigeno.active && s.events.oxigeno.notified == null && !mal("oxigeno")) {
+      E.notify(s, "el vacío del R-101 no aguanta"); dev("Fuga en el R-101: el vacío no aguanta y el O₂ no baja de 2,6 %", "Paro la inertización y aviso");
+    }
+  }
   E.chargeAF(s);
   rec("agua_l", s.water); rec("o2", E.fmtNum(s.o2));
   next();
@@ -55,6 +69,12 @@ function perfect(scenario) {
       E.openDeviation(s, "Fallo de glicol durante la adición, temperatura", "Paro la adición y aviso");
     }
     if (s.events.frio.active && s.events.frio.resolved == null) { E.reactorTick(s); continue; }
+    const ag = s.events.agitador;
+    if (ag.active && ag.resolved == null && !mal("agitador")) {
+      if (ag.notified == null) { E.setRate(s, 0); E.notify(s, "agitador parado"); dev("Parada del agitador M-101 durante la adición", "Paro la adición y aviso"); }
+      E.reactorTick(s); continue;
+    }
+    if (ag.active && ag.resolved != null && !s.reactor.agit) E.toggleAgit(s, true);
     if (s.reactor.interlock) { if (s.reactor.T < 35) E.resetInterlock(s); }
     else if (s.reactor.rate === 0 && s.reactor.T < 36) E.setRate(s, 2);
     else if (s.reactor.T > 38 && s.reactor.rate > 0) E.setRate(s, 0);
@@ -64,6 +84,13 @@ function perfect(scenario) {
   valve("XV-104"); E.setSP(s, 80);
   while (s.reactor.inRange < 60 && guard++ < 3000) E.reactorTick(s);
   E.requestIPC(s); for (let i = 0; i < 21; i++) E.reactorTick(s);
+  while (s.ipc.at(-1).value > 0.5 && guard++ < 3100) {
+    const prev = s.ipc.at(-1);
+    if (s.events.ipc.active && s.events.ipc.notified == null) E.notify(s, "IPC fuera de límite");
+    if (!mal("ipc")) while (s.reactor.inRange < prev.min + 30 && guard++ < 3200) E.reactorTick(s);
+    E.requestIPC(s); for (let i = 0; i < 21; i++) E.reactorTick(s);
+    if (mal("ipc")) break;
+  }
   rec("t_reaccion", E.fmtNum(s.reactor.T)); rec("min_reaccion", s.reactor.inRange); rec("ipc_af", E.fmtNum(s.ipc.at(-1).value, 2));
   next();
 
@@ -88,6 +115,11 @@ function perfect(scenario) {
 
   // 7. Centrifugación
   valve("XV-201"); E.centriAction(s, "cargar"); valve("XV-201"); E.centriAction(s, "centrifugar");
+  if (!s.centri.spun) {
+    if (mal("vibracion")) E.centriAction(s, "centrifugar");
+    E.notify(s, "vibración alta en la C-201"); dev("Parada de la centrífuga C-201 por vibración alta al subir a 900 rpm", "Dejo que pare y aviso");
+    E.centriAction(s, "centrifugar");
+  }
   valve("XV-202"); E.centriAction(s, "lavar", 5); E.centriAction(s, "lavar", 5); valve("XV-202"); E.centriAction(s, "descargar");
   rec("lavados", 2); rec("torta", E.fmtNum(s.centri.wetCake));
   next();
@@ -100,6 +132,11 @@ function perfect(scenario) {
     if (s.events.vacio.active && s.events.vacio.notified == null) {
       E.notify(s, "vacío perdido"); E.openDeviation(s, "Vacío del secadero a 380 mbar", "Aviso a mantenimiento");
     }
+    if (hours >= 4 && E.eventOn(s, "lod") && !s.events.lod.active) lod = E.lodSample(s);
+    if (s.events.lod.active && s.events.lod.notified == null && !mal("lod")) {
+      E.notify(s, "el LOD no baja, grumos"); dev("LOD de 2 % a las 4 h: torta con grumos", "Aviso; se desterrona según el procedimiento");
+    }
+    if (mal("lod") && hours >= 10) break;
     if (hours >= 4 && s.dryer.lod < 0.5) lod = E.lodSample(s);
   }
   valve("XV-301");
@@ -353,7 +390,7 @@ function reactorLote(opts = {}) {
   const una = E.newSim("normal", { events: ["frio"] });
   expect(una.eventsOn.frio && !una.eventsOn.bascula && !una.events.bascula.active && una.scaleReading["B-05"] < 50.1, "15: se puede elegir solo el fallo de frío");
   const todas = E.newSim("incidencias");
-  expect(Object.values(todas.eventsOn).every(Boolean), "15: el lote con incidencias las tiene todas");
+  expect(E.CLASICAS.every((id) => todas.eventsOn[id]) && E.CLASICAS.length === 4, "15: el lote con incidencias tiene las cuatro de siempre");
   const G = await jiti.import(root + "/sim/guiado.ts");
   expect(E.SECTIONS.every((x) => G.GUIADO[x.id]?.porque.length > 0), "15: el modo guiado explica todas las etapas");
   const PR = await jiti.import(root + "/content/practica.ts");
@@ -413,5 +450,52 @@ function reactorLote(opts = {}) {
   expect(S.usageDecision(st2, st2.lots.at(-1).id, "A").msg.type === "E", "16: no se acepta un lote que el informe de QA no deja liberar");
 }
 
-console.log(errors ? `${errors} errores` : "Simulador de planta: 16 escenarios OK");
+// 17. Las seis incidencias nuevas (y las cuatro de siempre) bien gestionadas: nota máxima, pendiente de desviaciones
+{
+  const all = E.EVENTS.map((e) => e.id);
+  const s17 = perfect(null, all);
+  const r17 = R.reviewBatch(s17);
+  expect(r17.decision === "Pendiente de desviaciones" && r17.score === 100, `17: lote con las 10 incidencias bien gestionado → ${r17.decision} ${r17.score} ${titles(r17)}`);
+  for (const id of all) expect(s17.events[id].active, `17: la incidencia ${id} debe haber salido`);
+  expect(s17.o2 <= 2, `17: tras cambiar la junta el O₂ debe bajar de 2 %: ${s17.o2}`);
+  expect(s17.ipc.length >= 2 && s17.ipc[0].value > 0.5 && s17.ipc.at(-1).value <= 0.5, `17: el primer IPC no cumple y el repetido sí: ${s17.ipc.map((i) => i.value)}`);
+  expect(!s17.incidents.length, `17: no debe haber incidentes: ${s17.incidents.map((i) => i.kind)}`);
+  // Un lote antiguo sin las incidencias nuevas se completa al cargarlo
+  const old = JSON.parse(JSON.stringify(E.newSim("normal")));
+  delete old.events.lod; delete old.eventsOn.lod;
+  const m = E.migrate(old);
+  expect(m.events.lod && m.eventsOn.lod === false, "17: migrate completa las incidencias que faltan");
+  expect(E.newSim("incidencias").eventsOn.lod === false && E.newSim("incidencias").eventsOn.frio, "17: el escenario «incidencias» sigue siendo el de las 4 de siempre");
+}
+
+// 18. Cada incidencia nueva mal gestionada deja su hallazgo
+{
+  // Etiqueta: sin avisar, el verificador no firma
+  const s = E.newSim("incidencias", { events: ["etiqueta"] });
+  E.chooseScale(s, "B-06"); E.selectLot(s, "af", "AF-24115");
+  for (let i = 0; i < 10; i++) E.dose(s, "af", 10);
+  E.record(s, "lote_af", "AF-24115"); E.record(s, "peso_af", E.fmtNum(E.scaleDisplay(s, "af"), 2));
+  expect(/etiqueta/.test(E.requestVerification(s, "af") ?? ""), "18: con las etiquetas cruzadas el verificador no firma");
+  E.notify(s, "etiquetas"); expect(s.dosed.af === 0 && s.events.etiqueta.resolved != null, "18: tras avisar se devuelve lo pesado y llega otro bidón");
+
+  // Oxígeno: sin avisar, por muchos ciclos el O₂ se queda en ~2,6 %
+  const o = E.newSim("incidencias", { events: ["oxigeno"] });
+  for (let i = 0; i < 8; i++) { E.toggleValve(o, "XV-103"); E.inertVacuum(o); E.toggleValve(o, "XV-103"); E.toggleValve(o, "XV-102"); E.inertN2(o); E.toggleValve(o, "XV-102"); }
+  expect(o.o2 > 2.5 && o.o2 < 2.7, `18: con la fuga el O₂ se queda en ~2,6 %: ${o.o2}`);
+  expect(R.reviewBatch(o).findings.some((f) => /No se avisó de la fuga de vacío/.test(f.title)), "18: oxígeno sin avisar debe dar su hallazgo");
+
+  const bads = [
+    ["agitador", /Se siguió añadiendo anhídrido con el agitador parado/],
+    ["ipc", /Se repitió el IPC sin prolongar/],
+    ["vibracion", /Se rearrancó la centrífuga/],
+    ["lod", /No se avisó de que el LOD no bajaba/],
+  ];
+  for (const [id, re] of bads) {
+    const sb = perfect(null, [id], [id]);
+    const rb = R.reviewBatch(sb);
+    expect(rb.findings.some((f) => re.test(f.title)), `18: ${id} mal gestionado debe dar «${re.source}» → ${titles(rb)}`);
+  }
+}
+
+console.log(errors ? `${errors} errores` : "Simulador de planta: 18 escenarios OK");
 process.exit(errors ? 1 : 0);

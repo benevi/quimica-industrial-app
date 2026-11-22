@@ -177,8 +177,17 @@ export type Incident = {
   notified?: number;
 };
 
-export type EventId = "bascula" | "frio" | "filtro" | "vacio";
-export type SimEvent = { active: boolean; start?: number; notified?: number; resolved?: number };
+export type EventId = "bascula" | "etiqueta" | "oxigeno" | "agitador" | "frio" | "ipc" | "filtro" | "vibracion" | "vacio" | "lod";
+export type SimEvent = {
+  active: boolean;
+  start?: number;
+  notified?: number;
+  resolved?: number;
+  /** Intentos de rearrancar un equipo parado por su protección antes de que lo revisen. */
+  tries?: number;
+  /** Litros de anhídrido añadidos con el agitador parado (incidencia del agitador). */
+  addedStopped?: number;
+};
 
 export type Point = { t: number; T: number; Tj: number };
 /** Punto de una tendencia genérica (filtro, centrífuga, secadero): tiempo y variables con nombre. */
@@ -250,7 +259,8 @@ export type Sim = {
   contam: boolean;
   degraded: boolean;
   reactor: Reactor;
-  ipc: { requested: number; ready: number; value: number }[];
+  /** Muestras de IPC de fin de reacción; `min` = minutos a 75–85 °C que llevaba la reacción al tomarla. */
+  ipc: { requested: number; ready: number; value: number; min?: number }[];
   filter: { dp: number; maxDpRun: number; changes: number; done: boolean; running: boolean; progress: number; history: TrendPt[] };
   cryst: { done: boolean; seedT: number; seeded: boolean; ramp: number; finalT: number; hold: number; quality: "buena" | "finos" };
   centri: { loaded: boolean; spun: boolean; washes: number; discharged: boolean; wetCake: number; history: TrendPt[] };
@@ -262,33 +272,42 @@ export type Sim = {
 const r1 = (x: number) => Math.round(x * 10) / 10;
 const r2 = (x: number) => Math.round(x * 100) / 100;
 
-/** Las cuatro incidencias del lote completo, para elegirlas al empezar. */
+/** Las incidencias del lote completo, en el orden en que salen, para elegirlas al empezar. */
 export const EVENTS: { id: EventId; title: string; when: string }[] = [
   { id: "bascula", title: "La báscula B-05 no pasa la verificación diaria", when: "en las verificaciones previas" },
+  { id: "etiqueta", title: "La etiqueta de un bidón no coincide con la orden", when: "en la pesada" },
+  { id: "oxigeno", title: "El oxígeno no baja del 2 % al inertizar", when: "en la carga" },
+  { id: "agitador", title: "El agitador se para durante la adición", when: "en la reacción" },
   { id: "frio", title: "Falla el frío de la camisa durante la adición", when: "en la reacción" },
+  { id: "ipc", title: "El control en proceso sale fuera de límite", when: "en la reacción" },
   { id: "filtro", title: "El cartucho del filtro F-301 se colmata", when: "en la filtración" },
+  { id: "vibracion", title: "La centrífuga se para por vibración alta", when: "en la centrifugación" },
   { id: "vacio", title: "Se pierde el vacío del secadero", when: "en el secado" },
+  { id: "lod", title: "La pérdida por secado (LOD) no baja", when: "en el secado" },
 ];
+
+/** Las cuatro incidencias de siempre: las del escenario «incidencias» y las que salen marcadas al empezar. */
+export const CLASICAS: EventId[] = ["bascula", "frio", "filtro", "vacio"];
 
 /** ¿Está activa esta incidencia en el lote? */
 export function eventOn(s: Sim, id: EventId) {
-  return s.eventsOn ? s.eventsOn[id] : s.scenario === "incidencias";
+  return s.eventsOn ? !!s.eventsOn[id] : s.scenario === "incidencias" && CLASICAS.includes(id);
 }
 
 export function newSim(scenario: Scenario, opts: { events?: EventId[]; guided?: boolean } = {}): Sim {
-  const events = opts.guided ? [] : (opts.events ?? (scenario === "incidencias" ? EVENTS.map((e) => e.id) : []));
+  const events = opts.guided ? [] : (opts.events ?? (scenario === "incidencias" ? CLASICAS : []));
   const s = blankSim(events.length ? "incidencias" : "normal", events);
   if (opts.guided) s.guided = true;
   s.checkpoints[0] = snapshot(s);
   return s;
 }
 
-function blankSim(scenario: Scenario, events: EventId[] = scenario === "incidencias" ? ["bascula", "frio", "filtro", "vacio"] : []): Sim {
+function blankSim(scenario: Scenario, events: EventId[] = scenario === "incidencias" ? CLASICAS : []): Sim {
   const on = (id: EventId) => events.includes(id);
   return {
     version: 1,
     scenario,
-    eventsOn: { bascula: on("bascula"), frio: on("frio"), filtro: on("filtro"), vacio: on("vacio") },
+    eventsOn: Object.fromEntries(EVENTS.map((e) => [e.id, on(e.id)])) as Record<EventId, boolean>,
     clock: 0,
     section: 0,
     maxSection: 0,
@@ -299,12 +318,7 @@ function blankSim(scenario: Scenario, events: EventId[] = scenario === "incidenc
     verifications: {},
     audit: [{ time: 0, who: "Sistema", what: `Orden de fabricación FX-101/26-0147 emitida (escenario: ${scenario === "normal" ? "lote normal" : "lote con incidencias"})` }],
     deviations: [],
-    events: {
-      bascula: { active: on("bascula") },
-      frio: { active: false },
-      filtro: { active: false },
-      vacio: { active: false },
-    },
+    events: Object.fromEntries(EVENTS.map((e) => [e.id, { active: e.id === "bascula" && on("bascula") }])) as Record<EventId, SimEvent>,
     messages: [],
     scaleReading: { "B-05": on("bascula") ? 50.38 : 50.02, "B-06": 50.01 },
     scaleUsed: null,
@@ -355,6 +369,11 @@ export function migrate(s: Sim): Sim {
   s.filter.history ??= [];
   s.centri.history ??= [];
   s.dryer.history ??= [];
+  // Lotes guardados antes de las incidencias nuevas: las que faltan quedan apagadas
+  for (const e of EVENTS) {
+    s.events[e.id] ??= { active: false };
+    if (s.eventsOn) s.eventsOn[e.id] ??= false;
+  }
   if (s.checkpoints[s.section] == null) s.checkpoints[s.section] = snapshot(s);
   return s;
 }
@@ -472,16 +491,37 @@ export function notify(s: Sim, text: string) {
     if (ev === "bascula") msg(s, "Supervisor", "No uses la B-05: la etiqueto como fuera de uso y aviso a metrología. Usa la B-06 y verifícala antes.");
     if (ev === "filtro") msg(s, "Supervisor", "Para la transferencia y cambia el cartucho según el procedimiento. Registra el lote del cartucho nuevo y la incidencia.");
     if (ev === "vacio") msg(s, "Supervisor", "Mantenimiento va a revisar la bomba de vacío y el sello de la tapa; unos 30 minutos. No subas la temperatura para compensar.");
+    if (ev === "etiqueta") {
+      // El bidón dudoso se aparta y almacén trae otro bien identificado: lo pesado de ese bidón no vale
+      const e = s.events.etiqueta;
+      msg(s, "Supervisor", "Bien visto. No uses ese bidón: lo apartamos con una etiqueta de «Retenido» y almacén y calidad comprueban qué ha pasado. Te traen otro bidón del lote AF-24115 bien identificado. Lo que hayas pesado del bidón dudoso no vale: devuélvelo y vuelve a pesar. Registra la incidencia.");
+      s.clock += 20;
+      e.resolved = s.clock;
+      s.dosed.af = 0;
+      delete s.verifications.af;
+      msg(s, "Almacén", "Ya tienes en la sala el bidón nuevo del lote AF-24115: la etiqueta del proveedor y la de estado coinciden.");
+    }
+    if (ev === "oxigeno") msg(s, "Supervisor", "Para la inertización y no cargues el sólido: con oxígeno por encima del 2 % no se abre la boca de carga. Si el vacío no aguanta, entra aire por una junta. Mantenimiento la revisa (unos 20 minutos) y después repites los ciclos.");
+    if (ev === "agitador") msg(s, "Supervisor", "Para la adición si no lo has hecho y no intentes rearrancar el motor. Sin agitación el anhídrido no se mezcla y se acumula: no se añade nada más hasta que el agitador vuelva a girar. Mantenimiento revisa el motor; unos 20 minutos.");
+    if (ev === "ipc") msg(s, "Supervisor", "Recibido. Es lo que prevé la hoja: mantén 75–85 °C 30 minutos más y repite el IPC. El resultado que no cumple se queda registrado; no se repite la muestra sin prolongar la reacción.");
+    if (ev === "vibracion") msg(s, "Supervisor", "Haz bien en no rearrancar. Déjala parada y no abras la tapa. Mantenimiento revisa la máquina y, si es carga desequilibrada, la redistribuimos a baja velocidad; unos 20 minutos. Anota la hora, la fase y la velocidad.");
+    if (ev === "lod") {
+      const e = s.events.lod;
+      msg(s, "Supervisor", "No subas la temperatura para compensar: degradarías el producto. Los grumos guardan el agua dentro. Rompemos el vacío con nitrógeno, abrimos y desterronamos la torta según el procedimiento, y vuelves a secar con los mismos parámetros. Registra la incidencia.");
+      s.clock += 40;
+      e.resolved = s.clock;
+      msg(s, "Supervisor", "Torta desterronada y secadero cerrado de nuevo. Haz vacío y sigue secando a 55–60 °C; luego repite el LOD.");
+    }
   } else {
     msg(s, "Supervisor", "Recibido, gracias por avisar. Sigue según la hoja y registra lo que haya pasado.");
   }
 }
 
 function activeUnnotified(s: Sim): EventId | null {
-  const order: EventId[] = ["frio", "filtro", "vacio", "bascula"];
+  const order: EventId[] = ["frio", "agitador", "oxigeno", "etiqueta", "ipc", "filtro", "vibracion", "vacio", "lod", "bascula"];
   for (const id of order) {
     const e = s.events[id];
-    if (e.active && e.start != null && e.notified == null) return id;
+    if (e.active && e.start != null && e.start <= s.clock && e.notified == null) return id;
     if (id === "bascula" && e.active && e.notified == null && sectionActive(s, "previas")) return id;
   }
   return null;
@@ -508,6 +548,18 @@ export function chooseScale(s: Sim, b: "B-05" | "B-06") {
 export function selectLot(s: Sim, m: MaterialId, lot: string) {
   s.lotsUsed[m] = lot;
   log(s, `Selecciona el lote ${lot} de ${MATERIALS[m].name}`);
+  const e = s.events.etiqueta;
+  if (m === "af" && lot === "AF-24115" && eventOn(s, "etiqueta") && !e.active) {
+    e.active = true;
+    e.start = s.clock;
+    msg(s, "Sala de pesadas", "Al preparar el bidón de 4-aminofenol ves dos etiquetas que no cuadran: la de estado de almacén dice «AF-24115 · Aprobado», pero la del proveedor pone lote AF-24113. La orden pide AF-24115.");
+  }
+}
+
+/** ¿Está el bidón de 4-aminofenol con las etiquetas cruzadas todavía en la sala? */
+function labelMismatch(s: Sim, m: MaterialId) {
+  const e = s.events.etiqueta;
+  return m === "af" && e.active && e.resolved == null;
 }
 
 export function dose(s: Sim, m: MaterialId, delta: number) {
@@ -532,6 +584,7 @@ export function requestVerification(s: Sim, m: MaterialId): string | null {
   let problem: string | null = null;
   if (!lot || !lotInfo) problem = "no has seleccionado el lote";
   else if (lotInfo.status !== "Aprobado") problem = `el lote ${lot} está en estado «${lotInfo.status}»`;
+  else if (labelMismatch(s, m)) problem = "la etiqueta del proveedor del bidón (lote AF-24113) no coincide con la etiqueta de estado ni con la orden (AF-24115). Con la identidad en duda no se usa: hay que avisar";
   else if (s.entries[loteId]?.value?.trim() !== lot) problem = "el lote registrado no coincide con el del envase";
   else if (rec == null) problem = "falta registrar el peso";
   else if (Math.abs(rec - shown) > 0.005) problem = `el peso registrado (${fmtNum(rec, 2)} kg) no coincide con la báscula (${fmtNum(shown, 2)} kg)`;
@@ -604,10 +657,30 @@ export function inertVacuum(s: Sim) {
     msg(s, "Sistema de control", "La presión no baja de 1000 mbar: está entrando N₂ por la XV-102. Ciérrala para poder hacer vacío.");
     return;
   }
+  const e = s.events.oxigeno;
+  if (e.notified != null && e.resolved == null) {
+    // Hasta que mantenimiento cambie la junta no tiene sentido seguir: se espera y se repite
+    s.clock = Math.max(s.clock, e.notified + 20);
+    e.resolved = s.clock;
+    msg(s, "Mantenimiento", "Junta de la boca de hombre del R-101 sustituida. Prueba de vacío correcta: con todo cerrado, aguanta los 200 mbar. Ya puedes repetir los ciclos.");
+  }
   s.inertStep = "vacio";
   s.p101 = 0;
   passTime(s, 5);
   log(s, "Hace vacío en el R-101 hasta 200 mbar");
+  if (eventOn(s, "oxigeno") && e.resolved == null) {
+    if (!e.active) {
+      e.active = true;
+      e.start = s.clock;
+    }
+    msg(s, "Sistema de control", "PI-101: el vacío no aguanta. Has bajado a 200 mbar y, con las válvulas cerradas, la presión sube sola a 300 mbar en 5 minutos: está entrando aire por alguna parte.");
+  }
+}
+
+/** ¿Hay una fuga en el R-101 que mete aire durante el vacío? */
+function leaking(s: Sim) {
+  const e = s.events.oxigeno;
+  return e.active && e.resolved == null;
 }
 
 /** Segunda mitad: rompe el vacío con nitrógeno por la XV-102. */
@@ -623,7 +696,9 @@ export function inertN2(s: Sim) {
   }
   s.inertStep = null;
   s.inertCycles += 1;
-  s.o2 = r1(Math.max(0.1, s.o2 * 0.2));
+  // Sin fugas, romper de 200 a 1000 mbar con N₂ deja la quinta parte del O₂. Con la fuga entran 100 mbar de aire
+  // (20,9 % de O₂) en cada vacío: el O₂ se queda en torno a 2,6 % por muchos ciclos que hagas.
+  s.o2 = leaking(s) ? r1((200 * s.o2 + 100 * 20.9) / 1000) : r1(Math.max(0.1, s.o2 * 0.2));
   // Estos 5 minutos el nitrógeno llena el vacío: el reactor termina a presión atmosférica, sin sobrepresión.
   // Si después se deja la XV-102 abierta con el reactor cerrado, la presión sí sube (passTime).
   s.clock += 5;
@@ -632,6 +707,13 @@ export function inertN2(s: Sim) {
 }
 
 export function toggleAgit(s: Sim, on: boolean) {
+  const trip = s.events.agitador;
+  if (on && trip.active && trip.resolved == null) {
+    trip.tries = (trip.tries ?? 0) + 1;
+    msg(s, "Sistema de control", "El agitador M-101 no arranca: la protección térmica del motor está disparada. No se rearma desde el panel: lo revisa mantenimiento.");
+    log(s, "Intenta arrancar el agitador del R-101 (protección del motor disparada)");
+    return;
+  }
   if (on && !s.reactor.agit && s.reactor.accum > 12) {
     // Arrancar la agitación con reactivo acumulado es lo que dispara la reacción fuera de control
     s.reactor.alarms.push({ time: s.clock, text: `Arranque del agitador con ${fmtNum(s.reactor.accum)} L de anhídrido acumulado` });
@@ -692,6 +774,22 @@ export function reactorTick(s: Sim) {
   }
   const coolingDown = frio.active && frio.resolved == null;
 
+  // Incidencia: salta la protección térmica del motor del agitador a un tercio de la adición
+  const trip = s.events.agitador;
+  if (eventOn(s, "agitador") && !trip.active && r.addEnd == null && r.added >= total * 0.3 && r.added > 0) {
+    trip.active = true;
+    trip.start = s.clock;
+    r.agit = false;
+    r.alarms.push({ time: s.clock, text: "XA-101: disparo de la protección térmica del motor del agitador M-101. Agitación parada" });
+  }
+  if (trip.active && trip.resolved == null && trip.start != null) {
+    const fixAt = trip.notified != null ? trip.notified + 20 : trip.start + 60;
+    if (s.clock >= fixAt) {
+      trip.resolved = s.clock;
+      msg(s, "Mantenimiento", `Motor del agitador revisado: un rodamiento se había calentado y lo hemos cambiado; la protección está rearmada. Antes de arrancar mira cuánto anhídrido queda sin reaccionar: ahora hay ${fmtNum(r.accum)} L. Con mucho acumulado no se arranca sin el visto bueno del responsable.`);
+    }
+  }
+
   // Adición
   let addNow = 0;
   if (r.rate > 0 && !r.interlock && s.valves["XV-104"]) {
@@ -699,6 +797,8 @@ export function reactorTick(s: Sim) {
     addNow = Math.min(r.rate, total - r.added);
     r.added += addNow;
     r.accum += addNow;
+    // Dos minutos de margen para reaccionar; lo que entre después con el agitador parado cuenta como error
+    if (trip.active && trip.resolved == null && trip.start != null && s.clock - trip.start >= 2) trip.addedStopped = (trip.addedStopped ?? 0) + addNow;
     if (r.added >= total - 1e-6) {
       r.rate = 0;
       r.addEnd = s.clock + 1;
@@ -718,7 +818,9 @@ export function reactorTick(s: Sim) {
   r.slow += frac * 0.08;
 
   // Etapa lenta: necesita calor
-  const k2 = 0.06 * Math.pow(2, (r.T - 80) / 10);
+  // Con la incidencia «ipc» la etapa lenta va más despacio de lo habitual: a los 60 min en rango el IPC no cumple
+  // y hacen falta los 30 min más que prevé la hoja.
+  const k2 = 0.06 * Math.pow(2, (r.T - 80) / 10) * (eventOn(s, "ipc") ? 0.55 : 1);
   r.slow = Math.max(0, r.slow - r.slow * Math.min(1, k2));
 
   // Control de temperatura (cascada simplificada)
@@ -776,8 +878,14 @@ export function residualAF(s: Sim) {
 
 export function requestIPC(s: Sim) {
   const v = r2(Math.max(0.01, residualAF(s) * (0.97 + Math.random() * 0.06)));
-  s.ipc.push({ requested: s.clock, ready: s.clock + 20, value: v });
+  s.ipc.push({ requested: s.clock, ready: s.clock + 20, value: v, min: s.reactor.inRange });
   log(s, "Toma muestra de IPC (4-aminofenol residual) y la envía al laboratorio");
+  const e = s.events.ipc;
+  if (eventOn(s, "ipc") && !e.active && v > 0.5) {
+    // La incidencia «aparece» cuando llega el resultado del laboratorio
+    e.active = true;
+    e.start = s.clock + 20;
+  }
 }
 
 // ---------- Filtración ----------
@@ -887,6 +995,7 @@ export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "de
   const ml = () => c.history[c.history.length - 1]?.ml ?? 0;
   const pt = (rpm: number, litres = ml()) => c.history.push({ t: s.clock, rpm, ml: litres });
   if (a === "cargar") { pt(0, 0); c.loaded = true; s.clock += 30; pt(400); log(s, "Carga la suspensión de R-102 en la centrífuga C-201"); }
+  if (a === "centrifugar" && vibrationTrip(s)) return;
   if (a === "centrifugar" && s.cryst.finalT > 10) {
     const kg = (420 * (5 + 0.5 * s.cryst.finalT)) / 1000;
     raise(s, "aguas_madres_caliente", { what: `La cristalización terminó a ${s.cryst.finalT} °C. A esa temperatura queda mucho producto disuelto: unos ${fmtNum(kg)} kg se van con las aguas madres al tanque de residuos (a 3 °C serían ${fmtNum((420 * 6.5) / 1000)} kg).` });
@@ -916,6 +1025,40 @@ export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "de
     pt(0);
     log(s, `Descarga la torta húmeda: ${fmtNum(c.wetCake)} kg`);
   }
+}
+
+/**
+ * Incidencia «vibracion»: al subir a 1200 rpm salta el enclavamiento de vibración y la centrífuga se para.
+ * Devuelve true si la máquina no ha llegado a centrifugar.
+ */
+function vibrationTrip(s: Sim) {
+  const e = s.events.vibracion;
+  if (!eventOn(s, "vibracion") || e.resolved != null) return false;
+  const c = s.centri;
+  const pt = (rpm: number) => c.history.push({ t: s.clock, rpm, ml: c.history[c.history.length - 1]?.ml ?? 0 });
+  if (e.notified != null) {
+    // Mantenimiento revisa y redistribuye la torta a baja velocidad; después se centrifuga con normalidad
+    s.clock = Math.max(s.clock, e.notified + 20);
+    e.resolved = s.clock;
+    msg(s, "Mantenimiento", "Revisada la C-201: la máquina está bien, era la torta mal repartida. La hemos redistribuido girando a baja velocidad con la alimentación cerrada. Puedes volver a centrifugar.");
+    return false;
+  }
+  if (e.active) e.tries = (e.tries ?? 0) + 1;
+  else {
+    e.active = true;
+    e.start = s.clock;
+  }
+  pt(400);
+  s.clock += 3;
+  pt(900);
+  s.clock += 2;
+  pt(0);
+  s.clock += 10;
+  log(s, "Centrífuga C-201 parada por el enclavamiento de vibración VSHH-201", "Sistema de control");
+  msg(s, "Sistema de control", e.tries
+    ? "VSHH-201: vuelve a saltar la vibración al subir de velocidad. Rearrancar sin saber la causa no la arregla: avisa y espera a que la revisen."
+    : "VSHH-201: vibración muy alta al subir de 400 a 900 rpm. El enclavamiento corta y la centrífuga frena hasta pararse. La torta sigue dentro.");
+  return true;
 }
 
 // ---------- Secado ----------
@@ -957,7 +1100,9 @@ export function dryHour(s: Sim) {
   d.maxTj = Math.max(d.maxTj, d.Tj);
   let k = 0.6 * Math.pow(2, (d.Tj - 60) / 15);
   if (d.vacuum > 100) k *= 0.3;
-  d.lod = d.lod * Math.exp(-k);
+  // Incidencia «lod»: la torta se apelmaza en grumos que guardan el agua dentro; el LOD se queda en torno al 2 %
+  const lumps = eventOn(s, "lod") && s.events.lod.resolved == null;
+  d.lod = Math.max(d.lod * Math.exp(-k), lumps ? Math.min(d.lod, 2) : 0);
   if (d.Tj > 65) d.imp += 0.01 * (d.Tj - 65);
   s.clock += 60;
   d.history.push({ t: s.clock, Tp: r1(dryerProductT(d)), vac: d.vacuum, Tj: d.Tj });
@@ -988,6 +1133,12 @@ export function lodSample(s: Sim) {
   s.dryer.samples.push({ time: s.clock, value: v });
   s.clock += 15;
   log(s, `Toma muestra de IPC de secado: LOD = ${fmtNum(v, 2)} %`);
+  const e = s.events.lod;
+  if (eventOn(s, "lod") && !e.active && s.dryer.lod <= 2 && v > 0.5) {
+    e.active = true;
+    e.start = s.clock;
+    msg(s, "Laboratorio", `LOD = ${fmtNum(v, 2)} %. Al sacar la muestra se ve la torta apelmazada en grumos, algunos del tamaño de una nuez: por fuera están secos, pero el agua de dentro no sale.`);
+  }
   return v;
 }
 

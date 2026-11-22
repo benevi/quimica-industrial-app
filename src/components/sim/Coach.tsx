@@ -32,9 +32,25 @@ const LESSON: Record<SectionId, { slug: string; title: string }> = {
 
 const EVENT_TEXT: Record<EventId, string> = {
   bascula: "La báscula B-05 no ha pasado la verificación con la pesa patrón.",
+  etiqueta: "Las etiquetas del bidón de 4-aminofenol no coinciden con la orden.",
+  oxigeno: "El vacío del R-101 no aguanta y el oxígeno no baja del 2 %.",
+  agitador: "El agitador del R-101 se ha parado en plena adición.",
   frio: "La camisa del reactor ha dejado de enfriar (fallo del glicol).",
+  ipc: "El IPC de fin de reacción no cumple (4-aminofenol > 0,50 %).",
   filtro: "La presión diferencial del filtro ha subido por encima del límite.",
+  vibracion: "La centrífuga se ha parado por vibración alta.",
   vacio: "El vacío del secadero se ha perdido.",
+  lod: "La pérdida por secado no baja: la torta tiene grumos.",
+};
+
+/** Qué hacer ante cada incidencia, si no es el «para, avisa y registra» de siempre. */
+const EVENT_HELP: Partial<Record<EventId, string>> = {
+  etiqueta: "Con la identidad de una materia prima en duda no se pesa ni se carga. No elijas otro lote por tu cuenta: avisa al supervisor y registra una desviación.",
+  oxigeno: "No cargues el sólido con más de un 2 % de oxígeno. Repetir ciclos no sirve si entra aire: avisa al supervisor y registra una desviación.",
+  agitador: "Para la adición ya: sin agitación el anhídrido se acumula sin reaccionar. No intentes rearrancar el motor. Avisa al supervisor y registra una desviación.",
+  ipc: "La hoja ya dice qué hacer: mantén 75–85 °C 30 minutos más y repite el IPC. No pases de etapa ni repitas la muestra sin prolongar. Informa al supervisor.",
+  vibracion: "Deja que frene sola, no la rearranques y no abras la tapa. Avisa al supervisor y registra una desviación.",
+  lod: "No subas la temperatura para compensar. Avisa al supervisor y registra una desviación.",
 };
 
 /** Primera tarea de proceso pendiente en la etapa actual, o null si ya están hechas. */
@@ -78,6 +94,14 @@ function processTask(s: Sim): Task | null {
       if (!s.afCharged) return { title: "Carga el 4-aminofenol", detail: "El reactor ya está inerte: ahora sí se puede cargar el sólido." };
       return null;
     case "reaccion":
+      if (s.events.agitador.active && s.events.agitador.resolved == null) {
+        if (r.rate > 0) return { title: "Para la adición de anhídrido", detail: "Sin agitación el anhídrido no se mezcla ni reacciona: se acumula, y cuando vuelva a girar reaccionaría todo de golpe." };
+        return { title: "Mantén la adición parada", detail: "Espera a que mantenimiento revise el motor del agitador. Mientras, la camisa sigue enfriando: vigila la temperatura." };
+      }
+      if (r.addEnd == null && r.added > 0 && !r.agit) {
+        if (r.accum > 12) return { title: "Espera antes de arrancar el agitador", detail: `Quedan ${E.fmtNum(r.accum)} L de anhídrido sin reaccionar. Arrancar con tanto acumulado puede disparar la reacción: consulta con el supervisor.` };
+        return { title: "Arranca de nuevo el agitador", detail: "Queda poco anhídrido acumulado. Con el agitador en marcha, sigue la adición poco a poco sin pasar de 40 °C." };
+      }
       if (r.addEnd == null && !s.valves["XV-104"]) return { ...openV(s, "XV-104"), detail: "Es la válvula manual de salida del depósito D-101. La válvula automática FV-103 regula el caudal, pero sin la XV-104 abierta no pasa nada aunque el panel diga 2 L/min." };
       if (r.addStart == null) return { title: "Pon el reactor en marcha (▶) y abre la adición poco a poco", detail: "La reacción desprende calor. Empieza con 1–2 L/min y mira cómo sube la temperatura." };
       if (r.addEnd == null) return { title: "Añade el anhídrido sin pasar de 40 °C", detail: "Si la temperatura sube deprisa, baja la velocidad o cierra un momento. A 45 °C salta el enclavamiento y la válvula se cierra sola." };
@@ -195,7 +219,7 @@ export function Coach({ s }: { s: Sim }) {
   }
   const ev = (Object.keys(s.events) as EventId[]).find((k) => {
     const e = s.events[k];
-    return e.active && e.start != null && e.notified == null && e.resolved == null;
+    return e.active && e.start != null && e.start <= s.clock && e.notified == null && e.resolved == null;
   });
   const t = currentTask(s);
   const pendInc = (s.incidents ?? []).filter((i) => i.notified == null && i.id !== s.halt);
@@ -209,8 +233,9 @@ export function Coach({ s }: { s: Sim }) {
       )}
       {ev && (
         <Alert title={EVENT_TEXT[ev]}>
-          Primero, seguridad: para lo que estés haciendo si hace falta. Después avisa al supervisor (abajo, «Comunicación e incidencias») y
-          registra una desviación.
+          {EVENT_HELP[ev] ??
+            "Primero, seguridad: para lo que estés haciendo si hace falta. Después avisa al supervisor y registra una desviación."}{" "}
+          Lo tienes abajo, en «Comunicación e incidencias».
         </Alert>
       )}
       <section aria-labelledby="coach-h" aria-live="polite" className="relative overflow-hidden rounded-[var(--radius)] border border-signal bg-signal-soft">

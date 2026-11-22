@@ -36,6 +36,10 @@ const L = {
   oos: { slug: "oos-y-oot", title: "OOS y OOT" },
   valvulas: { slug: "tuberias-y-valvulas", title: "Tuberías y válvulas" },
   limpieza: { slug: "limpieza-de-equipos", title: "Limpieza de equipos" },
+  reactor: { slug: "reactor-a-fondo", title: "El reactor a fondo" },
+  inertFondo: { slug: "inertizacion-a-fondo", title: "Inertización a fondo" },
+  centriFondo: { slug: "centrifuga-a-fondo", title: "La centrífuga a fondo" },
+  secadoFondo: { slug: "secado-a-fondo", title: "Secado a fondo" },
 };
 
 function hasDeviation(s: Sim, ...words: string[]) {
@@ -197,6 +201,12 @@ export function reviewBatch(s: Sim): Review {
     F.push({ sev: "menor", area: "Proceso", title: "No se avisó de la báscula fuera de tolerancia", detail: "Una báscula que no pasa la verificación diaria se comunica y se identifica como fuera de uso, para que nadie pese en ella.", lesson: L.desv });
   }
 
+  const etq = s.events.etiqueta;
+  if (etq.active) {
+    if (etq.notified == null) F.push({ sev: "mayor", area: "Proceso", title: "No se avisó de las etiquetas cruzadas del bidón de 4-aminofenol", detail: "Si la identidad de una materia prima está en duda, el envase se aparta y se avisa: no se pesa ni se carga.", lesson: L.recep });
+    if (!hasDeviation(s, "etiqueta", "bidón", "bidon", "af-24113", "identidad")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la etiqueta que no coincidía con la orden", detail: "Una discrepancia en la identificación de una materia prima se documenta para que calidad investigue de dónde viene (recepción, almacén o proveedor).", lesson: L.desv });
+  }
+
   // --- Carga e inertización
   if (!s.afCharged && s.maxSection > SECTIONS.findIndex((x) => x.id === "carga")) {
     F.push({ sev: "crítico", area: "Proceso", title: "No se cargó el 4-aminofenol en el reactor", detail: "Se pasó de etapa sin cargar la materia prima pesada. Sin ella no hay reacción ni producto: el lote no siguió la hoja." });
@@ -205,6 +215,11 @@ export function reviewBatch(s: Sim): Review {
   if (w < 295 || w > 305) F.push({ sev: "mayor", area: "Proceso", title: "Volumen de agua fuera de rango", detail: `Se cargaron ${w} L (rango 295–305 L).` });
   if (n("agua_l") != null && Math.abs(n("agua_l")! - w) > 0.5) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "El volumen de agua registrado no coincide con el totalizador", detail: `Registro ${v("agua_l")} L · totalizador ${w} L.`, lesson: L.alcoa });
   if (s.o2 > 2) F.push({ sev: "mayor", area: "Seguridad", title: "Se continuó sin alcanzar O₂ ≤ 2,0 %", detail: `El O₂ final fue ${fmtNum(s.o2)} %. Con disolvente o polvo y oxígeno hay riesgo de incendio, y el producto se oxida.`, lesson: L.inert });
+  const ox = s.events.oxigeno;
+  if (ox.active) {
+    if (ox.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó de la fuga de vacío del R-101", detail: "Si el vacío no aguanta, entra aire por una junta: por muchos ciclos que hagas, el oxígeno no baja. Se avisa a mantenimiento antes de seguir.", lesson: L.inertFondo });
+    if (!hasDeviation(s, "oxígeno", "oxigeno", "o₂", "o2", "fuga", "junta", "inertiz")) F.push({ sev: "menor", area: "Documentación (ALCOA+)", title: "Sin desviación por la fuga del R-101", detail: "Una avería del equipo durante el lote, aunque se repare a tiempo, queda registrada.", lesson: L.desv });
+  }
   if (s.reactor.alarms.some((a) => a.text.startsWith("Carga de sólido sin inertizar"))) F.push({ sev: "mayor", area: "Seguridad", title: "Carga del sólido antes de inertizar", detail: "Primero se inertiza el reactor y después se carga el polvo.", lesson: L.inert });
 
   // --- Reacción
@@ -226,6 +241,22 @@ export function reviewBatch(s: Sim): Review {
   if (frio.active) {
     if (frio.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó al supervisor del fallo de refrigeración", detail: "Ante un fallo de un servicio crítico se avisa de inmediato.", lesson: L.frio });
     if (!hasDeviation(s, "frío", "frio", "glicol", "refrigera", "temperatura")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por el fallo de refrigeración", detail: "Cualquier incidencia que afecte a un parámetro crítico se documenta como desviación.", lesson: L.desv });
+  }
+  const ag = s.events.agitador;
+  if (ag.active) {
+    if (ag.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó de la parada del agitador", detail: "La pérdida de agitación con un reactivo en adición es una situación peligrosa: se para la adición y se avisa de inmediato.", lesson: L.reactor });
+    if ((ag.addedStopped ?? 0) > 0) F.push({ sev: "mayor", area: "Seguridad", title: `Se siguió añadiendo anhídrido con el agitador parado (${fmtNum(ag.addedStopped!)} L)`, detail: "Sin agitación el reactivo no se mezcla, se acumula y puede reaccionar de golpe cuando vuelva a girar. La adición se para en cuanto se pierde la agitación.", lesson: L.reactor });
+    if ((ag.tries ?? 0) > 0) F.push({ sev: "menor", area: "Seguridad", title: "Se intentó rearrancar el agitador con la protección disparada", detail: "Una protección que salta indica un problema. El equipo lo revisa mantenimiento antes de volver a arrancarlo.", lesson: L.alarmas });
+    if (!hasDeviation(s, "agitador", "agitación", "agitacion", "motor")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la parada del agitador", detail: "La adición se interrumpió por una avería: se documenta con la hora, lo añadido y lo que se hizo.", lesson: L.desv });
+  }
+  // Repetir el IPC sin prolongar la reacción es buscar un resultado que cumpla («testing into compliance»)
+  const ipcs = s.ipc;
+  for (let i = 1; i < ipcs.length; i++) {
+    const prev = ipcs[i - 1];
+    if (prev.value > 0.5 && prev.ready <= ipcs[i].requested && prev.min != null && ipcs[i].min != null && ipcs[i].min! - prev.min < 30) {
+      F.push({ sev: "mayor", area: "Calidad del producto", title: "Se repitió el IPC sin prolongar la reacción 30 minutos", detail: `El IPC dio ${fmtNum(prev.value, 2)} % y la siguiente muestra se tomó con solo ${ipcs[i].min! - prev.min} min más a 75–85 °C. Un resultado que no cumple no se «arregla» repitiendo la muestra: se hace lo que dice la hoja.`, lesson: L.oos });
+      break;
+    }
   }
   if (r.maxTreact > 90) F.push({ sev: "mayor", area: "Proceso", title: `Sobrecalentamiento en la reacción (${fmtNum(r.maxTreact)} °C)`, detail: "El rango es 75–85 °C. Más temperatura genera impurezas." });
   if (r.inRange < 60) F.push({ sev: "mayor", area: "Proceso", title: `Solo ${r.inRange} min a 75–85 °C (mínimo 60)`, detail: "El tiempo de reacción a temperatura es un parámetro de la hoja." });
@@ -256,6 +287,13 @@ export function reviewBatch(s: Sim): Review {
   if (s.centri.washes !== 2) F.push({ sev: "mayor", area: "Proceso", title: `Lavados de la torta: ${s.centri.washes} (la hoja pide 2)`, detail: "El lavado elimina las aguas madre, que contienen las impurezas.", lesson: L.centri });
   if (n("torta") != null && Math.abs(n("torta")! - s.centri.wetCake) > 0.15) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "El peso de torta registrado no coincide con la báscula", detail: `Registro ${v("torta")} kg · báscula ${fmtNum(s.centri.wetCake)} kg.`, lesson: L.alcoa });
 
+  const vib = s.events.vibracion;
+  if (vib.active) {
+    if (vib.notified == null) F.push({ sev: "mayor", area: "Seguridad", title: "No se avisó del disparo por vibración de la centrífuga", detail: "Una centrífuga que vibra puede romperse a alta velocidad. Se deja parar, no se rearranca y se avisa.", lesson: L.centriFondo });
+    if ((vib.tries ?? 0) > 0) F.push({ sev: "mayor", area: "Seguridad", title: "Se rearrancó la centrífuga tras el disparo por vibración", detail: "El enclavamiento de vibración es una protección: se rearranca solo cuando se ha revisado la causa (normalmente, la torta mal repartida).", lesson: L.centriFondo });
+    if (!hasDeviation(s, "vibra", "centrífuga", "centrifuga", "c-201")) F.push({ sev: "menor", area: "Documentación (ALCOA+)", title: "Sin desviación por la parada de la centrífuga", detail: "La parada y la redistribución de la torta no están en la hoja: se registran con hora, fase y velocidad.", lesson: L.desv });
+  }
+
   // --- Secado
   const d = s.dryer;
   if (d.maxTj > 60) F.push({ sev: d.maxTj > 65 ? "mayor" : "menor", area: "Proceso", title: `Temperatura de secado por encima de 60 °C (${d.maxTj} °C)`, detail: "Por encima del rango validado el producto puede degradarse.", lesson: L.secado });
@@ -264,6 +302,11 @@ export function reviewBatch(s: Sim): Review {
   if (s.events.vacio.active) {
     if (s.events.vacio.notified == null) F.push({ sev: "mayor", area: "Proceso", title: "No se avisó de la pérdida de vacío del secadero", detail: "Un fallo de equipo se comunica para que mantenimiento actúe.", lesson: L.secado });
     if (!hasDeviation(s, "vacío", "vacio", "secad")) F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: "Sin desviación por la pérdida de vacío", detail: "El vacío estuvo fuera de rango (≤ 100 mbar) durante el secado.", lesson: L.desv });
+  }
+  const lodEv = s.events.lod;
+  if (lodEv.active) {
+    if (lodEv.notified == null) F.push({ sev: "mayor", area: "Proceso", title: "No se avisó de que el LOD no bajaba", detail: "Si la torta tiene grumos, secar más horas no basta: se avisa y se desterrona según el procedimiento.", lesson: L.secadoFondo });
+    if (!hasDeviation(s, "lod", "grumo", "humedad", "desterr", "pérdida por secado")) F.push({ sev: "menor", area: "Documentación (ALCOA+)", title: "Sin desviación por los grumos del secado", detail: "Abrir el secadero y desterronar es una intervención fuera de la hoja: se registra.", lesson: L.desv });
   }
   const lastLod = d.samples.at(-1);
   if (!lastLod) F.push({ sev: "crítico", area: "Calidad del producto", title: "No hay IPC de secado", detail: "No se puede descargar sin demostrar LOD ≤ 0,5 %.", lesson: L.secado });

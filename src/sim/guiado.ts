@@ -45,7 +45,7 @@ export const GUIADO: Record<SectionId, Guia> = {
     que: "Añades el anhídrido poco a poco sin pasar de 40 °C, calientas a 75–85 °C al menos una hora y pides el control en proceso (IPC).",
     porque: [
       "La reacción desprende calor: si añades deprisa, la temperatura se dispara antes de que la camisa la saque.",
-      "Si se para el agitador, el reactivo no se mezcla y se acumula: el interlock corta la adición.",
+      "Si se para el agitador, el reactivo no se mezcla y se acumula: se para la adición enseguida y no se rearranca sin el visto bueno del responsable.",
       "El IPC dice si la reacción ha terminado; si no cumple, se prolonga y se repite, no se da por bueno.",
     ],
     lecciones: [
