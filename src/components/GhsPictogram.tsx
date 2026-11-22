@@ -14,7 +14,7 @@ export function GhsPictogram({ code, size = 64, showLabel = false }: { code: Ghs
       {showLabel && (
         <figcaption className="text-center text-xs leading-tight">
           <span className="font-semibold">{code}</span>
-          <span className="block text-muted">{info.name}</span>
+          <span className="block text-[#5d6170]">{info.name}</span>
         </figcaption>
       )}
     </figure>

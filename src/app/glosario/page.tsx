@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { allTerms, getLesson } from "@/content";
+import { getLesson } from "@/content/catalog";
+import { allTerms } from "@/content/terms";
 import { blockColor, blockOfLevel, blocks, type BlockId } from "@/content/blocks";
 import { Icon } from "@/components/icons";
 import { Card, PageHeader } from "@/components/ui";

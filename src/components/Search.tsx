@@ -23,8 +23,11 @@ export function openSearch() {
 }
 
 /** Buscador global (Ctrl K o /). Busca secciones de la app, lecciones y términos. */
-export function Search({ index }: { index: SearchIndex }) {
+export function Search() {
   const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState<SearchIndex | null>(null);
+  const dialog = useRef<HTMLDivElement>(null);
+  const returnTo = useRef<HTMLElement | null>(null);
   const [q, setQ] = useState("");
   const [sel, setSel] = useState(0);
   const input = useRef<HTMLInputElement>(null);
@@ -51,14 +54,43 @@ export function Search({ index }: { index: SearchIndex }) {
 
   useEffect(() => {
     if (open) {
+      returnTo.current = document.activeElement as HTMLElement | null;
       setQ("");
       setSel(0);
+      // El índice (lecciones y glosario) se descarga solo la primera vez que se abre el buscador
+      if (!index)
+        Promise.all([import("@/content/catalog"), import("@/content/terms")]).then(([c, t]) =>
+          setIndex({
+            lessons: c.lessons.map((l) => ({ slug: l.slug, title: l.title, titleEn: l.titleEn, summary: l.summary, level: l.level, levelTitle: c.levels.find((lv) => lv.number === l.level)?.title ?? "" })),
+            terms: t.allTerms,
+          }),
+        );
+    } else if (returnTo.current) {
+      // Al cerrar, el foco vuelve a donde estaba
+      returnTo.current.focus();
+      returnTo.current = null;
     }
-  }, [open]);
+  }, [open, index]);
+
+  // Mantiene el foco dentro del buscador mientras está abierto
+  function trapTab(e: React.KeyboardEvent) {
+    if (e.key !== "Tab" || !dialog.current) return;
+    const items = dialog.current.querySelectorAll<HTMLElement>("input, a[href], button");
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 
   const hits = useMemo<Hit[]>(() => {
     const n = norm(q.trim());
-    if (n.length < 2) return [];
+    if (n.length < 2 || !index) return [];
     const out: Hit[] = [];
     for (const it of allNavItems) {
       const t = norm(`${it.label} ${it.en}`);
@@ -92,9 +124,11 @@ export function Search({ index }: { index: SearchIndex }) {
       {open && createPortal(
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-[10vh]" onClick={() => setOpen(false)}>
           <div
+            ref={dialog}
             role="dialog"
             aria-modal="true"
             aria-label="Buscar en el aula"
+            onKeyDown={trapTab}
             className="w-full max-w-2xl overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
@@ -103,6 +137,7 @@ export function Search({ index }: { index: SearchIndex }) {
               <input
                 ref={input}
                 autoFocus
+                aria-label="Buscar lecciones, términos y secciones"
                 value={q}
                 onChange={(e) => {
                   setQ(e.target.value);
@@ -121,7 +156,7 @@ export function Search({ index }: { index: SearchIndex }) {
             <ul className="max-h-[60vh] overflow-y-auto p-2">
               {q.trim().length < 2 && (
                 <li className="px-3 py-6 text-center text-sm text-muted">
-                  Escribe al menos dos letras. Busca en las {index.lessons.length} lecciones y en el glosario, en español o en inglés.
+                  {index ? `Escribe al menos dos letras. Busca en las ${index.lessons.length} lecciones y en el glosario, en español o en inglés.` : "Cargando el índice…"}
                 </li>
               )}
               {q.trim().length >= 2 && hits.length === 0 && <li className="px-3 py-6 text-center text-sm text-muted">Sin resultados para «{q}».</li>}

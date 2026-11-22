@@ -6,7 +6,7 @@
   --surface: #fffefc;
   --soft: #efece6;
   --line: #e2ddd4;
-  --line-strong: #c9c2b6;
+  --line-strong: #8d867a; /* 3,6:1 sobre la superficie: bordes de campos visibles */
   --ink: #1f2430;
   --muted: #5d6170;
   --accent: #3b5bcc;
@@ -17,6 +17,7 @@
   --signal: #e8a317;
   --signal-soft: #fdf3dc;
   --ok: #2b7a4b;
+  --on-ok: #ffffff;
   --ok-soft: #e5f2ea;
   --bad: #b42318;
   --bad-soft: #fdecea;
@@ -34,7 +35,7 @@
     --surface: #1d2029;
     --soft: #262a35;
     --line: #313646;
-    --line-strong: #434a5c;
+    --line-strong: #6e7589; /* 3,5:1 sobre la superficie oscura */
     --ink: #e7e9ef;
     --muted: #a5aabb;
     --accent: #8fa6ff;
@@ -44,6 +45,7 @@
     --signal: #f0b43c;
     --signal-soft: #352a12;
     --ok: #5fd08f;
+    --on-ok: #0f1a14;
     --ok-soft: #16301f;
     --bad: #f87171;
     --bad-soft: #3a1a18;
@@ -85,6 +87,13 @@ body {
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Sobre la barra lateral oscura el acento no contrasta: el foco va en el color del texto de la barra */
+[data-sidebar] :focus-visible { outline-color: var(--sidebar-ink); }
+/* Equipos y válvulas de los dibujos del simulador: el foco del teclado se ve */
+svg [role="button"]:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; filter: drop-shadow(0 0 3px var(--accent)); }
+/* Enlace para saltar la navegación con teclado: visible solo al recibir el foco */
+.skip-link { position: absolute; left: 0.5rem; top: -3rem; z-index: 60; padding: 0.5rem 0.75rem; border-radius: 6px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); }
+.skip-link:focus { top: 0.5rem; }
 ::selection { background: var(--accent-soft); }
 
 /* Escala tipográfica (razón 1.2) */
@@ -130,7 +139,7 @@ body {
 :root {
   --b-bases: #3b5f9e; --b-bases-soft: #edf1f8;
   --b-lab: #6a54a3; --b-lab-soft: #f1eef8;
-  --b-planta: #b05a22; --b-planta-soft: #f8efe7;
+  --b-planta: #a2531f; --b-planta-soft: #f8efe7;
   --b-calidad: #2f7a55; --b-calidad-soft: #ebf4ee;
   --b-sis: #2f6f80; --b-sis-soft: #eaf3f5;
 }

@@ -1,15 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { levels } from "@/content";
+import { levels } from "@/content/catalog";
 import { certifications, roadmap, type CertModule } from "@/certs/data";
-import { lessonsForLevels, questionsForModule } from "@/certs/progress";
+import { lessonsForLevels, prepSummary, questionCountForModule } from "@/certs/summary";
 import { readiness } from "@/certs/readiness";
 import { PASS, useCertState } from "@/certs/useCertState";
 import { useProgress } from "@/lib/progress";
 import { missions } from "@/sap/engine";
 import { preps } from "@/certs/prep";
-import { prepSummary } from "@/certs/pool";
 import { Icon } from "@/components/icons";
 import { Bar, Card, Disclosure, PageHeader, SectionTitle, btn } from "@/components/ui";
 import { CertCard, type ModuleView } from "@/components/certs/CertCard";
@@ -158,7 +157,7 @@ export default function CertificacionesPage() {
               lessonsText: statuses[i].lessonsText,
               exam: statuses[i].exam,
               levelsText: m.levels.map((n) => `${n} ${levelTitle(n)}`).join(" · "),
-              questions: m.levels.length ? questionsForModule(m).length : 0,
+              questions: m.levels.length ? questionCountForModule(m) : 0,
             }));
             return <CertCard key={c.id} cert={c} pct={pct} modules={modules} />;
           })}

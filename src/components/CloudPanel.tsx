@@ -186,7 +186,7 @@ Te hemos enviado un email a <strong>{email}</strong> para confirmar la cuenta: a
                 {mode === "login" && (
                   <button
                     type="button"
-                    className="text-sm text-accent underline-offset-2 hover:underline"
+                    className="text-sm text-accent underline underline-offset-2 hover:decoration-2"
                     onClick={async () => {
                       setErr(null);
                       if (!email.trim()) return setErr("Escribe tu email arriba y vuelve a pulsar «He olvidado mi contraseña».");

@@ -1,4 +1,4 @@
-import { levels, lessonsOfLevel } from "./index";
+import { levels, lessonsOfLevel } from "./catalog";
 
 /**
  * Los niveles se agrupan en 5 bloques para que el temario se lea como una ruta:

@@ -72,7 +72,7 @@ export function CertCard({ cert, pct, modules }: { cert: Certification; pct: num
           <dd>{cert.cost}</dd>
           <dt className="text-muted">Fuente</dt>
           <dd>
-            <a href={cert.source.url} target="_blank" rel="noreferrer" className="text-accent underline-offset-2 hover:underline">
+            <a href={cert.source.url} target="_blank" rel="noreferrer" className="text-accent underline underline-offset-2 hover:decoration-2">
               {cert.source.label}
             </a>
           </dd>

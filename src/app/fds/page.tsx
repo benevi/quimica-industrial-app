@@ -9,7 +9,7 @@ import { Disclosure, PageHeader, SectionTitle } from "@/components/ui";
 
 export const metadata = { title: "Fichas de seguridad · Aula de Química" };
 
-const link = "text-accent underline-offset-2 hover:underline";
+const link = "text-accent underline underline-offset-2 hover:decoration-2";
 
 export default function FdsPage() {
   const general = allFdsItems().filter((it) => it.id.startsWith("fds:general:"));

@@ -212,7 +212,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
             onSelect(idx);
           }
         }}
-        style={{ cursor: idx >= 0 ? "pointer" : "default", outline: "none" }}
+        style={{ cursor: idx >= 0 ? "pointer" : "default" }}
         className="pv-hit"
       >
         <title>{`${EQ_INFO[eq].name}\n${EQ_INFO[eq].what}${idx >= 0 ? "\nClic: ver esta etapa" : ""}`}</title>
@@ -244,7 +244,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
   return (
     <div className="overflow-x-auto rounded-[var(--radius)] border border-line bg-[#f4f6f8]">
       {/* En pantallas estrechas el dibujo no se encoge hasta ser ilegible: se desplaza con el dedo */}
-      <svg viewBox="0 0 1040 640" className="block w-full min-w-[960px] md:min-w-0" role="img" aria-label="Vista de planta del lote FX-101">
+      <svg viewBox="0 0 1040 640" className="block w-full min-w-[960px] md:min-w-0" role="group" aria-label="Vista de planta del lote FX-101: los equipos y las válvulas se pueden usar con el teclado">
         <defs>
           <linearGradient id="pv-glass" x1="0" x2="1">
             <stop offset="0" stopColor="#cfe3ee" stopOpacity={0.55} />
@@ -484,7 +484,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
                   onValve!(v);
                 }
               }}
-              style={{ cursor: can ? "pointer" : "default", outline: "none" }}
+              style={{ cursor: can ? "pointer" : "default" }}
             >
               <title>{`${v} · ${E.VALVES[v].name}\n${open ? "ABIERTA" : "CERRADA"}${can ? "\nClic: " + (open ? "cerrar" : "abrir") : ""}`}</title>
               {isTarget && (
@@ -493,7 +493,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
                 </circle>
               )}
               <g transform={vert ? "rotate(90)" : undefined}>
-                <path d="M-11 -7 L0 0 L-11 7 Z M11 -7 L0 0 L11 7 Z" fill={open ? "#16a34a" : "#dc2626"} stroke="#1f2937" strokeWidth={1.3} strokeLinejoin="round" />
+                <path d="M-11 -7 L0 0 L-11 7 Z M11 -7 L0 0 L11 7 Z" fill={open ? "#ffffff" : "#dc2626"} stroke={open ? "#16a34a" : "#1f2937"} strokeWidth={open ? 2.2 : 1.3} strokeLinejoin="round" />
               </g>
               <path d="M0 0 V-11 M-5 -11 H5" stroke="#1f2937" strokeWidth={1.8} />
               <rect x={lx - 20} y={ly - 6.5} width={40} height={13} rx={3} fill={open ? "#dcfce7" : "#fff"} stroke={open ? "#16a34a" : "#94a3b8"} />

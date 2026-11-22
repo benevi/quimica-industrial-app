@@ -57,7 +57,7 @@ export function ReviewRunner({ items }: { items: Record<string, PoolItem> }) {
         ) : (
           <p className="mt-4 text-sm">
             Haz un{" "}
-            <Link href="/certificaciones" className="text-accent underline-offset-2 hover:underline">
+            <Link href="/certificaciones" className="text-accent underline underline-offset-2 hover:decoration-2">
               simulacro o un supuesto práctico
             </Link>{" "}
             para alimentar el repaso.

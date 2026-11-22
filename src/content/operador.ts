@@ -1,4 +1,4 @@
-import { getLesson } from "./index";
+import { getLesson } from "./catalog";
 import type { IconName } from "@/components/icons";
 
 /**

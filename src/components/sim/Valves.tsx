@@ -5,13 +5,14 @@ import type { SectionId, Sim } from "@/sim/engine";
 import type { Act } from "./Sheet";
 import { currentTask } from "./Coach";
 
-/** Símbolo de válvula de P&ID (dos triángulos enfrentados): verde abierta, rojo cerrada. */
+/** Símbolo de válvula de P&ID (dos triángulos enfrentados). Además del color, la forma: abierta hueca, cerrada rellena. */
 export function ValveGlyph({ open, size = 28, vertical = false }: { open: boolean; size?: number; vertical?: boolean }) {
-  const fill = open ? "#16a34a" : "#dc2626";
+  const fill = open ? "#ffffff" : "#dc2626";
+  const stroke = open ? "#16a34a" : "#1f2937";
   return (
     <svg width={size} height={size * 0.75} viewBox="0 0 32 24" aria-hidden="true" style={vertical ? { transform: "rotate(90deg)" } : undefined}>
       <path d="M0 12 H4 M28 12 H32" stroke="#64748b" strokeWidth={3} />
-      <path d="M4 3 L16 12 L4 21 Z M28 3 L16 12 L28 21 Z" fill={fill} stroke="#1f2937" strokeWidth={1.5} strokeLinejoin="round" />
+      <path d="M4 3 L16 12 L4 21 Z M28 3 L16 12 L28 21 Z" fill={fill} stroke={stroke} strokeWidth={open ? 2.5 : 1.5} strokeLinejoin="round" />
       <path d="M16 12 V2 M11 2 H21" stroke="#1f2937" strokeWidth={2} />
     </svg>
   );

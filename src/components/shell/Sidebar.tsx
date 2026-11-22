@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
-import { Search, openSearch, type SearchIndex } from "@/components/Search";
+import { Search, openSearch } from "@/components/Search";
 import { CloudBadge } from "@/components/CloudPanel";
 import { navGroups, isActive } from "./nav";
 
@@ -12,14 +12,39 @@ import { navGroups, isActive } from "./nav";
  * Barra lateral fija en escritorio y cajón deslizante en pantallas estrechas.
  * Cuatro zonas: Hoy, Aprender, Practicar y Certificarte.
  */
-export function Sidebar({ index }: { index: SearchIndex }) {
+export function Sidebar() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
 
+  const drawer = useRef<HTMLElement>(null);
+  const opener = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+
   useEffect(() => setOpen(false), [path]);
   useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    if (!open) {
+      // Al cerrar el menú, el foco vuelve al botón que lo abrió
+      if (wasOpen.current) opener.current?.focus();
+      wasOpen.current = false;
+      return;
+    }
+    wasOpen.current = true;
+    drawer.current?.querySelector<HTMLElement>("button, a[href]")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+      if (e.key !== "Tab" || !drawer.current) return;
+      // El foco no sale del menú mientras está abierto
+      const items = drawer.current.querySelectorAll<HTMLElement>("button, a[href]");
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -96,17 +121,18 @@ export function Sidebar({ index }: { index: SearchIndex }) {
 
   return (
     <>
-      <Search index={index} />
+      <Search />
       {/* escritorio */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col bg-[var(--sidebar)] lg:flex">
+      <aside data-sidebar className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col bg-[var(--sidebar)] lg:flex">
         <div className="px-3 pb-5 pt-4">{brand}</div>
         {nav}
         {foot}
       </aside>
 
       {/* móvil y ventanas estrechas */}
-      <header className="sticky top-0 z-30 flex items-center gap-2 bg-[var(--sidebar)] px-3 py-2 lg:hidden">
+      <header data-sidebar className="sticky top-0 z-30 flex items-center gap-2 bg-[var(--sidebar)] px-3 py-2 lg:hidden">
         <button
+          ref={opener}
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Abrir el menú"
@@ -128,7 +154,7 @@ export function Sidebar({ index }: { index: SearchIndex }) {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Menú">
           <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
-          <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-[var(--sidebar)] shadow-2xl">
+          <aside ref={drawer} data-sidebar className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-[var(--sidebar)] shadow-2xl">
             <div className="flex items-center justify-between px-3 pb-5 pt-4">
               {brand}
               <button

@@ -3,16 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/gen-catalog.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/gen-catalog.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check": "node scripts/check-quiz.mjs",
+    "check": "node scripts/gen-catalog.mjs --check && node scripts/check-quiz.mjs",
     "check:certs": "node scripts/check-certs.mjs",
     "check:repaso": "node scripts/check-repaso.mjs",
     "check:media": "node scripts/check-media.mjs",
     "check:cloud": "node scripts/check-cloud.mjs",
-    "check:sim": "node scripts/check-sim.mjs"
+    "check:sim": "node scripts/check-sim.mjs",
+    "gen:catalog": "node scripts/gen-catalog.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.1",
@@ -30,7 +33,13 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.29",
+    "jiti": "^2.7.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.33"
+    }
   }
 }

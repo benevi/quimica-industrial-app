@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { lessons } from "@/content";
+import { lessons } from "@/content/catalog";
+import { termsOfLesson } from "@/content/terms";
 import { cards as baseCards, decks as baseDecks, type Card as FlashCard, type Deck } from "@/content/tarjetas";
-import { questionById } from "@/certs/pool";
+import { questionExists } from "@/certs/summary";
 import { SRS_DAYS, today, useCertState } from "@/certs/useCertState";
 import { useProgress } from "@/lib/progress";
 import { Markdown } from "@/components/Markdown";
@@ -31,7 +32,7 @@ export function Flashcards() {
       lessons
         .filter((l) => progress[l.slug]?.done)
         .flatMap((l) =>
-          l.terms.map((t, k) => ({ id: `term:${l.slug}:${k}`, deck: "vocab", front: `¿Qué es «${t.es}»?`, back: `**${t.en}**\n\n${t.def}`, lesson: l.slug })),
+          termsOfLesson(l.slug).map((t, k) => ({ id: `term:${l.slug}:${k}`, deck: "vocab", front: `¿Qué es «${t.es}»?`, back: `**${t.en}**\n\n${t.def}`, lesson: l.slug })),
         ),
     [progress],
   );
@@ -50,7 +51,7 @@ export function Flashcards() {
     .filter((c) => inDeck(c) && !srs[c.id])
     .sort((a, b) => Number(!progress[b.lesson ?? ""]?.done) - Number(!progress[a.lesson ?? ""]?.done));
   const learned = allCards.filter((c) => (srs[c.id]?.box ?? 0) >= 4).length;
-  const failsDue = Object.entries(state.srs).filter(([id, c]) => c.due <= today() && questionById(id)).length;
+  const failsDue = Object.entries(state.srs).filter(([id, c]) => c.due <= today() && questionExists(id)).length;
 
   const start = useCallback(() => {
     const ids = [...due, ...fresh].slice(0, SESSION).map((c) => c.id);
@@ -81,7 +82,8 @@ export function Flashcards() {
   useEffect(() => {
     if (!queue || i >= queue.length) return;
     const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.closest("input,textarea,select")) return;
+      // Con el foco en un campo, un botón o un enlace, Espacio e Intro hacen lo suyo: el atajo no se mete
+      if ((e.target as HTMLElement)?.closest("input,textarea,select,button,a,summary")) return;
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault();
         setFlipped(true);
@@ -119,7 +121,7 @@ export function Flashcards() {
               {c.lesson && lessonTitle[c.lesson] && (
                 <p className="text-xs text-muted">
                   Lección:{" "}
-                  <Link href={`/leccion/${c.lesson}`} className="text-accent underline-offset-2 hover:underline" target="_blank">
+                  <Link href={`/leccion/${c.lesson}`} className="text-accent underline underline-offset-2 hover:decoration-2" target="_blank">
                     {lessonTitle[c.lesson]}
                   </Link>
                 </p>
@@ -203,7 +205,7 @@ export function Flashcards() {
         {failsDue > 0 && (
           <p className="text-sm text-muted">
             Además tienes{" "}
-            <Link href="/repaso" className="font-medium text-accent underline-offset-2 hover:underline">
+            <Link href="/repaso" className="font-medium text-accent underline underline-offset-2 hover:decoration-2">
               {failsDue} fallo{failsDue === 1 ? "" : "s"} de examen
             </Link>{" "}
             pendientes en el repaso de fallos.
@@ -233,7 +235,7 @@ export function Flashcards() {
           <p className="max-w-[68ch] text-sm leading-relaxed text-muted">
             Mismo sistema que el repaso de fallos (cajas Leitner): cada acierto sube la tarjeta de caja y tarda más en volver ({SRS_DAYS.slice(1).join(", ")} días).
             Se guarda con el resto de tu progreso y entra en la{" "}
-            <Link href="/progreso" className="text-accent underline-offset-2 hover:underline">
+            <Link href="/progreso" className="text-accent underline underline-offset-2 hover:decoration-2">
               copia de seguridad
             </Link>
             .

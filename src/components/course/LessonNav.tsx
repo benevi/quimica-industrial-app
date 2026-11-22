@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { levelInfo } from "@/content/blocks";
-import { getLesson } from "@/content";
+import { getLesson } from "@/content/catalog";
 import { Icon } from "@/components/icons";
 import { Breadcrumbs } from "@/components/ui";
 import { useLessonRoute } from "./useLessonRoute";

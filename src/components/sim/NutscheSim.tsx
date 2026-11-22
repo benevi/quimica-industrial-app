@@ -390,9 +390,25 @@ function NutscheSvg({ s, onValve }: { s: NState; onValve?: (v: NValve) => void }
   const wet = Math.min(1, s.lod / 30);
   const cake = `rgb(${Math.round(255 - 12 * wet)},${Math.round(252 - 30 * wet)},${Math.round(240 - 70 * wet)})`;
   const bladeY = s.agitDown ? cakeTop + Math.min(14, cakeH / 2) : 130;
-  const click = (v: NValve) => (onValve ? { onClick: () => onValve(v), style: { cursor: "pointer" } } : {});
+  // Válvulas del dibujo usables con ratón y teclado (Intro o Espacio)
+  const click = (v: NValve) =>
+    onValve
+      ? {
+          onClick: () => onValve(v),
+          onKeyDown: (e: React.KeyboardEvent) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onValve(v);
+            }
+          },
+          role: "button",
+          tabIndex: 0,
+          "aria-label": `${v}: ${s.valves[v] ? "abierta" : "cerrada"}`,
+          style: { cursor: "pointer" },
+        }
+      : {};
   return (
-    <svg viewBox="0 0 520 380" className="w-full rounded-lg" role="img" aria-label={`FD-401: ${Math.round(s.liquidL)} L de líquido, presión ${N.fmt(s.p)} barg`}>
+    <svg viewBox="0 0 520 380" className="w-full rounded-lg" role={onValve ? "group" : "img"} aria-label={`FD-401: ${Math.round(s.liquidL)} L de líquido, presión ${N.fmt(s.p)} barg`}>
       <defs>
         <linearGradient id="fd-blue" x1="0" x2="1">
           <stop offset="0" stopColor="#1d4ed8" />

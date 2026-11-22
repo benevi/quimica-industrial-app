@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { getLesson, lessons } from "@/content";
+import { getLesson, lessons } from "@/content/catalog";
 import { operatorSlugs } from "@/content/operador";
 
 /**
