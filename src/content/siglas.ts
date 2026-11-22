@@ -66,6 +66,7 @@ export const siglas: Sigla[] = [
   { sigla: "OOS", es: "Resultado fuera de especificación", en: "Out Of Specification" },
   { sigla: "OOT", es: "Resultado fuera de tendencia", en: "Out Of Trend" },
   { sigla: "P&ID", es: "Diagrama de tuberías e instrumentación", en: "Piping and Instrumentation Diagram" },
+  { sigla: "PAT", es: "Tecnología analítica de procesos: medir la calidad durante el proceso, con sondas en línea o junto a la línea", en: "Process Analytical Technology" },
   { sigla: "PDE", es: "Exposición diaria permitida", en: "Permitted Daily Exposure" },
   { sigla: "PFD", es: "Diagrama de flujo de proceso", en: "Process Flow Diagram" },
   { sigla: "PIC/S", es: "Convenio internacional de cooperación entre inspecciones farmacéuticas (publica guías como PI 041-1)", en: "Pharmaceutical Inspection Co-operation Scheme" },
@@ -89,6 +90,7 @@ export const siglas: Sigla[] = [
   { sigla: "UFC", es: "Unidad formadora de colonias", en: "CFU, Colony-Forming Unit" },
   { sigla: "URS", es: "Especificación de requisitos de usuario", en: "User Requirements Specification" },
   { sigla: "USP", es: "Farmacopea de Estados Unidos", en: "United States Pharmacopeia" },
+  { sigla: "VFD", es: "Variador de frecuencia: cambia la velocidad de un motor cambiando la frecuencia de la corriente", en: "Variable Frequency Drive" },
   { sigla: "UV-Vis", es: "Ultravioleta y visible (espectrofotometría)", en: "UltraViolet-Visible" },
   { sigla: "WFI", es: "Agua para inyectables", en: "Water For Injections" },
 ];

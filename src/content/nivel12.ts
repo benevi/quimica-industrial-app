@@ -5,6 +5,11 @@ import { filtrosAFondo } from "./nivel12-filtros";
 import { inertizacionAFondo } from "./nivel12-inertizacion";
 import { reactorAFondo } from "./nivel12-reactor";
 import { secadoAFondo } from "./nivel12-secado";
+import { agitacionAFondo } from "./nivel12-agitacion";
+import { extraccionAFondo } from "./nivel12-extraccion";
+import { destilacionAFondo } from "./nivel12-destilacion";
+import { cristalizacionAFondo } from "./nivel12-cristalizacion";
+import { limpiezaAFondo } from "./nivel12-limpieza";
 
 const equipos: Lesson[] = [
   {
@@ -434,4 +439,4 @@ A las 8 h el LOD da 1,2 %: sigue secando. A las 12 h da 0,3 %: cumple. Se regist
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo: son largas y se revisan por separado.
-export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion, centrifugaAFondo, filtrosAFondo, inertizacionAFondo, reactorAFondo, secadoAFondo];
+export const nivel12: Lesson[] = [...equipos, ...nivel12Separacion, centrifugaAFondo, filtrosAFondo, inertizacionAFondo, reactorAFondo, secadoAFondo, agitacionAFondo, extraccionAFondo, destilacionAFondo, cristalizacionAFondo, limpiezaAFondo];
