@@ -25,7 +25,7 @@ export const SECTIONS: { id: SectionId; title: string; equipo: string }[] = [
   { id: "centrifugacion", title: "7. Centrifugación y lavado", equipo: "Centrífuga C-201" },
   { id: "secado", title: "8. Secado", equipo: "Secadero de vacío SD-301" },
   { id: "envasado", title: "9. Descarga y envasado", equipo: "Báscula y etiquetas" },
-  { id: "cierre", title: "10. Cierre y revisión de QA", equipo: "Registro del lote" },
+  { id: "cierre", title: "10. Limpieza, cierre y revisión de QA", equipo: "R-101, C-201 y registro del lote" },
 ];
 
 /** Definición de cada dato que se registra en la hoja. */
@@ -84,6 +84,10 @@ export const FIELDS: FieldDef[] = [
   { id: "etq_usadas", section: "envasado", label: "Etiquetas usadas", kind: "number" },
   { id: "etq_destruidas", section: "envasado", label: "Etiquetas destruidas", kind: "number" },
   { id: "etq_devueltas", section: "envasado", label: "Etiquetas devueltas", kind: "number" },
+
+  { id: "estado_r101_fin", section: "cierre", label: "Etiqueta de estado del R-101 tras vaciarlo", kind: "select", options: ["Limpio", "Sucio", "En uso"], spec: "Sucio" },
+  { id: "estado_c201_fin", section: "cierre", label: "Etiqueta de estado de la centrífuga C-201", kind: "select", options: ["Limpio", "Sucio", "En uso"], spec: "Sucio" },
+  { id: "limpieza_pedida", section: "cierre", label: "Orden de limpieza de R-101 y C-201 pedida", kind: "select", options: ["Sí", "No"], spec: "Sí" },
 ];
 
 export const MATERIALS = {
@@ -204,6 +208,10 @@ export type Reactor = {
 export type Sim = {
   version: 1;
   scenario: Scenario;
+  /** Incidencias activas del lote (si falta, salen todas con el escenario «incidencias», como en partidas antiguas). */
+  eventsOn?: Record<EventId, boolean>;
+  /** Modo guiado: explica cada etapa y no tiene incidencias. */
+  guided?: boolean;
   clock: number; // minutos desde las 08:00 del 18/11
   section: number;
   maxSection: number;
@@ -254,16 +262,33 @@ export type Sim = {
 const r1 = (x: number) => Math.round(x * 10) / 10;
 const r2 = (x: number) => Math.round(x * 100) / 100;
 
-export function newSim(scenario: Scenario): Sim {
-  const s = blankSim(scenario);
+/** Las cuatro incidencias del lote completo, para elegirlas al empezar. */
+export const EVENTS: { id: EventId; title: string; when: string }[] = [
+  { id: "bascula", title: "La báscula B-05 no pasa la verificación diaria", when: "en las verificaciones previas" },
+  { id: "frio", title: "Falla el frío de la camisa durante la adición", when: "en la reacción" },
+  { id: "filtro", title: "El cartucho del filtro F-301 se colmata", when: "en la filtración" },
+  { id: "vacio", title: "Se pierde el vacío del secadero", when: "en el secado" },
+];
+
+/** ¿Está activa esta incidencia en el lote? */
+export function eventOn(s: Sim, id: EventId) {
+  return s.eventsOn ? s.eventsOn[id] : s.scenario === "incidencias";
+}
+
+export function newSim(scenario: Scenario, opts: { events?: EventId[]; guided?: boolean } = {}): Sim {
+  const events = opts.guided ? [] : (opts.events ?? (scenario === "incidencias" ? EVENTS.map((e) => e.id) : []));
+  const s = blankSim(events.length ? "incidencias" : "normal", events);
+  if (opts.guided) s.guided = true;
   s.checkpoints[0] = snapshot(s);
   return s;
 }
 
-function blankSim(scenario: Scenario): Sim {
+function blankSim(scenario: Scenario, events: EventId[] = scenario === "incidencias" ? ["bascula", "frio", "filtro", "vacio"] : []): Sim {
+  const on = (id: EventId) => events.includes(id);
   return {
     version: 1,
     scenario,
+    eventsOn: { bascula: on("bascula"), frio: on("frio"), filtro: on("filtro"), vacio: on("vacio") },
     clock: 0,
     section: 0,
     maxSection: 0,
@@ -275,13 +300,13 @@ function blankSim(scenario: Scenario): Sim {
     audit: [{ time: 0, who: "Sistema", what: `Orden de fabricación FX-101/26-0147 emitida (escenario: ${scenario === "normal" ? "lote normal" : "lote con incidencias"})` }],
     deviations: [],
     events: {
-      bascula: { active: scenario === "incidencias" },
+      bascula: { active: on("bascula") },
       frio: { active: false },
       filtro: { active: false },
       vacio: { active: false },
     },
     messages: [],
-    scaleReading: { "B-05": scenario === "incidencias" ? 50.38 : 50.02, "B-06": 50.01 },
+    scaleReading: { "B-05": on("bascula") ? 50.38 : 50.02, "B-06": 50.01 },
     scaleUsed: null,
     lotsUsed: {},
     dosed: { af: 0, aa: 0, se: 0 },
@@ -652,7 +677,7 @@ export function reactorTick(s: Sim) {
   const total = aaTotalL(s);
 
   // Incidencia: fallo de refrigeración a mitad de la adición
-  if (s.scenario === "incidencias" && !frio.active && r.added >= total * 0.45 && r.added > 0) {
+  if (eventOn(s, "frio") && !frio.active && r.added >= total * 0.45 && r.added > 0) {
     frio.active = true;
     frio.start = s.clock;
     r.alarms.push({ time: s.clock, text: "Fallo del compresor de glicol: la camisa no enfría" });
@@ -779,7 +804,7 @@ export function filterStep(s: Sim) {
   f.running = true;
   f.progress = Math.min(100, f.progress + 20);
   s.clock += 10;
-  if (s.scenario === "incidencias" && f.changes === 0 && f.progress >= 40) {
+  if (eventOn(s, "filtro") && f.changes === 0 && f.progress >= 40) {
     f.dp = 2.1;
     if (!s.events.filtro.active) {
       s.events.filtro.active = true;
@@ -914,7 +939,7 @@ export function dryHour(s: Sim) {
     return;
   }
   d.hours += 1;
-  if (s.scenario === "incidencias" && d.hours === 2 && !s.events.vacio.active) {
+  if (eventOn(s, "vacio") && d.hours === 2 && !s.events.vacio.active) {
     s.events.vacio.active = true;
     s.events.vacio.start = s.clock;
     msg(s, "Sistema de control", "PAH-301: el vacío del secadero ha subido a 380 mbar.");
@@ -988,6 +1013,16 @@ export function doPack(s: Sim) {
   s.clock += 60;
   log(s, `Envasa ${fmtNum(net)} kg en ${drums} bidones con doble bolsa y precinto`);
   msg(s, "Almacén", `Se han emitido ${drums + 2} etiquetas para el lote. Una salió mal impresa y se destruyó; el resto de las no usadas se devuelve.`);
+}
+
+/** Datos del lote cerrado que se pasan al ERP (lote FX-101, misión 10 del simulador de ERP). */
+export function erpHandoff(s: Sim, qa: "Liberable" | "Pendiente de desviaciones" | "Rechazado / en investigación") {
+  const mat: Record<MaterialId, string> = { af: "RM-4001", aa: "RM-4002", se: "RM-4003" };
+  const lotes: Record<string, string> = {};
+  for (const m of Object.keys(mat) as MaterialId[]) if (s.lotsUsed[m]) lotes[mat[m]] = s.lotsUsed[m]!;
+  const ipc = s.ipc.filter((x) => x.ready <= s.clock).at(-1)?.value ?? NaN;
+  const lod = s.dryer.samples.at(-1)?.value ?? NaN;
+  return { lote: "26-0147", netKg: Math.round((s.pack?.netKg ?? 0) * 10) / 10, lotes, lab: { AF: Math.round(ipc * 100) / 100, LOD: Math.round(lod * 100) / 100 }, qa, at: new Date().toISOString() };
 }
 
 export function closeBatch(s: Sim) {

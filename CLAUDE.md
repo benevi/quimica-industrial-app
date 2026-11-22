@@ -153,9 +153,11 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   simulador ERP, tarjetas y FDS, imágenes y vídeos con licencia, rediseño de la interfaz, progreso en la nube con Supabase,
   accesibilidad AA y páginas ligeras. Auditoría de noviembre de 2026: fases 1 a 8 hechas (la 7, de contenido, se puede
   seguir ampliando).
-- Pendiente del plan del simulador (`docs/plan/simulador-lotes-gmp.md`), según el código a 22/11/2026: modo guiado y elegir
-  incidencia en el lote completo (fase B), botones «Practicar» desde las lecciones (D), FX-101 en el ERP (E) y etapa de
-  limpieza del lote. Decidir con Victor si el verde de las válvulas abiertas se queda como código de planta.
+- Plan del simulador (`docs/plan/simulador-lotes-gmp.md`): hechas a 22/11/2026 las fases B (modo guiado en
+  `src/sim/guiado.ts` e incidencias elegibles o al azar), D (botones «Practicar» en las lecciones, `src/content/practica.ts`),
+  E (el lote FX-101 pasa al ERP y se registra allí, misión 10) y la etapa de limpieza. Queda: ampliar las incidencias del
+  lote completo hacia las ~15 del apartado 3.2 y misiones de certificaciones ligadas al simulador (3.7). Decidir con
+  Victor si el verde de las válvulas abiertas se queda como código de planta.
 - Pendiente además: biotecnología (módulos FP 1390/1393) queda fuera del
   temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP
   (a 21/11/2026 siguen siendo borradores) y actualizar entonces `part-11-y-anexo-11`, `normas-integridad-a-fondo`,

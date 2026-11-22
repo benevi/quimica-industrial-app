@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as E from "@/sim/engine";
-import type { Scenario, Sim } from "@/sim/engine";
+import type { Sim } from "@/sim/engine";
+import { GUIADO } from "@/sim/guiado";
+import Link from "next/link";
 import { Sheet } from "./Sheet";
 import { Icon } from "@/components/icons";
 import { Disclosure, btn } from "@/components/ui";
@@ -39,33 +41,96 @@ function save(s: Sim | null) {
   }
 }
 
-function Start({ onStart }: { onStart: (sc: Scenario) => void }) {
+type StartOpts = { guided?: boolean; events: E.EventId[] };
+
+/** Pantalla de inicio: lote guiado, lote normal o lote con las incidencias que elijas (o al azar). */
+function Start({ onStart }: { onStart: (o: StartOpts) => void }) {
+  const [sel, setSel] = useState<E.EventId[]>(E.EVENTS.map((e) => e.id));
+  // Desde una lección se puede llegar con ?modo=guiado o ?incidencia=frio
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const inc = q.get("incidencia") as E.EventId | null;
+    if (inc && E.EVENTS.some((e) => e.id === inc)) setSel([inc]);
+  }, []);
+  const toggle = (id: E.EventId) => setSel((x) => (x.includes(id) ? x.filter((y) => y !== id) : [...x, id]));
+  const azar = () => {
+    const ids = E.EVENTS.map((e) => e.id).sort(() => Math.random() - 0.5);
+    onStart({ events: ids.slice(0, 1 + Math.floor(Math.random() * 2)) });
+  };
   return (
-    <section aria-labelledby="sim-start" className="max-w-3xl rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
-      <h2 id="sim-start" className="t-h2">
-        Empieza con un lote normal
-      </h2>
-      <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-        Todo funciona. Practicas la secuencia completa y la forma de registrar: lotes, pesadas, horas, IPC y firmas. En cada momento, una
-        tarjeta ámbar te dice qué hacer.
-      </p>
-      <button type="button" onClick={() => onStart("normal")} className={`${btn.primary} mt-5 px-5 py-3 text-[15px]`}>
-        Empezar el lote
-        <Icon name="arrow" className="h-4 w-4" />
-      </button>
-      <div className="mt-8 border-t border-line pt-5 text-sm">
-        <p className="max-w-[60ch] leading-relaxed">
-          <span className="font-medium">¿Ya conoces la secuencia?</span>{" "}
-          <span className="text-muted">
-            En el lote con incidencias pasan cosas que también pasan en planta. Tendrás que decidir: parar, avisar, registrar y abrir
-            desviación cuando toque.
-          </span>
+    <section aria-labelledby="sim-start" className="max-w-3xl space-y-6 rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
+      <div>
+        <h2 id="sim-start" className="t-h2">
+          Tu primer lote: modo guiado
+        </h2>
+        <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
+          Sin incidencias. En cada etapa te explica qué estás haciendo y por qué, con enlaces a las lecciones. Una tarjeta ámbar te dice
+          siempre el siguiente paso.
         </p>
-        <button type="button" onClick={() => onStart("incidencias")} className={`${btn.secondary} mt-3`}>
-          Empezar un lote con incidencias
+        <button type="button" onClick={() => onStart({ guided: true, events: [] })} className={`${btn.primary} mt-4 px-5 py-3 text-[15px]`}>
+          Empezar el lote guiado
+          <Icon name="arrow" className="h-4 w-4" />
         </button>
       </div>
+      <div className="border-t border-line pt-5">
+        <h3 className="font-medium">Práctica</h3>
+        <p className="mt-1 max-w-[60ch] text-sm leading-relaxed text-muted">
+          Sin explicaciones. Con incidencias pasan cosas que también pasan en planta: tendrás que parar en seguro, avisar, registrar y abrir
+          desviación cuando toque.
+        </p>
+        <fieldset className="mt-3">
+          <legend className="text-sm font-medium">Incidencias de este lote</legend>
+          <ul className="mt-2 space-y-1.5 text-sm">
+            {E.EVENTS.map((e) => (
+              <li key={e.id}>
+                <label className="flex items-start gap-2">
+                  <input type="checkbox" className="mt-1" checked={sel.includes(e.id)} onChange={() => toggle(e.id)} />
+                  <span>
+                    {e.title} <span className="text-muted">({e.when})</span>
+                  </span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </fieldset>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button type="button" onClick={() => onStart({ events: sel })} className={btn.secondary}>
+            {sel.length === 0 ? "Empezar un lote normal" : `Empezar con ${sel.length === 1 ? "esta incidencia" : `estas ${sel.length} incidencias`}`}
+          </button>
+          <button type="button" onClick={azar} className={btn.secondary}>
+            Una o dos incidencias al azar, sin saber cuáles
+          </button>
+        </div>
+      </div>
     </section>
+  );
+}
+
+/** Modo guiado: qué estás haciendo en esta etapa y por qué. */
+function GuidedBox({ sec }: { sec: E.SectionId }) {
+  const g = GUIADO[sec];
+  return (
+    <Card title="Qué estás haciendo y por qué">
+      <div className="space-y-2 text-sm leading-relaxed">
+        <p>{g.que}</p>
+        <ul className="list-disc space-y-1 pl-5 text-muted">
+          {g.porque.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+        <p className="text-muted">
+          Para saber más:{" "}
+          {g.lecciones.map((l, k) => (
+            <span key={l.slug}>
+              {k > 0 && " · "}
+              <Link className="underline underline-offset-2 hover:decoration-2" href={`/leccion/${l.slug}`}>
+                {l.titulo}
+              </Link>
+            </span>
+          ))}
+        </p>
+      </div>
+    </Card>
   );
 }
 
@@ -187,8 +252,8 @@ export function Simulator() {
   if (!s) {
     return (
       <Start
-        onStart={(sc) => {
-          setS(E.newSim(sc));
+        onStart={(o) => {
+          setS(E.newSim("normal", o));
           setView(0);
         }}
       />
@@ -214,7 +279,7 @@ export function Simulator() {
           <span className="font-mono font-medium">FX-101 · lote 26-0147</span>
           <span className="text-muted"> · 100 kg de 4-aminofenol</span>
         </span>
-        <Badge tone={s.scenario === "normal" ? "neutral" : "warn"}>{s.scenario === "normal" ? "Lote normal" : "Lote con incidencias"}</Badge>
+        <Badge tone={s.scenario === "normal" ? "neutral" : "warn"}>{s.guided ? "Lote guiado" : s.scenario === "normal" ? "Lote normal" : "Lote con incidencias"}</Badge>
         <span className="text-muted">
           Reloj de planta <span className="font-mono text-ink">{E.fmtTime(s.clock)}</span>
         </span>
@@ -269,6 +334,7 @@ export function Simulator() {
         <PlantView s={s} onSelect={setView} onValve={(v) => act((x) => E.toggleValve(x, v))} />
         {s.halt ? <IncidentCard s={s} act={act} onRedo={redo} /> : <Coach s={s} />}
       </div>
+      {s.guided && !s.closed && <GuidedBox sec={sec.id} />}
 
       {sec.id === "cierre" && s.closed ? (
         <QAReport s={s} />

@@ -1,5 +1,6 @@
 "use client";
 
+import { ValveGlyph } from "./Valves";
 import { useEffect, useState, type ReactNode } from "react";
 import * as E from "@/sim/engine";
 import type { SectionId, Sim, ValveId } from "@/sim/engine";
@@ -574,8 +575,8 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         <span><span className="text-[#dc2626]">■</span> Vapor</span>
         <span><span className="text-[#0891b2]">■</span> Glicol (frío)</span>
         <span><span className="text-[#b8ae8f]">■</span> Vacío y gases al lavador</span>
-        <span><span className="text-[#16a34a]">▶◀</span> Válvula abierta</span>
-        <span><span className="text-[#dc2626]">▶◀</span> Válvula cerrada</span>
+        <span className="inline-flex items-center gap-1"><ValveGlyph open size={18} /> Válvula abierta (hueca)</span>
+        <span className="inline-flex items-center gap-1"><ValveGlyph open={false} size={18} /> Válvula cerrada (rellena)</span>
         <span className="ml-auto text-ink">Pulsa un equipo para ver su etapa, o una válvula para abrirla o cerrarla</span>
       </div>
     </div>

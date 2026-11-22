@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getLesson, lessons, lessonsOfLevel } from "@/content";
@@ -8,6 +9,7 @@ import { Quiz } from "@/components/Quiz";
 import { LessonSidebar } from "@/components/LessonSidebar";
 import { stepsFor, type lessonSteps } from "@/components/lessonSteps";
 import { LessonMedia } from "@/components/LessonMedia";
+import { practicas } from "@/content/practica";
 import { mediaFor } from "@/content/media";
 import { Icon } from "@/components/icons";
 
@@ -105,6 +107,27 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
             ))}
           </dl>
         </Section>
+
+        {practicas[lesson.slug] && (
+          <section aria-labelledby="practica-h" className="rounded-[var(--radius)] border border-line bg-surface px-5 py-5 sm:px-6">
+            <h2 id="practica-h" className="mb-3 flex flex-wrap items-baseline gap-x-2.5">
+              <span className="t-h2">Practícalo en el simulador</span>
+              <span lang="en" className="text-sm text-muted">
+                Hands-on practice
+              </span>
+            </h2>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {practicas[lesson.slug].map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href} className="block rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent">
+                    <span className="font-medium text-accent">{p.label}</span>
+                    <span className="mt-1 block text-sm text-muted">{p.detalle}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <div id="test">
           <Suspense fallback={null}>

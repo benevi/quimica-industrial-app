@@ -27,7 +27,7 @@ const LESSON: Record<SectionId, { slug: string; title: string }> = {
   centrifugacion: { slug: "centrifuga", title: "Centrífuga" },
   secado: { slug: "secaderos", title: "Secaderos" },
   envasado: { slug: "envasado-y-etiquetado", title: "Envasado y etiquetado" },
-  cierre: { slug: "alcoa-plus", title: "ALCOA+" },
+  cierre: { slug: "limpieza-de-equipos", title: "Limpieza de equipos" },
 };
 
 const EVENT_TEXT: Record<EventId, string> = {
@@ -138,7 +138,7 @@ function processTask(s: Sim): Task | null {
       if (!s.pack.done) return { title: "Descarga y envasa el producto", detail: "Doble bolsa, bidón, peso y etiqueta. Luego calcula el rendimiento." };
       return null;
     case "cierre":
-      return { title: "Repasa el registro y envíalo a QA", detail: "Datos completos, firmas en todas las etapas y una desviación por cada cosa que se salió de lo normal." };
+      return { title: "Repasa el registro y envíalo a QA", detail: "Los equipos vaciados quedan como «Sucio» y con la limpieza pedida. Datos completos, firmas en todas las etapas y una desviación por cada cosa que se salió de lo normal." };
   }
 }
 

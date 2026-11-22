@@ -113,6 +113,7 @@ function perfect(scenario) {
   rec("etq_emitidas", p.labelsIssued); rec("etq_usadas", p.labelsUsed); rec("etq_destruidas", p.labelsDestroyed);
   rec("etq_devueltas", p.labelsIssued - p.labelsUsed - p.labelsDestroyed);
   next();
+  rec("estado_r101_fin", "Sucio"); rec("estado_c201_fin", "Sucio"); rec("limpieza_pedida", "Sí");
   E.closeBatch(s);
   return s;
 }
@@ -344,5 +345,73 @@ function reactorLote(opts = {}) {
   const turno = RM.newState(["vacio", "agua", "corte"]);
   expect(turno.faults.length === 3, "14: el turno real admite varias averías a la vez");
 }
-console.log(errors ? `${errors} errores` : "Simulador de planta: 14 escenarios OK");
+
+// 15. Modo guiado e incidencias elegibles del lote completo; botones «Practicar» de las lecciones
+{
+  const g = E.newSim("normal", { guided: true });
+  expect(g.guided && Object.values(g.eventsOn).every((x) => !x), "15: el lote guiado no tiene incidencias");
+  const una = E.newSim("normal", { events: ["frio"] });
+  expect(una.eventsOn.frio && !una.eventsOn.bascula && !una.events.bascula.active && una.scaleReading["B-05"] < 50.1, "15: se puede elegir solo el fallo de frío");
+  const todas = E.newSim("incidencias");
+  expect(Object.values(todas.eventsOn).every(Boolean), "15: el lote con incidencias las tiene todas");
+  const G = await jiti.import(root + "/sim/guiado.ts");
+  expect(E.SECTIONS.every((x) => G.GUIADO[x.id]?.porque.length > 0), "15: el modo guiado explica todas las etapas");
+  const PR = await jiti.import(root + "/content/practica.ts");
+  const C = await jiti.import(root + "/content/catalog.ts");
+  const rutas = ["/simulador", "/simulador/reactor", "/simulador/nutsche", "/simulador/auditoria", "/sap"];
+  for (const [slug, ps] of Object.entries(PR.practicas)) {
+    expect(!!C.getLesson(slug), `15: la lección «${slug}» de los botones «Practicar» existe`);
+    for (const p of ps) {
+      const [path, q] = p.href.split("?");
+      expect(rutas.includes(path), `15: «${slug}» enlaza a una ruta del simulador (${p.href})`);
+      if (q) expect(E.EVENTS.some((e) => `incidencia=${e.id}` === q), `15: la incidencia de «${slug}» existe (${q})`);
+    }
+  }
+  for (const sl of Object.values(G.GUIADO).flatMap((x) => x.lecciones.map((l) => l.slug))) expect(!!C.getLesson(sl), `15: la lección «${sl}» del modo guiado existe`);
+}
+
+
+// 16. El lote FX-101 del simulador se registra en el ERP de principio a fin (misión 10)
+{
+  const S = await jiti.import(root + "/sap/engine.ts");
+  const lote = perfect("normal");
+  const qa = R.reviewBatch(lote).decision;
+  const fx = E.erpHandoff(lote, qa);
+  expect(fx.netKg > 100 && fx.lotes["RM-4001"] === "AF-24115" && Number.isFinite(fx.lab.AF) && Number.isFinite(fx.lab.LOD), `16: el lote pasa al ERP con peso, lotes y resultados (${JSON.stringify(fx)})`);
+  let st = { ...S.initialState(), fx };
+  const ok = (r, msg) => { expect(r.msg.type !== "E", `16: ${msg}: ${r.msg.text}`); st = r.state; };
+  ok(S.createOrder(st, "FG-6001", S.FX_TEORICO), "crear la orden");
+  const id = st.orders.at(-1).id;
+  expect(st.orders.at(-1).components.map((c) => c.required).join("|") === "100|102.9|0.5", `16: la orden pide 100 / 102,9 / 0,5 kg (${st.orders.at(-1).components.map((c) => c.required)})`);
+  ok(S.releaseOrder(st, id), "liberar");
+  const mal = S.goodsIssue(st, id, "AF-24131", 100);
+  expect(mal.msg.type === "E", "16: el ERP no deja consumir el lote de 4-aminofenol en cuarentena");
+  ok(S.goodsIssue(st, id, "AF-24115", 100), "consumir 4-aminofenol");
+  ok(S.goodsIssue(st, id, "AA-0921", 102.9), "consumir anhídrido");
+  ok(S.goodsIssue(st, id, "SE-0098", 0.5), "consumir semilla");
+  for (const ph of ["0010", "0020", "0030"]) ok(S.confirmPhase(st, id, ph), "notificar " + ph);
+  ok(S.confirmPhase(st, id, "0040", fx.netKg), "notificar 0040");
+  expect(S.goodsReceipt(st, id, fx.netKg + 1).msg.type === "E", "16: la entrada debe coincidir con el peso neto envasado en planta");
+  ok(S.goodsReceipt(st, id, fx.netKg), "entrada");
+  const lot = st.lots.at(-1);
+  expect(lot.material === "FG-6001" && lot.lab.AF === fx.lab.AF, "16: el lote de inspección trae los resultados del simulador");
+  ok(S.recordResults(st, lot.id, { AF: fx.lab.AF, LOD: fx.lab.LOD }), "resultados");
+  ok(S.usageDecision(st, lot.id, qa === "Liberable" ? "A" : "R"), "decisión de empleo");
+  const m10 = S.missions.find((m) => m.id === "m10-fx101");
+  expect(m10.done(st), "16: la misión 10 queda hecha");
+  expect(!S.missions.find((m) => m.id === "m7-entrada").done(st), "16: el lote FX-101 no cuenta como misión del API-X");
+  // Con un informe de QA que no lo deja liberar, el ERP no deja aceptarlo
+  let st2 = { ...S.initialState(), fx: { ...fx, qa: "Pendiente de desviaciones" } };
+  for (const step of [(x) => S.createOrder(x, "FG-6001", S.FX_TEORICO)]) st2 = step(st2).state;
+  const id2 = st2.orders.at(-1).id;
+  st2 = S.releaseOrder(st2, id2).state;
+  for (const [b, q] of [["AF-24115", 100], ["AA-0921", 102.9], ["SE-0098", 0.5]]) st2 = S.goodsIssue(st2, id2, b, q).state;
+  for (const ph of ["0010", "0020", "0030"]) st2 = S.confirmPhase(st2, id2, ph).state;
+  st2 = S.confirmPhase(st2, id2, "0040", fx.netKg).state;
+  st2 = S.goodsReceipt(st2, id2, fx.netKg).state;
+  st2 = S.recordResults(st2, st2.lots.at(-1).id, { AF: fx.lab.AF, LOD: fx.lab.LOD }).state;
+  expect(S.usageDecision(st2, st2.lots.at(-1).id, "A").msg.type === "E", "16: no se acepta un lote que el informe de QA no deja liberar");
+}
+
+console.log(errors ? `${errors} errores` : "Simulador de planta: 16 escenarios OK");
 process.exit(errors ? 1 : 0);
