@@ -410,7 +410,7 @@ function reactorLote(opts = {}) {
   expect(E.SECTIONS.every((x) => G.GUIADO[x.id]?.porque.length > 0), "15: el modo guiado explica todas las etapas");
   const PR = await jiti.import(root + "/content/practica.ts");
   const C = await jiti.import(root + "/content/catalog.ts");
-  const rutas = ["/simulador", "/simulador/reactor", "/simulador/nutsche", "/simulador/auditoria", "/sap"];
+  const rutas = ["/simulador", "/simulador/reactor", "/simulador/nutsche", "/simulador/auditoria", "/sap", "/fds"];
   for (const [slug, ps] of Object.entries(PR.practicas)) {
     expect(!!C.getLesson(slug), `15: la lección «${slug}» de los botones «Practicar» existe`);
     for (const p of ps) {

@@ -96,11 +96,13 @@ export const siglas: Sigla[] = [
   { sigla: "TOC", es: "Carbono orgánico total", en: "Total Organic Carbon" },
   { sigla: "TRS", es: "Serie de informes técnicos de la OMS (por ejemplo, TRS 957)", en: "Technical Report Series" },
   { sigla: "UFC", es: "Unidad formadora de colonias", en: "CFU, Colony-Forming Unit" },
+  { sigla: "UFI", es: "Identificador único de fórmula de una mezcla peligrosa, en la etiqueta (en la versión española del reglamento, IUF)", en: "Unique Formula Identifier" },
   { sigla: "URS", es: "Especificación de requisitos de usuario", en: "User Requirements Specification" },
   { sigla: "USP", es: "Farmacopea de Estados Unidos", en: "United States Pharmacopeia" },
   { sigla: "UTC", es: "Tiempo universal coordinado: la hora de referencia mundial con la que se sincronizan los sistemas", en: "Coordinated Universal Time" },
   { sigla: "VFD", es: "Variador de frecuencia: cambia la velocidad de un motor cambiando la frecuencia de la corriente", en: "Variable Frequency Drive" },
   { sigla: "VIM", es: "Vocabulario Internacional de Metrología (JCGM, gratuito)", en: "International Vocabulary of Metrology" },
+  { sigla: "VLA-ED / VLA-EC", es: "Valor límite ambiental de exposición diaria (8 h) / de exposición de corta duración (15 min), del documento LEP del INSST" },
   { sigla: "UV-Vis", es: "Ultravioleta y visible (espectrofotometría)", en: "UltraViolet-Visible" },
   { sigla: "WFI", es: "Agua para inyectables", en: "Water For Injections" },
 ];

@@ -11,6 +11,7 @@ const LOTE = (incidencia?: string, detalle = "El lote completo FX-101, de la pes
 });
 const NUTSCHE: Practica = { href: "/simulador/nutsche", label: "Practicar con el filtro-secador Nutsche", detalle: "Filtrar, lavar, soplar y secar en un solo equipo, con relevo de turno." };
 const AUDITORIA: Practica = { href: "/simulador/auditoria", label: "Auditar hojas de producción", detalle: "Encuentra los errores de documentación como lo haría calidad." };
+const FDS: Practica = { href: "/fds", label: "Practicar con fichas de seguridad", detalle: "Lee fichas de práctica y responde qué EPI, qué hacer ante un vertido y qué no mezclar." };
 const SAP: Practica = { href: "/sap", label: "Practicar en el simulador de ERP", detalle: "Órdenes, movimientos de material, lotes de inspección y decisión de empleo." };
 
 export const practicas: Record<string, Practica[]> = {
@@ -48,6 +49,8 @@ export const practicas: Record<string, Practica[]> = {
   "desviaciones-y-capa-a-fondo": [LOTE(undefined, "Con incidencias: decide cuándo abrir una desviación.")],
   "recepcion-y-cuarentena": [LOTE("etiqueta", "La etiqueta de un bidón no coincide con la orden.")],
   "oos-y-oot": [LOTE("ipc", "El control en proceso sale fuera de límite.")],
+  "pictogramas-y-fds": [FDS],
+  "pictogramas-y-fds-a-fondo": [FDS],
   "sap-en-planta": [SAP],
   "erp-y-sap-a-fondo": [SAP],
 };
