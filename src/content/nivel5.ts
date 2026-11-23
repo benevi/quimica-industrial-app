@@ -16,7 +16,14 @@ El laboratorio analiza unos gramos para decidir sobre cientos de kilos. Por eso 
 Define: **qué** se muestrea, **cuántos** recipientes, **de dónde** (arriba, medio, fondo), **cuánta** cantidad, **con qué** útil, **en qué** envase y **quién** lo hace.
 
 ### ¿Cuántos recipientes?
-Para materias primas, una regla muy usada es muestrear **√n + 1** recipientes, donde n es el número de recipientes del lote (redondeando hacia arriba). Con 16 bidones: √16 + 1 = **5** bidones. El plan concreto lo fija cada empresa según el riesgo del material y el proveedor.
+Para materias primas, una regla muy usada es muestrear **√N + 1** recipientes, donde N es el número de recipientes del lote. Con 16 bidones: √16 + 1 = **5** bidones.
+
+La regla viene de las directrices de muestreo de la OMS, que la llaman **plan n** (*n plan*). Tres cosas que conviene saber:
+- La OMS **redondea de forma normal** (al entero más cercano): 30 bidones dan 6,5 y se muestrean 6; 40 bidones dan 7,3 y se muestrean 7. Muchas empresas prefieren **redondear siempre hacia arriba** por prudencia (7 y 8 en esos ejemplos). Manda lo que diga tu procedimiento.
+- Si llegan **4 recipientes o menos**, se muestrean todos.
+- La OMS pide usarla **con mucha cautela** y solo cuando el material es uniforme y viene de un proveedor reconocido. Para otros casos describe planes más exigentes, en los que se abre y se identifica **cada** recipiente (planes *p* y *r*).
+
+El plan concreto lo fija cada empresa según el riesgo del material y el proveedor.
 
 ### Tipos de muestra
 - **Individual** (*individual sample*): de un solo punto o recipiente.
@@ -27,7 +34,7 @@ Para materias primas, una regla muy usada es muestrear **√n + 1** recipientes,
 Suele tomarse lo suficiente para el análisis completo, una posible repetición y la muestra de retención (por ejemplo, **tres veces** la cantidad necesaria para un análisis completo).
 `,
     plant: `
-Llegan 30 bidones de un disolvente. √30 + 1 = 6,5 → se muestrean **7** bidones. Cada bidón muestreado se etiqueta como "muestreado", con fecha e iniciales, y se cierra bien.
+Llegan 30 bidones de un disolvente. √30 + 1 = 6,5. El procedimiento de esta planta dice redondear hacia arriba, así que se muestrean **7** bidones. Cada bidón muestreado se etiqueta como "muestreado", con fecha e iniciales, y se cierra bien.
 `,
     batchRecord: `
 - Número de recipientes muestreados y cuáles.
@@ -63,11 +70,11 @@ Llegan 30 bidones de un disolvente. √30 + 1 = 6,5 → se muestrean **7** bidon
       },
       {
         kind: "number",
-        q: "Llegan 40 bidones. Con la regla √n + 1, redondeando hacia arriba, ¿cuántos muestreas?",
+        q: "Llegan 40 bidones. Tu procedimiento dice aplicar la regla √N + 1 redondeando hacia arriba. ¿Cuántos muestreas?",
         answer: 8,
         tolerance: 0.001,
         unit: "bidones",
-        explain: "√40 ≈ 6,32; 6,32 + 1 = 7,32 → hacia arriba: 8 bidones.",
+        explain: "√40 ≈ 6,32; 6,32 + 1 = 7,32; hacia arriba son 8 bidones. Con el redondeo normal de las directrices de la OMS serían 7: por eso hay que mirar qué dice el procedimiento.",
       },
     ],
   },

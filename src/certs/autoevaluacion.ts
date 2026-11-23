@@ -1,5 +1,5 @@
 // Unidades de competencia y sus realizaciones profesionales (RP), resumidas de los reales decretos
-// de los certificados QUIE0108 (RD 1970/2008) y QUIM0109 (RD 719/2011).
+// de los certificados QUIE0108 (RD 1970/2008, actualizado por el RD 623/2013) y QUIM0109 (RD 719/2011).
 // El procedimiento de acreditación pide un cuestionario de autoevaluación por cada unidad;
 // aquí se practica con una escala parecida, pensada para el estudio.
 

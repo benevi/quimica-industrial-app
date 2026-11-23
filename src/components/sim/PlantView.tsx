@@ -242,8 +242,9 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
   const nowEq = (SECTION_EQ[cur] ?? []).find((e) => st(e) === "now");
 
   return (
-    <div className="overflow-hidden rounded-[var(--radius)] border border-line bg-[#f4f6f8]">
-      <svg viewBox="0 0 1040 640" className="block w-full" role="img" aria-label="Vista de planta del lote FX-101">
+    <div className="overflow-x-auto rounded-[var(--radius)] border border-line bg-[#f4f6f8]">
+      {/* En pantallas estrechas el dibujo no se encoge hasta ser ilegible: se desplaza con el dedo */}
+      <svg viewBox="0 0 1040 640" className="block w-full min-w-[960px] md:min-w-0" role="img" aria-label="Vista de planta del lote FX-101">
         <defs>
           <linearGradient id="pv-glass" x1="0" x2="1">
             <stop offset="0" stopColor="#cfe3ee" stopOpacity={0.55} />

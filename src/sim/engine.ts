@@ -391,8 +391,19 @@ export function correct(s: Sim, fieldId: string, value: string, reason: string) 
   e.time = s.clock;
 }
 
+/** Campos de una sección que aún no tienen dato en la hoja */
+export function missingFields(s: Sim, sec: SectionId) {
+  return FIELDS.filter((f) => f.section === sec && !s.entries[f.id]);
+}
+
 export function sign(s: Sim, sec: SectionId) {
   if (s.signatures[sec] != null) return;
+  const missing = missingFields(s, sec);
+  if (missing.length) {
+    // Firmar es declarar que lo anotado es cierto y completo: no se firma una sección con huecos
+    msg(s, "Supervisor", `No firmes todavía «${SECTIONS.find((x) => x.id === sec)!.title}»: falta${missing.length > 1 ? "n" : ""} ${missing.length} dato${missing.length > 1 ? "s" : ""} por anotar (${missing.map((f) => f.label).join("; ")}). La firma va al final, cuando el trabajo está hecho y registrado.`);
+    return;
+  }
   s.signatures[sec] = s.clock;
   log(s, `Firma la sección «${SECTIONS.find((x) => x.id === sec)!.title}»`);
 }
@@ -542,7 +553,11 @@ export function chargeAF(s: Sim) {
     msg(s, "Supervisor", "No abras la boca de carga con el reactor en vacío: el polvo saldría por la línea de vacío. Rompe el vacío con N₂ y cierra la XV-103.");
     return;
   }
-  if (s.o2 > 8) {
+  if (s.p101 > 0.05) {
+    msg(s, "Supervisor", `No abras la boca de carga con presión dentro: el R-101 está a ${fmtNum(s.p101, 2)} bar. Cierra la entrada de N₂ (XV-102) y deja que la presión vuelva a la atmosférica antes de abrir.`);
+    return;
+  }
+  if (s.o2 > 2) {
     s.reactor.alarms.push({ time: s.clock, text: "Carga de sólido sin inertizar: riesgo de atmósfera inflamable" });
     raise(s, "carga_sin_inertizar", { what: `Abriste la boca de carga y empezaste a echar 4-aminofenol con un ${fmtNum(s.o2)} % de oxígeno dentro del R-101. Salta la alarma del analizador AI-101 y el supervisor para la carga.` });
     return;
@@ -584,12 +599,19 @@ export function inertN2(s: Sim) {
   s.inertStep = null;
   s.inertCycles += 1;
   s.o2 = r1(Math.max(0.1, s.o2 * 0.2));
+  // Estos 5 minutos el nitrógeno llena el vacío: el reactor termina a presión atmosférica, sin sobrepresión.
+  // Si después se deja la XV-102 abierta con el reactor cerrado, la presión sí sube (passTime).
+  s.clock += 5;
   s.p101 = 0;
-  passTime(s, 5);
   log(s, `Rompe el vacío con N₂ (ciclo nº ${s.inertCycles}): O₂ = ${fmtNum(s.o2)} %`);
 }
 
 export function toggleAgit(s: Sim, on: boolean) {
+  if (on && !s.reactor.agit && s.reactor.accum > 12) {
+    // Arrancar la agitación con reactivo acumulado es lo que dispara la reacción fuera de control
+    s.reactor.alarms.push({ time: s.clock, text: `Arranque del agitador con ${fmtNum(s.reactor.accum)} L de anhídrido acumulado` });
+    msg(s, "Supervisor", `Has arrancado el agitador con ${fmtNum(s.reactor.accum)} L de anhídrido sin reaccionar dentro. Todo eso va a reaccionar ahora de golpe. Con reactivo acumulado no se rearranca por cuenta propia: se para la adición, se avisa y decide el responsable.`);
+  }
   s.reactor.agit = on;
   log(s, on ? "Pone en marcha el agitador del R-101" : "Para el agitador del R-101");
 }
@@ -665,7 +687,8 @@ export function reactorTick(s: Sim) {
   r.accum -= reacted;
   const kmol = reacted * AA_KMOL_PER_L;
   const room = Math.max(0, 1 - r.consumed);
-  const frac = Math.min(room, kmol / AF_KMOL);
+  // sin 4-aminofenol en el reactor no hay con qué reaccionar: no se forma producto
+  const frac = s.afCharged ? Math.min(room, kmol / AF_KMOL) : 0;
   r.consumed += frac;
   r.slow += frac * 0.08;
 
@@ -691,7 +714,7 @@ export function reactorTick(s: Sim) {
   s.clock += 1;
 
   // Incidentes provocados por la operación
-  if (r.addEnd == null && r.added > 0 && !r.agit && r.accum > 12) {
+  if (r.added > 0 && !r.agit && r.accum > 12 && !s.incidents.some((i) => i.kind === "acumulacion" && s.clock - i.time < 30)) {
     raise(s, "acumulacion", { what: `Hay ${fmtNum(r.accum)} L de anhídrido acético dentro del reactor sin reaccionar porque el agitador está parado. La temperatura no sube, pero el calor está «guardado».` });
   }
   if (r.T >= 100) {
@@ -1016,7 +1039,7 @@ export const INCIDENTS: Record<IncidentKind, IncidentDef> = {
     safety: "Es el inicio típico de una reacción fuera de control: si ahora arrancas el agitador, todo lo acumulado reacciona de golpe y la temperatura se dispara.",
     product: "Puntos calientes y más impurezas.",
     gmp: "Desviación: la adición no se hizo según la hoja (agitación obligatoria).",
-    plant: ["Parar la adición (FV-103 a cero).", "No arrancar el agitador de golpe: avisar al supervisor.", "Con la camisa enfriando al máximo, arrancar el agitador y vigilar la temperatura.", "Continuar la adición solo cuando lo acumulado haya reaccionado."],
+    plant: ["Parar la adición (FV-103 a cero).", "No arrancar el agitador por tu cuenta: avisar al supervisor.", "El responsable decide, según el procedimiento, si se rearranca la agitación y cómo (con la camisa enfriando al máximo y vigilando la temperatura).", "Continuar la adición solo cuando lo acumulado haya reaccionado y con autorización."],
   },
   disco_ebullicion: {
     eq: "r101", sev: "crítico", critical: true, lossPct: 12,
@@ -1061,8 +1084,8 @@ export const INCIDENTS: Record<IncidentKind, IncidentDef> = {
   vibracion_c201: {
     eq: "c201", sev: "mayor", critical: true, lossPct: 6,
     title: "Vibración alta en la centrífuga: parada por VSHH-201",
-    what: "Centrifugaste con la alimentación XV-201 todavía abierta. La suspensión siguió entrando con la cesta girando, la carga se repartió mal y la centrífuga empezó a vibrar hasta que saltó el enclavamiento de vibración.",
-    cause: "No se cerró la alimentación antes de centrifugar.",
+    what: "Aceleraste a la velocidad de centrifugado con la alimentación XV-201 todavía abierta. Cargar con la cesta girando despacio es lo normal, pero al subir a 1200 rpm la suspensión siguió entrando: la cesta se sobrellenó, la torta quedó desigual y la centrífuga empezó a vibrar hasta que saltó el enclavamiento de vibración.",
+    cause: "No se cerró la alimentación antes de acelerar a la velocidad de centrifugado.",
     safety: "Una cesta desequilibrada a alta velocidad puede dañar los rodamientos o romperse. Por eso existe el enclavamiento VSHH-201.",
     product: "Parte de la suspensión rebosa y sale con las aguas madres (≈ 6 % de producto).",
     gmp: "Desviación. Revisión mecánica de la centrífuga antes de volver a usarla.",
@@ -1180,11 +1203,22 @@ export function redoPhase(s: Sim, index = s.section) {
     checkpoints, incidents: s.incidents, audit: s.audit, messages: s.messages, deviations: s.deviations,
     clock: s.clock, redos: s.redos + 1,
   };
+  // Lo anotado en las fases que se repiten se anula, pero no desaparece: queda en el audit trail
+  const from = index;
+  for (const f of FIELDS) {
+    const e = s.entries[f.id];
+    if (e && SECTIONS.findIndex((x) => x.id === f.section) >= from) {
+      keep.audit.push({ time: s.clock, who: "Tú (operador)", what: `Anulado por repetición de la fase: «${f.label}» = ${e.value}${f.unit ? " " + f.unit : ""} (anotado a las ${fmtTime(e.time)})` });
+    }
+  }
+  // El producto que se perdió físicamente (derrames, venteos, aguas madres) no vuelve por repetir la fase
+  const lost = s.lossPct;
   Object.assign(s, JSON.parse(cp) as Sim, keep);
+  s.lossPct = Math.max(s.lossPct ?? 0, lost ?? 0);
   s.halt = null;
   s.clock = keep.clock + 30;
   s.sectionStart[s.section] = s.clock;
   if (sec.id === "reaccion") s.reactor.history = [{ t: s.clock, T: s.reactor.T, Tj: s.reactor.Tj }];
   log(s, `Rehace la fase «${sec.title}» desde el principio${why ? ` tras el incidente ${why.id}` : ""} (30 min de limpieza y preparación). Los datos anotados en esta fase se anulan.`);
-  msg(s, "Supervisor", `De acuerdo, repetimos «${sec.title}». Recuerda: en planta, repetir una etapa es un reproceso y necesita una desviación aprobada por Calidad.`);
+  msg(s, "Supervisor", `De acuerdo, repetimos «${sec.title}». Recuerda: en planta, repetir una etapa es un reproceso y necesita una desviación aprobada por Calidad. Lo que ya se derramó o se perdió no se recupera, y lo anotado en el primer intento se conserva anulado, no se borra.`);
 }

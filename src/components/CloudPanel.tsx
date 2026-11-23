@@ -3,36 +3,18 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Icon } from "@/components/icons";
-import { useCloud } from "@/components/CloudSync";
+import { MIN_PASSWORD, useCloud } from "@/components/CloudSync";
 import { Status, btn } from "@/components/ui";
-import { summarize } from "@/lib/backup";
 
 function when(iso: string | null) {
   if (!iso) return "todavía no";
   return new Date(iso).toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" });
 }
 
-function Mini({ data, title }: { data: Record<string, string>; title: string }) {
-  const s = summarize(data);
-  return (
-    <div className="rounded-md border border-line bg-surface p-4 text-sm">
-      <p className="mb-2 font-medium">{title}</p>
-      <ul className="space-y-0.5 text-muted">
-        <li>Lecciones completadas: <strong className="text-ink">{s.lessonsDone}</strong></li>
-        <li>Exámenes, simulacros y supuestos: <strong className="text-ink">{s.exams}</strong></li>
-        <li>Tarjetas estudiadas: <strong className="text-ink">{s.cards}</strong></li>
-        <li>Ejercicios de FDS: <strong className="text-ink">{s.fds}</strong></li>
-        <li>Lote del simulador: <strong className="text-ink">{s.simulator ? "Sí" : "No"}</strong></li>
-      </ul>
-    </div>
-  );
-}
-
 const label: Record<string, string> = {
   syncing: "Sincronizando…",
   synced: "Guardado en la nube",
   error: "Sin conexión con la nube",
-  conflict: "Hay que elegir qué progreso conservar",
 };
 
 function BadPill({ children }: { children: React.ReactNode }) {
@@ -79,10 +61,10 @@ export function CloudStatusRow() {
   );
 }
 
-/** ¿La acción principal de la página está en la nube (activarla o resolver un conflicto)? */
+/** ¿La acción principal de la página está en la nube (activarla)? */
 export function useCloudNeedsAction() {
   const cloud = useCloud();
-  return !!cloud?.configured && (cloud.status === "signed-out" || cloud.status === "conflict");
+  return !!cloud?.configured && cloud.status === "signed-out";
 }
 
 export function CloudPanel() {
@@ -91,6 +73,7 @@ export function CloudPanel() {
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("signup");
   const [sent, setSent] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   if (!cloud) return null;
@@ -128,8 +111,9 @@ export function CloudPanel() {
         <div className={box}>
           {sent ? (
             <p role="status" className="rounded-md bg-ok-soft p-4 text-sm">
-              Cuenta creada. Te hemos enviado un email a <strong>{email}</strong> para confirmarla: abre el enlace (mira también en spam) y después vuelve
-              aquí y pulsa <strong>Ya tengo cuenta</strong>.
+Te hemos enviado un email a <strong>{email}</strong> para confirmar la cuenta: abre el enlace (mira también en spam) y después vuelve aquí y
+              pulsa <strong>Ya tengo cuenta</strong>. Si ya tenías cuenta con ese email, no llegará nada: entra con tu contraseña o usa «He olvidado mi
+              contraseña».
             </p>
           ) : (
             <form
@@ -187,16 +171,42 @@ export function CloudPanel() {
                 <input
                   type="password"
                   required
-                  minLength={6}
+                  minLength={mode === "login" ? undefined : MIN_PASSWORD}
                   autoComplete={mode === "login" ? "current-password" : "new-password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="rounded-md border border-line-strong bg-surface px-3 py-2"
                 />
               </label>
-              <button disabled={sending} className={`${btn.primary} w-fit`}>
-                {sending ? "Un momento…" : mode === "login" ? "Entrar" : "Crear cuenta"}
-              </button>
+              {mode === "signup" && <p className="-mt-1 text-xs text-muted">Mínimo {MIN_PASSWORD} caracteres.</p>}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <button disabled={sending} className={`${btn.primary} w-fit`}>
+                  {sending ? "Un momento…" : mode === "login" ? "Entrar" : "Crear cuenta"}
+                </button>
+                {mode === "login" && (
+                  <button
+                    type="button"
+                    className="text-sm text-accent underline-offset-2 hover:underline"
+                    onClick={async () => {
+                      setErr(null);
+                      if (!email.trim()) return setErr("Escribe tu email arriba y vuelve a pulsar «He olvidado mi contraseña».");
+                      try {
+                        await cloud.resetPassword(email.trim());
+                        setResetSent(true);
+                      } catch (x) {
+                        setErr(x instanceof Error ? x.message : "No se pudo enviar el email.");
+                      }
+                    }}
+                  >
+                    He olvidado mi contraseña
+                  </button>
+                )}
+              </div>
+              {resetSent && (
+                <p role="status" className="rounded-md bg-ok-soft p-3 text-sm">
+                  Si hay una cuenta con ese email, te llegará un mensaje con un enlace para elegir una contraseña nueva (mira también en spam).
+                </p>
+              )}
             </form>
           )}
           {err && (
@@ -205,7 +215,7 @@ export function CloudPanel() {
             </p>
           )}
           <p className="mt-3 max-w-[68ch] text-xs text-muted">
-            La primera vez, lo que ya tienes en este navegador se sube a la nube: no pierdes nada. La sesión se queda abierta en este navegador; desde
+            Lo que ya tienes en este navegador se junta con lo que haya en la nube: no pierdes nada de ninguno de los dos. La sesión se queda abierta en este navegador; desde
             otro ordenador entras con el mismo email y contraseña.
           </p>
         </div>
@@ -224,26 +234,39 @@ export function CloudPanel() {
             {cloud.error} Tu progreso sigue guardado en este navegador y se subirá cuando vuelva la conexión.
           </p>
         )}
-        {cloud.conflict && (
-          <div className="mt-4 rounded-md border border-signal bg-signal-soft p-4 sm:p-5" role="alert">
-            <p className="font-medium">Este navegador y la nube tienen progresos distintos</p>
-            <p className="mt-1 max-w-[68ch] text-sm text-muted">
-              Pasa si has estudiado en otro ordenador o navegador sin sesión. Elige cuál conservar; el otro se sustituye. Si dudas, descarga antes una copia
-              de este navegador (más abajo).
-            </p>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              <Mini title="En la nube" data={cloud.conflict.remote} />
-              <Mini title="En este navegador" data={cloud.conflict.local} />
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" onClick={() => cloud.choose("remote")} className={btn.primary}>
-                Usar el de la nube
-              </button>
-              <button type="button" onClick={() => cloud.choose("local")} className={btn.secondary}>
-                Usar el de este navegador
-              </button>
-            </div>
-          </div>
+        {cloud.recovery && (
+          <form
+            className="mt-4 grid gap-3 rounded-md border border-signal bg-signal-soft p-4 sm:max-w-md"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              setErr(null);
+              try {
+                await cloud.setNewPassword(password);
+                setPassword("");
+              } catch (x) {
+                setErr(x instanceof Error ? x.message : "No se pudo cambiar la contraseña.");
+              }
+            }}
+          >
+            <label className="grid gap-1 text-sm">
+              Elige una contraseña nueva
+              <input
+                type="password"
+                required
+                minLength={MIN_PASSWORD}
+                autoComplete="new-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="rounded-md border border-line-strong bg-surface px-3 py-2"
+              />
+            </label>
+            <button className={`${btn.primary} w-fit`}>Guardar la contraseña</button>
+            {err && (
+              <p role="alert" className="text-sm text-bad">
+                {err}
+              </p>
+            )}
+          </form>
         )}
         <div className="mt-4 flex flex-wrap gap-2">
           <button type="button" onClick={() => cloud.syncNow()} className={btn.secondary}>
@@ -272,9 +295,7 @@ export function CloudBadge({ compact = false }: { compact?: boolean }) {
         ? "Progreso guardado en la nube"
         : cloud.status === "syncing"
           ? "Sincronizando…"
-          : cloud.status === "conflict"
-            ? "Elige qué progreso conservar"
-            : "Sin conexión con la nube";
+          : "Sin conexión con la nube";
   const color = cloud.status === "synced" ? "var(--ok)" : cloud.status === "signed-out" || cloud.status === "syncing" ? "var(--muted)" : "var(--bad)";
   if (compact) return <span title={t} aria-label={t} role="img" className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />;
   return (

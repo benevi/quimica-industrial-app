@@ -3,19 +3,21 @@
  * el mismo conjunto de claves «quimica-app:*» que va en la copia .json se sube a una fila por usuario.
  *
  * Reglas de sincronización (rev = número de versión de la fila en la nube):
- *  - Recordamos en este navegador la rev y la huella del último estado sincronizado.
+ *  - Recordamos en este navegador la rev y la huella (total y por clave) del último estado sincronizado.
  *  - Si solo ha cambiado lo local → se sube (solo si la nube sigue en la rev que conocíamos).
- *  - Si solo ha cambiado la nube → se baja y se recarga la página para que todo lo lea.
+ *  - Si solo ha cambiado la nube → se baja.
  *  - Si no hay nada en la nube (primer inicio de sesión) → se sube lo local: así no se pierde nada.
- *  - Si este navegador está vacío → se baja lo de la nube.
- *  - Si han cambiado los dos → conflicto: el usuario elige cuál conservar.
+ *  - Si han cambiado los dos → se fusiona registro a registro (src/lib/merge.ts): nunca hay que elegir
+ *    un dispositivo y perder lo del otro.
  */
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { PREFIX, collectBackup, restoreBackup } from "./backup";
+import { canMerge, mergeValue } from "./merge";
 
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY_ = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const META = "aula-nube:meta"; // fuera del prefijo «quimica-app:» para que no se suba a sí misma
+const OWNER = "aula-nube:owner"; // de qué cuenta es el progreso de este navegador (no se borra al cerrar sesión)
 const TABLE = "aula_progreso";
 
 export const cloudConfigured = Boolean(URL_ && KEY_);
@@ -33,7 +35,8 @@ export function supabase(): SupabaseClient | null {
 }
 
 type Data = Record<string, string>;
-type Meta = { userId: string; rev: number; hash: string; at: string };
+/** `keys`: huella de cada clave en la última sincronización, para saber en qué lado cambió cada una */
+type Meta = { userId: string; rev: number; hash: string; at: string; keys?: Record<string, string> };
 
 /** Huella estable del contenido (independiente del orden de las claves) */
 export function fingerprint(data: Data) {
@@ -55,7 +58,25 @@ function readMeta(userId: string): Meta | null {
   }
 }
 function writeMeta(m: Meta) {
-  window.localStorage.setItem(META, JSON.stringify(m));
+  try {
+    window.localStorage.setItem(META, JSON.stringify(m));
+  } catch {
+    /* almacenamiento lleno: se sincroniza igual; la próxima vez se compara de nuevo con la nube */
+  }
+}
+const keyHashes = (data: Data) => Object.fromEntries(Object.entries(data).map(([k, v]) => [k, fingerprint({ [k]: v })]));
+function sameUserBefore(userId: string) {
+  try {
+    const owner = window.localStorage.getItem(OWNER);
+    return owner == null || owner === userId;
+  } catch {
+    return true;
+  }
+}
+function rememberOwner(userId: string) {
+  try {
+    window.localStorage.setItem(OWNER, userId);
+  } catch {}
 }
 export function clearMeta() {
   try {
@@ -76,8 +97,37 @@ function sanitize(raw: unknown): Data {
 export type SyncResult =
   | { kind: "same" }
   | { kind: "pushed" }
-  | { kind: "pulled" } // se ha escrito lo de la nube en localStorage: hay que recargar
-  | { kind: "conflict"; local: Data; remote: Data; remoteRev: number; remoteAt: string };
+  | { kind: "pulled" }; // se ha escrito en localStorage algo que venía de la nube: la página debe releerlo
+
+/**
+ * Combina lo de este navegador con lo de la nube, clave a clave.
+ *  - Si la clave solo cambió en un lado desde la última sincronización, gana ese lado.
+ *  - Si cambió en los dos y es progreso de lecciones o de certificaciones, se fusiona registro a registro.
+ *  - Si cambió en los dos y es una partida en curso (simulador, ERP…), se queda la de este navegador,
+ *    salvo la primera vez que este navegador sincroniza: entonces manda la nube.
+ */
+export function mergeData(local: Data, remote: Data, last: Record<string, string> | undefined): Data {
+  const out: Data = {};
+  for (const k of new Set([...Object.keys(local), ...Object.keys(remote)])) {
+    const l = local[k], r = remote[k];
+    if (l === r) {
+      if (l != null) out[k] = l;
+      continue;
+    }
+    const base = last?.[k];
+    const lSame = last ? (l == null ? base == null : base === fingerprint({ [k]: l })) : false;
+    const rSame = last ? (r == null ? base == null : base === fingerprint({ [k]: r })) : false;
+    let v: string | undefined;
+    if (lSame) v = r; // solo cambió la nube (también si allí se borró)
+    else if (rSame) v = l; // solo cambió este navegador
+    else if (l == null) v = r;
+    else if (r == null) v = l;
+    else if (canMerge(k)) v = mergeValue(k, l, r);
+    else v = last ? l : r;
+    if (v != null) out[k] = v;
+  }
+  return out;
+}
 
 async function fetchRemote(sb: SupabaseClient, userId: string) {
   const { data, error } = await sb.from(TABLE).select("data, rev, updated_at").eq("user_id", userId).maybeSingle();
@@ -109,7 +159,7 @@ async function push(sb: SupabaseClient, userId: string, local: Data, expectedRev
 export async function syncOnce(userId: string, { pull = true }: { pull?: boolean } = {}): Promise<SyncResult> {
   const sb = supabase();
   if (!sb) throw new Error("La nube no está configurada.");
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < 4; attempt++) {
     const local = collectBackup().data;
     const lh = fingerprint(local);
     const meta = readMeta(userId);
@@ -122,50 +172,30 @@ export async function syncOnce(userId: string, { pull = true }: { pull?: boolean
     if (!remote) {
       const rev = await push(sb, userId, local, null);
       if (rev == null) continue;
-      writeMeta({ userId, rev, hash: lh, at });
+      writeMeta({ userId, rev, hash: lh, at, keys: keyHashes(local) });
+      rememberOwner(userId);
       return { kind: "pushed" };
     }
 
-    const rh = fingerprint(remote.data);
-    if (rh === lh) {
-      writeMeta({ userId, rev: remote.rev, hash: lh, at });
-      return { kind: "same" };
-    }
+    // Si el progreso de este navegador era de otra cuenta, no se mezcla con esta: manda la nube.
+    const merged = sameUserBefore(userId) ? mergeData(local, remote.data, meta?.keys) : remote.data;
+    const mh = fingerprint(merged);
 
-    const localEmpty = Object.keys(local).length === 0;
-    const remoteEmpty = Object.keys(remote.data).length === 0;
-    const localChanged = !meta || meta.hash !== lh;
-    const remoteChanged = !meta || meta.rev !== remote.rev;
-
-    if (localEmpty || (!localChanged && remoteChanged)) {
-      restoreBackup({ format: "quimica-app-progreso", version: 1, exportedAt: remote.at, data: remote.data });
-      writeMeta({ userId, rev: remote.rev, hash: rh, at });
-      return { kind: "pulled" };
+    let rev = remote.rev;
+    if (mh !== fingerprint(remote.data)) {
+      const pushed = await push(sb, userId, merged, remote.rev);
+      if (pushed == null) continue; // otro dispositivo subió entre medias: volvemos a mirar
+      rev = pushed;
     }
-    if (remoteEmpty || !remoteChanged) {
-      const rev = await push(sb, userId, local, remote.rev);
-      if (rev == null) continue; // otro dispositivo subió entre medias: volvemos a mirar
-      writeMeta({ userId, rev, hash: lh, at });
-      return { kind: "pushed" };
+    const changedLocal = mh !== lh;
+    if (changedLocal) {
+      // Si se ha guardado algo en este navegador mientras hablábamos con la nube, no se pisa: se repite.
+      if (fingerprint(collectBackup().data) !== lh) continue;
+      restoreBackup({ format: "quimica-app-progreso", version: 1, exportedAt: remote.at, data: merged });
     }
-    return { kind: "conflict", local, remote: remote.data, remoteRev: remote.rev, remoteAt: remote.at };
+    writeMeta({ userId, rev, hash: mh, at, keys: keyHashes(merged) });
+    rememberOwner(userId);
+    return { kind: changedLocal ? "pulled" : rev !== remote.rev ? "pushed" : "same" };
   }
   throw new Error("La nube ha cambiado varias veces seguidas. Vuelve a intentarlo.");
-}
-
-/** Resuelve un conflicto quedándose con lo de la nube o con lo de este navegador. */
-export async function resolveConflict(userId: string, keep: "remote" | "local", c: Extract<SyncResult, { kind: "conflict" }>) {
-  const sb = supabase();
-  if (!sb) throw new Error("La nube no está configurada.");
-  const at = new Date().toISOString();
-  if (keep === "remote") {
-    restoreBackup({ format: "quimica-app-progreso", version: 1, exportedAt: c.remoteAt, data: c.remote });
-    writeMeta({ userId, rev: c.remoteRev, hash: fingerprint(c.remote), at });
-    return "pulled" as const;
-  }
-  const local = collectBackup().data;
-  const rev = await push(sb, userId, local, c.remoteRev);
-  if (rev == null) throw new Error("La nube ha cambiado mientras elegías. Vuelve a sincronizar.");
-  writeMeta({ userId, rev, hash: fingerprint(local), at });
-  return "pushed" as const;
 }

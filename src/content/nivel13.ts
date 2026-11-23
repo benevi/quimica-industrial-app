@@ -56,7 +56,7 @@ La hoja pide "Pesar 85,0 kg ± 0,5 kg en la báscula B-05". Antes de pesar, el o
       { es: "Presión relativa / absoluta", en: "Gauge / absolute pressure", def: "Presión respecto a la atmósfera / respecto al vacío total." },
       { es: "Célula de carga", en: "Load cell", def: "Sensor que mide peso." },
       { es: "Caudalímetro Coriolis", en: "Coriolis flowmeter", def: "Caudalímetro que mide directamente la masa." },
-      { es: "Calibración", en: "Calibration", def: "Comparación con un patrón trazable para conocer y corregir el error." },
+      { es: "Calibración", en: "Calibration", def: "Comparación con un patrón trazable para conocer el error del instrumento. Corregirlo (ajustar) es una operación aparte." },
       { es: "Patrón trazable", en: "Traceable standard", def: "Referencia cuya exactitud está ligada a patrones nacionales o internacionales." },
     ],
     quiz: [
@@ -125,11 +125,13 @@ Ejemplos:
 - **TIC-101**: indicador-controlador de temperatura (el que regula).
 - **PSV-205**: válvula de seguridad de presión.
 - **LAHH-310**: alarma de nivel muy alto.
-- **FCV-120**: válvula de control de caudal.
+- **FV-120**: válvula de control de caudal (*flow valve*): la primera letra es la variable del lazo (F, caudal) y la V indica que es la válvula. En muchas plantas la verás escrita **FCV-120**; es una costumbre extendida, pero la forma de la norma es FV.
 - **XV-130**: válvula automática todo/nada; sus finales de carrera son **ZSO-130** (abierta) y **ZSC-130** (cerrada).
 
 ### Símbolos básicos
-- **Círculo**: instrumento. Con una raya horizontal: está en el **panel o en el sistema de control**; sin raya: instalado **en campo**.
+- **Círculo**: instrumento suelto. Sin raya: instalado **en campo**, junto al equipo. Con una **raya horizontal continua**: en un sitio al que llega el operador, como el panel o la sala de control. Con raya **discontinua**: detrás del panel, no accesible normalmente.
+- **Círculo dentro de un cuadrado**: función del **sistema de control** (pantalla y control compartidos, como en un DCS). Es el símbolo que más verás en un P&ID moderno: el indicador o el controlador no es un aparato suelto, sino una pantalla del sistema.
+- Las formas exactas cambian algo entre ediciones de la norma y entre empresas: cada P&ID trae una hoja de **leyenda** (*legend sheet*) que manda.
 - Líneas continuas gruesas: tuberías de proceso. Líneas discontinuas: señales eléctricas.
 - Cada equipo lleva su **código**: R-101 (reactor), P-101 (bomba), E-101 (intercambiador), T-101 o TK-101 (tanque), C-101 (centrífuga, aunque varía según la empresa).
 

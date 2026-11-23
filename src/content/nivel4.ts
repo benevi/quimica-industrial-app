@@ -246,11 +246,12 @@ En el laboratorio de planta preparas NaOH 1 M en un matraz aforado de 1 L. La di
 Piensa en una diana: dardos muy juntos pero lejos del centro = precisos pero no exactos. Dardos repartidos alrededor del centro = exactos de media pero poco precisos.
 
 ### Errores
-- **Sistemático** (*systematic error*): siempre en el mismo sentido (balanza que marca 0,5 g de más). Afecta a la exactitud y se corrige calibrando.
+- **Sistemático** (*systematic error*): siempre en el mismo sentido (balanza que marca 0,5 g de más). Afecta a la exactitud. La calibración lo **descubre y lo mide**; después se corrige **ajustando** el instrumento o aplicando la corrección que indica el certificado.
 - **Aleatorio** (*random error*): varía al azar. Afecta a la precisión y se reduce repitiendo medidas.
 
 ### Calibración y verificación
-- **Calibración** (*calibration*): comparar el instrumento con un **patrón** de valor conocido y documentar la diferencia (y ajustar si hace falta).
+- **Calibración** (*calibration*): comparar el instrumento con un **patrón** de valor conocido y documentar la diferencia. Calibrar no cambia nada en el instrumento: solo dice cuánto se equivoca.
+- **Ajuste** (*adjustment*): actuar sobre el instrumento para que marque bien. Es una operación distinta; después de ajustar se vuelve a calibrar. Por eso los certificados dan el resultado «tal como se encontró» (*as found*) y «tal como se deja» (*as left*).
 - **Verificación** (*check*): comprobación rápida, a menudo diaria, de que sigue dentro de tolerancia.
 - **Trazabilidad metrológica**: el patrón se calibró con otro mejor, y así hasta los patrones nacionales e internacionales.
 
@@ -287,10 +288,10 @@ La sonda de temperatura del reactor R-101 se calibra cada 6 meses. En la calibra
       },
       {
         kind: "choice",
-        q: "¿Qué tipo de error se corrige calibrando?",
+        q: "¿Qué tipo de error descubre y mide la calibración?",
         options: ["El aleatorio", "El sistemático", "Ninguno", "El de redondeo"],
         answer: 1,
-        explain: "El error sistemático es constante y se detecta y corrige con la calibración.",
+        explain: "El error sistemático va siempre en el mismo sentido, así que al comparar con un patrón se ve y se mide. Corregirlo es el paso siguiente: ajustar el instrumento o aplicar la corrección del certificado.",
       },
       {
         kind: "choice",

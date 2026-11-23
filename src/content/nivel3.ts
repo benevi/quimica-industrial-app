@@ -524,7 +524,7 @@ Un API de 500 mg/día da una impureza desconocida a 0,12 %. Supera el umbral de 
     quiz: [
       {
         kind: "choice",
-        q: "Para un API de dosis ≤ 2 g/día, una impureza desconocida a 0,12 %…",
+        q: "Para un API con una dosis máxima de 500 mg al día, una impureza desconocida a 0,12 %…",
         options: [
           "No requiere nada",
           "Debe identificarse, pero aún no supera el umbral de cualificación",
@@ -532,7 +532,7 @@ Un API de 500 mg/día da una impureza desconocida a 0,12 %. Supera el umbral de 
           "Es un disolvente residual",
         ],
         answer: 1,
-        explain: "0,12 % supera el 0,10 % de identificación pero no el 0,15 % de cualificación.",
+        explain: "0,12 % supera el 0,10 % de identificación pero no el 0,15 % de cualificación. Con 500 mg al día mandan los porcentajes, porque 0,10 % y 0,15 % de 500 mg son 0,5 mg y 0,75 mg, menos que el otro límite de 1,0 mg al día. Con dosis mayores (por ejemplo 1 g al día) manda el límite de 1,0 mg al día y los umbrales en porcentaje bajan.",
       },
       {
         kind: "number",

@@ -2,10 +2,9 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { clearMeta, cloudConfigured, lastSyncedAt, resolveConflict, supabase, syncOnce, type SyncResult } from "@/lib/cloud";
+import { clearMeta, cloudConfigured, lastSyncedAt, supabase, syncOnce } from "@/lib/cloud";
 
-type Conflict = Extract<SyncResult, { kind: "conflict" }>;
-export type CloudStatus = "off" | "signed-out" | "syncing" | "synced" | "error" | "conflict";
+export type CloudStatus = "off" | "signed-out" | "syncing" | "synced" | "error";
 
 type Ctx = {
   configured: boolean;
@@ -13,25 +12,31 @@ type Ctx = {
   email: string | null;
   lastSync: string | null;
   error: string | null;
-  conflict: Conflict | null;
+  /** Otro dispositivo ha guardado progreso nuevo y esta página aún no lo muestra */
+  needsReload: boolean;
+  /** El usuario ha llegado desde el enlace de «he olvidado mi contraseña» y debe elegir una nueva */
+  recovery: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   /** Devuelve true si ya ha iniciado sesión; false si hay que confirmar el email primero */
   signUp: (email: string, password: string) => Promise<boolean>;
   signOut: () => Promise<void>;
   syncNow: () => Promise<void>;
-  choose: (keep: "remote" | "local") => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  setNewPassword: (password: string) => Promise<void>;
 };
 
 const CloudCtx = createContext<Ctx | null>(null);
 export const useCloud = () => useContext(CloudCtx);
 
-const PUSH_EVERY_MS = 15_000;
+/** Cada cuánto se mira si hay cambios que subir. Si no los hay, no se hace ninguna petición. */
+const PUSH_EVERY_MS = 4_000;
+export const MIN_PASSWORD = 8;
 
 function authMessage(msg: string, status?: number) {
   if (status === 429) return "Demasiados intentos seguidos. Espera unos minutos y vuelve a probar.";
   if (/invalid login credentials/i.test(msg)) return "Email o contraseña incorrectos.";
   if (/email not confirmed/i.test(msg)) return "Aún no has confirmado el email: abre el enlace que te llegó al crear la cuenta (mira también en spam).";
-  if (/password should be at least/i.test(msg)) return "La contraseña debe tener al menos 6 caracteres.";
+  if (/password should be at least/i.test(msg)) return `La contraseña debe tener al menos ${MIN_PASSWORD} caracteres.`;
   return msg;
 }
 
@@ -40,43 +45,48 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState<CloudStatus>(cloudConfigured ? "signed-out" : "off");
   const [error, setError] = useState<string | null>(null);
-  const [conflict, setConflict] = useState<Conflict | null>(null);
+  const [needsReload, setNeedsReload] = useState(false);
+  const [recovery, setRecovery] = useState(false);
   const [lastSync, setLastSync] = useState<string | null>(null);
   const busy = useRef(false);
-  const conflictRef = useRef<Conflict | null>(null);
+  const first = useRef(true);
   const userId = session?.user.id ?? null;
 
   // Sesión
   useEffect(() => {
     const sb = supabase();
     if (!sb) return;
-    sb.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setReady(true);
+    sb.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session))
+      .catch(() => {
+        setError("No se pudo comprobar la sesión de la nube.");
+        setStatus("error");
+      })
+      .finally(() => setReady(true));
+    const { data } = sb.auth.onAuthStateChange((event, s) => {
+      if (event === "PASSWORD_RECOVERY") setRecovery(true);
+      setSession(s);
     });
-    const { data } = sb.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => data.subscription.unsubscribe();
   }, []);
 
   const run = useCallback(
     async (pull: boolean) => {
-      if (!userId || busy.current || conflictRef.current) return;
+      if (!userId || busy.current) return;
       busy.current = true;
       if (pull) setStatus("syncing");
+      const initial = first.current;
       try {
         const r = await syncOnce(userId, { pull });
+        first.current = false;
+        setError(null);
+        setStatus("synced");
+        setLastSync(lastSyncedAt(userId));
         if (r.kind === "pulled") {
-          window.location.reload();
-          return;
-        }
-        if (r.kind === "conflict") {
-          conflictRef.current = r;
-          setConflict(r);
-          setStatus("conflict");
-        } else {
-          setError(null);
-          setStatus("synced");
-          setLastSync(lastSyncedAt(userId));
+          // Al abrir la app se recarga sin más. Después no: podría haber un examen o un test a medias.
+          if (initial) window.location.reload();
+          else setNeedsReload(true);
         }
       } catch (e) {
         setError(e instanceof Error ? e.message : "No se pudo conectar con la nube.");
@@ -123,15 +133,14 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
     const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/progreso` } });
     if (error) throw new Error(authMessage(error.message, error.status));
     // Si el proyecto ya tenía una cuenta con ese email, Supabase devuelve un usuario sin identidades
-    if (data.user && data.user.identities?.length === 0) throw new Error("Ya hay una cuenta con ese email. Pulsa «Ya tengo cuenta» y entra con tu contraseña.");
+    // (no se dice si el email ya estaba registrado: se le trata como a una cuenta pendiente de confirmar)
+    if (data.user && data.user.identities?.length === 0) return false;
     return Boolean(data.session);
   }, []);
 
   const signOut = useCallback(async () => {
     await run(false); // último guardado antes de salir
     clearMeta();
-    conflictRef.current = null;
-    setConflict(null);
     await supabase()?.auth.signOut();
     setStatus("signed-out");
     setLastSync(null);
@@ -139,31 +148,34 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
 
   const syncNow = useCallback(() => run(true), [run]);
 
-  const choose = useCallback(
-    async (keep: "remote" | "local") => {
-      const c = conflictRef.current;
-      if (!userId || !c) return;
-      try {
-        const r = await resolveConflict(userId, keep, c);
-        conflictRef.current = null;
-        setConflict(null);
-        if (r === "pulled") window.location.reload();
-        else {
-          setStatus("synced");
-          setLastSync(lastSyncedAt(userId));
-        }
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "No se pudo guardar la elección.");
-      }
-    },
-    [userId],
-  );
+  const resetPassword = useCallback(async (email: string) => {
+    const sb = supabase();
+    if (!sb) throw new Error("La nube no está configurada.");
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/progreso` });
+    if (error) throw new Error(authMessage(error.message, error.status));
+  }, []);
+
+  const setNewPassword = useCallback(async (password: string) => {
+    const sb = supabase();
+    if (!sb) throw new Error("La nube no está configurada.");
+    const { error } = await sb.auth.updateUser({ password });
+    if (error) throw new Error(authMessage(error.message, error.status));
+    setRecovery(false);
+  }, []);
 
   return (
     <CloudCtx.Provider
-      value={{ configured: cloudConfigured, status, email: session?.user.email ?? null, lastSync, error, conflict, signIn, signUp, signOut, syncNow, choose }}
+      value={{ configured: cloudConfigured, status, email: session?.user.email ?? null, lastSync, error, needsReload, recovery, signIn, signUp, signOut, syncNow, resetPassword, setNewPassword }}
     >
       {children}
+      {needsReload && (
+        <div role="status" className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-xl flex-wrap items-center gap-3 rounded-[var(--radius)] border border-line-strong bg-surface p-3 text-sm shadow-lg">
+          <span className="flex-1">Hay progreso nuevo guardado desde otro dispositivo. Actualiza cuando termines lo que estás haciendo.</span>
+          <button type="button" onClick={() => window.location.reload()} className="rounded-md bg-accent px-3 py-1.5 font-medium text-[var(--on-accent)]">
+            Actualizar
+          </button>
+        </div>
+      )}
     </CloudCtx.Provider>
   );
 }

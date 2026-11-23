@@ -97,7 +97,7 @@ En la hoja de análisis: masa pesada, volumen gastado, blanco, factor del valora
 ### Volumetrías redox
 Se basan en una reacción de **oxidación-reducción**.
 - **Permanganometría**: con permanganato potásico (KMnO₄), que es morado y se decolora al reaccionar: hace de su propio indicador.
-- **Yodometría / yodimetría**: con yodo o tiosulfato; se usa **almidón** como indicador (azul oscuro con yodo).
+- **Yodimetría** (*iodimetry*): se valora directamente con una disolución de **yodo**. **Yodometría** (*iodometry*): la muestra libera yodo a partir de yoduro, y ese yodo se valora con **tiosulfato**. En las dos se usa **almidón** como indicador (azul oscuro con yodo).
 - Ejemplo de uso: medir la riqueza de agua oxigenada o de un oxidante usado en planta.
 
 ### Complexometría
@@ -119,7 +119,7 @@ Análisis de servicios (agua, salmueras) y de materias primas con métodos de fa
 `,
     terms: [
       { es: "Permanganometría", en: "Permanganometry", def: "Valoración redox con permanganato potásico." },
-      { es: "Yodometría", en: "Iodometry", def: "Valoración redox con yodo o tiosulfato." },
+      { es: "Yodometría", en: "Iodometry", def: "Valoración redox en la que la muestra libera yodo y ese yodo se valora con tiosulfato. Si se valora directamente con yodo se llama yodimetría." },
       { es: "Complexometría", en: "Complexometric titration", def: "Valoración de metales con un agente complejante como el EDTA." },
       { es: "EDTA", en: "EDTA", def: "Ácido etilendiaminotetraacético, forma complejos 1:1 con muchos metales." },
       { es: "Dureza del agua", en: "Water hardness", def: "Contenido de calcio y magnesio del agua." },
@@ -266,7 +266,7 @@ KF como IPC (agua en disolventes, en el producto antes de una reacción sensible
     terms: [
       { es: "Karl Fischer volumétrico", en: "Volumetric Karl Fischer", def: "KF en el que el reactivo se añade con bureta; para contenidos medios y altos." },
       { es: "Karl Fischer culombimétrico", en: "Coulometric Karl Fischer", def: "KF en el que el yodo se genera eléctricamente; para trazas de agua." },
-      { es: "Título", en: "Titer", def: "Mg de agua que neutraliza 1 mL de reactivo KF." },
+      { es: "Título", en: "Titer", def: "Mg de agua que reaccionan con 1 mL de reactivo KF." },
       { es: "Horno KF", en: "KF oven", def: "Accesorio que calienta la muestra y lleva el agua evaporada a la celda." },
     ],
     quiz: [

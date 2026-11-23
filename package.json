@@ -11,7 +11,8 @@
     "check:certs": "node scripts/check-certs.mjs",
     "check:repaso": "node scripts/check-repaso.mjs",
     "check:media": "node scripts/check-media.mjs",
-    "check:cloud": "node scripts/check-cloud.mjs"
+    "check:cloud": "node scripts/check-cloud.mjs",
+    "check:sim": "node scripts/check-sim.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.1",

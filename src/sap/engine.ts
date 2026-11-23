@@ -217,7 +217,7 @@ export function goodsIssue(s: ErpState, orderId: string, batchId: string, qty: n
   if (!b) return err(s, `El lote ${batchId || "(vacío)"} no existe.`);
   const comp = o.components.find((c) => c.material === b.material);
   if (!comp) return err(s, `El material ${b.material} del lote ${b.id} no está en la lista de componentes de la orden.`, "Cargar un material que no está en la receta es un error de identidad: la doble verificación en dispensado existe para evitarlo.");
-  if (b.stock === "calidad") return err(s, `El lote ${b.id} está en stock de control de calidad (cuarentena).`, "Solo se pueden usar materiales aprobados por la unidad de calidad (ICH Q7, 7.3).");
+  if (b.stock === "calidad") return err(s, `El lote ${b.id} está en stock de control de calidad (cuarentena).`, "Solo se pueden usar materiales aprobados por la unidad de calidad (ICH Q7, 7.2).");
   if (b.stock === "bloqueado") return err(s, `El lote ${b.id} está bloqueado.`, "Un material rechazado o bloqueado nunca se usa en fabricación.");
   if (b.expiry < TODAY) return err(s, `El lote ${b.id} caducó el ${b.expiry.split("-").reverse().join("/")}.`, "Usar un material caducado o fuera de fecha de reanálisis es una desviación de GMP.");
   if (!(qty > 0)) return err(s, "Indica una cantidad mayor que cero.");
@@ -271,6 +271,7 @@ export function confirmPhase(s: ErpState, orderId: string, phaseId: string, yiel
   const last = idx === recipe.phases.length - 1;
   if (last && !(yieldQty && yieldQty > 0)) return err(s, "En la última fase indica la cantidad obtenida (rendimiento, kg).");
   if (last && yieldQty! > o.qty * 1.05) return err(s, `La cantidad obtenida (${fmtQty(yieldQty!)} kg) supera la teórica (${fmtQty(o.qty)} kg) en más de un 5 %.`, "Un rendimiento por encima de lo posible indica un error de pesada o de registro: se investiga.");
+  if (last && yieldQty! < o.qty * 0.5) return err(s, `La cantidad obtenida (${fmtQty(yieldQty!)} kg) es menos de la mitad de la teórica (${fmtQty(o.qty)} kg). Revisa el dato: ¿has escrito bien los kilos?`, "Un rendimiento muy por debajo de lo esperado no se notifica sin más: se comprueba el dato y, si es real, se abre una desviación antes de seguir.");
   const confirmed = { ...o.confirmed, [phase.id]: { yield: last ? yieldQty : undefined, at: now() } };
   const status: OrderStatus = last ? "CNF" : "PCNF";
   let next: ErpState = { ...s, orders: s.orders.map((x) => (x.id === o.id ? { ...x, confirmed, status: x.status === "DLV" ? "DLV" : status } : x)) };

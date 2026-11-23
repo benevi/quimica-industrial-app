@@ -14,7 +14,7 @@ El temario se alinea con tres títulos de Formación Profesional de grado superi
 
 Quedan fuera los módulos que no son técnicos (Formación y orientación laboral, Empresa e iniciativa emprendedora, Proyecto, Formación en centros de trabajo). El inglés técnico se cubre con los términos en inglés de cada lección y el glosario.
 
-Fuentes normativas y técnicas que se citan en las lecciones: ICH Q7, Q9, Q10, Q2(R2), Q3A/Q3C, Q6A; EU GMP (EudraLex vol. 4, Parte II y Anexos 1, 11, 15); 21 CFR Part 11; Farmacopea Europea y USP; guías de integridad de datos (MHRA 2018, PIC/S PI 041-1); GAMP 5 (2.ª ed.); FDA CSA (2025); ISA-95 / IEC 62264; IEC 62443; borradores 2025 del Anexo 11 y del Anexo 22; Reglamento CLP y fichas de datos de seguridad (REACH); Directivas ATEX.
+Fuentes normativas y técnicas que se citan en las lecciones: ICH Q7, Q9, Q10, Q2(R2), Q3A/Q3C, Q6A; EU GMP (EudraLex vol. 4, Parte II y Anexos 1, 11, 15); 21 CFR Part 11; Farmacopea Europea y USP; guías de integridad de datos (MHRA 2018, PIC/S PI 041-1); GAMP 5 (2.ª ed.); FDA CSA (2025, revisada en febrero de 2026); ISA-95 / IEC 62264; IEC 62443; borradores 2025 del Anexo 11 y del Anexo 22; Reglamento CLP y fichas de datos de seguridad (REACH); Directivas ATEX.
 
 ## Bloques de la app
 

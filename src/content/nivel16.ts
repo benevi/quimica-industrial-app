@@ -204,16 +204,31 @@ Abrir una desviación **no es un castigo**: es la forma de aprender y evitar que
 ### Clasificación habitual
 | Tipo | Ejemplo |
 |---|---|
-| **Crítica** | Puede afectar a la calidad o seguridad del paciente: material equivocado cargado |
-| **Mayor** | Afecta a un parámetro crítico pero se puede evaluar: T fuera de rango 30 min |
+| **Crítica** | Puede afectar a la calidad del producto o a la seguridad del paciente: material equivocado cargado, o un **parámetro crítico** fuera de su rango (por ejemplo, la temperatura de una reacción marcada como crítica en la hoja) |
+| **Mayor** | Se incumple un procedimiento o un parámetro **no crítico**, y hay que evaluar si afecta al producto: un tiempo de agitación no crítico superado en 30 min |
 | **Menor** | Sin impacto en calidad: registro olvidado detectado y corregido el mismo día |
 
-(Cada empresa define sus criterios en su procedimiento.)
+Un **parámetro crítico** (*critical parameter*) es, según la guía ICH Q7, el que debe mantenerse dentro de unos límites fijados de antemano para que el producto cumpla su especificación. En la hoja de producción suelen venir marcados. La misma guía pide **documentar y explicar toda desviación** e **investigar siempre las críticas** (ICH Q7, apartados 2.16 y 8.15).
+
+Los nombres «mayor» y «menor» no vienen de la norma: cada empresa define sus categorías y criterios en su procedimiento, y quien clasifica la desviación es Calidad, no el operador.
 
 ### Investigación y causa raíz (*root cause*)
 La pregunta no es "¿quién se equivocó?" sino "**¿por qué pudo pasar?**". Herramientas típicas:
 - **5 porqués** (*5 Whys*): preguntar "¿por qué?" sucesivamente hasta llegar a la causa de fondo.
 - **Diagrama de Ishikawa** o espina de pescado (*fishbone*): agrupa posibles causas en 6M: Mano de obra, Método, Máquina, Material, Medida y Medio ambiente.
+
+### ¿Y si el lote no sale bien? Reprocesar, retrabajar, recuperar y mezclar
+Cuando un lote o un intermedio no cumple, hay palabras que parecen iguales y no lo son. La guía ICH Q7 las separa así:
+
+| Qué es | Ejemplo | ¿Se puede? |
+|---|---|---|
+| **Continuar el paso** | El control en proceso dice que el secado aún no ha terminado: se sigue secando | Sí. Es parte del proceso normal, no es reprocesar (ICH Q7, 14.21) |
+| **Reprocesar** (*reprocessing*): repetir un paso que **ya forma parte** del proceso | Volver a cristalizar o a filtrar un lote | En general es aceptable, con evaluación y aprobación de Calidad. Si hay que hacerlo en la mayoría de los lotes, debe pasar a formar parte del proceso (14.20) |
+| **Retrabajar** (*reworking*): aplicar un paso **distinto** de los del proceso | Purificar con otro disolvente que la hoja no contempla | Solo tras **investigar** por qué no cumple, y con evaluación, análisis y, si procede, estudios de estabilidad que demuestren que el producto es equivalente (14.30 y 14.31) |
+| **Recuperar** (*recovery*) | Aprovechar el producto de las aguas madres, o destilar un disolvente para volver a usarlo | Sí, con procedimientos aprobados, si lo recuperado cumple su especificación y queda documentado (14.40 a 14.43) |
+| **Mezclar lotes** (*blending*) | Juntar varios lotes pequeños en uno | Solo si **cada lote cumple por separado** antes de mezclar. Nunca se mezcla un lote fuera de especificación con otros para que el conjunto cumpla (8.41) |
+
+Ninguna de estas decisiones es del operador: las toma Calidad y quedan escritas. Lo que sí es tuyo es avisar a tiempo y registrar lo que pasó.
 
 Ejemplo de 5 porqués: la temperatura subió → la refrigeración no respondió → la válvula estaba cerrada → nadie la abrió tras el mantenimiento → el procedimiento de mantenimiento no incluía comprobar la posición de válvulas. **Causa raíz**: procedimiento incompleto.
 `,
@@ -231,6 +246,9 @@ Durante una adición la temperatura llega a 31 °C y el máximo es 25 °C. Paras
       { es: "Los 5 porqués", en: "5 Whys", def: "Técnica de preguntar «¿por qué?» varias veces para llegar a la causa raíz." },
       { es: "Diagrama de Ishikawa", en: "Fishbone / Ishikawa diagram", def: "Diagrama que agrupa posibles causas por categorías (6M)." },
       { es: "Evaluación de impacto", en: "Impact assessment", def: "Análisis de si una desviación afecta a la calidad del producto." },
+      { es: "Reproceso", en: "Reprocessing", def: "Repetir un paso que ya forma parte del proceso establecido, por ejemplo volver a cristalizar." },
+      { es: "Retrabajo", en: "Reworking", def: "Tratar un lote que no cumple con un paso distinto de los del proceso establecido. Exige investigación previa." },
+      { es: "Mezcla de lotes", en: "Blending", def: "Unir lotes que cumplen cada uno su especificación para formar un lote homogéneo." },
     ],
     quiz: [
       {
@@ -426,15 +444,17 @@ En un reactor recién instalado verás etiquetas "Equipo en cualificación – n
     title: "Gestión de riesgos de calidad (ICH Q9(R1))",
     titleEn: "Quality risk management",
     minutes: 12,
-    summary: "Cómo se decide qué es importante: gravedad, probabilidad y detectabilidad.",
+    summary: "Cómo se decide qué es importante: probabilidad y gravedad del daño, y la detectabilidad como ayuda.",
     body: `
 No todo tiene la misma importancia. La **gestión de riesgos de calidad** (ICH Q9, revisada en 2023 como **Q9(R1)**) sirve para concentrar el esfuerzo donde más afecta al paciente. La revisión insiste en que las puntuaciones son **subjetivas**: hay que justificarlas con datos y no usar el número como excusa para no actuar.
 
 ### Riesgo
-Combinación de:
-- **Gravedad** (*severity*): ¿qué daño puede causar?
-- **Probabilidad** (*probability / occurrence*): ¿cuántas veces puede pasar?
-- **Detectabilidad** (*detectability*): ¿lo detectaríamos antes de que llegue al paciente?
+ICH Q9 define el **riesgo** (*risk*) como la combinación de dos cosas:
+- **Probabilidad** (*probability*) de que ocurra un daño: ¿cuántas veces puede pasar?
+- **Gravedad** (*severity*) de ese daño: ¿cuánto daño causaría?
+
+Algunas herramientas añaden un tercer factor para estimar el riesgo:
+- **Detectabilidad** (*detectability*): ¿lo detectaríamos antes de que llegue al paciente? No forma parte de la definición de riesgo, pero ayuda a priorizar: un fallo que se detecta siempre a tiempo preocupa menos que uno que pasa inadvertido.
 
 ### FMEA / AMFE
 Una herramienta muy usada. Para cada fallo posible se puntúa gravedad (G), probabilidad (P) y detección (D), por ejemplo del 1 al 10, y se calcula el **número de prioridad de riesgo**:

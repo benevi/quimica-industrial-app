@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { PageHeader } from "@/components/ui";
+import { isAmbiguous, parseNum } from "@/lib/num";
 
-const toNum = (s: string) => {
-  const n = Number(s.trim().replace(",", "."));
-  return s.trim() !== "" && Number.isFinite(n) ? n : null;
-};
+/** «1.250» puede ser mil doscientos cincuenta o 1,25: no se calcula con un dato dudoso */
+const toNum = (s: string) => (isAmbiguous(s) ? null : parseNum(s));
 const fmt = (n: number | null, d = 4) =>
   n === null || !Number.isFinite(n) ? "—" : n.toLocaleString("es-ES", { maximumFractionDigits: d });
 
@@ -23,6 +22,11 @@ function Field({ label, value, onChange, unit }: { label: string; value: string;
         />
         {unit && <span className="w-14 shrink-0 font-mono text-muted">{unit}</span>}
       </span>
+      {isAmbiguous(value) && (
+        <span className="mt-1 block text-xs text-bad" role="alert">
+          «{value.trim()}» se puede leer de dos formas. Escribe los decimales con coma (1,25) y los miles sin punto (1250).
+        </span>
+      )}
     </label>
   );
 }
@@ -164,23 +168,47 @@ function Moles() {
 }
 
 function Dilution() {
+  const [mode, setMode] = useState<"vol" | "mass">("vol");
   const [c1, setC1] = useState("10");
   const [c2, setC2] = useState("2");
   const [v2, setV2] = useState("100");
   const C1 = toNum(c1), C2 = toNum(c2), V2 = toNum(v2);
-  const v1 = C1 && C2 !== null && V2 !== null ? (C2 * V2) / C1 : null;
+  const valid = C1 !== null && C2 !== null && V2 !== null && C1 > 0 && C2 > 0 && V2 > 0;
+  const tooStrong = valid && C2 > C1;
+  const x1 = valid && !tooStrong ? (C2 * V2) / C1 : null;
+  const u = mode === "vol" ? "L" : "kg";
   return (
-    <Card title="Diluciones (C₁·V₁ = C₂·V₂)" en="Dilutions">
+    <Card title={mode === "vol" ? "Diluciones por volumen (C₁·V₁ = C₂·V₂)" : "Diluciones por masa (C₁·m₁ = C₂·m₂)"} en="Dilutions">
+      <fieldset className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+        <legend className="sr-only">Cómo está expresada la concentración</legend>
+        <label className="flex items-center gap-2">
+          <input type="radio" name="dil-mode" className="accent-[var(--accent)]" checked={mode === "vol"} onChange={() => setMode("vol")} />
+          Por volumen: mol/L (M), g/L, % p/v
+        </label>
+        <label className="flex items-center gap-2">
+          <input type="radio" name="dil-mode" className="accent-[var(--accent)]" checked={mode === "mass"} onChange={() => setMode("mass")} />
+          Por masa: % p/p (sosa 50 %, HCl 35 %…)
+        </label>
+      </fieldset>
       <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Concentración inicial C₁" value={c1} onChange={setC1} />
         <Field label="Concentración final C₂" value={c2} onChange={setC2} />
-        <Field label="Volumen final V₂" value={v2} onChange={setV2} unit="L" />
+        <Field label={mode === "vol" ? "Volumen final V₂" : "Masa final m₂"} value={v2} onChange={setV2} unit={u} />
       </div>
-      <Result>
-        Toma <strong>{fmt(v1, 3)} L</strong> de la solución concentrada y completa hasta {fmt(V2)} L
-        ({fmt(v1 !== null && V2 !== null ? V2 - v1 : null, 3)} L de disolvente, aprox.).
-      </Result>
-      <p className="text-xs text-muted">C₁ y C₂ en la misma unidad (M, %, g/L). Con ácidos: siempre el ácido sobre el agua.</p>
+      {tooStrong ? (
+        <Result>Diluyendo no se puede concentrar: la concentración final tiene que ser menor que la inicial.</Result>
+      ) : (
+        <Result>
+          {mode === "vol" ? "Toma" : "Pesa"} <strong>{fmt(x1, 3)} {u}</strong> de la solución concentrada y completa hasta {fmt(valid ? V2 : null)} {u}
+          {mode === "mass" && <> ({fmt(x1 !== null && V2 !== null ? V2 - x1 : null, 3)} kg de disolvente)</>}.
+        </Result>
+      )}
+      <p className="text-xs text-muted">
+        {mode === "vol"
+          ? "C₁ y C₂ en la misma unidad. Esta fórmula con litros solo vale si la concentración es por volumen (mol/L, g/L, % p/v). Si la etiqueta dice % en peso (% p/p), usa el modo por masa: al diluir cambia la densidad y los litros dejan de cuadrar. Se completa hasta el volumen final; no se suma el disolvente por litros."
+          : "C₁ y C₂ en % en peso. Las masas sí se suman: la masa final es la del concentrado más la del disolvente. Para pasar de kilos a litros necesitas la densidad de cada solución (ficha técnica o tabla del proveedor)."}{" "}
+        Con ácidos: siempre el ácido sobre el agua, despacio.
+      </p>
     </Card>
   );
 }

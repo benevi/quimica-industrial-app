@@ -3,34 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Question } from "@/content/types";
+import { shuffle } from "@/certs/draw";
+import { isRight } from "@/certs/grading";
 import { PASS, useCertState } from "@/certs/useCertState";
 import { Icon } from "@/components/icons";
 import { Card, btn } from "@/components/ui";
 import { ResultPanel, TimerBar } from "./ExamChrome";
+import { QuestionItem } from "./QuestionItem";
 
 const MAX = 20;
 const SECONDS_PER_Q = 75;
-
-function parseNum(s: string) {
-  const n = Number(s.trim().replace(/\s/g, "").replace(",", "."));
-  return Number.isFinite(n) ? n : null;
-}
-function isRight(q: Question, a: string | number | undefined) {
-  if (a === undefined || a === "") return false;
-  if (q.kind === "choice") return a === q.answer;
-  const n = parseNum(String(a));
-  return n !== null && Math.abs(n - q.answer) <= Math.abs(q.answer) * q.tolerance + 1e-9;
-}
-const fmt = (n: number) => n.toLocaleString("es-ES", { maximumFractionDigits: 4 });
-
-function shuffle<T>(arr: T[]) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 export function ExamRunner({ moduleId, pool }: { moduleId: string; pool: { q: Question; from: string }[] }) {
   const { state, saveExam } = useCertState();
@@ -39,6 +21,7 @@ export function ExamRunner({ moduleId, pool }: { moduleId: string; pool: { q: Qu
   const [checked, setChecked] = useState(false);
   const [left, setLeft] = useState(0);
   const [started, setStarted] = useState(false);
+  const [seed, setSeed] = useState(0);
 
   function start() {
     const picked = shuffle(pool).slice(0, MAX);
@@ -47,6 +30,7 @@ export function ExamRunner({ moduleId, pool }: { moduleId: string; pool: { q: Qu
     setChecked(false);
     setLeft(picked.length * SECONDS_PER_Q);
     setStarted(true);
+    setSeed(Math.floor(Math.random() * 1e9));
   }
 
   useEffect(() => {
@@ -101,7 +85,7 @@ export function ExamRunner({ moduleId, pool }: { moduleId: string; pool: { q: Qu
 
   return (
     <section className="space-y-5">
-      {!checked && <TimerBar left={left} answered={`${Object.keys(answers).length}/${items.length} respondidas`} onFinish={finish} />}
+      {!checked && <TimerBar left={left} answered={`${Object.values(answers).filter((a) => a !== undefined && a !== "").length}/${items.length} respondidas`} onFinish={finish} />}
       {checked && (
         <ResultPanel passed={passed} title={`${score}/${items.length} correctas`}>
           <p className="max-w-[68ch] text-sm">
@@ -116,61 +100,19 @@ export function ExamRunner({ moduleId, pool }: { moduleId: string; pool: { q: Qu
       )}
       <Card as="section" className="p-5">
         <ol className="space-y-8">
-          {items.map(({ q, from }, i) => {
-            const a = answers[i];
-            const right = checked && isRight(q, a);
-            return (
-              <li key={i}>
-                <p className="font-medium">
-                  <span className="mr-1 tabular-nums text-muted">{i + 1}.</span> {q.q}
-                </p>
-                {q.kind === "choice" ? (
-                  <div className="mt-3 grid gap-2">
-                    {q.options.map((opt, j) => {
-                      const selected = a === j;
-                      let cls = "border-line hover:border-accent";
-                      if (checked && j === q.answer) cls = "border-ok bg-ok-soft";
-                      else if (checked && selected) cls = "border-bad bg-bad-soft";
-                      else if (selected) cls = "border-accent bg-accent-soft";
-                      return (
-                        <label key={j} className={`flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2.5 text-sm ${cls}`}>
-                          <input
-                            type="radio"
-                            name={`e${i}`}
-                            className="accent-[var(--accent)]"
-                            checked={selected}
-                            disabled={checked}
-                            onChange={() => setAnswers({ ...answers, [i]: j })}
-                          />
-                          {opt}
-                        </label>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="mt-3 flex items-center gap-2">
-                    <input
-                      inputMode="decimal"
-                      className={`w-40 rounded-md border bg-surface px-3 py-2 text-sm tabular-nums ${checked ? (right ? "border-ok" : "border-bad") : "border-line-strong"}`}
-                      placeholder="Tu respuesta"
-                      aria-label={`Respuesta en ${q.unit}`}
-                      value={(a as string) ?? ""}
-                      disabled={checked}
-                      onChange={(e) => setAnswers({ ...answers, [i]: e.target.value })}
-                    />
-                    <span className="text-sm text-muted">{q.unit}</span>
-                  </div>
-                )}
-                {checked && (
-                  <p className={`mt-2 max-w-[68ch] border-l-2 pl-3 text-sm ${right ? "border-ok" : "border-bad"}`}>
-                    <strong className={right ? "text-ok" : "text-bad"}>{right ? "Correcto." : "No es correcto."}</strong>{" "}
-                    {q.kind === "number" && !right && <>La respuesta es {fmt(q.answer)} {q.unit}. </>}
-                    {q.explain} <span className="text-xs text-muted">· {from}</span>
-                  </p>
-                )}
-              </li>
-            );
-          })}
+          {items.map(({ q, from }, i) => (
+            <QuestionItem
+              key={i}
+              n={i + 1}
+              name={`e${i}`}
+              q={q}
+              from={from}
+              answer={answers[i]}
+              checked={checked}
+              seed={seed}
+              onAnswer={(a) => setAnswers((x) => ({ ...x, [i]: a }))}
+            />
+          ))}
         </ol>
       </Card>
       {!checked && (
