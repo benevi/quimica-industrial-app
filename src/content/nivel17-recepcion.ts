@@ -19,7 +19,7 @@ Si un cocinero usa sal donde la receta pedía azúcar, da igual lo bien que haga
 
 En una planta de principios activos pasa igual. Un reactivo equivocado o contaminado entra en el reactor y deja impurezas que pueden ser muy difíciles de quitar. La recepción es la primera barrera de calidad y el momento más barato para parar un error.
 
-Un caso ficticio. Llegan 20 bidones de un disolvente para el reactor FX-101. Uno lleva una etiqueta pegada encima de otra; el mozo de almacén tiene prisa y lo coloca con los demás. El laboratorio muestrea 5 bidones, por casualidad no ese, y el lote sale aprobado. Semanas después, el producto final muestra una impureza desconocida: aquel bidón era otro disolvente. Se rechaza todo el lote. Una mirada atenta en el muelle lo habría parado.
+Un caso ficticio. Llegan 20 bidones de un disolvente para el reactor R-101. Uno lleva una etiqueta pegada encima de otra; el mozo de almacén tiene prisa y lo coloca con los demás. El laboratorio muestrea 5 bidones, por casualidad no ese, y el lote sale aprobado. Semanas después, el producto final muestra una impureza desconocida: aquel bidón era otro disolvente. Se rechaza todo el lote. Una mirada atenta en el muelle lo habría parado.
 
 ### Qué materiales entran en una planta de API
 El glosario de ICH Q7 llama **material** (*material*) a todo lo que se usa: materias primas, auxiliares de proceso, intermedios, principios activos, envases y etiquetas. No todos se tratan igual.
@@ -164,7 +164,7 @@ Todo cuelga de ese número interno. Cuando la hoja de producción anota «cargad
 En planta manda siempre el procedimiento vigente (SOP): los pasos, los planes de muestreo, los colores y los plazos de tu empresa son los que valen.
 `,
   plant: `
-Lunes, 7:30. Llega un camión con 24 bidones de 180 kg de la base RX-12 (ficticia) para el reactor FX-101. Recibe Marta, mozo de almacén.
+Lunes, 7:30. Llega un camión con 24 bidones de 180 kg de la base RX-12 (ficticia) para el reactor R-101. Recibe Marta, mozo de almacén.
 
 Primero, los papeles. El albarán dice 24 bidones y 4320 kg de un único lote del proveedor, L-8841. El pedido coincide. El fabricante es el aprobado. Pesa los bidones: cuadra.
 

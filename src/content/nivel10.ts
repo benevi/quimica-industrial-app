@@ -249,7 +249,7 @@ Comentarios y anomalías anotados en la hoja: son clave en las investigaciones.
     body: `
 ### Para qué
 Un API puede **degradarse** con el tiempo por el calor, la humedad, la luz o el oxígeno. Los estudios de **estabilidad** fijan:
-- El **periodo de re-análisis** (*retest period*) o la **fecha de caducidad** (*expiry date*).
+- El **periodo de reanálisis** (*retest period*) o la **fecha de caducidad** (*expiry date*).
 - Las **condiciones de almacenamiento** (por ejemplo, "no conservar por encima de 25 °C, proteger de la luz").
 
 ### Condiciones (ICH Q1)
@@ -267,18 +267,18 @@ HR = humedad relativa (*RH, relative humidity*).
 Se somete el producto a condiciones duras (calor, ácido, base, oxidante, luz) para conocer **cómo** se degrada y comprobar que el método analítico detecta esos productos de degradación.
 
 ### Retest frente a caducidad
-- **Re-análisis**: típico de los API. Pasada la fecha, el API puede usarse si se vuelve a analizar y cumple.
+- **Reanálisis**: típico de los API. Pasada la fecha, el API puede usarse si se vuelve a analizar y cumple.
 - **Caducidad**: típica de los medicamentos. Pasada la fecha, no se usa.
 `,
     plant: `
-En la etiqueta del API envasado verás "Fecha de re-análisis: 11/2028. Conservar por debajo de 25 °C, protegido de la luz y la humedad". Esas condiciones salen del estudio de estabilidad.
+En la etiqueta del API envasado verás "Fecha de reanálisis: 11/2028. Conservar por debajo de 25 °C, protegido de la luz y la humedad". Esas condiciones salen del estudio de estabilidad.
 `,
     batchRecord: `
-Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en la etiqueta y en el CoA.
+Fecha de fabricación, fecha de reanálisis y condiciones de almacenamiento en la etiqueta y en el CoA.
 `,
     terms: [
       { es: "Estabilidad", en: "Stability", def: "Capacidad de un producto de mantener su calidad con el tiempo." },
-      { es: "Periodo de re-análisis", en: "Retest period", def: "Tiempo durante el que un API puede usarse sin volver a analizarlo." },
+      { es: "Periodo de reanálisis", en: "Retest period", def: "Tiempo durante el que un API puede usarse sin volver a analizarlo." },
       { es: "Fecha de caducidad", en: "Expiry date", def: "Fecha a partir de la cual el producto no debe usarse." },
       { es: "Cámara climática", en: "Stability chamber", def: "Armario con temperatura y humedad controladas para estudios de estabilidad." },
       { es: "Humedad relativa", en: "Relative humidity (RH)", def: "Cantidad de vapor de agua en el aire respecto al máximo posible a esa temperatura." },
@@ -294,7 +294,7 @@ Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en 
       },
       {
         kind: "choice",
-        q: "Un API supera su fecha de re-análisis. ¿Qué se hace?",
+        q: "Un API supera su fecha de reanálisis. ¿Qué se hace?",
         options: [
           "Se tira siempre",
           "Se vuelve a analizar; si cumple, puede usarse según el procedimiento",
@@ -302,11 +302,11 @@ Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en 
           "Se cambia la etiqueta",
         ],
         answer: 1,
-        explain: "Para los API, el periodo de re-análisis permite reanalizar y seguir usándolo si cumple.",
+        explain: "Para los API, el periodo de reanálisis permite reanalizar y seguir usándolo si cumple.",
       },
       {
         kind: "number",
-        q: "Un API se fabricó en mayo de 2026 y tiene un periodo de re-análisis de 36 meses. ¿En qué año toca reanalizarlo?",
+        q: "Un API se fabricó en mayo de 2026 y tiene un periodo de reanálisis de 36 meses. ¿En qué año toca reanalizarlo?",
         answer: 2029,
         tolerance: 0.0001,
         unit: "año",
@@ -326,7 +326,7 @@ Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en 
 ### Certificado de análisis (*Certificate of Analysis, CoA*)
 Documento con los resultados de los análisis de un lote. Según ICH Q7 (apartado 11.4) se emite para cada lote **cuando el cliente lo solicita**; en la práctica casi todos los envíos de API lo llevan. Según esa guía incluye:
 - Nombre del producto (y su grado, si procede), número de lote y **fecha de liberación** (*date of release*).
-- Fecha de caducidad o de re-análisis.
+- Fecha de caducidad o de reanálisis.
 - Cada **ensayo**, sus **límites de aceptación** y el **resultado** obtenido (con números, no solo "cumple", cuando el resultado es numérico).
 - **Fecha y firma** de la persona autorizada de la unidad de calidad.
 - Nombre, dirección y teléfono del **fabricante original**.
