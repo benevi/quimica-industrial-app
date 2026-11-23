@@ -23,7 +23,7 @@ Las moléculas de un polímero no miden todas lo mismo (REACH habla de una **dis
 
 **Ejercicio resuelto 1.** Una cadena de polietileno tiene una masa molar media de 280 000 g/mol (valor de ejemplo). El monómero es el etileno, C₂H₄, de 28,05 g/mol según el NIST (el instituto de normas y tecnología de Estados Unidos).
 1. La unidad pesa lo mismo que el monómero: en esta reacción no se pierde ningún átomo.
-2. Grado de polimerización = 280 000 / 28,05 = 9981: unas diez mil unidades en una sola molécula.
+2. Grado de polimerización = 280 000 / 28,05 = 9982: unas diez mil unidades en una sola molécula.
 
 ### Dos maneras de enhebrar: adición y condensación
 **Polimerización por adición** (*addition polymerisation*). El monómero tiene un doble enlace C=C; la nota técnica de prevención NTP 302 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) dice que los dobles enlaces pueden generar polimerizaciones por adición. Cada doble enlace se abre, como un eslabón, y las moléculas se enganchan una tras otra **sin soltar nada**.
@@ -75,7 +75,7 @@ Esos puentes se ponen al **vulcanizar** (*vulcanisation*). Según BASEQUIM, del 
 | **PP** (polipropileno) | Big bags, tuberías de agua | La EMA lo cita, con el PVDF, como termoplástico adecuado para agua farmacéutica. Muy aislante: big bags en «Manejo de sólidos a fondo: pesar, cargar, trasvasar y contener polvos» |
 | **PVC** (policloruro de vinilo) | Guantes | Al sobrecalentarse desprende cloruro de hidrógeno (OIT, capítulo 77) |
 | **PTFE** (politetrafluoroetileno) | Juntas, revestimientos de tuberías y válvulas | Resiste casi todos los productos, pero algunos lo atraviesan (permeación) y sobrecalentado da humos peligrosos |
-| **PFA** (perfluoroalcoxi) | Revestimientos | Según el reglamento estadounidense 21 CFR 177.1550, es un copolímero de tetrafluoroetileno y perfluoropropilviniléter |
+| **PFA** (perfluoroalcoxi) | Revestimientos | Según el reglamento estadounidense 21 CFR 177.1550 (CFR: código de reglamentos federales, *Code of Federal Regulations*), es un copolímero de tetrafluoroetileno y perfluoropropilviniléter |
 | **PVDF** (polifluoruro de vinilideno) | Tuberías de agua | La OMS pide unirlo por fusión; la FDA (la agencia del medicamento de Estados Unidos) avisa de que en caliente se comba y de que al principio suelta fluoruro |
 
 En los envases verás a veces un número en un triángulo o unas siglas: es el sistema voluntario de identificación de la Decisión 97/129/CE, que indica la naturaleza del material: 1 PET, 2 HDPE (polietileno de alta densidad), 3 PVC, 4 LDPE (polietileno de baja densidad), 5 PP y 6 PS (poliestireno). No hemos comprobado si una norma posterior la ha sustituido.
@@ -94,6 +94,8 @@ Cada goma resiste unas cosas y otras no. Así lo resume la tabla 80.1 de la Enci
 | Nitrilo (NBR) | Aceite, disolventes, aceite vegetal | Se hincha con disolventes polares como las cetonas |
 | Etileno-propileno (EPDM) | Intemperie, calor, bajas temperaturas | Aceite y disolventes |
 
+La tabla de la OIT es general: no todos los disolventes se portan igual con cada goma. Qué aguanta una junta concreta lo da la tabla de compatibilidad de su fabricante y, en planta, la lista de repuestos de cada campaña.
+
 Los **fluoroelastómeros** no están en esa tabla. El reglamento estadounidense de materiales en contacto con alimentos (21 CFR 177.2600) los describe como copolímeros de fluoruro de vinilideno y hexafluoropropileno, vulcanizados. En catálogos los verás como **FKM** (esta sigla y la de EPDM vienen de normas de pago; solo las hemos visto en fuentes técnicas del buscador). Qué aguanta cada calidad de FKM o de EPDM lo da la tabla de su fabricante, que no hemos podido leer en un documento gratuito.
 
 **Por qué falla una junta.** Una goma es una red de cadenas. Un líquido compatible con ellas puede meterse en la red y hincharla: la OIT lo dice del caucho natural con los disolventes y del nitrilo con las cetonas. Y sus aditivos pueden salir hacia el líquido, como advierte la EMA para los plásticos. Sus efectos en la junta y el equipo están en «Materiales de los equipos y corrosión a fondo».
@@ -103,10 +105,10 @@ Los **fluoroelastómeros** no están en esa tabla. El reglamento estadounidense 
 2. Hinchamiento en masa = 1,86 / 12,40 × 100 = **15,0 %**.
 3. Ha absorbido disolvente y ya no sella como debe. Si era de nitrilo, encaja con lo que dice la OIT de las cetonas.
 
-ICH Q7, la guía de buenas prácticas de fabricación de principios activos, dice en su apartado 6.17 que puede ser adecuado fijar especificaciones para materiales que puedan afectar de forma crítica a la calidad, y cita las **juntas** (*gaskets*). Y se cambia igual por igual («Mantenimiento a fondo: entregar un equipo, recibirlo y dejarlo listo para fabricar»).
+ICH Q7, la guía de buenas prácticas de fabricación de principios activos del Consejo Internacional de Armonización (ICH, *International Council for Harmonisation*), dice en su apartado 6.17 que puede ser adecuado fijar especificaciones para materiales que puedan afectar de forma crítica a la calidad, y cita las **juntas** (*gaskets*). Y se cambia igual por igual («Mantenimiento a fondo: entregar un equipo, recibirlo y dejarlo listo para fabricar»).
 
 ### Guantes: un polímero entre el producto y tu piel
-Según la NTP 1136, los guantes de protección química son normalmente de **elastómeros** (látex, PVC, nitrilo, neopreno, polietileno, butilo, alcohol polivinílico o PVA, y un fluoroelastómero que cita por su marca). Ahora entiendes la **permeación**: la NTP la describe como absorción en la cara externa, **difusión** a través del material y salida por la cara interna. Las moléculas de disolvente se cuelan entre las cadenas del polímero, sin agujero, como la tinta que empapa un papel. La OIT da dos ejemplos (capítulo 31): el PVA es buena barrera frente a casi todos los disolventes orgánicos pero se degrada con el agua, y el látex resiste el agua pero se disuelve fácilmente en tolueno y hexano. Niveles y marcado, en «Los equipos de protección individual a fondo».
+Según la NTP 1136, los guantes de protección química se hacen de polímeros flexibles: látex, PVC, nitrilo, neopreno, polietileno, butilo, alcohol polivinílico (PVA) y un fluoroelastómero que cita por su marca. Unos son **elastómeros** (látex, nitrilo, neopreno, butilo); otros, como el PVC o el polietileno, son termoplásticos. Ahora entiendes la **permeación**: la NTP la describe como absorción en la cara externa, **difusión** a través del material y salida por la cara interna. Las moléculas de disolvente se cuelan entre las cadenas del polímero, sin agujero, como la tinta que empapa un papel. La OIT da dos ejemplos (capítulo 31): el PVA es buena barrera frente a casi todos los disolventes orgánicos pero se degrada con el agua, y el látex resiste el agua pero se disuelve fácilmente en tolueno y hexano. Niveles y marcado, en «Los equipos de protección individual a fondo».
 
 ### Lo que un plástico puede soltar al producto: extraíbles y lixiviables
 ICH Q7 pide que las superficies que tocan el producto no alteren su calidad (5.11) y que los envases no sean reactivos, aditivos ni absorbentes (9.21). Con un plástico, «aditivo» significa que le pase al producto algo de lo que lleva dentro.
@@ -163,7 +165,7 @@ Lo general está en «Almacenamiento, emergencias y residuos a fondo: del bidón
 Los valores y ejemplos de esta lección sirven para entender. En planta manda siempre el procedimiento vigente (SOP): los materiales de juntas, envases y guantes, y qué hacer cuando fallan, son los que fijan tu especificación y tu hoja.
 `,
   plant: `
-Campaña del intermedio ficticio QZ-62. El lote anterior se hizo en tolueno; este, en acetona. La hoja pide trasvasar la acetona desde el depósito D-118 al reactor R-207 con la manguera flexible MF-07.
+Campaña del intermedio ficticio QZ-62. El lote anterior se hizo en heptano; este, en acetona. La hoja pide trasvasar la acetona desde el depósito D-118 al reactor R-207 con la manguera flexible MF-07.
 
 Al conectar la manguera, ves que la junta tórica del racor sobresale un poco de su alojamiento y está blanda al tacto. En la etiqueta del racor pone «junta NBR». La lista de repuestos del R-207 dice que, para la campaña en acetona, las juntas de esa conexión son de otro material, con su referencia.
 
@@ -251,10 +253,10 @@ En la hoja de producción (*batch record*) y en los registros de mantenimiento v
     },
     {
       kind: "choice",
-      q: "En un cambio de campaña de tolueno a acetona, encuentras hinchada la junta de nitrilo (NBR) de una manguera. ¿Qué explica la tabla de la OIT y qué haces?",
+      q: "En un cambio de campaña de heptano a acetona, encuentras hinchada la junta de nitrilo (NBR) de una manguera. ¿Qué explica la tabla de la OIT y qué haces?",
       options: [
         "El nitrilo se hincha con cetonas como la acetona: avisas, anotas y se cambia según la lista",
-        "El nitrilo no resiste el tolueno: la secas al aire y la vuelves a montar en la manguera",
+        "El nitrilo no resiste el heptano: la secas al aire y la vuelves a montar en la manguera",
         "Es normal en todas las gomas: aprietas más el racor para que no gotee el trasvase",
         "La acetona endurece el nitrilo: la dejas puesta porque así sella mucho mejor",
       ],

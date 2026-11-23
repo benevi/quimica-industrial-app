@@ -18,7 +18,7 @@ El laboratorio se hace dos preguntas sobre una muestra:
 - **Análisis cualitativo** (*qualitative analysis*): ¿qué hay? La respuesta es «sí» o «no», «es esto» o «no lo es».
 - **Análisis cuantitativo** (*quantitative analysis*): ¿cuánto hay? La respuesta es un número con su unidad, como la riqueza del 99,5 % o el 0,3 % de agua.
 
-Las valoraciones y la gravimetría de este nivel contestan la segunda; esta lección, la primera. En los métodos oficiales del BOE, un ensayo cualitativo se expresa como «Positivo o negativo».
+Las valoraciones y la gravimetría del nivel 6 contestan la segunda; esta lección, la primera. En los métodos oficiales del Boletín Oficial del Estado (BOE), un ensayo cualitativo se expresa como «Positivo o negativo».
 
 ### La reacción de identificación, desde cero
 Una **reacción de identificación** (*identification reaction*) da una señal visible que solo, o casi solo, produce la sustancia buscada. Las señales clásicas son cuatro:
@@ -27,7 +27,7 @@ Una **reacción de identificación** (*identification reaction*) da una señal v
 |---|---|---|
 | Precipitado (*precipitate*) | Aparece un sólido que enturbia el líquido | Cloruro con nitrato de plata |
 | Color (*colour change*) | El líquido cambia de color | Almidón con yodo: azul negro |
-| Gas (*gas evolution*) | Se desprende un gas que se detecta | Amoníaco que pone básico un papel indicador |
+| Gas (*gas evolution*) | Se desprende un gas que se detecta | Amoníaco que vuelve azul un papel indicador |
 | Llama (*flame colour*) | La llama se tiñe de un color | Cobre con cloro: verde |
 
 El reactivo es una llave: si su cerradura está en la muestra, «abre» con una señal. Tres ideas deciden si una prueba vale:
@@ -46,7 +46,7 @@ Un **ion** (*ion*) es un átomo o grupo de átomos con carga eléctrica («Elect
 | Cloruro, Cl⁻ | Nitrato de plata, en medio ácido nítrico | Precipitado blanco y coposo de cloruro de plata, o turbidez si hay poco | Método oficial de jabones en aceite (BOE, 1977) |
 | Sulfato, SO₄²⁻ | Cloruro de bario | Sólido blanco de sulfato de bario | «Gravimetría a fondo: medir pesando, cenizas y residuos» |
 | Hierro(III), Fe³⁺ | Tiocianato | Color marrón rojizo | Indicador de la valoración de Volhard, en «Valoraciones redox, complexométricas y de precipitación a fondo» |
-| Amonio, NH₄⁺ | Sosa y calor | Se libera amoníaco, que pone básico el papel de tornasol | Método Kjeldahl (BOE, 1979) |
+| Amonio, NH₄⁺ | Sosa y calor | Se libera amoníaco, que vuelve azul el papel de tornasol rojo | Método Kjeldahl (BOE, 1979) |
 | Magnesio, Mg²⁺ | Quinalizarina y sosa | Precipitado fino azul; sin magnesio queda violeta azulado | Método oficial de jabones (BOE, 1977) |
 | Calcio, Ca²⁺ | Reactivo de osazona | Turbidez con precipitado amarillo | Método oficial de jabones (BOE, 1977) |
 
@@ -67,7 +67,7 @@ En «Electrones, orbitales y tabla periódica a fondo» viste por qué un átomo
 
 **El ensayo de Beilstein** (*Beilstein test*). Un método oficial español busca así cloro de disolventes clorados en un aceite: se calienta un alambre de cobre pulido hasta que la llama no salga verde, se moja en la muestra y se vuelve a la llama. Si se tiñe de «un color verde definido», hay cloro: positivo. Dice «hay halógeno», no cuál ni cuánto.
 
-**Los límites de la llama.** El color se juzga a ojo, y el amarillo intenso del sodio, que está en casi todo, tapa otros colores; los libros de texto miran a través de un vidrio azul de cobalto para filtrarlo. Hoy la llama se ha convertido en instrumento: la absorción atómica y el ICP miden la luz de cada elemento con un detector (lo tienes en «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP»).
+**Los límites de la llama.** El color se juzga a ojo, y el amarillo intenso del sodio, que está en casi todo, tapa otros colores; los libros de texto miran a través de un vidrio azul de cobalto para filtrarlo. Hoy la llama se ha convertido en instrumento: la absorción atómica y el ICP (plasma de acoplamiento inductivo) miden la luz de cada elemento con un detector (lo tienes en «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP»).
 
 ### Análisis elemental: qué elementos tiene una molécula
 El **análisis elemental** (*elemental analysis*) responde: ¿qué porcentaje de la masa es carbono, hidrógeno, nitrógeno o halógeno? En «Otras técnicas a fondo» viste cómo se calculan los valores teóricos del paracetamol. Aquí verás cómo se obtienen los medidos.
@@ -113,7 +113,7 @@ Fórmula empírica: **C₈H₉NO**, la de la acetanilida (135,17 g/mol), cuyos v
 
 **Halógenos.** El ensayo de Beilstein dice si hay halógeno. Para saber cuánto, el halógeno unido al carbono hay que pasarlo antes a ion, y el cloruro se valora con nitrato de plata como en «Valoraciones redox, complexométricas y de precipitación a fondo». En una sal clorhidrato el cloruro ya es ion y se valora directamente.
 
-Para demostrar la estructura de una molécula nueva, la guía de la EMA sobre la química de los principios activos cita el análisis elemental con valores teóricos y las reacciones químicas características. Un porcentaje alejado del teórico delata agua, disolvente o una sal mal formada.
+Para demostrar la estructura de una molécula nueva, la guía de la Agencia Europea de Medicamentos (EMA) sobre la química de los principios activos cita el análisis elemental con valores teóricos y las reacciones químicas características. Un porcentaje alejado del teórico delata agua, disolvente o una sal mal formada.
 
 ### Grupos funcionales: reacciones que reconocen una familia
 En «Grupos funcionales a fondo: cómo se comporta cada familia de compuestos en planta» viste las reacciones de cada familia. Algunas la reconocen: un reactivo que solo reacciona con un grupo y da color o precipitado. Ejemplos de los métodos oficiales españoles:
@@ -127,7 +127,7 @@ Un ensayo de grupo funcional da el «apellido» de la molécula; miles de moléc
 ### Derivados y su punto de fusión
 Antes de los espectros, para dar nombre a un compuesto se preparaba un **derivado** (*derivative*): un sólido nuevo, hecho con una reacción conocida, cuyo punto de fusión se compara con las tablas.
 
-**¿Por qué no el punto de ebullición?** Porque compuestos distintos hierven casi a la vez. Las tres toluidinas (orto, meta y para), aminas aromáticas isómeras, hierven según el NIST a 473, 476 y 474 K, es decir, entre 200 y 203 °C, con incertidumbres de 1 a 3 grados: el punto de ebullición no las distingue. Y muchas aminas son líquidas a temperatura ambiente: la anilina funde a 267,0 K (−6 °C), así que no hay punto de fusión que medir en el laboratorio.
+**¿Por qué no el punto de ebullición?** Porque compuestos distintos hierven casi a la vez. Las tres toluidinas (orto, meta y para), aminas aromáticas isómeras, hierven según el NIST (instituto de metrología de Estados Unidos) a 473, 476 y 474 K, es decir, entre 200 y 203 °C, con incertidumbres de 1 a 3 grados: el punto de ebullición no las distingue. Y muchas aminas son líquidas a temperatura ambiente: la anilina funde a 267,0 K (−6 °C), así que no hay punto de fusión que medir en el laboratorio.
 
 **La solución: hacer un sólido.** Si la anilina se acetila (la misma reacción que forma el paracetamol en «Grupos funcionales a fondo»), sale la acetanilida, un sólido que, según el NIST, funde a 388 ± 2 K, unos 115 °C. El punto de fusión de un sólido cristalino es estrecho y fácil de medir, como viste en «Punto de fusión y análisis térmico a fondo».
 
@@ -145,25 +145,25 @@ Antes de los espectros, para dar nombre a un compuesto se preparaba un **derivad
 **Ejercicio resuelto 6** (valores de ejemplo). Tu muestra funde a 113–115 °C; mezclada con acetanilida auténtica, igual; mezclada con otro sólido que también funde hacia 114 °C, a 96–106 °C. Es acetanilida.
 
 ### Por qué hoy mandan el infrarrojo y el HPLC
-La guía ICH Q6A, que fija qué ensayos lleva la especificación de un principio activo, pide que la identificación sea **específica** (*specific*): que distinga entre compuestos de estructura parecida que puedan estar presentes. Su ejemplo es el infrarrojo, y añade que un tiempo de retención cromatográfico solo no se considera específico, pero sí dos cromatografías de principio distinto o una combinación en un solo ensayo, como HPLC con detector de diodos o con masas. El detalle está en «Espectroscopia a fondo» y en «HPLC a fondo: el equipo que da la riqueza y las impurezas de tu lote».
+La guía ICH Q6A (Consejo Internacional de Armonización, *International Council for Harmonisation*), que fija qué ensayos lleva la especificación de un principio activo, pide que la identificación sea **específica** (*specific*): que distinga entre compuestos de estructura parecida que puedan estar presentes. Su ejemplo es el infrarrojo, y añade que un tiempo de retención cromatográfico solo no se considera específico, pero sí dos cromatografías de principio distinto o una combinación en un solo ensayo, como la cromatografía de líquidos de alta resolución (HPLC) con detector de diodos o con masas. El detalle está en «Espectroscopia a fondo» y en «HPLC a fondo: el equipo que da la riqueza y las impurezas de tu lote».
 
 | | Reacción clásica | Infrarrojo o HPLC |
 |---|---|---|
 | Qué reconoce | Un ion, un grupo o un elemento | La molécula entera, o una huella característica |
-| Isómeros y compuestos parecidos | Casi nunca los distingue | El IR distingue compuestos de estructura parecida |
+| Isómeros y compuestos parecidos | Casi nunca los distingue | El infrarrojo distingue compuestos de estructura parecida |
 | Cómo se lee | A ojo: turbidez, color | Espectro o cromatograma guardado en el sistema de datos |
 | Cantidad y tiempo | Reactivos, derivados, recristalización | Miligramos y minutos |
 
 Las reacciones clásicas no han desaparecido:
 
 - **Las sales.** Q6A dice que, si el principio activo es una sal, la identificación debe ser específica para cada uno de sus iones, aunque basta un ensayo específico para la sal en sí. El cloruro de un clorhidrato se puede confirmar con nitrato de plata.
-- **Las farmacopeas.** Q6A pide usar los procedimientos de farmacopea cuando sean adecuados. La Farmacopea Europea, de pago, reúne estas reacciones en un capítulo general de identificación de iones y grupos funcionales (el 2.3.1, según fuentes secundarias). Los ejercicios de formación de la FDA muestran cómo se combinan hoy: el paracetamol de la Farmacopea de Estados Unidos se identifica con infrarrojo, ultravioleta y cromatografía en capa fina, y además se le mide el intervalo de fusión.
+- **Las farmacopeas.** Q6A pide usar los procedimientos de farmacopea cuando sean adecuados. La Farmacopea Europea, de pago, reúne estas reacciones en un capítulo general de identificación de iones y grupos funcionales (el 2.3.1, según fuentes secundarias). Los ejercicios de formación de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) muestran cómo se combinan hoy: el paracetamol de la Farmacopea de Estados Unidos se identifica con infrarrojo, ultravioleta y cromatografía en capa fina, y además se le mide el intervalo de fusión.
 - **Los enantiómeros.** Q6A pide que la identidad de un principio activo de un solo enantiómero distinga los dos enantiómeros y la mezcla racémica. Ni una reacción de tubo ni el IR normal lo hacen; hace falta un método quiral («Isómeros y quiralidad a fondo: moléculas gemelas que no hacen lo mismo»).
 
 ### Lo que te toca a ti
 - **Identidad de lo que entra.** ICH Q7 (7.30) pide al menos un ensayo de identidad de cada lote de material. Para materiales peligrosos o muy tóxicos que no se analizan en planta (7.32), la identidad se apoya en el certificado del proveedor y en el examen visual de envases, etiquetas y números de lote: ese examen muchas veces lo haces tú al recibir o cargar.
 - **Nunca huelas para identificar.** El Kjeldahl detecta el amoníaco con papel de tornasol, no con la nariz.
-- **Los reactivos también son peligrosos.** En la tabla de clasificación del Reglamento CLP de 2008, el nitrato de plata lleva H314 («Provoca quemaduras graves en la piel y lesiones oculares graves») y H410 («Muy tóxico para los organismos acuáticos, con efectos nocivos duraderos»); el cloruro de bario, H301 («Tóxico en caso de ingestión») y H332 («Nocivo en caso de inhalación»). Manda la FDS del proveedor. Sus restos van a disoluciones acuosas con metales, nunca al desagüe («El laboratorio a fondo: material, equipos y trabajo seguro»).
+- **Los reactivos también son peligrosos.** En la tabla de clasificación del Reglamento CLP (clasificación, etiquetado y envasado) de 2008, el nitrato de plata lleva H314 («Provoca quemaduras graves en la piel y lesiones oculares graves») y H410 («Muy tóxico para los organismos acuáticos, con efectos nocivos duraderos»); el cloruro de bario, H301 («Tóxico en caso de ingestión») y H332 («Nocivo en caso de inhalación»). Manda la ficha de datos de seguridad (FDS) del proveedor. Sus restos van a disoluciones acuosas con metales, nunca al desagüe («El laboratorio a fondo: material, equipos y trabajo seguro»).
 
 En planta manda siempre el procedimiento vigente (SOP): qué ensayo se hace, con qué reactivo, cuántos lavados y qué se considera positivo los fija tu planta.
 `,

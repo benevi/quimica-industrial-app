@@ -44,7 +44,7 @@ Tienes dos caminos para estudiar:
 - **Temario completo** (*full course*): 22 niveles, del 0 al 21, en 5 bloques. Las bases (niveles 0 a 3). El laboratorio de control (4 a 10). La planta (11 a 15). Calidad y salida del producto (16 y 17). Sistemas informáticos (18 a 21). Se sigue de arriba abajo, porque cada nivel se apoya en los anteriores.
 - **Ruta del operador** (*operator track*): un camino corto con lo imprescindible para el turno, en siete etapas. Empieza por la seguridad y sigue con registrar bien, las cuentas de la hoja, tus equipos, el panel de control, los riesgos y la calidad. Usa lecciones del temario. Lo que completes en la ruta cuenta también en el temario.
 
-Cada tema tiene una **lección corta**, de 10 a 20 minutos, y una versión **«a fondo»**, de unos 30 a 40 minutos. Hay además lecciones «a fondo» sin versión corta, que amplían un tema. Si una «a fondo» se te hace cuesta arriba, haz primero las cortas del nivel y vuelve después.
+Cada tema tiene una **lección corta**, de 10 a 20 minutos, y una versión **«a fondo»**, de unos 30 a 40 minutos. Hay además lecciones «a fondo» sin versión corta, que amplían un tema. Y unas pocas lecciones de apoyo, como las de energía o logaritmos, van solas, con una duración intermedia. Si una «a fondo» se te hace cuesta arriba, haz primero las cortas del nivel y vuelve después.
 
 ### Las partes de cada lección
 Todas las lecciones tienen la misma forma:
@@ -74,7 +74,7 @@ En química se escribe con símbolos. Estos son los primeros que encontrarás:
 - **Subíndice** (*subscript*): el número pequeño y abajo. En H₂O, el 2 dice que hay dos átomos de hidrógeno (H). Junto al oxígeno (O) no hay número: eso significa uno.
 - **Coma decimal** (*decimal comma*): en esta aula, 2,5 kg son dos kilos y medio. En inglés, y en muchas pantallas, el decimal es un punto: 2.5 kg. Ojo con «1,000»: en un texto en inglés son mil. Por eso aquí los miles se separan con un espacio: 6 000 kg. Si dudas de un número, pregunta antes de cargar.
 - El símbolo «→» se lee «da» o «produce». «A + B → C» quiere decir que A y B reaccionan y dan C.
-- El símbolo «⇌» son dos flechas en sentidos contrarios: la reacción ocurre en los dos sentidos a la vez. Lo verás en el nivel 2.
+- El símbolo «⇌» son dos flechas en sentidos contrarios: la reacción ocurre en los dos sentidos a la vez. Lo verás por primera vez en el nivel 1, con los ácidos y las bases, y con calma en el nivel 2.
 - El símbolo «≈» se lee «aproximadamente igual a».
 - El símbolo «±» se lee «más o menos». 60 ± 5 °C es cualquier valor de 55 a 65 °C.
 - Los símbolos «≤» y «≥» se leen «menor o igual que» y «mayor o igual que». «pH ≥ 7,0» admite el 7,0 justo.
@@ -90,9 +90,9 @@ En química se escribe con símbolos. Estos son los primeros que encontrarás:
 La siguiente lección es «Matemáticas útiles para planta»: las cuatro cuentas que harás en casi cada lote.
 `,
   plant: `
-Primer día en la planta. Llegas al área de producción y ves el reactor R-101, la centrífuga CF-201 y el secadero SD-301. En la hoja del lote FX-101 lees tres pasos seguidos:
+Primer día en la planta. Llegas al área de producción y ves el reactor R-101, la centrífuga CF-201 y el secadero SD-301. En la hoja de un lote ficticio lees tres pasos seguidos:
 
-1. «Cargar 250,0 kg de metanol en R-101.» Es un cambio físico: el disolvente pasa del bidón al reactor.
+1. «Cargar 250,0 kg de tolueno en R-101.» Es un cambio físico: el disolvente pasa del bidón al reactor.
 2. «Calentar a 60 ± 5 °C y mantener 2 h.» Aquí ocurre la reacción: es el cambio químico, lo único de los tres pasos que crea una sustancia nueva.
 3. «Centrifugar en CF-201 y secar en SD-301.» Cambios físicos: separar el sólido del líquido y quitarle el disolvente.
 

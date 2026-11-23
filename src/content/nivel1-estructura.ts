@@ -164,22 +164,22 @@ Los halógenos, a un electrón de completar el subnivel p, liberan mucho; el clo
 
 - **El sodio** tiene un electrón solitario en 3s, lejos y apantallado: lo suelta con poca energía. Por eso en planta lo verás casi siempre como Na⁺, en la sosa o en las sales de las aguas madres.
 - **El cloro** está a un electrón de completar el 3p: perder uno cuesta mucho y ganar uno libera energía. Lo verás como cloruro, Cl⁻.
-- **El paladio** retiene sus electrones bastante más que el sodio (8,34 eV frente a 5,14 eV). Por eso el Pd/C se maneja mojado con agua, como verás en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión», algo impensable con sodio metálico. Aun así puede dejar trazas en el producto: se filtra y se analiza («Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador»).
+- **El paladio** es un metal noble: no reacciona con el agua, y por eso el Pd/C (paladio sobre carbón, *palladium on carbon*) se puede manejar mojado, algo impensable con sodio metálico. Ojo: no se moja porque no reaccione, sino porque seco puede inflamarse solo al contacto con el aire, como verás en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión». Que retenga sus electrones bastante más que el sodio (8,34 eV frente a 5,14 eV) ayuda a entenderlo, pero no basta: la reactividad con el agua depende también de otras energías. Aun así puede dejar trazas en el producto: se filtra y se analiza («Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador»).
 
-**Ejercicio resuelto 5. ¿Se pasan el electrón el Na y el Cl sueltos, en fase gas?** Arrancarlo al sodio cuesta 5,14 eV; dárselo al cloro devuelve 3,61 eV. Balance: 5,14 − 3,61 = 1,53 eV de coste por pareja; por mol, 1,53 × 96,49 = 148 kJ/mol. Lo que paga la cuenta en la sal es la atracción entre Na⁺ y Cl⁻ al formar el cristal; ese balance, el ciclo de Born-Haber, queda para otra lección.
+**Ejercicio resuelto 5. ¿Se pasan el electrón el Na y el Cl sueltos, en fase gas?** Arrancarlo al sodio cuesta 5,14 eV; dárselo al cloro devuelve 3,61 eV. Balance: 5,14 − 3,61 = 1,53 eV de coste por pareja; por mol, 1,53 × 96,49 = 148 kJ/mol. Lo que paga la cuenta en la sal es la atracción entre Na⁺ y Cl⁻ al formar el cristal; ese balance, el ciclo de Born-Haber, lo verás en «La forma de las moléculas a fondo: Lewis, RPECV e hibridación».
 
 ### Parte 10. En el laboratorio: llama, absorción atómica e ICP
-**Emisión en una llama.** Una sal de sodio en una llama la tiñe de amarillo: los átomos calientes suben un electrón de escalón y, al bajar, emiten su raya. El manual de análisis elemental de la FDA (*Elemental Analysis Manual*, sección 4.4) da como línea de emisión del sodio 589,59 nm, y del potasio, 766,49 nm, en el límite entre el rojo y el infrarrojo.
+**Emisión en una llama.** Una sal de sodio en una llama la tiñe de amarillo: los átomos calientes suben un electrón de escalón y, al bajar, emiten su raya. El manual de análisis elemental de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos; *Elemental Analysis Manual*, sección 4.4) da como línea de emisión del sodio 589,59 nm, y del potasio, 766,49 nm, en el límite entre el rojo y el infrarrojo.
 
 **Ejercicio resuelto 6. La energía de la luz del sodio.** E = 1240 / 589,59 = 2,10 eV por fotón, o 2,10 × 96,49 = 203 kJ/mol. Es menos de la mitad de los 5,14 eV de su energía de ionización: la llama excita el átomo sin necesidad de arrancarle el electrón.
 
 **Absorción atómica** (*atomic absorption spectrometry*, AAS). Usa el «negativo» del espectro. La disolución se aspira a una llama que deja el elemento en forma de átomos, y la atraviesa la luz de una **lámpara de cátodo hueco** (*hollow cathode lamp*) del mismo elemento que se busca: emite justo sus rayas, y los átomos las absorben. Cuanta más luz desaparece (más absorbancia), más elemento hay. El método 4.1 de la FDA para plomo y cadmio usa llama de aire y acetileno, lámparas específicas de cada elemento, 283,3 o 217,0 nm para el plomo y 228,8 nm para el cadmio, y dice que con estas lámparas las interferencias por rayas superpuestas son extremadamente raras.
 
-**Plasma acoplado inductivamente (ICP).** En el ICP-OES los átomos excitados en un plasma de argón emiten sus rayas; en el ICP-MS se cuentan como iones. Es la técnica del análisis de paladio que verás en «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP».
+**Plasma acoplado inductivamente** (*inductively coupled plasma*, ICP). En el ICP-OES (*optical emission spectrometry*, emisión óptica) los átomos excitados en un plasma de argón emiten sus rayas; en el ICP-MS (*mass spectrometry*, espectrometría de masas) se cuentan como iones. Es la técnica del análisis de paladio que verás en «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP».
 
 **Lo que te toca a ti.** Tu muestra decide el resultado: un recipiente de metal o una espátula oxidada pueden añadir justo el elemento que se mide. Usa el envase y el utensilio que indique el procedimiento.
 
-En planta manda siempre el procedimiento vigente (SOP): los controles de metales, los envases de muestra y los límites de tu producto son los que figuran en él y en la hoja de producción.
+En planta manda siempre el procedimiento vigente (SOP, *Standard Operating Procedure*): los controles de metales, los envases de muestra y los límites de tu producto son los que figuran en él y en la hoja de producción.
 `,
   plant: `
 Planta ficticia de la lección. En el autoclave AH-512 se ha hidrogenado el intermedio ficticio KT-40 con Pd/C. Marta, operadora, filtra la mezcla por el filtro de cartucho FC-514, que retiene el catalizador, y pasa el filtrado al reactor R-520. Allí se neutraliza el ácido clorhídrico sobrante con sosa: el sodio y el cloro acaban como iones Na⁺ y Cl⁻ disueltos, justo lo que predicen sus configuraciones.
@@ -298,10 +298,10 @@ El resultado de paladio sale por debajo del límite de la especificación y el l
         "Que el paladio es un gas noble y no reacciona con nada",
         "Que el agua del Pd/C lleva sosa y neutraliza al paladio",
         "Que el paladio está en el grupo 1, como el sodio, pero es más pesado",
-        "Que el paladio, del bloque d, retiene sus electrones bastante más que el sodio: 8,34 eV frente a 5,14 eV de energía de ionización",
+        "Que el paladio, del bloque d, es un metal noble que no reacciona con el agua; además, se carga mojado porque seco puede inflamarse solo",
       ],
       answer: 3,
-      explain: "El sodio suelta su electrón 3s con poca energía y reacciona con el agua. El paladio, [Kr] 4d¹⁰, metal de transición del grupo 10, necesita bastante más energía para perder un electrón. Aun así puede dejar trazas en el producto, y por eso se filtra y se analiza.",
+      explain: "El sodio suelta su electrón 3s con poca energía y reacciona con el agua. El paladio, [Kr] 4d¹⁰, metal de transición del grupo 10, necesita bastante más energía para perder un electrón y es un metal noble. El agua del Pd/C es una medida de seguridad contra la inflamación espontánea, no solo una posibilidad. Aun así puede dejar trazas en el producto, y por eso se filtra y se analiza.",
     },
     {
       kind: "choice",

@@ -89,7 +89,7 @@ Son dos sustancias distintas. En «Oxidación y reducción a fondo» viste que e
 
 **Peróxidos** (*peroxides*): llevan el grupo O₂²⁻, dos oxígenos unidos, cada uno a −1. Peróxido de hidrógeno, H₂O₂, el «agua oxigenada» (ICSC 0164); peróxido de sodio, Na₂O₂, que su ficha (ICSC 1606) llama también «peróxido de disodio». Ojo: el subíndice 2 del oxígeno no se simplifica, porque el grupo O₂ es una pieza. Si simplificaras H₂O₂ a HO, perderías la sustancia.
 
-**Hidruros** (*hydrides*): hidrógeno con otro elemento. Si el otro es un metal, el hidrógeno es H⁻ (hidruro), a −1. Un ejemplo es el tetrahidroborato de sodio, NaBH₄, que su ficha (ICSC 1670) llama también «borohidruro de sodio»: el anión es BH₄⁻. Con no metales, el nombre sistemático suena raro y se usa poco: la ficha del amoniaco, NH₃ (ICSC 0414), recoge como sinónimo «trihidruro de nitrógeno».
+**Hidruros** (*hydrides*): hidrógeno con otro elemento. Si el otro es un metal, el hidrógeno es H⁻ (hidruro), a −1. Un pariente de tres elementos, muy usado como reductor, es el tetrahidroborato de sodio, NaBH₄, que su ficha (ICSC 1670) llama también «borohidruro de sodio»: el anión es BH₄⁻, con los cuatro hidrógenos unidos al boro y a −1 cada uno. Con no metales, el nombre sistemático suena raro y se usa poco: la ficha del amoniaco, NH₃ (ICSC 0414), recoge como sinónimo «trihidruro de nitrógeno».
 
 **Hidrácidos** (*hydracids*): el cloruro de hidrógeno, HCl, es un gas (ICSC 0163). Disuelto en agua es lo que en planta llamas **ácido clorhídrico**. Mismo HCl, distinto estado: por eso la etiqueta dice «ácido clorhídrico 35 %» y no «cloruro de hidrógeno».
 
@@ -177,7 +177,7 @@ Los nombres de las dos primeras filas salen de sus fichas. El de la tercera se h
 | Bicarbonato | Hidrogenocarbonato de sodio | NaHCO₃ | ICSC 1044 |
 | Cal viva / cal apagada | Óxido / hidróxido de calcio | CaO / Ca(OH)₂ | ICSC 0409 y 0408 |
 
-La trampa más peligrosa es la primera pareja: «lejía» y «lejía de sosa» comparten palabra pero son sustancias distintas. Y la lejía con un ácido desprende cloro, como explica «Ácidos, bases y pH a fondo: medir, ajustar y neutralizar sin riesgos». Ante la duda, no te fíes del nombre comercial: busca la fórmula y el número CAS de la etiqueta y compáralos con la hoja.
+La trampa más peligrosa es la primera pareja: «lejía» y «lejía de sosa» comparten palabra pero son sustancias distintas. Y la lejía con un ácido desprende cloro, como explica «Ácidos, bases y pH a fondo: medir, ajustar y neutralizar sin riesgos». Ante la duda, no te fíes del nombre comercial: busca la fórmula y el número CAS (el registro del *Chemical Abstracts Service*, un código único para cada sustancia) de la etiqueta y compáralos con la hoja.
 
 ### Parte 10. De la fórmula a la masa molar
 Saber la fórmula exacta importa porque de ella sale la **masa molar** (*molar mass*) con la que se calculan las cargas, como viste en «El mol a fondo: contar moléculas pesando, paso a paso». Uso valores redondeados: H 1; C 12; N 14; O 16; Na 23; S 32; Cl 35,5; K 39,1; Mn 54,9; Fe 55,8.

@@ -1,6 +1,6 @@
 # Fuentes de «Energía, calor y temperatura: julios, kilovatios y calor específico» (`energia-y-calor`)
 
-Lección de iniciación (nivel 1, order 0; el informe de progresión proponía order 2.2, detrás de `materia-a-fondo`). Body: 1777 palabras; 20 minutos.
+Lección de iniciación (nivel 1, order 2.2, detrás de `materia-a-fondo`). Body: 1777 palabras; 20 minutos.
 
 Descargas y cálculo en `scratchpad/lecciones/tmp-energia/` (`dl/` y `calc.py`).
 

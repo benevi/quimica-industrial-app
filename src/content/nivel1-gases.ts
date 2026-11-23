@@ -18,7 +18,7 @@ Un gas son moléculas muy separadas que vuelan y golpean las paredes. Millones d
 Dos reglas de siempre: en las cuentas de gases la presión va en **absoluta** (manométrica + atmosférica; aquí la atmósfera se redondea a 1 bar) y la temperatura en **kelvin** (T = t + 273,15).
 
 ### La constante R, con todas sus cifras
-El Real Decreto 2032/2009 de unidades legales fija dos valores exactos: la **constante de Boltzmann** (*Boltzmann constant*), k = 1,380 649 × 10⁻²³ J/K, y la **constante de Avogadro** (*Avogadro constant*), 6,022 140 76 × 10²³ por mol. La constante de los gases es una por la otra:
+El Real Decreto 2032/2009 de unidades legales, en su texto vigente (lo modificó el Real Decreto 493/2020), fija dos valores exactos: la **constante de Boltzmann** (*Boltzmann constant*), k = 1,380 649 × 10⁻²³ J/K, y la **constante de Avogadro** (*Avogadro constant*), 6,022 140 76 × 10²³ por mol. La constante de los gases es una por la otra:
 
 > R = 6,022 140 76 × 10²³ × 1,380 649 × 10⁻²³ = 8,314 462 618… J/(mol·K)
 
@@ -119,7 +119,7 @@ Se cierra todo y se calienta a 60 °C:
 - **El tolueno, por su presión de vapor:** a 60 °C, según el NIST, unos 185 mbar. Se ha multiplicado por seis.
 - **Total:** 1160 + 185 = **1345 mbar abs**, unos 0,35 bar g. Si dentro solo hubiera nitrógeno a 1050 mbar abs, llegaría a 1050 × 333,15 / 293,15 = 1193 mbar abs, unos 0,19 bar g.
 
-Con disolvente dentro, al calentar la presión sube más que con el gas solo, y cerca de la ebullición el vapor se dispara («El reactor a fondo»).
+Con disolvente dentro, al calentar la presión sube más que con el gas solo, y cerca de la ebullición el vapor se dispara (lo verás con números en «Destilación a fondo: reflujo, vacío y cambio de disolvente en el reactor»).
 
 ### Equilibrios entre gases: Kp y Kc
 En «Equilibrio químico a fondo» K iba con concentraciones en mol/L. Entre gases es cómodo usar presiones parciales. Para a A ⇌ b B:
@@ -138,7 +138,7 @@ Con R = 0,083 145 L·bar/(mol·K). Si Δn = 0, Kp = Kc.
 
 1. Δn = 2 − 1 = 1.
 2. R · T = 0,083 145 × 400 = 33,26 L·bar/mol.
-3. Kp = 0,010 × 33,26 = **0,333**.
+3. Kp = 0,010 × 33,26 = **0,333 bar** (con Δn = 1, Kp lleva unidades de presión).
 
 **Ejercicio resuelto 8. La presión mueve este equilibrio.** Partes de 1 mol de A puro; α es la fracción que se descompone. Quedan (1 − α) de A y 2α de B, de un total de (1 + α). Con Dalton, p A = (1 − α) / (1 + α) × P y p B = 2α / (1 + α) × P. En Kp, simplificando:
 
@@ -183,7 +183,7 @@ Las fichas internacionales de seguridad química coinciden: 840 kPa el propano y
 
 **1. El manómetro no dice cuánto queda.** Mientras quede líquido, marca su presión de vapor, esté llena o casi vacía; solo baja cuando ya queda poco. Lo que queda se sabe por **peso**: el reglamento habla de botellas de cloro «de 50 a 100 kilogramos». En un gas comprimido, en cambio, la presión sí mide el contenido (ley de Boyle).
 
-**2. El calor sube la presión mucho más que en un gas comprimido.** De 20 a 50 °C, una botella de nitrógeno a 200 bar sube por Gay-Lussac a 200 × 323,15 / 293,15 = 220 bar, un 10 %; una de propano, de 8,36 a 17,13 bar, el doble. Y el líquido se dilata: el propano pasa de 500 a 449 kg/m³ (NIST), un 11 % más de volumen. Por eso no se llenan del todo: para el amoniaco, el reglamento pide que el líquido no pase del 95 % del volumen tras dilatarse a la temperatura máxima de servicio; para el cloro, 1250 kg por metro cúbico como máximo. La instrucción MIE APQ-5 pide que las zonas de almacenamiento de botellas no pasen de 50 °C.
+**2. El calor sube la presión mucho más que en un gas comprimido.** De 20 a 50 °C, una botella de nitrógeno a 200 bar sube por Gay-Lussac a 200 × 323,15 / 293,15 = 220 bar, un 10 %; una de propano, de 8,36 a 17,13 bar, el doble. Y el líquido se dilata: el propano pasa de 500 a 449 kg/m³ (NIST), un 11 % más de volumen. Por eso no se llenan del todo: para el amoniaco, el reglamento pide que el líquido no pase del 95 % del volumen tras dilatarse a la temperatura máxima de servicio; para el cloro, 1250 kg por metro cúbico como máximo. La instrucción técnica complementaria MIE APQ-5 de ese reglamento (APQ: almacenamiento de productos químicos) pide que las zonas de almacenamiento de botellas no pasen de 50 °C.
 
 **3. Sacar gas enfría la botella.** Evaporar un kilo de propano a 20 °C pide unos 344 kJ (NIST), el calor latente de «La materia a fondo». Lo toma del líquido, que se enfría y baja su presión de vapor: el caudal tiene un tope. La instrucción del cloro (MIE APQ-3, artículo 23) dice que el caudal extraíble viene impuesto por la temperatura del cloro y prohíbe calentar el recipiente de forma que la pared pase de 40 °C.
 
@@ -292,8 +292,8 @@ En la hoja de producción (*batch record*) los gases aparecen como presiones, te
       q: "Para una reacción entre gases con Δn = +1, Kc vale 0,050 mol/L a 300 K. Con R = 0,083145 L·bar/(mol·K), ¿cuánto vale Kp?",
       answer: 1.247,
       tolerance: 0.01,
-      unit: "",
-      explain: "Kp = Kc · (R · T)^Δn = 0,050 × 0,083145 × 300 = 1,247.",
+      unit: "bar",
+      explain: "Kp = Kc · (R · T)^Δn = 0,050 × 0,083145 × 300 = 1,247 bar.",
     },
     {
       kind: "choice",

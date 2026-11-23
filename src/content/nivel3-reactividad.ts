@@ -27,7 +27,7 @@ Dos piezas más que verás en toda la lección:
 - **Grupo saliente** (*leaving group*): el trozo que se va llevándose el par de electrones de su enlace, como el Br⁻ o el Cl⁻.
 - **Carbocatión** (*carbocation*): un carbono que se ha quedado con solo tres enlaces y carga positiva. Es muy inestable y dura un instante. Cuantos más grupos de carbono lleva alrededor, más estable es: **terciario** (unido a tres carbonos) más que **secundario** (dos) más que **primario** (uno).
 
-**El ADN también es un nucleófilo.** El addendum de la guía ICH M7 describe el acetaldehído como «un electrófilo fuerte, capaz de reaccionar con nucleófilos fuertes, por ejemplo las bases del ADN», y dice que el sulfato de dimetilo forma bases del ADN **alquiladas**. Un **agente alquilante** (*alkylating agent*) es un electrófilo que pega un grupo de carbono a un nucleófilo; si ese nucleófilo es el ADN, hay daño genético. Por eso ICH M7 vigila tanto a los reactivos electrófilos, como verás en «Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador».
+**El ADN también es un nucleófilo.** El addendum de la guía ICH M7 (del Consejo Internacional de Armonización, *International Council for Harmonisation*) describe el acetaldehído como «un electrófilo fuerte, capaz de reaccionar con nucleófilos fuertes, por ejemplo las bases del ADN», y dice que el sulfato de dimetilo forma bases del ADN **alquiladas**. Un **agente alquilante** (*alkylating agent*) es un electrófilo que pega un grupo de carbono a un nucleófilo; si ese nucleófilo es el ADN, hay daño genético. Por eso ICH M7 vigila tanto a los reactivos electrófilos, como verás en «Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador».
 
 ### Los tipos de reacción, contados con piezas
 | Tipo | Qué pasa | Cuentas de moléculas |
@@ -180,7 +180,7 @@ La reducción va al revés: un **borohidruro de sodio** (NaBH₄) convierte un a
 Los números de esta lección son para entender. En planta manda siempre el procedimiento vigente (SOP) y la hoja de producción de cada lote.
 `,
   plant: `
-Turno de tarde en el reactor R-412. La etapa 2 del intermedio ficticio QT-7 es una sustitución: un bromuro de alquilo reacciona con una amina en acetonitrilo. La hoja dice: *«Adicionar la amina en 90 min a T ≤ 35 °C. Mantener 4 h a 35 ± 2 °C. IPC: alqueno ≤ 0,30 %»* (valores de ejemplo).
+Turno de tarde en el reactor R-412. La etapa 2 del intermedio ficticio QT-7 es una sustitución: un bromuro de alquilo reacciona con una amina en acetonitrilo. La hoja dice: *«Adicionar la amina en 90 min a T ≤ 35 °C. Mantener 4 h a 35 ± 2 °C. IPC: alqueno ≤ 0,30 %»* (valores de ejemplo; IPC es el control en proceso, *in-process control*).
 
 A mitad de adición la temperatura de masa sube a 38 °C: el agua de la camisa ha llegado más caliente. Paras la bomba, como manda la hoja, y avisas. Sabes por qué: la amina es nucleófilo y también base, y a más temperatura gana la eliminación, que da el alqueno. La masa baja a 33 °C en diez minutos y reanudas con el visto bueno del responsable. Lo anotas todo con hora.
 

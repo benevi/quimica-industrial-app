@@ -147,7 +147,7 @@ En un reactor, el gas sale de cuatro sitios:
 
 - **Una reacción que desprende gas**, como el dióxido de carbono (CO₂) de neutralizar con bicarbonato («Ácidos, bases y pH a fondo»).
 - **La ebullición**, sobre todo al bajar la presión en una destilación a vacío («Destilación a fondo: reflujo, vacío y cambio de disolvente en el reactor»).
-- **Gas disuelto que se desprende** al calentar («Disoluciones y solubilidad a fondo»).
+- **Gas disuelto que se desprende** al calentar o al bajar la presión (en «Disoluciones y solubilidad a fondo: la base de la cristalización» viste que un gas se disuelve menos cuanto menor es la presión encima).
 - **Nitrógeno burbujeado** por el líquido.
 
 **Ejercicio resuelto 5. Cuánto ocupa la espuma.** Si una espuma es un 90 % de gas en volumen (valor de ejemplo), cada litro de espuma tiene 0,1 L de líquido. 100 L de líquido convertidos en espuma ocupan 100 / (1 − 0,90) = **1000 L**. En un reactor con poco hueco libre, una fracción pequeña del contenido que espume basta para llegar a la tapa.
@@ -155,14 +155,14 @@ En un reactor, el gas sale de cuatro sitios:
 Qué provoca la espuma:
 
 - **Arrastre** de líquido con producto al condensador, al destilado o al venteo.
-- **Medidas de nivel falsas.** Según el libro de instrumentación de Tony Kuphaldt, la espuma puede engañar a los medidores de nivel por eco: el ultrasonido da un eco débil en la superficie de la espuma y otro debilitado en la del líquido. Lo tienes también en «Instrumentos de medida a fondo».
+- **Medidas de nivel falsas.** Según el libro de instrumentación de Tony Kuphaldt, la espuma puede engañar a los medidores de nivel por eco: el ultrasonido da un eco débil en la superficie de la espuma y otro debilitado en la del líquido. Lo verás también en «Instrumentos de medida a fondo: cómo miden los sensores de la planta y cuándo fiarse de ellos».
 - **Subidas de presión**, si el gas se forma más deprisa de lo que sale.
 
 **Antiespumantes.** Un **antiespumante** (*antifoam, defoaming agent*) es un aditivo que rompe las películas de la espuma. En el laboratorio, el método oficial del BOE de 1976 añade una gota de alcohol amílico si la superficie de la probeta se cubre de espuma. En alimentos, el reglamento de Estados Unidos (21 CFR 173.340) admite como antiespumante el dimetilpolisiloxano, una silicona, con un máximo de 10 partes por millón (ppm) en el alimento.
 
 **Ejercicio resuelto 6. Cuánto es 10 ppm.** En 2000 kg de masa, 10 ppm son 2000 × 10 / 1000000 = 0,02 kg = **20 g**. Un antiespumante se dosifica en gramos, no en kilos, y se pesa con la balanza adecuada.
 
-Ese límite es de alimentos y sirve solo para ver la escala. En una planta de principio activo (API), el antiespumante es un material más que entra en el lote: se usa solo si la hoja lo prevé, y se registra con su peso y su número de lote, como pide ICH Q7 (apartado 6.52) para todas las materias primas. Si no está en la hoja, la espuma se controla con lo que sí está: añadir o calentar más despacio, bajar el vacío por escalones y vigilar la mirilla. Si aun así sube, se para el paso y se avisa.
+Ese límite es de alimentos y sirve solo para ver la escala. En una planta de principio activo (API), el antiespumante es un material más que entra en el lote: se usa solo si la hoja lo prevé, y se registra con su peso y su número de lote, como pide la guía ICH Q7 (del Consejo Internacional de Armonización, *International Council for Harmonisation*; apartado 6.52) para todas las materias primas. Si no está en la hoja, la espuma se controla con lo que sí está: añadir o calentar más despacio, bajar el vacío por escalones y vigilar la mirilla. Si aun así sube, se para el paso y se avisa.
 
 ### Tensioactivos en la limpieza de equipos
 «Limpieza de equipos a fondo: procedimientos, validación y estados de limpieza» explica los pasos y los cuatro factores (tiempo, acción mecánica, química y temperatura). El tensioactivo es la parte química cuando se limpia con agua:

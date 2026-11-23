@@ -89,7 +89,7 @@ Para planificar un lote interesa **cuánto queda a las t horas**. Se obtiene sum
 - **Orden 1: la cola.** Cada minuto se va el mismo **porcentaje** de lo que queda: la vida media no cambia.
 - **Orden 2: el baile por parejas.** Hacen falta dos moléculas que se encuentren; cuando quedan pocas, cuesta cada vez más: la reacción arrastra una cola larga.
 
-**Ejemplo resuelto 3: primer orden en el R-204.** Con k = 0,1 min⁻¹ a 70 °C, la vida media del reactivo B es 0,693 / 0,1 = **6,93 min**. Supón (valor de ejemplo) que al acabar la adición queda un 2 % de B y que el IPC pide B ≤ 0,5 %. De 2 % a 0,5 % hay dos vidas medias: t = ln(2 / 0,5) / 0,1 = **13,9 min** a 70 °C. Con Arrhenius y los 90 kJ/mol del simulador, a 60 °C k baja a 0,0388 min⁻¹, la vida media sube a **17,9 min** y el mismo tramo tarda **35,7 min**. A 50 °C la vida media sería de 48,8 min. Por qué esa lentitud en frío es peligrosa mientras se dosifica lo tienes en la lección de velocidad, apartado de la acumulación.
+**Ejemplo resuelto 3: primer orden en el R-204.** Con k = 0,1 min⁻¹ a 70 °C, la vida media del reactivo B es 0,693 / 0,1 = **6,93 min**. Supón (valor de ejemplo) que al acabar la adición queda un 2 % de B y que el control en proceso (IPC, *in-process control*) pide B ≤ 0,5 %. De 2 % a 0,5 % hay dos vidas medias: t = ln(2 / 0,5) / 0,1 = **13,9 min** a 70 °C. Con Arrhenius y los 90 kJ/mol del simulador, a 60 °C k baja a 0,0388 min⁻¹, la vida media sube a **17,9 min** y el mismo tramo tarda **35,7 min**. A 50 °C la vida media sería de 48,8 min. Por qué esa lentitud en frío es peligrosa mientras se dosifica lo tienes en la lección de velocidad, apartado de la acumulación.
 
 **Ejemplo resuelto 4: segundo orden y su cola (valores de ejemplo).** [A]₀ = 0,50 mol/L y k = 0,040 L/(mol·min).
 
@@ -127,7 +127,7 @@ Lo básico está en la lección de velocidad. Aquí, lo que cambia en los númer
 | | Homogéneo (*homogeneous*) | Heterogéneo (*heterogeneous*) |
 |---|---|---|
 | Dónde está | Disuelto en la mezcla | Sólido en suspensión o en lecho |
-| Ejemplos | Un ácido como el sulfúrico en una esterificación («Equilibrio químico a fondo») o cualquier compuesto que actúe disuelto en la mezcla | Paladio o platino sobre carbón; níquel en forma de aleación de níquel y aluminio, que ICH Q3D cita como catalizador de hidrogenación |
+| Ejemplos | Un ácido como el sulfúrico en una esterificación («Equilibrio químico a fondo») o cualquier compuesto que actúe disuelto en la mezcla | Paladio o platino sobre carbón; níquel en forma de aleación de níquel y aluminio, que la guía ICH Q3D (del Consejo Internacional de Armonización, *International Council for Harmonisation*) cita como catalizador de hidrogenación |
 | En la ley de velocidad | Su concentración aparece con su orden, como en el ejemplo 2 | Cuenta la superficie activa, la cantidad cargada y cómo llegan los reactivos hasta ella (agitación, presión) |
 
 **Cuánto catalizador es «poco».** Se suele expresar en porcentaje molar: moles de metal por cada 100 moles de sustrato. Con un ejemplo que volverá en «Hidrogenación a fondo» (0,4 kg de paladio para 200 kg de un intermedio de 160 g/mol), y la masa molar del paladio, 106,42 g/mol según el NIST:
@@ -292,7 +292,7 @@ Las tortas de catalizador gastado de toda la campaña se guardan húmedas en bid
     },
     {
       kind: "choice",
-      q: "Con el catalizador reutilizado por tercera vez, como permite el proceso, el IPC tarda 13 h en cumplir; con catalizador nuevo tardaba 10 h. ¿Qué es lo más razonable?",
+      q: "Con el catalizador en su tercer uso, como permite el proceso, el IPC tarda 13 h en cumplir; con catalizador nuevo tardaba 10 h. ¿Qué es lo más razonable?",
       options: [
         "Subir la temperatura por tu cuenta para recuperar las 3 horas",
         "Añadir catalizador nuevo encima para que vuelva a ir rápido",

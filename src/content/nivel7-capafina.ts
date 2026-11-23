@@ -22,11 +22,11 @@ En el laboratorio, la hoja es la **placa** (*plate*), el alcohol es la **fase m�
 ### La placa: la fase estacionaria
 El cuadro comparativo del manual de la FDA describe la fase estacionaria como una capa fina y uniforme, seca, de un polvo muy fino, el **adsorbente** (*adsorbent*), como el **gel de sílice** (*silica gel*) o la celulosa, extendida sobre vidrio, plástico o una lámina de metal. Su temario cita placas de gel de sílice (con **aglutinante**, *binder*, y a veces con **aditivo fluorescente**), de celulosa y de alto rendimiento (HPTLC).
 
-Los métodos oficiales españoles de análisis (BOE de 1977 y 1979) usan sobre todo placas de gel de sílice de 20 × 20 cm con una capa de 0,25 mm (0,40 mm si dos sustancias salen muy juntas), y también de **poliamida** sobre aluminio.
+Los métodos oficiales españoles de análisis (Boletín Oficial del Estado, BOE, de 1977 y 1979) usan sobre todo placas de gel de sílice de 20 × 20 cm con una capa de 0,25 mm (0,40 mm si dos sustancias salen muy juntas), y también de **poliamida** sobre aluminio.
 
 **Por qué separa.** Según el mismo cuadro, por **adsorción** (*adsorption*: la sustancia se pega a la superficie del polvo), por **reparto** o por las dos cosas. El gel de sílice es muy polar y, como viste en «Enlaces y fuerzas entre moléculas a fondo», lo polar atrae a lo polar: con un eluyente poco polar, lo polar se queda abajo y lo apolar sube. Dos ejemplos oficiales:
 
-- En el método del BOE de antioxidantes en grasas, los galatos, con tres grupos OH polares, se quedan cerca del origen, y el BHT, con uno solo rodeado de grupos voluminosos, viaja casi con el frente.
+- En el método del BOE de antioxidantes en grasas, los galatos, con tres grupos OH polares, se quedan cerca del origen, y el BHT (butilhidroxitolueno), con uno solo rodeado de grupos voluminosos, viaja casi con el frente.
 - En el método europeo de esteroles del aceite de oliva (Reglamento CEE 2568/91, en el Diario Oficial publicado en el BOE), la placa se prepara básica sumergiéndola 10 segundos en potasa alcohólica. Así, los compuestos ácidos se quedan en la línea de aplicación y no estorban.
 
 **Activar la placa.** Los métodos usan placas «previamente activadas». El europeo las seca dos horas al aire y una en estufa a 100 °C, las guarda en un desecador y obliga a usarlas en quince días como máximo.
@@ -40,7 +40,7 @@ Es una mezcla de disolventes en una proporción fija. Algunos de los métodos of
 | Esteroles del aceite de oliva (Reglamento 2568/91) | Gel de sílice básica | Benceno y acetona 95:5, o hexano y éter etílico 65:35 |
 | Conservadores en carne (BOE 1979) | Poliamida con indicador fluorescente | 1: pentano, hexano y ácido acético 10:10:3; 2: benceno, acetato de etilo y ácido acético 85:10:5 |
 
-Dos detalles de esos métodos: la mezcla se prepara justo antes de usarla y, según el método europeo, se cambia en cada prueba «para que las condiciones de elución sean perfectamente reproducibles». Y ojo al benceno: son métodos antiguos, e ICH Q3C lo pone en la clase 1, disolventes que se deben evitar (es cancerígeno).
+Dos detalles de esos métodos: la mezcla se prepara justo antes de usarla y, según el método europeo, se cambia en cada prueba «para que las condiciones de elución sean perfectamente reproducibles». Y ojo al benceno: son métodos antiguos, y la guía ICH Q3C (Consejo Internacional de Armonización, *International Council for Harmonisation*) lo pone en la clase 1, disolventes que se deben evitar (es cancerígeno).
 
 ### La cubeta saturada
 La placa se desarrolla dentro de una **cubeta** o **cámara de desarrollo** (*developing chamber*): un recipiente de vidrio con tapa. El método europeo de esteroles da la receta:
@@ -73,7 +73,7 @@ El manual de la FDA incluye entre los términos básicos el **origen** (*origin*
 
 Como la mancha nunca adelanta al frente, el Rf va de 0 (no se ha movido) a 1 (ha viajado con el frente). Un Rf es a la capa fina lo que el tiempo de retención es al HPLC.
 
-**Ejercicio resuelto 1. Las tablas del BOE.** El método oficial de antioxidantes da estos Rf «a título de orientación», con el frente a 15 cm del origen: NDHG 0,10; galato de propilo (GP) 0,14; galato de octilo (GO) 0,28; galato de dodecilo (GD) 0,35; BHA 0,75; BHT 0,98.
+**Ejercicio resuelto 1. Las tablas del BOE.** El método oficial de antioxidantes da estos Rf «a título de orientación», con el frente a 15 cm del origen: NDHG (ácido nordihidroguayarético) 0,10; galato de propilo (GP) 0,14; galato de octilo (GO) 0,28; galato de dodecilo (GD) 0,35; BHA (butilhidroxianisol) 0,75; BHT 0,98.
 
 1. ¿A qué altura queda el BHA? Distancia = Rf × frente = 0,75 × 15,0 = **11,25 cm**.
 2. Una mancha de la muestra sale a 11,2 cm. Rf = 11,2 / 15,0 = **0,75**: coincide con el BHA, y se confirma mirando el patrón de BHA de la misma placa.
@@ -105,7 +105,7 @@ Si las sustancias no tienen color, la placa desarrollada parece vacía. Según e
 | Dicloroquinona clorimida al 1 % en etanol | Pulverizar y estufa a 100 °C de 10 a 15 min; vapor de amoníaco para intensificar | Manchas coloreadas de antioxidantes |
 | Dicromato potásico y ácido tiobarbitúrico | Pulverizar y calentar a 80 °C de 5 a 10 min | Ácido sórbico rojo sobre fondo ocre |
 
-Unos reactivos revelan muchas sustancias, como el sulfúrico; otros solo tiñen una familia, como los de «Identificar sustancias por sus reacciones a fondo».
+Unos reactivos revelan muchas sustancias, como el sulfúrico; otros solo tiñen una familia, como los que verás en «Identificar sustancias por sus reacciones a fondo».
 
 ### De ver a medir: el ensayo límite
 El manual de la FDA dice que la capa fina es un método **cualitativo**, y explica cómo se estira:
@@ -127,14 +127,14 @@ El manual de la FDA propone sembrar la misma disolución de 1 a 500 µL y buscar
 **Separar para analizar.** En el método de esteroles y en otro del BOE de grasas se raspa la banda que interesa, se extrae del polvo y se analiza por cromatografía de gases.
 
 ### Identificación, impurezas y limpieza
-**Identificación de farmacopea.** En los ejercicios de formación de la FDA, el paracetamol de la farmacopea estadounidense se identifica con tres ensayos: infrarrojo, ultravioleta y capa fina (capítulo 201); y la solución oral de paracetamol, con HPLC y capa fina. Igual que con el tiempo de retención, un Rf solo no basta como identidad específica: ICH Q6A pide ensayos que distingan compuestos parecidos (lo verás en «Identificar sustancias por sus reacciones a fondo»). La guía de la EMA sobre especificaciones de plantas medicinales acepta una combinación, por ejemplo HPLC y capa fina con densitómetro.
+**Identificación de farmacopea.** En los ejercicios de formación de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos), el paracetamol de la farmacopea estadounidense se identifica con tres ensayos: infrarrojo, ultravioleta y capa fina (capítulo 201); y la solución oral de paracetamol, con HPLC y capa fina. Igual que con el tiempo de retención, un Rf solo no basta como identidad específica: ICH Q6A pide ensayos que distingan compuestos parecidos (lo verás en «Identificar sustancias por sus reacciones a fondo»). La guía de la EMA sobre especificaciones de plantas medicinales acepta una combinación, por ejemplo HPLC y capa fina con densitómetro.
 
 **Impurezas.** La guía ICH Q3A dice que técnicas de menor precisión, «por ejemplo, la cromatografía en capa fina», pueden ser aceptables si se justifican y se validan. Su sitio natural son los ensayos límite; las impurezas con cifra las has visto medir por HPLC en «HPLC a fondo».
 
 **Limpieza.** La guía de la FDA sobre validación de limpieza (1993) cuenta el caso de una planta de principios activos que fabricaba esteroides potentes y otros productos en los mismos equipos. Solo buscaba restos del producto anterior, pero sus propias placas del agua de aclarado mostraban subproductos y productos de degradación. La FDA concluye que a veces hace falta un cribado por capa fina además del análisis químico. La guía de validación de la OMS (informe técnico 1019, anexo 3) pide lo mismo «cuando sea necesario» y cita la capa fina «de alta presión» (así la nombra) entre los métodos sensibles y específicos.
 
 ### HPTLC
-La **capa fina de alto rendimiento** (*high-performance thin-layer chromatography*, HPTLC) tiene sus propias placas y se trabaja con equipos que sustituyen la mano y el ojo. La lista de equipos de la OMS para un laboratorio de control de calidad (informe técnico 957, anexo 1) da la idea: el laboratorio básico tiene equipo de capa fina, un aplicador de manchas, seis cubetas, pulverizadores y una lámpara ultravioleta; el mediano añade un **aplicador múltiple** (*multispotter*) y un **escáner** de placas (*TLC scanner*), el densitómetro que convierte cada mancha en un pico con área. Las cifras de partícula y de placa de la HPTLC están en la Farmacopea Europea, de pago: no se dan aquí.
+La **capa fina de alto rendimiento** (*high-performance thin-layer chromatography*, HPTLC) tiene sus propias placas y se trabaja con equipos que sustituyen la mano y el ojo. La lista de equipos de la Organización Mundial de la Salud (OMS) para un laboratorio de control de calidad (informe técnico 957, anexo 1) da la idea: el laboratorio básico tiene equipo de capa fina, un aplicador de manchas, seis cubetas, pulverizadores y una lámpara ultravioleta; el mediano añade un **aplicador múltiple** (*multispotter*) y un **escáner** de placas (*TLC scanner*), el densitómetro que convierte cada mancha en un pico con área. Las cifras de partícula y de placa de la HPTLC están en la Farmacopea Europea, de pago: no se dan aquí.
 
 ### Capa fina en planta: el control de fin de reacción
 El cuadro de la FDA la compara con el HPLC: fácil de usar, sin automatización habitual y con un equipo de menos de 500 dólares, frente a más de 20000. Por eso aparece en planta piloto: para contestar «¿queda material de partida?» sin hacer cola en el laboratorio.
@@ -157,10 +157,10 @@ ICH Q7 encaja con ese uso:
 La guía de integridad de datos de la OMS (informe técnico 1033, anexo 4) incluye las **placas de capa fina** junto a las fotografías y las imágenes, y pide una justificación documentada del método elegido. Cómo se conserva la evidencia lo fija tu procedimiento; lo que no vale es anotar «cumple» sin que nadie pueda comprobarlo. Más en «ALCOA+ a fondo: datos en los que se puede confiar».
 
 ### Seguridad
-- **Hexano** (ficha ICSC 0279). Altamente inflamable; punto de inflamación de −22 °C; su vapor pesa más que el aire y se extiende a ras del suelo. Con exposiciones repetidas daña los nervios (polineuropatía). Valor límite ambiental de exposición diaria (VLA-ED) de 20 ppm, según la ficha (INSHT 2014). Su **temperatura de autoignición es de 225 °C**: una placa con restos de hexano sobre una placa calefactora a 300 °C puede arder sin chispa. Los métodos pulverizan y queman la placa ya seca.
+- **Hexano** (ficha internacional de seguridad química, ICSC, 0279). Altamente inflamable; punto de inflamación de −22 °C; su vapor pesa más que el aire y se extiende a ras del suelo. Con exposiciones repetidas daña los nervios (polineuropatía). Valor límite ambiental de exposición diaria (VLA-ED) de 20 ppm, según la ficha (INSHT 2014: Instituto Nacional de Seguridad e Higiene en el Trabajo, el nombre que tenía entonces el actual INSST). Su **temperatura de autoignición es de 225 °C**: una placa con restos de hexano sobre una placa calefactora a 300 °C puede arder sin chispa. Los métodos pulverizan y queman la placa ya seca.
 - **Acetato de etilo** (ICSC 0367). Muy inflamable, punto de inflamación de −4 °C; VLA-ED de 200 ppm y VLA-EC (corta duración) de 400 ppm (INSST 2019, según la ficha).
 - **Ácido sulfúrico** (ICSC 0362). Muy corrosivo para ojos, piel y vías respiratorias. La ficha pide evitar la formación de nieblas, y las nieblas de ácidos inorgánicos fuertes están clasificadas como cancerígenas: pulverizar es justo formar niebla, así que se hace con extracción localizada, gafas, guantes y pantalla. Para diluirlo, el ácido sobre el agua, despacio; nunca agua sobre el ácido.
-- **Lámpara ultravioleta y placas.** La NTP 433 del INSST pide, en espectroscopia atómica, no mirar directamente las lámparas; con la lámpara ultravioleta de la capa fina vale la misma prudencia. Y, en la capa fina, avisa del riesgo de cortes con los bordes de las placas.
+- **Lámpara ultravioleta y placas.** La nota técnica de prevención NTP 433 del INSST pide, en espectroscopia atómica, no mirar directamente las lámparas; con la lámpara ultravioleta de la capa fina vale la misma prudencia. Y, en la capa fina, avisa del riesgo de cortes con los bordes de las placas.
 - Los restos de eluyente van al bidón de disolventes, nunca al desagüe.
 
 En planta y en el laboratorio manda siempre el procedimiento vigente (SOP): placa, eluyente, revelado, criterio y registro son los de tu método.

@@ -15,6 +15,7 @@
     "check:media": "node scripts/check-media.mjs",
     "check:cloud": "node scripts/check-cloud.mjs",
     "check:sim": "node scripts/check-sim.mjs",
+    "check:problemas": "node scripts/check-problemas.mjs",
     "gen:catalog": "node scripts/gen-catalog.mjs"
   },
   "dependencies": {

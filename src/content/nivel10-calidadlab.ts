@@ -18,7 +18,7 @@ Una analogía de desarrollo web: una cosa es que tu empresa tenga un proceso ord
 - **ISO 9001.** La norma ISO de sistemas de gestión de la calidad. No es específica de laboratorios: trata de cómo una empresa organiza su calidad. Es de pago y no la hemos leído; aquí solo va lo que se comprueba en documentos gratuitos.
 - **ISO/IEC 17025** (en España, UNE-EN ISO/IEC 17025). Según la guía de la Organización Mundial de la Salud (OMS) para laboratorios de control (serie de informes técnicos 1052, de 2024, anexo 4), su título es «Requisitos generales para la competencia de los laboratorios de ensayo y calibración». La OMS cita la edición de 2017. También es de pago.
 - **Buenas Prácticas de Laboratorio (BPL)** de la Organización para la Cooperación y el Desarrollo Económicos (OCDE): en España, el Real Decreto 822/1993, con el anexo que sustituyó el Real Decreto 1369/2000. Son para **estudios no clínicos de seguridad**.
-- **Normas de correcta fabricación** (*Good Manufacturing Practice*, GMP): para tu planta, ICH Q7. Tu laboratorio de control de calidad (*quality control*, QC) vive aquí.
+- **Normas de correcta fabricación** (*Good Manufacturing Practice*, GMP): para tu planta, la guía ICH Q7 (Consejo Internacional de Armonización, *International Council for Harmonisation*). Tu laboratorio de control de calidad (*quality control*, QC) vive aquí.
 
 | | ISO 9001 | ISO/IEC 17025 | BPL (OCDE) | GMP (ICH Q7) |
 |---|---|---|---|---|
@@ -27,7 +27,7 @@ Una analogía de desarrollo web: una cosa es que tu empresa tenga un proceso ord
 | Qué se obtiene | Un certificado | Una acreditación con un alcance | Cumplimiento verificado | Conformidad con GMP |
 | ¿Es obligatoria? | Voluntaria | Voluntaria, salvo que una ley la exija | Para esos estudios | Requisito de las autoridades para fabricar (ICH Q10, 1.3) |
 
-La diferencia entre BPL y GMP, con fines, responsables y archivo, ya la tienes en la lección anterior. Dos detalles más: la OMS dice que su guía es coherente con ISO/IEC 17025:2017 (1.4), e ICH Q10 dice que se basa en conceptos de calidad de ISO (1.3). La familia es la misma; cambia quién comprueba y para qué.
+La diferencia entre BPL y GMP, con fines, responsables y archivo, ya la tienes en [El laboratorio de control de calidad a fondo: cuaderno, trazabilidad e integridad de los datos analíticos](/leccion/buenas-practicas-laboratorio-a-fondo). Dos detalles más: la OMS dice que su guía es coherente con ISO/IEC 17025:2017 (1.4), e ICH Q10 dice que se basa en conceptos de calidad de ISO (1.3). La familia es la misma; cambia quién comprueba y para qué.
 
 ### Certificar no es acreditar
 **Certificar.** El Real Decreto 2200/1995 (Reglamento de la Infraestructura para la Calidad y la Seguridad Industrial) dice que las **entidades de certificación** establecen la conformidad, pedida voluntariamente, de una empresa, producto, proceso, servicio o persona con los requisitos de normas o especificaciones técnicas (art. 4 y 20). Es decir: «tu sistema cumple la norma». Y no pueden certificar lo que ellas mismas asesoraron (art. 25).
@@ -44,7 +44,7 @@ Vale en otros países porque los organismos nacionales se evalúan entre sí (**
 ### El alcance: la letra pequeña
 Un laboratorio no está «acreditado» sin más: lo está para unos ensayos. Acreditarse para unas tareas no supone estarlo para las demás (RD 2200/1995, art. 6.1). El Reglamento (UE) 2017/625, de controles oficiales de alimentos, exige a los laboratorios oficiales trabajar según EN ISO/IEC 17025, estar acreditados por un organismo nacional de acreditación y que el **alcance** incluya los métodos que usan (art. 37.4 e y 37.5).
 
-Si tu empresa encarga fuera el análisis de paladio residual, no basta el logotipo de ENAC: ese ensayo tiene que estar en el alcance. Y para un API eso no sustituye a las GMP: ICH Q7 pide que el laboratorio contratado cumpla las GMP (16.10), que se le evalúe (16.11), un contrato que reparta responsabilidades (16.12), poder auditarlo (16.13) y que no cambie métodos sin aprobación (16.16).
+Si tu empresa encarga fuera el análisis de paladio residual, no basta el logotipo de ENAC: ese ensayo tiene que estar en el alcance. Y para un principio activo (API) eso no sustituye a las GMP: ICH Q7 pide que el laboratorio contratado cumpla las GMP (16.10), que se le evalúe (16.11), un contrato que reparta responsabilidades (16.12), poder auditarlo (16.13) y que no cambie métodos sin aprobación (16.16).
 
 ### Ensayos de aptitud e intercomparaciones
 Un laboratorio puede validar, calibrar y llevar gráficos de control y aun así tener un sesgo que no ve, porque se compara consigo mismo. Para salir de esa burbuja se compara con otros. La OMS define:
@@ -54,7 +54,7 @@ Un laboratorio puede validar, calibrar y llevar gráficos de control y aun así 
 
 Es un examen común: todos responden la misma pregunta y se comparan con la respuesta correcta.
 
-Un matiz para tu planta: la OMS pide participar con regularidad a los laboratorios **salvo al de control de calidad de un fabricante** (6.72). Para él no es exigencia de esa guía, aunque puede usarlo, junto con patrones, gráficos de control y réplicas, para asegurar la validez de sus resultados (6.71). Lo decide su sistema de calidad.
+Un matiz para tu planta: la OMS pide participar con regularidad a los laboratorios **salvo al de control de calidad de un fabricante** (6.72). Para él no es exigencia de esa guía; puede participar si su sistema de calidad lo decide. Lo que sí le pide es asegurar la validez de sus resultados con patrones o materiales de referencia, gráficos de control y réplicas, entre otras herramientas (6.71). Lo decide su sistema de calidad.
 
 ### La puntuación z, paso a paso
 El documento de la FDA, la agencia del medicamento de Estados Unidos, *Evaluation of Milk Laboratories* (revisión de 2023), que aplica ISO 13528 e ISO/IEC 17043 a sus ensayos de aptitud, da la fórmula:
@@ -110,7 +110,7 @@ Qué es un **material de referencia certificado** (*certified reference material
 El método da significativamente de menos, un 0,9 %. Si importa frente a la especificación lo decide el laboratorio con su procedimiento, contando también la incertidumbre del certificado ([Metrología a fondo: error, incertidumbre, trazabilidad y calibración](/leccion/metrologia-a-fondo)); ignorarlo no es una opción.
 
 ### Auditorías internas del laboratorio
-ICH Q7 pide auditorías internas regulares con calendario aprobado, y que hallazgos y acciones se documenten, lleguen a la dirección y se cierren a tiempo (2.40 y 2.41). Cómo responder a un auditor en planta lo viste en [El sistema de calidad a fondo: quién decide qué en una planta de API](/leccion/sistema-de-calidad-a-fondo). La OMS concreta para el laboratorio (3.42 y 3.43):
+ICH Q7 pide auditorías internas regulares con calendario aprobado, y que hallazgos y acciones se documenten, lleguen a la dirección y se cierren a tiempo (2.40 y 2.41). Cómo responder a un auditor en planta lo verás en [El sistema de calidad a fondo: quién decide qué en una planta de API](/leccion/sistema-de-calidad-a-fondo). La OMS concreta para el laboratorio (3.42 y 3.43):
 
 - Un **programa** con frecuencia, métodos y responsables, según la importancia de cada actividad, los cambios y las auditorías anteriores.
 - Al menos **una vez al año**, organizadas por el responsable de calidad, con alcance basado en el **riesgo**.
@@ -163,7 +163,7 @@ Los valores de los ejercicios son de ejemplo. En planta y en el laboratorio mand
   plant: `
 Todo es ficticio: empresa, equipos, códigos y números.
 
-Martes, turno de mañana. Victor descarga el secadero SD-301 del intermedio ficticio IX-40 y toma la muestra de humedad final. En el pequeño laboratorio de controles en proceso, junto a la sala, la termobalanza TB-02 da 0,42 %. El lavado de la cubeta deja unos mililitros de acetona: Victor los vierte en la garrafa naranja del grupo II, comprueba la etiqueta (contenido, productor, fecha de inicio) y la deja cerrada.
+Martes, turno de mañana. Victor descarga el secadero SD-301 del intermedio ficticio IX-40 y toma la muestra de humedad final. En el pequeño laboratorio de controles en proceso, junto a la sala, la termobalanza TB-02 da 0,42 %. El lavado de la cubeta deja unos mililitros de acetona: Victor los vierte en la garrafa del grupo II (no halogenados), la de etiqueta verde en la codificación que propone la NTP 480, comprueba la etiqueta (contenido, productor, fecha de inicio) y la deja cerrada.
 
 Por la tarde, en la reunión de turno, la jefa de control de calidad, Nuria, explica por qué el laboratorio central repite esta semana la valoración de agua por Karl Fischer de dos lotes. En la última ronda de un ensayo de aptitud externo, su resultado dio z = −2,6: cuestionable, por debajo del valor asignado. No es un fuera de especificación de ningún lote, pero el sistema de calidad pide investigarlo.
 

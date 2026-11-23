@@ -10,12 +10,12 @@ export const estadisticaLaboratorioAFondo: Lesson = {
   summary:
     "La campana de Gauss, el intervalo de confianza con la t de Student, las pruebas t (frente a un valor de referencia, dos medias y datos pareados) y la prueba F, las pruebas de valores atípicos de Grubbs y Dixon y por qué la FDA no deja usarlas para invalidar un ensayo químico, cuántas réplicas hacen falta, el método de adiciones estándar y los gráficos de control del laboratorio. Todo con ejemplos resueltos para hoja de cálculo.",
   body: `
-La media, la desviación estándar (s) y la RSD ya las calculaste paso a paso en [Metrología a fondo](/leccion/metrologia-a-fondo) y en [Cálculo y expresión de resultados a fondo](/leccion/calculo-de-resultados-a-fondo). Aquí das el paso siguiente: usar esos números para **decidir**. Los números de todas las cuentas son **valores de ejemplo**.
+La media, la desviación estándar (s) y la RSD (desviación estándar relativa) ya las calculaste paso a paso en [Metrología a fondo: error, incertidumbre, trazabilidad y calibración](/leccion/metrologia-a-fondo) y en [Cálculo y expresión de resultados a fondo: cifras significativas, redondeo, base seca y comparación con la especificación](/leccion/calculo-de-resultados-a-fondo). Aquí das el paso siguiente: usar esos números para **decidir**. Los números de todas las cuentas son **valores de ejemplo**.
 
 ### La campana: por qué los resultados se reparten así
 Si analizas muchas veces la misma muestra homogénea, cada resultado lleva un poco de error aleatorio. Si dibujas cuántas veces sale cada valor, aparece una campana: la **distribución normal** (*normal distribution*) o campana de Gauss.
 
-El manual de estadística de los laboratorios de la FDA (*ORA Laboratory Manual*, volumen III, sección 4, revisión de octubre de 2022) resume sus propiedades:
+El manual de estadística de los laboratorios de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) (*ORA Laboratory Manual*, volumen III, sección 4, revisión de octubre de 2022) resume sus propiedades:
 
 - Queda definida por dos números: el valor verdadero (μ, se lee «mu») y la desviación estándar verdadera (σ, «sigma»).
 - Pasarse es tan probable como quedarse corto, y los errores grandes son menos probables que los pequeños.
@@ -58,7 +58,7 @@ La guía ICH Q2(R2) pide dar la exactitud y la precisión de un método con un i
 
 Si hubieras usado 1,96 en vez de t, saldría ± 0,20 %: un intervalo más estrecho de lo que permiten cinco datos.
 
-**En la hoja de cálculo** (datos en A1:A5): =PROMEDIO(A1:A5), =DESVEST.M(A1:A5), =CONTAR(A1:A5) y, para t, =DISTR.T.INV(0,05;4), que da la t bilateral (en inglés, T.INV.2T). Los nombres en español cambian entre versiones y programas: comprueba el tuyo con la tabla (con 4 gl, 2,776).
+**En la hoja de cálculo** (datos en A1:A5): =PROMEDIO(A1:A5), =DESVEST.M(A1:A5), =CONTAR(A1:A5) y, para t, =DISTR.T.INV(0,05;4), que da la t bilateral (en inglés, TINV; la versión moderna es T.INV.2T). Los nombres en español cambian entre versiones y programas: comprueba el tuyo con la tabla (con 4 gl, 2,776).
 
 ### Cómo razona una prueba de significación
 Todas siguen el esquema de un juicio:
@@ -165,7 +165,7 @@ La guía de la FDA *Investigating Out-of-Specification (OOS) Test Results for Ph
 - En ensayos **biológicos**, muy variables, puede ser apropiada; la guía remite al capítulo 111 de la Farmacopea de Estados Unidos (USP), que avisa de que rechazar observaciones solo por su tamaño, sin investigar la causa, debe hacerse con moderación.
 - **No se aplican** cuando lo que se mide es la variabilidad del producto (uniformidad de contenido, disolución): el dato «raro» puede ser real.
 
-La estadística dice **que** un dato es raro, no **por qué**. Si el 101,9 % salió así porque una parte del lote es distinta, tirarlo esconde justo lo que había que ver. Un dato se invalida solo con un error concreto encontrado y documentado, como viste en [Resultados fuera de especificación (OOS) a fondo](/leccion/oos-a-fondo).
+La estadística dice **que** un dato es raro, no **por qué**. Si el 101,9 % salió así porque una parte del lote es distinta, tirarlo esconde justo lo que había que ver. Un dato se invalida solo con un error concreto encontrado y documentado, como verás en [Resultados fuera de especificación (OOS) a fondo](/leccion/oos-a-fondo).
 
 ### ¿Cuántas réplicas hacen falta?
 El semiancho del intervalo, t × s / √n, baja por dos lados al subir n: crece √n y baja t. Con s = 0,30 %:
@@ -178,7 +178,7 @@ Con dos réplicas, t = 12,706: la media apenas dice nada. De 2 a 4 réplicas se 
 
 **Ejercicio resuelto 6.** s = 0,30 % y quieres E ≤ 0,30 %. Con n = 6: 2,571 × 0,30 / 2,449 = 0,315: no llega. Con n = 7: 2,447 × 0,30 / 2,646 = 0,277: sí. Hacen falta **7 réplicas**.
 
-Hay mínimos escritos: ICH Q2(R2) pide, para la repetibilidad, al menos 9 determinaciones en el intervalo (3 concentraciones por 3 réplicas) o al menos 6 al 100 %. Y con 3 datos, G nunca puede pasar de (n − 1)/√n = 1,155, con un crítico de 1,154: la prueba de Grubbs casi nunca decide nada. Por eso la FDA pide fijar el mínimo en el procedimiento.
+Hay mínimos escritos: la guía ICH Q2(R2) (Consejo Internacional de Armonización, *International Council for Harmonisation*) pide, para la repetibilidad, al menos 9 determinaciones en el intervalo (3 concentraciones por 3 réplicas) o al menos 6 al 100 %. Y con 3 datos, G nunca puede pasar de (n − 1)/√n = 1,155, con un crítico de 1,154: la prueba de Grubbs casi nunca decide nada. Por eso la FDA pide fijar el mínimo en el procedimiento.
 
 ### Adiciones estándar: cuando la muestra estorba
 A veces la muestra disuelta no responde igual que un patrón en disolvente limpio: sales o restos del producto frenan o ayudan a la señal. Es el **efecto matriz** (*matrix effect*). El manual de análisis elemental de la FDA (*Elemental Analysis Manual*, sección 3.6, versión 3.0 de 2021) dice que, ante una interferencia de matriz, lo habitual es diluir y repetir o usar **adiciones estándar** (*standard additions*). Su ejemplo: en un queso con mucha sal, la pendiente de la recta de adiciones del plomo sale en torno al 75 % de la de un patrón en ácido nítrico.
@@ -187,7 +187,7 @@ La idea: se añade patrón en cantidades conocidas **a porciones de la propia mu
 
 > x₀ = ordenada en el origen / pendiente
 
-**Ejercicio resuelto 7.** Paladio residual en un API ficticio, por absorción atómica. Se digieren 0,500 g y se llevan a 50,0 mL. Se toman cuatro porciones de 10,0 mL, se les añade patrón y se enrasan a 20,0 mL (factor 2). Concentración añadida en el matraz (µg/L) y absorbancia: 0 y 0,062; 5 y 0,118; 10 y 0,171; 15 y 0,229.
+**Ejercicio resuelto 7.** Paladio residual en un principio activo (API) ficticio, por absorción atómica. Se digieren 0,500 g y se llevan a 50,0 mL. Se toman cuatro porciones de 10,0 mL, se les añade patrón y se enrasan a 20,0 mL (factor 2). Concentración añadida en el matraz (µg/L) y absorbancia: 0 y 0,062; 5 y 0,118; 10 y 0,171; 15 y 0,229.
 
 1. Recta por mínimos cuadrados (=PENDIENTE y =INTERSECCION.EJE en la hoja): pendiente b = 0,01108 por µg/L; ordenada a = 0,0619; r = 0,9999.
 2. x₀ = 0,0619 / 0,01108 = **5,59 µg/L** en el matraz.
@@ -199,7 +199,7 @@ Con un patrón en ácido de pendiente 0,0148 (la de la muestra es el 75 %), habr
 El manual de la FDA pone condiciones: todas las disoluciones, con sus adiciones, dentro del intervalo lineal; r de al menos 0,995 en esos métodos; y avisa de que hay un límite al efecto matriz que las adiciones pueden corregir. Su coste: una recta por muestra.
 
 ### Gráficos de control del laboratorio
-En [Resultados fuera de especificación (OOS) a fondo](/leccion/oos-a-fondo) viste el gráfico de control de los resultados de los lotes. El laboratorio usa otro para **vigilarse a sí mismo**: en cada serie analiza una **muestra de control** (*control sample*) estable y homogénea. Si el método cambia, se ve ahí antes que en los lotes. La guía de la OMS para laboratorios de control (TRS 1052, anexo 4, 6.71) cita los gráficos de control entre las formas de asegurar la validez de los resultados.
+En [Resultados fuera de especificación (OOS) a fondo](/leccion/oos-a-fondo) verás el gráfico de control de los resultados de los lotes. El laboratorio usa además otro para **vigilarse a sí mismo**: en cada serie analiza una **muestra de control** (*control sample*) estable y homogénea. Si el método cambia, se ve ahí antes que en los lotes. La guía de la Organización Mundial de la Salud (OMS) para laboratorios de control (TRS 1052, anexo 4, 6.71) cita los gráficos de control entre las formas de asegurar la validez de los resultados.
 
 El manual de estadística de la FDA lo construye así:
 
@@ -208,7 +208,7 @@ El manual de estadística de la FDA lo construye así:
 - **Límites exteriores**, de acción: media ± 3s. Salir indica sesgo y pide acción correctora.
 - Aunque todo esté dentro, un patrón no aleatorio también avisa: por ejemplo, **ocho puntos seguidos** por encima o por debajo de la media.
 
-**Ejercicio resuelto 8.** Veinte resultados de la muestra de control, con media 99,565 % y s = 0,080 %. Aviso: de 99,40 a 99,73 %. Acción: de 99,32 a 99,81 %.
+**Ejercicio resuelto 8.** Veinte resultados de la muestra de control, con media 99,565 % y s = 0,080 %. Aviso: de 99,41 a 99,73 %. Acción: de 99,33 a 99,81 %.
 
 - Sale 99,76 %: entre aviso y acción. Se mira con atención la serie.
 - Sale 99,85 %: fuera del límite de acción. Pide acción correctora: se busca la causa antes de seguir.

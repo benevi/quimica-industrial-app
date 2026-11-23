@@ -29,7 +29,7 @@ En «Las cuentas de planta a fondo: porcentajes, proporciones, redondeos y gráf
 2. Teclea el exponente con el signo negativo de la tecla (−), no con la tecla de restar: (−) 4,76.
 3. Pulsa «=». Sale 1,7378 × 10⁻⁵, que se redondea a **1,74 × 10⁻⁵**.
 
-Comprobación a ojo: −4,76 está entre −5 y −4, así que el resultado tiene que estar entre 0,00001 y 0,0001. Cuadra. Este número es la constante de acidez del ácido acético, que verás en «Ácidos, bases y pH a fondo: medir, ajustar y neutralizar sin riesgos».
+Comprobación a ojo: −4,76 está entre −5 y −4, así que el resultado tiene que estar entre 0,00001 y 0,0001. Cuadra. Este número es la constante de acidez (*acid dissociation constant*, Ka) del ácido acético, que verás en «Ácidos, bases y pH a fondo: medir, ajustar y neutralizar sin riesgos».
 
 ### 2. La raíz cuadrada
 La **raíz cuadrada** (*square root*, √) responde a la pregunta «¿qué número, multiplicado por sí mismo, da este?». √9 = 3 porque 3 × 3 = 9. √0,01 = 0,1 porque 0,1 × 0,1 = 0,01. Es lo mismo que elevar a ½: √x = x^0,5. Por eso √10 = 10^0,5 = 3,162.
@@ -72,7 +72,7 @@ Tres cosas que se ven en la tabla:
 - Con la regla 1, a mano: log (2,5 × 10⁻³) = log 2,5 + log 10⁻³ = 0,398 + (−3) = −2,602. Cambiado de signo, **pH = 2,60**.
 - Con la calculadora: (−) «log» ( 2,5 × 10ˣ (−) 3 ) =, o bien con la tecla de notación científica. Sale 2,60.
 
-**Ejemplo resuelto 7. Una resta de logaritmos.** En la lección «a fondo» de ácidos y bases verás la ecuación de Henderson-Hasselbalch (*Henderson-Hasselbalch equation*), pH = pKa + log ([base] / [ácido]). Con pKa = 4,76, 0,09 mol de base y 0,11 mol de ácido: log (0,09 / 0,11) = log 0,818 = −0,087. pH = 4,76 − 0,087 = **4,67**. Con la regla 2 se llega a lo mismo: log 0,09 − log 0,11 = −1,046 − (−0,959) = −0,087.
+**Ejemplo resuelto 7. Una resta de logaritmos.** En la lección «a fondo» de ácidos y bases verás la ecuación de Henderson-Hasselbalch (*Henderson-Hasselbalch equation*), pH = pKa + log ([base] / [ácido]). Con pKa = 4,76 (el pKa es −log Ka: −log 1,74 × 10⁻⁵ = 4,76, el número del ejemplo 1), 0,09 mol de base y 0,11 mol de ácido: log (0,09 / 0,11) = log 0,818 = −0,087. pH = 4,76 − 0,087 = **4,67**. Con la regla 2 se llega a lo mismo: log 0,09 − log 0,11 = −1,046 − (−0,959) = −0,087.
 
 ### 5. Escalas logarítmicas: cada paso es un factor 10
 Una **escala logarítmica** (*logarithmic scale*) es la que cuenta potencias en vez de cantidades. La del pH es la más conocida: **cada unidad de pH es un factor 10** en la concentración de H⁺. Pasar de pH 5 a pH 3 no es «un poco más ácido»: la concentración de H⁺ pasa de 10⁻⁵ a 10⁻³ mol/L, es decir, se multiplica por 10⁻³ / 10⁻⁵ = **100**.
@@ -128,7 +128,7 @@ Al cabo de 20 min queda e^(−0,1 × 20) = e^(−2). Teclas: eˣ ( (−) 0,1 × 
 
 **Ejemplo resuelto 11. ¿Cuánto tarda en bajar de 2 % a 0,5 %?** El control en proceso (IPC, *in-process control*) pide que quede como mucho un 0,5 % del reactivo, y al acabar de dosificar queda un 2 %. Hay que dividir entre 4. Con ln: t = ln (2 / 0,5) / k = ln 4 / 0,1 = 1,386 / 0,1 = **13,9 min**. Son dos vidas medias justas, porque 2 × 6,93 = 13,9.
 
-**Arrhenius: un poco de temperatura, mucha velocidad.** La **ecuación de Arrhenius** (*Arrhenius equation*), k = A × e^(−Ea / (R × T)), dice cómo cambia k con la temperatura. Ea es la energía de activación en J/mol, R = 8,314 J/(mol·K) y T la temperatura en kelvin (°C + 273,15). Como T está dentro de un exponente, un cambio pequeño de temperatura multiplica k por mucho.
+**Arrhenius: un poco de temperatura, mucha velocidad.** La **ecuación de Arrhenius** (*Arrhenius equation*), k = A × e^(−Ea / (R × T)), dice cómo cambia k con la temperatura. Ea es la energía de activación (*activation energy*) en J/mol, R = 8,314 J/(mol·K) y T la temperatura en kelvin (°C + 273,15). Como T está dentro de un exponente, un cambio pequeño de temperatura multiplica k por mucho.
 
 **Ejemplo resuelto 12. El R-204 a 60 °C en vez de 70 °C**, con los 90 kJ/mol (90 000 J/mol) del simulador. Para comparar dos temperaturas, k₆₀ / k₇₀ = e^(−Ea / R × (1/T₆₀ − 1/T₇₀)):
 1. Ea / R = 90 000 / 8,314 = 10 825 K.

@@ -15,7 +15,7 @@ En «El laboratorio a fondo: material, equipos y trabajo seguro» viste el mater
 ### Por qué te importa a ti, que estás en planta
 Un filtro Nutsche es un embudo Büchner de dos metros cuadrados. Un reactor que concentra a vacío es un rotavapor de miles de litros. La física es la misma; cambian el tamaño, el tiempo y los riesgos. Por eso desarrollo ensaya cada etapa en el banco antes de llevarla a planta.
 
-Las mismas operaciones salen en las normas. La guía ICH Q7 (apartado 14.20) considera en general aceptable reprocesar un lote repitiendo una cristalización u otro paso del proceso establecido, como una destilación o una filtración. Y el módulo 1250 del Real Decreto 290/2023 (Técnico en Operaciones de Laboratorio) enumera filtración, decantación, centrifugación, destilación, evaporación, secado, cristalización, liofilización y extracción.
+Las mismas operaciones salen en las normas. La guía ICH Q7 (Consejo Internacional de Armonización, *International Council for Harmonisation*) (apartado 14.20) considera en general aceptable reprocesar un lote repitiendo una cristalización u otro paso del proceso establecido, como una destilación o una filtración. Y el módulo 1250 del Real Decreto 290/2023 (Técnico en Operaciones de Laboratorio) enumera filtración, decantación, centrifugación, destilación, evaporación, secado, cristalización, liofilización y extracción.
 
 | En el banco | En la planta | Lección a fondo |
 |---|---|---|
@@ -23,7 +23,7 @@ Las mismas operaciones salen en las normas. La guía ICH Q7 (apartado 14.20) con
 | Embudo de decantación | Reactor con válvula de fondo y mirilla | «Extracción líquido-líquido a fondo: fases, lavados y separación en el reactor» |
 | Destilación y rotavapor | Reactor con condensador, a presión normal o a vacío | «Destilación a fondo: reflujo, vacío y cambio de disolvente en el reactor» |
 | Recristalización en matraz | Cristalizador | «Cristalización a fondo: solubilidad, sobresaturación y siembra» |
-| Sublimación | Liofilizador | «La materia a fondo: estados, cambios de estado y mezclas» |
+| Sublimación | Liofilizador | «Diagramas de fases a fondo: cuándo algo es sólido, líquido o gas» |
 | Estufa y desecador | Secadero | «El secado a fondo: la curva de secado y cuándo está seco» |
 | Centrífuga de tubos | Centrífuga de cesta | «La centrífuga a fondo: fuerza G, ciclo completo y qué hacer cuando vibra» |
 
@@ -54,7 +54,7 @@ Se abre el vacío, se vierte la suspensión, se lava la torta con disolvente fr�
 
 El manual de la FDA añade: si el filtrado empieza a hervir dentro del Kitasato, se reduce el vacío («Destilación a fondo» explica por qué hierve).
 
-**Cuenta 1. Lo que aprieta el aire.** Büchner de 12 cm de diámetro, vacío a 200 mbar abs y atmósfera a 1013 mbar. Diferencia: 813 mbar = 81300 Pa. Superficie: π × 0,06 × 0,06 = 0,0113 m². Fuerza: 81300 × 0,0113 = **919 N**, como si apoyaras 94 kg encima del papel. Esa misma fuerza aprieta sobre todo el vidrio del Kitasato: por eso se usa vidrio de pared gruesa y se protege.
+**Cuenta 1. Lo que aprieta el aire.** Büchner de 12 cm de diámetro, vacío a 200 mbar abs y atmósfera a 1013 mbar. Diferencia: 813 mbar = 81300 Pa. Superficie: π × 0,06 × 0,06 = 0,0113 m². Fuerza: 81300 × 0,0113 = **919 N**, como si apoyaras 94 kg encima del papel. Esa misma diferencia de presión aprieta sobre todo el vidrio del Kitasato: por eso se usa vidrio de pared gruesa y se protege.
 
 **Cuenta 2. Del banco a la planta.** En el banco se filtran 50 g en ese Büchner: 0,050 / 0,0113 = 4,4 kg/m². En el filtro ficticio FD-402, de 2,0 m², 200 kg: 100 kg/m² (valores de ejemplo). La torta de planta será unas 23 veces más gruesa y, como verás en «Filtros a fondo», frenará mucho más el líquido.
 
@@ -111,7 +111,7 @@ En planta, el pariente es lavar o resuspender el sólido en el equipo, como ver�
 
 Una destilación simple es la primera fila: 71 % de hexano. Una columna que equivalga a cuatro etapas da casi un 98 %, y la temperatura baja hacia arriba, como en la torre.
 
-**Destilación a vacío** (*vacuum distillation*): por qué hierve antes y la ecuación de Antoine están en «Destilación a fondo». En el banco, la NTP 464 añade el montaje: un capilar que hace borbotear aire o gas inerte para regular la ebullición, vigilando que no se tapone si empieza a cristalizar algo; **primero el vacío y después el calor**; al acabar, **enfriar antes de romper el vacío**, porque el aire en un balón caliente puede inflamar el residuo; y volver a la presión normal despacio.
+**Destilación a vacío** (*vacuum distillation*): la ecuación de Antoine y por qué hierve antes los viste en «Diagramas de fases a fondo: cuándo algo es sólido, líquido o gas», y su uso en el reactor lo verás en «Destilación a fondo: reflujo, vacío y cambio de disolvente en el reactor». En el banco, la NTP 464 añade el montaje: un capilar que hace borbotear aire o gas inerte para regular la ebullición, vigilando que no se tapone si empieza a cristalizar algo; **primero el vacío y después el calor**; al acabar, **enfriar antes de romper el vacío**, porque el aire en un balón caliente puede inflamar el residuo; y volver a la presión normal despacio.
 
 **Los peróxidos.** Según la NTP 464, los éteres forman peróxidos explosivos al envejecer; al destilarlos, el peróxido se concentra y explota cuando queda casi solo. Por eso se hace antes una prueba de peróxidos.
 
@@ -130,7 +130,7 @@ El manual de la FDA da una secuencia completa: refrigerante y matraz colector a 
 3. Filtrar en caliente si quedan partículas, como el FX-101 pasa por su cartucho antes de enfriar.
 4. Enfriar despacio: un enfriamiento brusco da finos y encierra impurezas.
 5. Filtrar en Büchner y lavar con disolvente **frío**, que redisuelve menos producto.
-6. Secar y comprobar la pureza, por ejemplo con el punto de fusión («Punto de fusión y análisis térmico a fondo»).
+6. Secar y comprobar la pureza, por ejemplo con el punto de fusión (lo verás en «Punto de fusión y análisis térmico a fondo»).
 
 **Cuenta 8. El rendimiento máximo** (valores de ejemplo). 10 g de producto bruto. Solubilidad: 25 g por 100 mL en caliente y 2 g por 100 mL a 0 °C.
 
@@ -156,7 +156,7 @@ La **estufa** (*drying oven*) seca muestras a temperatura controlada; la **estuf
 El método de humedad del BOE de 1987 enseña a secar bien:
 
 - **Capa fina**: un pesasustancias con tapa, con como mucho 0,3 g de muestra por centímetro cuadrado.
-- **Tapar antes de sacar** de la estufa y enfriar en el **desecador** antes de pesar (por qué, en «Gravimetría a fondo: medir pesando, cenizas y residuos»).
+- **Tapar antes de sacar** de la estufa y enfriar en el **desecador** antes de pesar (por qué, lo verás en «Gravimetría a fondo: medir pesando, cenizas y residuos»).
 - **Duplicados**: no pueden diferir más de 0,1 puntos.
 
 **Cuenta 9. La capa fina.** Para 5 g de muestra con 0,3 g/cm² como máximo: 5 / 0,3 = **16,7 cm²** de fondo, como mínimo. Es la idea del agitador del secadero: más superficie por la que sale el vapor. Qué mide la pérdida por secado lo tienes en «El agua en la muestra a fondo: Karl Fischer y pérdida por secado».

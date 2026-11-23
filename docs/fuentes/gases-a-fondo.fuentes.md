@@ -44,7 +44,7 @@ Descargas y cálculos en `scratchpad/lecciones/tmp-gases/` (`calc.py` recalcula 
 | Ej. 6: 29/1050 = 2,8 %; N₂ 1021 mbar; a 60 °C N₂ 1160, total 1345 mbar abs (0,35 bar g); con N₂ solo 1193 mbar (0,19 bar g) | Cálculo | Recalculado (2,79 %; 1160,0; 1345,3; 1193,3) |
 | Kc y Kp; Kp con presiones en bar; datos termodinámicos referidos a 1 bar | `equilibrio-a-fondo`; RD2032 tabla 8 nota a | Leído |
 | Kp = Kc · (R·T)^Δn | Deducción a partir de p = c·R·T | Demostrado en el texto |
-| Ej. 7: Kc = 0,010 mol/L, 400 K (valores de ejemplo declarados); R·T = 33,26; Kp = 0,333 | Cálculo | Recalculado (0,3326) |
+| Ej. 7: Kc = 0,010 mol/L, 400 K (valores de ejemplo declarados); R·T = 33,26; Kp = 0,333 bar (con Δn = 1, Kp lleva unidades de presión) | Cálculo | Recalculado (0,3326) |
 | Ej. 8: Kp = 4α²P/(1 − α²); α = 0,277 a 1 bar y 0,091 a 10 bar | Deducción y cálculo | Recalculado (0,2771 y 0,0908) |
 | La presión desplaza hacia el lado con menos moles de gas; con Δn = 0 no mueve | `equilibrio-a-fondo` (Le Châtelier); comprobado con el Ej. 8 | Leído y recalculado |
 | Temperaturas críticas: N₂ 126,19 K (−147 °C), CO₂ 304,18 K (31,0 °C), propano 369,9 K (96,8 °C), NH₃ 405,4 K (132,3 °C), Cl₂ 416,956 K (143,8 °C) | NIST-pc | Leído; pasado a °C |
@@ -73,7 +73,7 @@ Descargas y cálculos en `scratchpad/lecciones/tmp-gases/` (`calc.py` recalcula 
 | Cloro: mortal si se inhala, comburente, quemaduras graves | ICSC 0126 (frases GHS) | Leído |
 | No verter chorros de agua sobre el líquido (propano, amoniaco); no pulverizar agua sobre una botella de cloro con escape, por la corrosión | ICSC 0319, 0414 y 0126 | Leído |
 | Ante una fuga: evacuar y actuar con equipo autónomo de respiración | ICSC 0126, 0414 y 0319, «Derrames y fugas» | Leído |
-| Quiz: 3307 L; 1,405 bar a; 61,5 mol; 8,4 mbar; 3,17 %; 1,247 | Cálculo | Recalculado |
+| Quiz: 3307 L; 1,405 bar a; 61,5 mol; 8,4 mbar; 3,17 %; 1,247 bar | Cálculo | Recalculado |
 | Equipos, productos y códigos (R-204, R-218, QN-31, PIC-218, AI-218, B-07) | Ficticios | Valores de ejemplo declarados |
 | Presión de la botella del ejemplo de planta, 7,6 bar g | NIST-fluid: 8,57 bar a a 20 °C menos 1 bar | Recalculado |
 
