@@ -82,6 +82,7 @@ npm run check:sim      # simulador de planta: lote completo, informe de QA y Nut
 ```
 
 Antes de dar un cambio por terminado: `npm run lint`, `npx tsc --noEmit`, los `check:*` afectados y `npm run build`.
+El CI de GitHub (`.github/workflows/ci.yml`) ejecuta todo eso en cada PR y en cada cambio de `main`: un PR en rojo no se fusiona.
 
 Variables de entorno (opcionales, solo para la nube): copia `.env.example` a `.env.local` y rellena
 `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` (clave *publishable*, nunca la *service_role*).

@@ -1,0 +1,46 @@
+# Comprobaciones automáticas: se ejecutan en cada PR y en cada cambio de main.
+# Son las mismas que pide CLAUDE.md antes de dar un cambio por terminado.
+name: Comprobaciones
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  comprobaciones:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Tipos
+        run: npx tsc --noEmit
+      - name: Catálogo al día y tests de lecciones
+        run: npm run check
+      - name: Certificaciones
+        run: npm run check:certs
+      - name: Tarjetas de repaso y fichas de seguridad
+        run: npm run check:repaso
+      - name: Imágenes y vídeos
+        run: npm run check:media
+      - name: Sincronización con la nube
+        run: npm run check:cloud
+      - name: Simuladores
+        run: npm run check:sim
+      - name: Build de producción
+        run: npm run build
