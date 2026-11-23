@@ -6,6 +6,7 @@ import { materiaAFondo } from "./nivel1-materia";
 import { acidosBasesAFondo } from "./nivel1-acidos";
 import { enlacesAFondo } from "./nivel1-enlaces";
 import { formulacionInorganicaAFondo } from "./nivel1-formulacion";
+import { geometriaMolecularAFondo } from "./nivel1-geometria";
 
 const bases: Lesson[] = [
   {
@@ -488,4 +489,4 @@ Añades la sosa poco a poco vigilando la temperatura. Cerca del objetivo el pH c
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel1-tema.ts.
-export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo, atomosAFondo, materiaAFondo, acidosBasesAFondo, enlacesAFondo, formulacionInorganicaAFondo];
+export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo, atomosAFondo, materiaAFondo, acidosBasesAFondo, enlacesAFondo, formulacionInorganicaAFondo, geometriaMolecularAFondo];
