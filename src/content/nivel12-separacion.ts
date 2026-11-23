@@ -180,7 +180,7 @@ Mezclas que hierven a temperatura fija y destilan con composición constante, as
     summary: "El paso que purifica el API y decide su forma cristalina y su tamaño de partícula.",
     body: `
 ### Por qué es tan importante
-La cristalización es la **principal etapa de purificación** de un API: las impurezas se quedan en el líquido (las **aguas madre**, *mother liquor*) y el producto sale como sólido puro. Además fija la **forma cristalina** (polimorfo) y el **tamaño de partícula**.
+La cristalización es la **principal etapa de purificación** de un API: las impurezas se quedan en el líquido (las **aguas madres**, *mother liquor*) y el producto sale como sólido puro. Además fija la **forma cristalina** (polimorfo) y el **tamaño de partícula**.
 
 ### Solubilidad y sobresaturación
 - **Solubilidad** (*solubility*): máximo que se disuelve a una temperatura. Normalmente sube con la temperatura.
@@ -203,7 +203,7 @@ Enfriar o añadir antidisolvente **despacio** da cristales grandes y puros. Hace
 Añadir una pequeña cantidad de cristales de la forma correcta cuando la solución está ligeramente sobresaturada. Garantiza la forma y hace el proceso reproducible.
 
 ### Rendimiento teórico
-Solubilidad 120 g/L a 60 °C y 15 g/L a 5 °C, en 500 L: como máximo cristalizan (120 − 15) × 500 = 52 500 g = **52,5 kg**. El resto queda en las aguas madre.
+Solubilidad 120 g/L a 60 °C y 15 g/L a 5 °C, en 500 L: como máximo cristalizan (120 − 15) × 500 = 52 500 g = **52,5 kg**. El resto queda en las aguas madres.
 
 ### Después
 Maduración (*aging*) con agitación suave, **filtración o centrifugación**, **lavado de la torta** con disolvente frío y secado.
@@ -215,11 +215,11 @@ Maduración (*aging*) con agitación suave, **filtración o centrifugación**, *
 - Temperatura de disolución, de siembra y final; perfil de enfriamiento (gráfico del DCS adjunto).
 - Lote y cantidad de semilla.
 - Tiempo de maduración y aspecto (aparición de cristales).
-- Volumen y destino de las aguas madre.
+- Volumen y destino de las aguas madres.
 `,
     terms: [
       { es: "Cristalización", en: "Crystallization", def: "Formación de cristales sólidos a partir de una solución." },
-      { es: "Aguas madre", en: "Mother liquor", def: "Líquido que queda tras separar los cristales; contiene las impurezas." },
+      { es: "Aguas madres", en: "Mother liquor", def: "Líquido que queda tras separar los cristales; contiene las impurezas." },
       { es: "Sobresaturación", en: "Supersaturation", def: "Estado en que hay más soluto disuelto del que admite la solución." },
       { es: "Antidisolvente", en: "Antisolvent", def: "Líquido en el que el producto es poco soluble y que provoca su cristalización." },
       { es: "Nucleación", en: "Nucleation", def: "Formación de los primeros cristales." },
@@ -251,9 +251,9 @@ Maduración (*aging*) con agitación suave, **filtración o centrifugación**, *
       {
         kind: "choice",
         q: "¿Dónde quedan la mayoría de las impurezas tras cristalizar?",
-        options: ["En los cristales", "En las aguas madre", "En el condensador", "En el aire"],
+        options: ["En los cristales", "En las aguas madres", "En el condensador", "En el aire"],
         answer: 1,
-        explain: "Por eso además se lava la torta: para quitar las aguas madre que la mojan.",
+        explain: "Por eso además se lava la torta: para quitar las aguas madres que la mojan.",
       },
     ],
   },
@@ -347,7 +347,7 @@ Antes de micronizar se comprueba que la malla del tamiz de seguridad está ínte
     summary: "Cómo se evita que restos de un producto contaminen el siguiente y cómo se demuestra.",
     body: `
 ### Por qué es crítica
-En una planta multiproducto el mismo reactor fabrica varios API. Si quedan restos del anterior, pasan al siguiente: **contaminación cruzada** (*cross-contamination*). Las GMP (ICH Q7, apartado 12.7) exigen procedimientos de limpieza **escritos y validados**.
+En una planta multiproducto el mismo reactor fabrica varios API. Si quedan restos del anterior, pasan al siguiente: **contaminación cruzada** (*cross-contamination*). ICH Q7 pide procedimientos de limpieza **escritos** (apartado 5.21) y que **normalmente se validen** (apartado 12.70).
 
 ### Tipos de limpieza
 - **Entre lotes del mismo producto** (*minor cleaning / campaign cleaning*): más sencilla.

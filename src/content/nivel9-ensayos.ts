@@ -36,7 +36,7 @@ Van por separado porque prefieren condiciones distintas. La guía de la FDA (la 
 | Aerobios totales | 30 a 35 °C | 48 a 72 horas |
 | Mohos y levaduras | 20 a 25 °C | 5 a 7 días |
 
-Las condiciones para tu producto las fija el método de la farmacopea (de pago) y el procedimiento del laboratorio, pero el orden es ese: **días**.
+Ojo: son condiciones para placas de vigilancia de salas. Para el recuento del producto, la lección corta da las de la Farmacopea Europea (2.6.12: 3 a 5 días para aerobios); las exactas las fija el procedimiento del laboratorio. En cualquier caso, el orden es ese: **días**.
 ### Por qué tarda días
 No hay atajo: cada microbio tiene que multiplicarse miles de veces hasta que su colonia se vea. A eso se suman la preparación y, si sale algo raro, la identificación, que lleva más días. Por eso:
 
@@ -130,13 +130,13 @@ El texto armonizado monta cuatro soluciones:
 | C | Endotoxina en agua para el ensayo | Positivo: el lisado funciona |
 | D | Agua para el ensayo sola | Negativo: nada contaminado |
 
-Si B, C o D fallan, el ensayo no es válido y se repite: no es un dato del lote. En las técnicas fotométricas, la endotoxina añadida en B se recupera entre el 50 y el 200 %. El vidrio se **despirogena** en estufa; el texto cita como habitual un mínimo de 30 minutos a 250 °C.
+Si B, C o D fallan, el ensayo no es válido y se repite: no es un dato del lote. En las técnicas fotométricas, la endotoxina añadida en B se recupera entre el 50 y el 200 %. El vidrio se **despirogena** en estufa con un proceso validado; el texto armonizado cita como habitual un mínimo de 30 minutos a 250 °C (la guía antigua de la FDA que viste en «Microbiología para el operador a fondo» hablaba de 45 minutos: el tiempo exacto lo fija la validación).
 ### La monitorización ambiental
 La **monitorización ambiental** (*environmental monitoring*) vigila los microbios del aire y de las superficies. Métodos que citan el anexo 1 (9.22) y la FDA (2004):
 
 - **Placa de sedimentación** (*settle plate*): placa de 90 mm abierta que recoge lo que cae del aire. La FDA la considera semicuantitativa; el anexo 1 limita la exposición a 4 horas, para que el agar no se seque.
 - **Muestreo activo de aire** (*active air sampling*): un aparato aspira un volumen conocido de aire sobre el agar. Da UFC/m³.
-- **Placa de contacto** (*contact plate*, o RODAC): placa de 55 mm que se apoya en una superficie, un guante o la ropa.
+- **Placa de contacto** (*contact plate*, o RODAC, siglas inglesas de «detección y recuento replicado de organismos»): placa de 55 mm que se apoya en una superficie, un guante o la ropa.
 - **Hisopo** (*swab*) y **huella de guante** (*glove print*, los cinco dedos sobre el agar).
 
 **Cuenta del aire.** Se aspiran 500 L (0,5 m³) y crecen 45 colonias: 45 / 0,5 = 90 UFC/m³.

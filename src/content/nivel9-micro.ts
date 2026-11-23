@@ -171,7 +171,7 @@ Datos de la NTP 429 del INSST (1997) y de la FDA:
 
 Cuenta de la NTP 429: 250 mL de lejía de 40 g/L más 750 mL de agua dan 1 L de 40 × 250 / 1000 = 10 g/L de cloro libre.
 
-- **El alcohol arde.** Rociarlo es manejar un inflamable: sigue las reglas de ATEX.
+- **El alcohol arde.** Rociarlo es manejar un inflamable: sigue las reglas de las atmósferas explosivas (ATEX).
 - **Un desinfectante también se contamina.** La FDA cuenta que en 2011 se retiraron toallitas de alcohol contaminadas con *Bacillus cereus*. El anexo 1 (4.35) pide, en estériles, guardar las diluciones en envases limpios y solo el plazo fijado.
 
 ### Tiempo sucio y tiempo limpio

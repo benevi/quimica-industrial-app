@@ -212,7 +212,7 @@ Al trasvasar una suspensión con una bomba de membrana, el operador nota golpes 
       },
       {
         kind: "number",
-        q: "Una centrífuga da 10 m³/h a 50 Hz. Si el variador baja a 40 Hz, ¿qué caudal aproximado dará?",
+        q: "Una bomba centrífuga da 10 m³/h a 50 Hz. Si el variador baja a 40 Hz, ¿qué caudal aproximado dará?",
         answer: 8,
         tolerance: 0.01,
         unit: "m³/h",
@@ -337,7 +337,7 @@ La hoja dice: "Calentar a reflujo con fluido térmico. ΔT camisa–producto ≤
 ### Servicios de frío (de menos a más frío)
 | Servicio | En inglés | Temperatura típica |
 |---|---|---|
-| Agua de torre | *Cooling tower water* | 25–30 °C |
+| Agua de torre | *Cooling tower water* | Depende del tiempo: algo por encima del bulbo húmedo del aire, más caliente en verano |
 | Agua fría | *Chilled water* | 5–10 °C |
 | Agua glicolada / salmuera | *Glycol / brine* | por debajo de 0 °C (−10 a −20 °C) |
 | Fluido térmico con unidad de frío | *Thermal fluid* | hasta −30 °C o menos |
@@ -420,7 +420,7 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
     body: `
 ### Formas de manipular sólidos
 - **Sacos y bidones** (*bags, drums*): carga manual por la boca de hombre (*manway*) o una estación de vaciado de sacos.
-- **Big bags / FIBC** (*Flexible Intermediate Bulk Container*): sacos grandes (500–1000 kg) con estación de descarga.
+- **Big bags / FIBC** (*Flexible Intermediate Bulk Container*): sacos grandes (500–1500 kg) con estación de descarga.
 - **Contenedores IBC** de acero o **contenedores con válvula de cierre** (*split butterfly valve*): carga **contenida**, sin exponer al operador.
 - **Transporte neumático o por vacío** (*pneumatic / vacuum conveying*): el polvo viaja por una tubería arrastrado por gas.
 - **Tornillos sinfín** (*screw feeders*) y carga por **gravedad**.
@@ -433,7 +433,7 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
 ### Balance de materia (*mass balance*)
 Principio: **lo que entra = lo que sale + lo que se acumula**. En un lote:
 
-Entradas (cargas) = producto + aguas madre + lavados + destilados + residuos + pérdidas.
+Entradas (cargas) = producto + aguas madres + lavados + destilados + residuos + pérdidas.
 
 Sirve para:
 - Detectar errores de carga o de pesada.
@@ -451,11 +451,11 @@ Se cargan 120 kg de materia prima, 400 kg de disolvente y 30 kg de reactivo (550
 `,
     batchRecord: `
 - Pesos de cada carga con la identificación de la báscula y el lote del material.
-- Pesos o volúmenes de salidas: producto, aguas madre, residuos.
+- Pesos o volúmenes de salidas: producto, aguas madres, residuos.
 - Rendimiento y, si aplica, conciliación con sus límites.
 `,
     terms: [
-      { es: "Big bag", en: "Flexible Intermediate Bulk Container (FIBC)", def: "Saco grande de 500–1000 kg para sólidos." },
+      { es: "Big bag", en: "Flexible Intermediate Bulk Container (FIBC)", def: "Saco grande de 500–1500 kg para sólidos." },
       { es: "Boca de hombre", en: "Manway", def: "Abertura grande en la parte superior del reactor." },
       { es: "Transporte neumático", en: "Pneumatic conveying", def: "Transporte de polvo por tubería con aire o nitrógeno." },
       { es: "Electricidad estática", en: "Static electricity", def: "Carga eléctrica acumulada que puede producir chispas." },

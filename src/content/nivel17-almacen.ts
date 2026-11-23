@@ -10,7 +10,7 @@ export const almacenAFondo: Lesson = {
   summary:
     "Qué piden ICH Q7, las GMP europeas y la OMS a un almacén, cómo se vigila la temperatura y qué haces si se sale de rango, por qué manda el estado y no la posición, cuándo se aplica el Reglamento de almacenamiento de productos químicos, qué se guarda con qué y cómo se mueven, apilan, trasvasan y cuentan los envases, con sus cuentas.",
   body: `
-En «Almacenamiento: condiciones, FEFO y fechas» viste las ideas básicas, y en «Almacenamiento, emergencias y residuos a fondo», las reglas de la ITC MIE APQ-10 para bidones. Aquí entramos en el día a día del almacén de una planta de principios activos.
+En «Almacenamiento: condiciones, FEFO y fechas» viste las ideas básicas, y en «Almacenamiento, emergencias y residuos a fondo», las reglas de la instrucción técnica complementaria MIE APQ-10 para bidones. Aquí entramos en el día a día del almacén de una planta de principios activos.
 
 ### Las dos caras del almacén
 Un almacén tiene que cumplir dos cosas a la vez:
@@ -175,7 +175,7 @@ Planta ficticia de principios activos, almacén AL-02. Turno de tarde. Ana, oper
 
 Al día siguiente, Calidad descarga el registro: 7 lecturas por encima de 25 °C, unos 70 minutos, con una media de 26,1 °C. Los lotes de la sala quedan bloqueados en el sistema mientras se evalúa la desviación.
 
-Mientras tanto, producción pide 200 kg del reactivo ficticio RX-14 para el reactor R-301. El lote más cercano a la salida es el RX-14-0611, pero el escáner del ERP lo marca como bloqueado. El siguiente aprobado con caducidad más próxima es el RX-14-0402, al fondo de la estantería. Ana lo saca con la transpaleta eléctrica y deja el bloqueado donde está.
+Mientras tanto, producción pide 200 kg del reactivo ficticio RX-14 para el reactor R-301. El lote más cercano a la salida es el RX-14-0611, pero el escáner del sistema de gestión (ERP) lo marca como bloqueado. El siguiente aprobado con caducidad más próxima es el RX-14-0402, al fondo de la estantería. Ana lo saca con la transpaleta eléctrica y deja el bloqueado donde está.
 
 Por la tarde trasvasa disolvente ficticio SV-9 (H225) de un bidón a una lata de 20 L en la sala de trasvase: conecta las pinzas de tierra al bidón, a la bomba y a la lata antes de abrir. En el recuento semanal de la ubicación B-07 faltan 2 sacos de 25 kg: no toca el sistema y lo comunica. Aparecen en la ubicación B-08, mal registrados en la recepción.
 `,

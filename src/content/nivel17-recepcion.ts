@@ -121,7 +121,7 @@ Las técnicas de líquidos y sólidos (sonda, tubo, válvula) están en «Toma d
 ICH Q7 define cuarentena como el estado de los materiales aislados **físicamente o por otros medios eficaces** mientras se decide si se aprueban o se rechazan (las GMP europeas dicen física o administrativa, 5.5). Hay dos formas:
 
 - **Física:** una zona separada, a veces con jaula y llave.
-- **Por sistema:** el material está en el almacén general, pero el ERP lo tiene bloqueado y no deja consumirlo. Si todo el almacén está informatizado, la etiqueta no tiene que mostrar de forma legible todos los datos (GMP europeas, 5.32).
+- **Por sistema:** el material está en el almacén general, pero el sistema informático de gestión (ERP) lo tiene bloqueado y no deja consumirlo. Si todo el almacén está informatizado, la etiqueta no tiene que mostrar de forma legible todos los datos (GMP europeas, 5.32).
 
 ¿Por qué nadie usa un material en cuarentena, aunque haya prisa? Porque ICH Q7 dice que se mantiene en cuarentena hasta su muestreo, examen o análisis y su liberación (7.20). Y las GMP europeas, que solo se usan materiales liberados y dentro de su periodo de reanálisis (5.34). Puede estar perfecto, pero nadie lo sabe todavía.
 
@@ -164,7 +164,7 @@ Todo cuelga de ese número interno. Cuando la hoja de producción anota «cargad
 En planta manda siempre el procedimiento vigente (SOP): los pasos, los planes de muestreo, los colores y los plazos de tu empresa son los que valen.
 `,
   plant: `
-Lunes, 7:30. Llega un camión con 24 bidones de 180 kg de la base RX-12 (ficticia) para el reactor R-101. Recibe Marta, mozo de almacén.
+Lunes, 7:30. Llega un camión con 24 bidones de 180 kg de la base RX-12 (ficticia) para el reactor R-101. Recibe Marta, operaria de almacén.
 
 Primero, los papeles. El albarán dice 24 bidones y 4320 kg de un único lote del proveedor, L-8841. El pedido coincide. El fabricante es el aprobado. Pesa los bidones: cuadra.
 
@@ -184,7 +184,7 @@ En la hoja de producción del lote verías, para cada material cargado:
 - **Fecha de reanálisis o de caducidad**, comprobada: el material debe estar dentro de plazo el día de la carga.
 - **Cantidad pesada o medida**, con quién la pesa y quién la comprueba.
 
-En el registro de recepción, que es un documento aparte, constan el albarán, el pedido, el número de bidones, el lote del proveedor, el fabricante, la fecha y las incidencias (como el bidón 17). En el registro de muestreo constan los envases muestreados, la cabina, los útiles y quién muestreó. Todo se anota en el momento, con letra legible y firma, siguiendo ALCOA+.
+En el registro de recepción, que es un documento aparte, constan el albarán, el pedido, el número de bidones, el lote del proveedor, el fabricante, la fecha y las incidencias (como el bidón 17). En el registro de muestreo constan los envases muestreados, la cabina, los útiles y quién muestreó. Todo se anota en el momento, con letra legible y firma, siguiendo los principios ALCOA+ de integridad de datos.
 `,
   terms: [
     { es: "Recepción", en: "Receipt / goods receipt", def: "Conjunto de comprobaciones y registros que se hacen al llegar un material, antes de aceptarlo." },

@@ -172,9 +172,9 @@ La **desviación estándar** (*standard deviation*) mide cuánto se separan los 
 2. Diferencia de cada dato con la media, al cuadrado: 0,09; 0,01; 0,01; 0,09; 0,04; 0; 0,04; 0,01; 0,01; 0. La suma es 0,30.
 3. Se divide entre el número de datos menos uno (9): 0,30 / 9 = 0,0333.
 4. Raíz cuadrada: desviación estándar ≈ **0,18 %**.
-5. Límite inferior: 99,70 − 3 × 0,18 = **99,16 %**. Límite superior: 99,70 + 3 × 0,18 = **100,24 %**.
+5. Límite inferior: 99,70 − 3 × 0,183 = **99,15 %**. Límite superior: 99,70 + 3 × 0,183 = **100,25 %**.
 
-El lote siguiente da 98,9 %. Cumple la especificación (98,0–102,0 %), pero está por debajo de 99,16 %: es un **OOT**. Se investiga antes de que el siguiente sea un OOS.
+El lote siguiente da 98,9 %. Cumple la especificación (98,0–102,0 %), pero está por debajo de 99,15 %: es un **OOT**. Se investiga antes de que el siguiente sea un OOS.
 
 ### Resultados de estabilidad
 En los estudios de estabilidad (lo viste en «Estudios de estabilidad») se analiza el mismo lote durante años, y el producto puede estar ya en uso. EudraLex (capítulo 6, 6.35) pide investigar los OOS y las tendencias atípicas importantes. Si se confirma un OOS o una tendencia negativa importante en lotes ya liberados al mercado, se comunica a las autoridades competentes y se valora el impacto en esos lotes según el capítulo 8 (reclamaciones y retiradas). ICH Q7 (11.50) pide para los principios activos un programa continuo de estabilidad cuyos resultados confirmen las condiciones de almacenamiento y la fecha de reanálisis.

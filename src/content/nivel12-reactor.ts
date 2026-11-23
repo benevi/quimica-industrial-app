@@ -198,7 +198,7 @@ Cargas el tolueno. Son 3000 L, la mitad del reactor, muy por encima del volumen 
 
 Empiezas a calentar. Con la masa a 20 °C, la camisa no puede pasar de 70 °C. Según sube la masa, el sistema sube la camisa. Los últimos grados van lentos, como esperabas.
 
-Durante la adición, a los 25 minutos, la temperatura de masa baja a 67 °C: el reactivo entra frío. Paras la bomba. No sigues añadiendo por debajo de 68 °C, porque el reactivo se acumularía sin reaccionar. Esperas a recuperar 70 °C, reanudas y anotas la parada con su hora y su motivo. Avisas al jefe de turno, que decide si se abre una desviación.
+Durante la adición, a los 25 minutos, la temperatura de masa baja a 67 °C. Con la reacción en marcha no debería bajar: cada kilo de B desprende más calor del que cuesta calentarlo, así que o la camisa está enfriando de más o B no reacciona y se está acumulando. Paras la bomba y avisas al jefe de turno, como pide la hoja. No sigues añadiendo por debajo de 68 °C. Cuando la masa vuelve a 70 °C, reanudas con su visto bueno y anotas la parada con su hora y su motivo. El jefe de turno decide si se abre una desviación.
 `,
   batchRecord: `
 - Código del reactor, estado de limpieza y etiqueta de estado comprobados, con hora y firma.

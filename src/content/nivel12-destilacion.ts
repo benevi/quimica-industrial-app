@@ -198,9 +198,9 @@ Pasas la válvula del condensador E-204 a destilación y compruebas su agua: ent
 
 El vapor sale a unos 85 °C. En el S-204 crece la capa de agua; la purgas dos veces y lo anotas. Hora y media después el vapor sube en pocos minutos a 110 °C: no queda agua.
 
-Enfrías a 70 °C y empiezas a bajar la presión. Hasta unos 300 mbar abs no hierve: a 70 °C el tolueno tiene una presión de vapor de unos 272 mbar. En el escalón siguiente, al cruzar esa presión, la masa empieza a hervir de golpe y por la mirilla ves espuma que sube por el cuello. Paras el escalón, mantienes la presión y bajas la consigna de la camisa. La espuma baja en un par de minutos. Sigues con escalones de 25 mbar y anotas la incidencia.
+Enfrías a 70 °C y empiezas a bajar la presión. Hasta unos 300 mbar abs no hierve: a 70 °C el tolueno tiene una presión de vapor de unos 272 mbar. En el escalón siguiente, al cruzar esa presión, la masa empieza a hervir de golpe y por la mirilla ves espuma que sube por el cuello. Paras el escalón, mantienes la presión y bajas la consigna de la camisa. La espuma baja en un par de minutos. Avisas al jefe de turno, que autoriza seguir con escalones de 25 mbar, y anotas la incidencia y la autorización.
 
-A 200 mbar abs la masa hierve a unos 63 °C: al hervir se ha enfriado sola, porque el vapor se lleva su calor latente. El D-205 se va llenando. Con 1990 L recogidos, el nivel del reactor marca 1010 L: cuadra. Paras el calor, tomas la muestra y el laboratorio da 0,03 % de agua: cumple. Enfrías y rompes el vacío con nitrógeno, despacio.
+A 200 mbar abs la masa hierve a unos 63 °C: al hervir se ha enfriado sola, porque el vapor se lleva su calor latente. El D-204 se va llenando. Con 1990 L recogidos, el nivel del reactor marca 1010 L: cuadra. Paras el calor, tomas la muestra y el laboratorio da 0,03 % de agua: cumple. Enfrías y rompes el vacío con nitrógeno, despacio.
 `,
   batchRecord: `
 - Posición del condensador (reflujo o destilación) comprobada antes de calentar, con hora y firma.

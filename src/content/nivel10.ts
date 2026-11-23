@@ -22,15 +22,15 @@ Ensayos típicos de un API:
 | Ensayo | Ejemplo de criterio |
 |---|---|
 | Aspecto | Polvo cristalino blanco |
-| Identificación (IR y HPLC) | Conforme con el patrón |
+| Identificación (infrarrojo, IR, y cromatografía líquida, HPLC) | Conforme con el patrón |
 | Contenido (*assay*) | 98,0–102,0 % (sobre sustancia seca) |
 | Impurezas | Cada impureza conocida ≤ 0,15 %; no especificadas ≤ 0,10 %; totales ≤ 0,5 % |
-| Agua (KF) o LOD | ≤ 0,5 % |
+| Agua (Karl Fischer, KF) o pérdida por secado (*loss on drying*, LOD) | ≤ 0,5 % |
 | Disolventes residuales | Según ICH Q3C |
 | Cenizas sulfatadas | ≤ 0,1 % |
 | Impurezas elementales | Según ICH Q3D |
-| Tamaño de partícula | d90 ≤ 100 µm |
-| Microbiología | TAMC ≤ 10³ UFC/g |
+| Tamaño de partícula | d90 (el 90 % de las partículas es menor) ≤ 100 µm |
+| Microbiología | Recuento de aerobios (TAMC) ≤ 10³ UFC/g |
 
 Los límites de impurezas siguen los **umbrales** de ICH Q3A, que dependen de la dosis diaria del fármaco.
 
@@ -38,10 +38,10 @@ Los límites de impurezas siguen los **umbrales** de ICH Q3A, que dependen de la
 Documento que explica **cómo** hacer cada ensayo: equipo, reactivos, preparación, condiciones, idoneidad del sistema, cálculo. Puede ser de **farmacopea** (monografía) o **propio** de la empresa (y entonces debe validarse).
 
 ### Especificaciones de proceso
-Además del producto final, hay especificaciones para **materias primas**, **intermedios** e **IPC**. Los IPC de la hoja de producción son límites de proceso, no del producto final.
+Además del producto final, hay especificaciones para **materias primas**, **intermedios** y **controles en proceso** (IPC). Los IPC de la hoja de producción son límites de proceso, no del producto final.
 `,
     plant: `
-El CoA de un intermedio dice "Impureza B: 0,12 %; límite ≤ 0,15 %". Cumple. Si hubiera salido 0,18 % sería OOS y el intermedio no podría usarse sin una evaluación aprobada por QA.
+El CoA de un intermedio dice "Impureza B: 0,12 %; límite ≤ 0,15 %". Cumple. Si hubiera salido 0,18 % sería OOS y el intermedio no podría usarse sin una evaluación aprobada por calidad (QA).
 `,
     batchRecord: `
 IPC con su límite en cada paso; el CoA final con la especificación del API.
@@ -176,7 +176,7 @@ No aparece en la hoja de producción, pero todos los IPC y análisis que la acom
 - Un **control en proceso** (*IPC, in-process control*) que todavía no cumple **no siempre es un OOS**. Si el control sirve para vigilar o ajustar el proceso (por ejemplo, la humedad de un secado que aún no ha terminado), se actúa como diga la hoja: seguir secando y repetir el control. ICH Q7 (apartado 8.36) dice que en esos casos normalmente no hace falta una investigación OOS. Sí se trata como OOS cuando la hoja no prevé qué hacer o el control es un criterio de aceptación del intermedio.
 - **OOT** (*Out of Trend*): dentro de especificación pero diferente de lo habitual (por ejemplo, una impureza que siempre sale 0,02 % y hoy sale 0,09 %).
 
-### Investigación de un OOS (guía FDA y procedimientos internos)
+### Investigación de un OOS (guía de la FDA, la agencia del medicamento de EE. UU., y procedimientos internos)
 **Fase I: laboratorio**
 - El analista y su supervisor revisan **sin destruir nada**: cálculos, pesadas, diluciones, idoneidad del sistema, equipo, patrones, reactivos.
 - Si se encuentra un **error de laboratorio demostrable** (por ejemplo, se usó el patrón equivocado), el resultado se invalida y se repite el análisis.
@@ -192,7 +192,7 @@ El lote se **rechaza**, se **reprocesa** (si está autorizado) o se libera solo 
 Puede que te pregunten por el lote: qué pasó en cada paso, si hubo algo raro. Por eso los registros completos y los comentarios en la hoja son tan valiosos.
 `,
     plant: `
-El ensayo final de un lote da 97,1 % de contenido (especificación 98,0–102,0 %). El laboratorio no encuentra error analítico. QA abre una investigación y revisa contigo la hoja: en el secado hubo un corte de vacío de 2 horas que se anotó en comentarios. Ese dato ayuda a encontrar la causa.
+El ensayo final de un lote da 97,1 % de contenido (especificación 98,0–102,0 %). El laboratorio no encuentra error analítico. Garantía de calidad (QA) abre una investigación y revisa contigo la hoja: en el secado hubo un corte de vacío de 2 horas que se anotó en comentarios. Ese dato ayuda a encontrar la causa.
 `,
     batchRecord: `
 Comentarios y anomalías anotados en la hoja: son clave en las investigaciones.
@@ -252,12 +252,12 @@ Un API puede **degradarse** con el tiempo por el calor, la humedad, la luz o el 
 - El **periodo de reanálisis** (*retest period*) o la **fecha de caducidad** (*expiry date*).
 - Las **condiciones de almacenamiento** (por ejemplo, "no conservar por encima de 25 °C, proteger de la luz").
 
-### Condiciones (ICH Q1)
+### Condiciones (ICH Q1A(R2))
 Se guardan muestras en **cámaras climáticas** y se analizan a intervalos (0, 3, 6, 9, 12, 18, 24, 36 meses…):
 
 | Estudio | Condiciones típicas |
 |---|---|
-| Largo plazo (*long-term*) | 25 °C / 60 % HR (o 30 °C / 65 % HR, y 30 °C / 75 % HR para climas cálidos y húmedos, zona IVb) |
+| Largo plazo (*long-term*) | 25 °C / 60 % HR o 30 °C / 65 % HR (ICH Q1A(R2)); para climas cálidos y húmedos (zona IVb) la OMS y el borrador del nuevo ICH Q1 usan 30 °C / 75 % HR |
 | Intermedio | 30 °C / 65 % HR |
 | Acelerado | 40 °C / 75 % HR durante 6 meses |
 
@@ -321,7 +321,7 @@ Fecha de fabricación, fecha de reanálisis y condiciones de almacenamiento en l
     title: "El certificado de análisis y la liberación del lote",
     titleEn: "Certificate of Analysis and batch release",
     minutes: 10,
-    summary: "El documento final que acompaña al API y los pasos para que QA libere un lote.",
+    summary: "El documento final que acompaña al API y los pasos para que garantía de calidad (QA) libere un lote.",
     body: `
 ### Certificado de análisis (*Certificate of Analysis, CoA*)
 Documento con los resultados de los análisis de un lote. Según ICH Q7 (apartado 11.4) se emite para cada lote **cuando el cliente lo solicita**; en la práctica casi todos los envíos de API lo llevan. Según esa guía incluye:
@@ -338,8 +338,8 @@ QA solo libera si todo cuadra:
 1. Hoja de producción **completa y revisada** (sin huecos, correcciones bien hechas, firmas).
 2. **Desviaciones** cerradas o evaluadas sin impacto.
 3. **Resultados analíticos** conformes y revisados.
-4. **Audit trails** revisados (MES, LIMS, CDS).
-5. Controles de cambio y CAPA relacionados en orden.
+4. **Registros de auditoría** (*audit trails*) revisados en los sistemas informáticos de fabricación (MES, *manufacturing execution system*), del laboratorio (LIMS, *laboratory information management system*) y de los cromatógrafos (CDS, *chromatography data system*).
+5. Controles de cambio y acciones correctivas y preventivas (CAPA) relacionados en orden.
 6. Etiquetado correcto.
 
 Mientras tanto, el lote está en **cuarentena**. Una hoja mal rellenada puede **retrasar** la liberación días o semanas.

@@ -49,7 +49,7 @@ La **respuesta** es la capacidad de dar una señal ligada a la concentración po
 - **Precisión intermedia** (*intermediate precision*): dentro del mismo laboratorio, con otros días, condiciones ambientales, analistas o equipos.
 - **Reproducibilidad** (*reproducibility*): entre laboratorios distintos, con un ensayo interlaboratorio. Normalmente no se pide para el registro; se considera para las farmacopeas o al analizar en varios centros.
 
-Se dan la desviación estándar, la desviación estándar relativa y un intervalo de confianza. Piensa en una diana: dardos juntos pero lejos del centro es preciso e inexacto; repartidos alrededor del centro, exacto de media pero impreciso. Un método validado tiene que ser las dos cosas.
+Se dan la desviación estándar, la desviación estándar relativa (*relative standard deviation*, RSD) y un intervalo de confianza. Piensa en una diana: dardos juntos pero lejos del centro es preciso e inexacto; repartidos alrededor del centro, exacto de media pero impreciso. Un método validado tiene que ser las dos cosas.
 
 **Límite de detección** (*detection limit*, DL; en español LD) **y de cuantificación** (*quantitation limit*, QL; en español LC). El LD es la menor cantidad que se detecta, aunque no se pueda dar su valor exacto. El LC es la menor que se mide con precisión y exactitud adecuadas. Pueden estimarse a ojo, con la relación señal-ruido (vista en «Cromatografía a fondo») o con la desviación estándar de la respuesta y la pendiente, como en la cuenta 4. Para impurezas, el LC tiene que ser igual o menor que el **umbral de notificación** (*reporting threshold*).
 
@@ -97,7 +97,7 @@ Seis preparaciones independientes de la misma muestra de API, cada una pesada y 
 2. **Diferencias con la media**: −0,3 · 0,2 · −0,1 · 0,5 · −0,4 · 0,1.
 3. **Al cuadrado**: 0,09 · 0,04 · 0,01 · 0,25 · 0,16 · 0,01. Suma: 0,56.
 4. **Entre n − 1 = 5**: 0,56 / 5 = 0,112 (la varianza).
-5. **Raíz**: desviación estándar s = √0,112 = 0,33 %.
+5. **Raíz**: desviación estándar s = √0,112 = 0,335 %.
 6. **RSD** = s / media × 100 = 0,335 / 99,9 × 100 = **0,33 %**.
 
 **Intervalo de confianza del 95 %** de la media: media ± t × s / √n. Con 6 datos (5 grados de libertad), t = 2,571. Mitad del intervalo: 2,571 × 0,335 / √6 = 0,35. Intervalo: de 99,55 % a 100,25 %. Es la zona donde, con un 95 % de confianza, está la media verdadera.

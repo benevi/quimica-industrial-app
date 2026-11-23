@@ -50,7 +50,7 @@ Un detalle: la parte II de las GMP europeas (EudraLex, volumen 4) recoge el text
 ### Muestreo: qué pide la norma y qué haces tú
 El apartado 11.20 pide analizar cada lote de intermedio y de API para comprobar que cumple la especificación. Para eso hace falta una muestra.
 
-¿Quién la toma? ICH Q7 no lo dice. El Q&A 2.4 lo aclara: la unidad de calidad no tiene por qué muestrear, pero sí revisa y aprueba los planes y procedimientos de muestreo (11.12). Lo hace personal formado y queda anotado en la hoja (6.52 pide registrar «cualquier muestreo realizado»). Según la planta, la toma el operador o alguien del laboratorio: lo dice el procedimiento. Cómo se toma una muestra representativa lo viste en «Muestreo a fondo».
+¿Quién la toma? ICH Q7 no lo dice. El Q&A 2.4 lo aclara: la unidad de calidad no tiene por qué muestrear, pero sí revisa y aprueba los planes y procedimientos de muestreo (11.12). Lo hace personal formado y queda anotado en la hoja (6.52 pide registrar «cualquier muestreo realizado»). Según la planta, la toma el operador o alguien del laboratorio: lo dice el procedimiento. Cómo se toma una muestra representativa lo viste en «Muestreo en planta a fondo».
 
 ### Análisis: qué mira el laboratorio
 La especificación del API tiene que incluir el control de impurezas: orgánicas, inorgánicas y disolventes residuales (11.13). Además, la planta debe tener un **perfil de impurezas** (*impurity profile*) del API: qué impurezas aparecen en un lote típico y en qué rango (11.21). Ese perfil se compara cada cierto tiempo con el registrado o con el histórico, para detectar cambios por nuevas materias primas, parámetros de equipo o cambios de proceso (11.22). Si tu secado fue distinto, puede verse aquí.
@@ -127,7 +127,7 @@ Un certificado completo de un lote ficticio. Todo son **valores de ejemplo**, sa
 | Especificación | TVX-210/ESP, versión 4 (referencia añadida) |
 | Aspecto | Límite: polvo blanco o casi blanco. Resultado: polvo blanco |
 | Identificación por infrarrojo | Límite: conforme con el patrón. Resultado: conforme |
-| Identificación por HPLC | Límite: tiempo de retención como el del patrón. Resultado: conforme |
+| Identificación por cromatografía líquida (HPLC) | Límite: tiempo de retención como el del patrón. Resultado: conforme |
 | Contenido (HPLC, sobre sustancia seca) | Límite: 98,0–102,0 %. Resultado: 99,6 % |
 | Impureza A | Límite: ≤ 0,15 %. Resultado: 0,06 % |
 | Mayor impureza no especificada | Límite: ≤ 0,10 %. Resultado: 0,04 % |

@@ -80,7 +80,7 @@ Las cuentas son las de «Inertización a fondo»: cada ciclo multiplica el gas v
 
 - **Fase 1.** Del aire, con 21 % de oxígeno, tres ciclos de nitrógeno: 21 × 0,2 × 0,2 × 0,2 = **0,17 %** de oxígeno. Se mide con el analizador antes de seguir.
 - **Fase 2.** Tres ciclos con hidrógeno, venteando cada vez a un lugar seguro: el nitrógeno baja de 100 % a 100 × 0,008 = **0,8 %**, y el poco oxígeno que quedaba se diluye igual.
-- **Fase 3.** Al terminar, se despresuriza al venteo y se hacen ciclos de nitrógeno. Partiendo de hidrógeno puro, tres ciclos dejan **0,8 %** de hidrógeno; con ciclos hasta 4 bar a, solo 1,56 %. El número de ciclos y el límite los fija la hoja.
+- **Fase 3.** Al terminar, se despresuriza al venteo y se hacen ciclos de nitrógeno. Partiendo de hidrógeno puro, tres ciclos dejan **0,8 %** de hidrógeno; con ciclos solo hasta 4 bar a, quedaría el 1,56 %, casi el doble. El número de ciclos y el límite los fija la hoja.
 
 La presión no te dice qué gas hay: lo dice el analizador.
 

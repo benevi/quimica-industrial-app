@@ -45,7 +45,7 @@ El **reactor** (*reactor, vessel*) es el corazón de la planta: un depósito cer
 
 ### Servicios (*utilities*)
 - **Vapor** (*steam*): para calentar.
-- **Agua de refrigeración / torre** (*cooling water*): enfriar hasta unos 25–30 °C.
+- **Agua de refrigeración / torre** (*cooling water*): enfriar hasta algo por encima de la temperatura del agua, que depende del tiempo que hace: más caliente en verano que en invierno.
 - **Agua glicolada o salmuera** (*glycol, brine*): enfriar por debajo de 0 °C.
 - **Aceite térmico** (*thermal oil*): calentar y enfriar con un solo fluido.
 - **Nitrógeno** (*nitrogen*): inertizar.
@@ -98,7 +98,7 @@ Si el reactor es vitrificado y el procedimiento dice "ΔT máxima camisa-masa 60
         q: "Necesitas enfriar la masa a −10 °C. ¿Qué servicio usarás?",
         options: ["Agua de torre", "Vapor", "Salmuera o agua glicolada", "Aire comprimido"],
         answer: 2,
-        explain: "El agua de torre no baja de unos 25 °C; para temperaturas bajo cero se usa salmuera o glicol.",
+        explain: "El agua de torre no puede bajar de la temperatura de bulbo húmedo del aire y nunca de 0 °C; para temperaturas bajo cero se usa salmuera o glicol.",
       },
     ],
   },
@@ -212,7 +212,7 @@ La **centrífuga** (*centrifuge*) hace girar la suspensión muy rápido dentro d
 
 ### Ciclo típico
 1. **Inertizar** la centrífuga (casi siempre se trabaja con disolventes).
-2. **Alimentar** (*feed*) la suspensión a velocidad media, repartiéndola de forma uniforme.
+2. **Alimentar** (*feed*) la suspensión con la cesta girando despacio, repartiéndola de forma uniforme.
 3. **Centrifugar** (*spin*) para escurrir las aguas madres.
 4. **Lavar** la torta (*cake wash*) con disolvente limpio para arrastrar impurezas.
 5. **Escurrir** (*spin dry*) a alta velocidad.
@@ -224,7 +224,7 @@ La **centrífuga** (*centrifuge*) hace girar la suspensión muy rápido dentro d
 - Piezas girando: nunca abrir hasta parada total y con el bloqueo correcto.
 `,
     plant: `
-La hoja dice: *"Alimentar a 600 rpm, centrifugar a 1000 rpm 15 min, lavar con 2 × 50 L de metanol frío, escurrir a 1200 rpm 30 min."*
+La hoja dice: *"Alimentar a 400 rpm, centrifugar a 1000 rpm 15 min, lavar con 2 × 50 L de metanol frío, escurrir a 1200 rpm 30 min."*
 
 Vas anotando rpm, tiempos y volúmenes. Si salta la alarma de vibración, paras siguiendo el procedimiento y avisas: **no** se reinicia sin más.
 `,
@@ -293,13 +293,13 @@ Un Nutsche con **agitador** que sube y baja y **camisa** calefactora. En el mism
 Filtros de cartucho (*cartridge filters*) que quitan partículas finas de una disolución **antes de cristalizar** el producto final. Suelen ser de 0,2–1 µm.
 
 ### Lo que se vigila
-- **Presión diferencial** (*differential pressure, ΔP*): la diferencia de presión entre antes y después del filtro. Si sube mucho, el filtro se está **colmatando** (*clogging*).
+- **Presión diferencial** (*differential pressure, ΔP*): la diferencia de presión entre antes y después del filtro. Si sube mucho, el filtro se está **colmatando** (*clogging*). Esto se ve sobre todo en los filtros de cartucho con bomba, a caudal constante; en un Nutsche a presión de N₂ constante lo que baja es el caudal.
 - **Tiempo de filtración**: un filtrado muy lento puede indicar cristales demasiado finos.
 - **Integridad del filtro**: en filtros de pulido se hace a veces un **test de integridad** (*integrity test*).
 - La torta no debe **agrietarse** (*crack*) antes del lavado: el disolvente se iría por las grietas sin lavar.
 `,
     plant: `
-Filtras en un filtro-secador a 1,5 barg de N₂. Al principio el ΔP es 0,3 bar; a la mitad sube a 1,2 bar y el caudal casi se para. Lo anotas y avisas: puede ser tela colmatada o cristales demasiado finos.
+Filtras en un filtro-secador a 1,5 barg de N₂ con la salida de filtrado a presión atmosférica: la diferencia de presión es de unos 1,5 bar desde el principio. Es normal que el caudal baje a medida que crece la torta, pero hoy, a la mitad, casi se para, mucho antes que en otros lotes. Lo anotas y avisas: puede ser tela colmatada o cristales demasiado finos.
 `,
     batchRecord: `
 - Presión de filtración y ΔP, hora de inicio y fin.
