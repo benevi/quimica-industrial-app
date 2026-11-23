@@ -1,10 +1,15 @@
 import type { Lesson } from "./types";
+import { calorYFrioAFondo } from "./nivel11-calor";
+import { bombasAFondo } from "./nivel11-bombas";
+import { fluidosAFondo } from "./nivel11-fluidos";
+import { vaporYCalderasAFondo } from "./nivel11-vapor";
+import { solidosAFondo } from "./nivel11-solidos";
 
-export const nivel11: Lesson[] = [
+const fluidos: Lesson[] = [
   {
     slug: "tuberias-y-valvulas",
     level: 11,
-    order: 1,
+    order: 2,
     title: "Tuberías, válvulas y conexiones",
     titleEn: "Piping, valves and fittings",
     minutes: 15,
@@ -143,7 +148,7 @@ Transferencia del reactor R-101 al R-102. El operador revisa en el panel de cone
   {
     slug: "bombas",
     level: 11,
-    order: 2,
+    order: 3,
     title: "Bombas",
     titleEn: "Pumps",
     minutes: 15,
@@ -223,7 +228,7 @@ Al trasvasar una suspensión con una bomba de membrana, el operador nota golpes 
   {
     slug: "calor-vapor-intercambiadores",
     level: 11,
-    order: 3,
+    order: 5,
     title: "Calor, vapor e intercambiadores",
     titleEn: "Heat transfer, steam and heat exchangers",
     minutes: 18,
@@ -315,7 +320,7 @@ La hoja dice: "Calentar a reflujo con fluido térmico. ΔT camisa–producto ≤
   {
     slug: "frio-y-refrigeracion",
     level: 11,
-    order: 4,
+    order: 7,
     title: "Frío y refrigeración",
     titleEn: "Cooling and refrigeration",
     minutes: 12,
@@ -405,7 +410,7 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
   {
     slug: "solidos-y-balances",
     level: 11,
-    order: 5,
+    order: 9,
     title: "Manejo de sólidos y balance de materia",
     titleEn: "Solids handling and mass balance",
     minutes: 15,
@@ -492,3 +497,6 @@ Se cargan 120 kg de materia prima, 400 kg de disolvente y 30 kg de reactivo (550
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel11-tema.ts.
+export const nivel11: Lesson[] = [...fluidos, calorYFrioAFondo, bombasAFondo, fluidosAFondo, vaporYCalderasAFondo, solidosAFondo];
