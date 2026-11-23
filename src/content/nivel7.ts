@@ -6,6 +6,7 @@ import { hplcAFondo } from "./nivel7-hplc";
 import { potenciometriaAFondo } from "./nivel7-potenciometria";
 import { otrasTecnicasAFondo } from "./nivel7-otras";
 import { espectroscopiaAtomicaAFondo } from "./nivel7-atomica";
+import { tecnicasOpticasAFondo } from "./nivel7-opticas";
 
 const instrumental: Lesson[] = [
   {
@@ -528,4 +529,4 @@ Ensayos especiales en el CoA final o en investigaciones de desviaciones.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel7-tema.ts.
-export const nivel7: Lesson[] = [...instrumental, espectroscopiaAFondo, cromatografiaAFondo, gcAFondo, hplcAFondo, potenciometriaAFondo, otrasTecnicasAFondo, espectroscopiaAtomicaAFondo];
+export const nivel7: Lesson[] = [...instrumental, espectroscopiaAFondo, cromatografiaAFondo, gcAFondo, hplcAFondo, potenciometriaAFondo, otrasTecnicasAFondo, espectroscopiaAtomicaAFondo, tecnicasOpticasAFondo];
