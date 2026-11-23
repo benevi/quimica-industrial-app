@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { lessons } from "@/content";
+import { lessons } from "@/content/catalog";
 import { blockOfLevel, levelInfo } from "@/content/blocks";
 import { operatorSlugs, operatorStages } from "@/content/operador";
 import { Icon, type IconName } from "@/components/icons";
@@ -112,7 +112,7 @@ export default function Home() {
         </div>
         <p className="mt-3 text-sm text-muted">
           Las lecciones de la ruta del operador cuentan también en el temario completo.{" "}
-          <Link href="/progreso" className="text-accent underline-offset-2 hover:underline">
+          <Link href="/progreso" className="text-accent underline underline-offset-2 hover:decoration-2">
             Guarda tu progreso
           </Link>{" "}
           para no perderlo.

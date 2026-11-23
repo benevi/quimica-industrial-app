@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { operatorLessons, operatorSlugs, operatorStages } from "@/content/operador";
-import { getLesson } from "@/content";
+import { getLesson } from "@/content/catalog";
 import { Icon } from "@/components/icons";
 import { Bar, PageHeader, Status, btn } from "@/components/ui";
 import { useProgress } from "@/lib/progress";
@@ -75,7 +75,7 @@ export function OperatorRoute() {
                     className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-semibold"
                     style={
                       complete
-                        ? { background: "var(--ok)", color: "#fff" }
+                        ? { background: "var(--ok)", color: "var(--on-ok)" }
                         : isCurrent
                           ? { background: "var(--signal)", color: "#1b1405" }
                           : { background: "var(--soft)", color: "var(--muted)" }
@@ -104,8 +104,8 @@ export function OperatorRoute() {
                         <li key={l.slug}>
                           <Link href={`/leccion/${l.slug}?ruta=operador`} className="group/l flex items-center gap-3 px-3 py-2.5 hover:bg-soft/60">
                             <span
-                              className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-[11px] text-white"
-                              style={{ background: ok ? "var(--ok)" : isNext ? "var(--signal)" : "var(--line-strong)" }}
+                              className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-[11px]"
+                              style={{ background: ok ? "var(--ok)" : isNext ? "var(--signal)" : "var(--line-strong)", color: ok ? "var(--on-ok)" : "#fff" }}
                               aria-label={ok ? "Completada" : "Pendiente"}
                             >
                               {ok ? "✓" : ""}

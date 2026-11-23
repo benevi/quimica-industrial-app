@@ -19,7 +19,7 @@ export function SyllabusProgress({ mode, items }: { mode: "lessons" | "cases"; i
             <li key={it.id}>
               <Link
                 href={`/leccion/${it.id}`}
-                className={`inline-flex items-center gap-1 text-sm underline-offset-2 hover:underline ${done ? "text-ok" : "text-accent"}`}
+                className={`inline-flex items-center gap-1 text-sm underline underline-offset-2 hover:decoration-2 ${done ? "text-ok" : "text-accent"}`}
               >
                 {done && <Icon name="check" className="h-3.5 w-3.5" />}
                 {it.title}

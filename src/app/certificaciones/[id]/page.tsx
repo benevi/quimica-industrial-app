@@ -134,7 +134,7 @@ export default async function PrepPage({ params }: { params: Promise<{ id: strin
             {p.sources.map((s, i) => (
               <span key={s.url}>
                 {i > 0 && " · "}
-                <a href={s.url} target="_blank" rel="noreferrer" className="text-accent underline-offset-2 hover:underline">
+                <a href={s.url} target="_blank" rel="noreferrer" className="text-accent underline underline-offset-2 hover:decoration-2">
                   {s.label}
                 </a>
               </span>

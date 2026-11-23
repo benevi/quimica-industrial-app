@@ -9,9 +9,8 @@ import type { Question } from "@/content/types";
 import { quie0108 } from "./bancos/quie0108";
 import { gmp } from "./bancos/gmp";
 import { sap } from "./bancos/sap";
-import { cases, getCase } from "./casos";
-import { preps, type ExamPrep } from "./prep";
-import type { PrepSummary } from "./readiness";
+import { getCase } from "./casos";
+import { preps } from "./prep";
 
 export type PoolItem = { id: string; q: Question; from: string; unit: string };
 
@@ -75,28 +74,5 @@ export function fdsItems(quizId: string): PoolItem[] {
 
 export const allFdsItems = () => fdsQuizIds.flatMap(fdsItems);
 
-/** Todos los ids de pregunta que cubre una certificación (para el indicador de repaso pendiente) */
-export function prepIds(p: ExamPrep): Set<string> {
-  const ids = new Set<string>();
-  for (const u of p.units) {
-    for (const x of unitPool(u.key)) ids.add(x.id);
-    for (const k of cases.filter((c) => c.unit === u.key)) for (const x of caseItems(k.id)) ids.add(x.id);
-  }
-  return ids;
-}
-
-export function bankSize(p: ExamPrep) {
-  return p.units.reduce((a, u) => a + (banks[u.key]?.length ?? 0), 0);
-}
-
-/** Datos que necesita el indicador "listo para presentarte" */
-export function prepSummary(p: ExamPrep): PrepSummary {
-  return {
-    certId: p.certId,
-    lessons: [...new Set(p.units.flatMap((u) => unitLessons(u.key).map((l) => l.slug)))],
-    mocks: p.mocks.map((m) => ({ id: m.id, title: m.title, pass: m.pass, scale: m.scale })),
-    cases: cases.filter((c) => p.units.some((u) => u.key === c.unit)).map((c) => c.id),
-    ids: [...prepIds(p)],
-    practice: p.certId === "sap-pp" ? "sap" : "plant",
-  };
-}
+// Los resúmenes ligeros (ids, tamaño del banco, indicador) están en summary.ts para no cargar los tests en el navegador.
+export { bankSize, prepIds, prepSummary } from "./summary";

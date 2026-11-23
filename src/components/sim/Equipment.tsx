@@ -66,10 +66,11 @@ export function Pipe({ d, flow, color = "#f2c96b" }: { d: string; flow: boolean;
 }
 
 export function Valve({ x, y, open, label, vertical }: { x: number; y: number; open: boolean; label: string; vertical?: boolean }) {
-  const fill = open ? "#16a34a" : "#dc2626";
+  // Además del color, la forma: abierta hueca, cerrada rellena (como una válvula cerrada en un P&ID)
+  const fill = open ? "#ffffff" : "#dc2626";
   return (
     <g transform={`translate(${x} ${y})${vertical ? " rotate(90)" : ""}`}>
-      <path d="M-11 -7 L0 0 L-11 7 Z M11 -7 L0 0 L11 7 Z" fill={fill} stroke="#1f2937" strokeWidth={1.2} />
+      <path d="M-11 -7 L0 0 L-11 7 Z M11 -7 L0 0 L11 7 Z" fill={fill} stroke={open ? "#16a34a" : "#1f2937"} strokeWidth={open ? 2.2 : 1.2} />
       <text x={0} y={vertical ? -12 : 19} textAnchor="middle" fontSize={9} fontWeight={700} fill="#1f2937" fontFamily="ui-monospace, Consolas, monospace" transform={vertical ? "rotate(-90)" : undefined}>{label}</text>
     </g>
   );

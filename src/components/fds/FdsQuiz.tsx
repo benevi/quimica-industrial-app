@@ -58,7 +58,7 @@ export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: strin
             {right < items.length && (
               <span className="font-normal text-muted">
                 {" "}
-                Las falladas pasan a tu <Link href="/repaso" className="text-accent underline-offset-2 hover:underline">
+                Las falladas pasan a tu <Link href="/repaso" className="text-accent underline underline-offset-2 hover:decoration-2">
                   repaso de fallos
                 </Link> y volverán mañana.
               </span>

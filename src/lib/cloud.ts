@@ -10,7 +10,7 @@
  *  - Si han cambiado los dos → se fusiona registro a registro (src/lib/merge.ts): nunca hay que elegir
  *    un dispositivo y perder lo del otro.
  */
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { PREFIX, collectBackup, restoreBackup } from "./backup";
 import { canMerge, mergeValue } from "./merge";
 
@@ -27,9 +27,11 @@ let client: SupabaseClient | null = null;
 export function __setClientForTests(c: SupabaseClient | null) {
   client = c;
 }
-export function supabase(): SupabaseClient | null {
+/** Cliente de Supabase. La librería solo se descarga si la nube está configurada y se usa. */
+export async function supabase(): Promise<SupabaseClient | null> {
   if (client) return client;
   if (!cloudConfigured || typeof window === "undefined") return null;
+  const { createClient } = await import("@supabase/supabase-js");
   if (!client) client = createClient(URL_!, KEY_!, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
   return client;
 }
@@ -157,7 +159,7 @@ async function push(sb: SupabaseClient, userId: string, local: Data, expectedRev
 }
 
 export async function syncOnce(userId: string, { pull = true }: { pull?: boolean } = {}): Promise<SyncResult> {
-  const sb = supabase();
+  const sb = await supabase();
   if (!sb) throw new Error("La nube no está configurada.");
   for (let attempt = 0; attempt < 4; attempt++) {
     const local = collectBackup().data;

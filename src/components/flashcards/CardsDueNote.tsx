@@ -20,7 +20,7 @@ export function CardsDueNote() {
         ) : (
           <>¿Cinco minutos antes del turno?</>
         )}{" "}
-        <Link href="/tarjetas" className="font-medium text-accent underline-offset-2 hover:underline">
+        <Link href="/tarjetas" className="font-medium text-accent underline underline-offset-2 hover:decoration-2">
           Tarjetas de conceptos y fórmulas
         </Link>
       </span>

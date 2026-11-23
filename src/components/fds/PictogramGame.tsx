@@ -61,8 +61,8 @@ export function PictogramGame() {
         <div className="shrink-0 self-center">
           <GhsPictogram code={code} size={130} />
         </div>
-        <div className="grid flex-1 gap-2">
-          <p className="font-medium">¿Qué peligro indica?</p>
+        <div className="grid flex-1 gap-2" role="group" aria-labelledby="pictograma-pregunta">
+          <p id="pictograma-pregunta" className="font-medium">¿Qué peligro indica?</p>
           {options.map((c) => {
             let cls = "border-line bg-surface hover:border-accent";
             if (pick && c === code) cls = "border-ok bg-ok-soft";
@@ -75,9 +75,12 @@ export function PictogramGame() {
                   setPick(c);
                   if (c === code) setRight((x) => x + 1);
                 }}
-                className={`rounded-md border px-3 py-2.5 text-left text-sm ${cls}`}
+                className={`flex items-start justify-between gap-2 rounded-md border px-3 py-2.5 text-left text-sm ${cls}`}
               >
-                {pictograms[c].means}
+                <span>{pictograms[c].means}</span>
+                {/* Además del color, una palabra: la respuesta correcta y la tuya se distinguen sin ver colores */}
+                {pick && c === code && <span className="shrink-0 text-xs font-semibold text-ok">Correcta</span>}
+                {pick === c && c !== code && <span className="shrink-0 text-xs font-semibold text-bad">Tu respuesta</span>}
               </button>
             );
           })}

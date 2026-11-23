@@ -54,9 +54,11 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
 
   // Sesión
   useEffect(() => {
-    const sb = supabase();
-    if (!sb) return;
-    sb.auth
+    let unsub: (() => void) | undefined;
+    let cancel = false;
+    supabase().then((sb) => {
+      if (!sb || cancel) return;
+      sb.auth
       .getSession()
       .then(({ data }) => setSession(data.session))
       .catch(() => {
@@ -64,11 +66,16 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
         setStatus("error");
       })
       .finally(() => setReady(true));
-    const { data } = sb.auth.onAuthStateChange((event, s) => {
-      if (event === "PASSWORD_RECOVERY") setRecovery(true);
-      setSession(s);
+      const { data } = sb.auth.onAuthStateChange((event, s) => {
+        if (event === "PASSWORD_RECOVERY") setRecovery(true);
+        setSession(s);
+      });
+      unsub = () => data.subscription.unsubscribe();
     });
-    return () => data.subscription.unsubscribe();
+    return () => {
+      cancel = true;
+      unsub?.();
+    };
   }, []);
 
   const run = useCallback(
@@ -121,14 +128,14 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
   }, [ready, userId, run]);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    const sb = supabase();
+    const sb = await supabase();
     if (!sb) throw new Error("La nube no está configurada.");
     const { error } = await sb.auth.signInWithPassword({ email, password });
     if (error) throw new Error(authMessage(error.message, error.status));
   }, []);
 
   const signUp = useCallback(async (email: string, password: string) => {
-    const sb = supabase();
+    const sb = await supabase();
     if (!sb) throw new Error("La nube no está configurada.");
     const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/progreso` } });
     if (error) throw new Error(authMessage(error.message, error.status));
@@ -141,7 +148,7 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
   const signOut = useCallback(async () => {
     await run(false); // último guardado antes de salir
     clearMeta();
-    await supabase()?.auth.signOut();
+    await (await supabase())?.auth.signOut();
     setStatus("signed-out");
     setLastSync(null);
   }, [run]);
@@ -149,14 +156,14 @@ export function CloudSyncProvider({ children }: { children: React.ReactNode }) {
   const syncNow = useCallback(() => run(true), [run]);
 
   const resetPassword = useCallback(async (email: string) => {
-    const sb = supabase();
+    const sb = await supabase();
     if (!sb) throw new Error("La nube no está configurada.");
     const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/progreso` });
     if (error) throw new Error(authMessage(error.message, error.status));
   }, []);
 
   const setNewPassword = useCallback(async (password: string) => {
-    const sb = supabase();
+    const sb = await supabase();
     if (!sb) throw new Error("La nube no está configurada.");
     const { error } = await sb.auth.updateUser({ password });
     if (error) throw new Error(authMessage(error.message, error.status));

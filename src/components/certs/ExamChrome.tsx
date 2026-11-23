@@ -14,6 +14,11 @@ export function TimerBar({ left, answered, onFinish }: { left: number; answered?
         <Icon name="gauge" className="h-4 w-4" />
         <span className="sr-only">Tiempo restante: </span>
         {mm}:{ss}
+        {low && <span className="font-sans text-xs">poco tiempo</span>}
+      </span>
+      {/* Aviso para lectores de pantalla al entrar en los últimos 5 minutos y en el último */}
+      <span className="sr-only" aria-live="assertive">
+        {left <= 60 ? "Queda menos de un minuto" : low ? "Quedan menos de 5 minutos" : ""}
       </span>
       {answered && <span className="text-muted">{answered}</span>}
       <button onClick={onFinish} className={`${btn.primary} ml-auto py-1.5`}>

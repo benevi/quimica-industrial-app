@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { levels, lessonsOfLevel } from "@/content";
+import { levels, lessonsOfLevel } from "@/content/catalog";
 import { blockColor, blockOfLevel, levelInfo, minutesOfLevel } from "@/content/blocks";
 import { Icon, levelIcon } from "@/components/icons";
 import { Bar, Card, PageHeader, SectionTitle, Status, btn } from "@/components/ui";
@@ -86,7 +86,7 @@ export function LevelView({ level }: { level: number }) {
                       className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-semibold tabular-nums"
                       style={
                         p?.done
-                          ? { background: "var(--ok)", color: "#fff" }
+                          ? { background: "var(--ok)", color: "var(--on-ok)" }
                           : isNext
                             ? { background: "var(--signal)", color: "#1b1405" }
                             : { background: "var(--soft)", color: "var(--muted)" }

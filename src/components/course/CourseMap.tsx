@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { lessons, lessonsOfLevel, levels } from "@/content";
+import { lessons, lessonsOfLevel, levels } from "@/content/catalog";
 import { blockColor, blockOfLevel, blocks, lessonsOfBlock, levelInfo, minutesOfLevel } from "@/content/blocks";
 import { Icon, blockIcon } from "@/components/icons";
 import { Bar, PageHeader, Status, btn } from "@/components/ui";
@@ -43,7 +43,7 @@ export function CourseMap() {
           <>
             {lessons.length} lecciones en {levels.length} niveles, agrupadas en {blocks.length} bloques. Se sigue de arriba abajo: cada nivel se
             apoya en los anteriores. Si empiezas en planta, haz antes la{" "}
-            <Link href="/operador" className="text-accent underline-offset-2 hover:underline">
+            <Link href="/operador" className="text-accent underline underline-offset-2 hover:decoration-2">
               ruta del operador
             </Link>
             .
@@ -110,7 +110,7 @@ export function CourseMap() {
                               className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-semibold tabular-nums"
                               style={
                                 kind === "done"
-                                  ? { background: "var(--ok)", color: "#fff" }
+                                  ? { background: "var(--ok)", color: "var(--on-ok)" }
                                   : here
                                     ? { background: "var(--signal)", color: "#1b1405" }
                                     : { background: "var(--soft)", color: "var(--muted)" }

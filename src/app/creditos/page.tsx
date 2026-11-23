@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getLesson } from "@/content";
 import { pictograms, type GhsCode } from "@/content/fds";
@@ -57,8 +58,7 @@ export default function CreditosPage() {
               const where = usedIn((m) => !!m.images?.includes(id));
               return (
                 <li key={id} className="flex gap-3 px-4 py-3 text-sm">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/media/${im.file}`} alt="" loading="lazy" className="h-14 w-20 shrink-0 rounded-md border border-line bg-white object-cover" />
+                  <Image src={`/media/${im.file}`} alt="" width={80} height={56} unoptimized={im.file.endsWith(".svg")} className="h-14 w-20 shrink-0 rounded-md border border-line bg-white object-cover" />
                   <div className="min-w-0">
                     <a href={commonsUrl(im.commons)} target="_blank" rel="noreferrer" className="break-words font-medium hover:text-accent hover:underline">
                       {im.commons}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { getLesson } from "@/content";
+import { getLesson } from "@/content/catalog";
 import { blockColor, blockOfLevel } from "@/content/blocks";
 import { Icon, type IconName } from "./icons";
 import { PageHeader, btn } from "./ui";

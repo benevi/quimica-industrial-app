@@ -53,11 +53,11 @@ export default function SapPage() {
         </Disclosure>
         <p className="max-w-[68ch] text-sm text-muted">
           ¿Ya haces las misiones sin pistas? Ponte a prueba con el{" "}
-          <Link href="/sap/examen" className="text-accent underline-offset-2 hover:underline">
+          <Link href="/sap/examen" className="text-accent underline underline-offset-2 hover:decoration-2">
             examen práctico cronometrado
           </Link>
           : sistema limpio, tareas en inglés y nota de corte del 64 %. Cuenta para la{" "}
-          <Link href="/certificaciones/sap-pp" className="text-accent underline-offset-2 hover:underline">
+          <Link href="/certificaciones/sap-pp" className="text-accent underline underline-offset-2 hover:decoration-2">
             preparación de SAP C_TS422
           </Link>
           .

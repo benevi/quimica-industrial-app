@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -43,12 +44,14 @@ export function LessonMedia({ media }: { media: Media }) {
                   className={`group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden ${"kind" in im && im.kind === "esquema" ? "bg-white" : "bg-soft"}`}
                   aria-label={`Ampliar: ${im.alt}`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  {/* Miniatura optimizada: se descarga a su tamaño, no la foto completa */}
+                  <Image
                     src={`/media/${im.file}`}
                     alt={im.alt}
-                    loading="lazy"
-                    className={`h-full w-full transition-transform group-hover:scale-[1.02] ${"kind" in im && im.kind === "esquema" ? "object-contain p-2" : "object-cover"}`}
+                    fill
+                    sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+                    unoptimized={im.file.endsWith(".svg")}
+                    className={`transition-transform group-hover:scale-[1.02] ${"kind" in im && im.kind === "esquema" ? "object-contain p-2" : "object-cover"}`}
                   />
                 </button>
                 <figcaption className="flex flex-1 flex-col gap-1.5 p-3 text-sm">

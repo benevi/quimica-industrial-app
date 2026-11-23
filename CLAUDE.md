@@ -72,7 +72,8 @@ npm run lint
 npx tsc --noEmit       # tipos
 
 # Comprobaciones de contenido (ejecuta la que toque según lo que cambies)
-npm run check          # tests de lecciones: respuestas numéricas coherentes, slugs únicos
+npm run gen:catalog    # regenera el catálogo ligero (se hace solo antes de dev y build)
+npm run check          # catálogo al día y tests de lecciones: respuestas numéricas coherentes, slugs únicos
 npm run check:certs    # bancos de preguntas, simulacros y supuestos de certificaciones
 npm run check:repaso   # tarjetas de repaso y fichas FDS
 npm run check:media    # imágenes y vídeos: archivo existe y tiene créditos
@@ -94,7 +95,9 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   `/glosario`, `/simulador` (+ `/reactor`, `/auditoria`, `/nutsche`), `/sap`, `/calculadoras`, `/tarjetas`, `/repaso`, `/fds`,
   `/certificaciones`, `/examen`, `/simulacro`, `/supuesto`, `/autoevaluacion`, `/progreso`, `/creditos`.
 - `src/content/`: lecciones, un archivo por nivel (`nivelN.ts`; las lecciones largas «a fondo» van en `nivelN-tema.ts`; 211 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
-  bloques de la ruta en `blocks.ts`, índice en `index.ts`. El contenido de `src/content` manda sobre `docs/temario.md`
+  bloques de la ruta en `blocks.ts`, índice en `index.ts`. Las páginas del navegador no importan `@/content` (pesa más de
+  1 MB): usan `catalog.ts` (título, nivel, minutos, resumen) y `terms.ts`, generados en `*.generated.json` por
+  `scripts/gen-catalog.mjs`. Las certificaciones usan `certs/summary.ts` para contar preguntas sin cargarlas. El contenido de `src/content` manda sobre `docs/temario.md`
   si no coinciden.
   - `operador.ts`: ruta corta del operador (28 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
   - `tarjetas.ts`: tarjetas de repaso (ids estables, no renombrar; añadir con id nueva).
@@ -121,6 +124,9 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
 Convenciones:
 
 - Claves de localStorage siempre con prefijo `quimica-app:` (así entran en la copia de seguridad).
+- Accesibilidad: todo lo que se pulsa se usa también con teclado y muestra el foco; el estado nunca va solo por color
+  (texto, forma o icono además); contraste AA en claro y oscuro (comprobado con axe-core en noviembre de 2026).
+- Cabeceras de seguridad en `next.config.ts` (CSP): si se añade un servicio externo, hay que permitirlo allí.
 - Toda página nueva empieza con `PageHeader` y sigue `docs/diseno.md`: papel cálido y tinta azul, un solo color de señal
   (ámbar) para el siguiente paso, sin etiquetas en mayúsculas ni flechas «→» en los textos. Victor rechazó el verde.
 - Códigos de equipo y productos siempre inventados.
