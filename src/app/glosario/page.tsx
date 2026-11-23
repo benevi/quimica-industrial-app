@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { getLesson } from "@/content/catalog";
 import { allTerms } from "@/content/terms";
+import { siglas } from "@/content/siglas";
 import { blockColor, blockOfLevel, blocks, type BlockId } from "@/content/blocks";
 import { Icon } from "@/components/icons";
 import { Card, PageHeader } from "@/components/ui";
@@ -41,6 +42,11 @@ export default function Glosario() {
     }
     return [...m.entries()].sort(([a], [b]) => a.localeCompare(b));
   }, [list]);
+
+  const siglasVisibles = useMemo(() => {
+    const n = norm(q);
+    return siglas.filter((x) => !n || norm(`${x.sigla} ${x.es} ${x.en ?? ""}`).includes(n));
+  }, [q]);
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   const present = new Set(groups.map(([L]) => L));
@@ -103,6 +109,30 @@ export default function Glosario() {
           )}
         </nav>
       </div>
+
+      {siglasVisibles.length > 0 && (
+        <details className="mt-6 rounded-[var(--radius)] border border-line bg-surface" open={q.trim().length > 0}>
+          <summary className="cursor-pointer px-5 py-3 font-medium">
+            Siglas ({siglasVisibles.length}){" "}
+            <span className="text-sm font-normal text-muted">qué significa cada una, aunque la lección que lees la use sin explicarla</span>
+          </summary>
+          <dl className="grid gap-x-6 gap-y-2 border-t border-line px-5 py-4 text-sm sm:grid-cols-[minmax(0,9rem)_1fr]">
+            {siglasVisibles.map((x) => (
+              <div key={x.sigla} className="contents">
+                <dt className="font-mono font-medium">{x.sigla}</dt>
+                <dd className="mb-1 sm:mb-0">
+                  {x.es}
+                  {x.en && (
+                    <span lang="en" className="block text-muted">
+                      {x.en}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </details>
+      )}
 
       <div className="mt-8 space-y-8">
         {groups.map(([L, ts]) => (

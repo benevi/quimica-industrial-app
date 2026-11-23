@@ -79,7 +79,7 @@ El sulfato de sodio puro (Na₂SO₄, 142,04 g/mol) tendría 96,06 / 142,04 × 1
 ### Pesada a peso constante
 Un crisol parece seco, pero lleva una capa finísima de humedad. Si lo pesas así y luego pierde esa humedad al calentarlo con la muestra, esa pérdida se mezcla con el resultado. Por eso crisol vacío y crisol con residuo se llevan a **peso constante** (*constant weight* o *constant mass*): se repite **calentar, enfriar en desecador y pesar** hasta que dos pesadas seguidas casi no se diferencian. Es como escurrir una bayeta: mientras cada pesada sea menor, sigue soltando agua.
 
-**¿Cuánto es «casi lo mismo»?** Lo fija el método o el procedimiento. Como ejemplo de definición oficial, los métodos de la EPA estadounidense para pesar partículas (40 CFR 51, apéndice M) llaman peso constante a una diferencia no mayor de 0,5 mg o del 1 % de la masa neta, la que sea mayor, entre dos pesadas seguidas con al menos seis horas de desecador entre ellas. En esta lección usamos **0,5 mg como valor de ejemplo**.
+**¿Cuánto es «casi lo mismo»?** Lo fija el método o el procedimiento. Como ejemplo de definición oficial, los métodos de la Agencia de Protección Ambiental de Estados Unidos (EPA) para pesar partículas (40 CFR 51, apéndice M) llaman peso constante a una diferencia no mayor de 0,5 mg o del 1 % de la masa neta, la que sea mayor, entre dos pesadas seguidas con al menos seis horas de desecador entre ellas. En esta lección usamos **0,5 mg como valor de ejemplo**.
 
 Tabla de pesadas del crisol vacío (valores de ejemplo):
 

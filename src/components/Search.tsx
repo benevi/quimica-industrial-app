@@ -10,6 +10,7 @@ import { allNavItems } from "./shell/nav";
 export type SearchIndex = {
   lessons: { slug: string; title: string; titleEn: string; summary: string; level: number; levelTitle: string }[];
   terms: { es: string; en: string; def: string; lesson: string; lessonTitle: string }[];
+  siglas: { sigla: string; es: string; en?: string }[];
 };
 
 export { norm } from "@/lib/text";
@@ -60,10 +61,11 @@ export function Search() {
       setSel(0);
       // El índice (lecciones y glosario) se descarga solo la primera vez que se abre el buscador
       if (!index)
-        Promise.all([import("@/content/catalog"), import("@/content/terms")]).then(([c, t]) =>
+        Promise.all([import("@/content/catalog"), import("@/content/terms"), import("@/content/siglas")]).then(([c, t, sg]) =>
           setIndex({
             lessons: c.lessons.map((l) => ({ slug: l.slug, title: l.title, titleEn: l.titleEn, summary: l.summary, level: l.level, levelTitle: c.levels.find((lv) => lv.number === l.level)?.title ?? "" })),
             terms: t.allTerms,
+            siglas: sg.siglas,
           }),
         );
     } else if (returnTo.current) {
@@ -103,6 +105,11 @@ export function Search() {
       const s = norm(l.summary);
       if (t.includes(n) || s.includes(n))
         out.push({ kind: "lesson", href: `/leccion/${l.slug}`, title: l.title, sub: `Nivel ${l.level} · ${l.levelTitle}`, detail: l.summary, score: t.startsWith(n) ? 0 : t.includes(n) ? 0.4 : 3 });
+    }
+    for (const x of index.siglas) {
+      const k = norm(x.sigla);
+      if (k.includes(n) || (n.length > 3 && norm(x.es).includes(n)))
+        out.push({ kind: "term", href: "/glosario", title: x.sigla, sub: "Sigla", detail: x.en ? `${x.es} (${x.en})` : x.es, score: k === n || k.startsWith(n) ? -0.5 : 1.5 });
     }
     const seen = new Set<string>();
     for (const t of index.terms) {

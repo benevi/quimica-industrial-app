@@ -129,7 +129,7 @@ Lo de no disolver la muestra lo dice el texto armonizado de microscopía para su
 ### Método 3: el microscopio
 El microscopio óptico enseña la forma de cada partícula. Según el texto armonizado sirve, en general, para partículas de **1 µm o más**, es especialmente útil con partículas no esféricas y sirve de base para calibrar métodos más rápidos.
 
-Enseña lo que el láser no ve: agujas donde siempre hay prismas, cristales rotos, racimos. El texto armonizado nombra formas como **acicular** (aguja), **placa** y **equante** (*equant*, parecida en sus tres dimensiones). Con un **microscopio de luz polarizada** (*polarizing microscope*) se comprueba si las partículas son cristalinas: brillan con colores y se apagan al girar la platina.
+Enseña lo que el láser no ve: agujas donde siempre hay prismas, cristales rotos, racimos. El texto armonizado nombra formas como **acicular** (aguja), **placa** y **equidimensional** (*equant*, parecida en sus tres dimensiones). Con un **microscopio de luz polarizada** (*polarizing microscope*) se comprueba si las partículas son cristalinas: brillan con colores y se apagan al girar la platina.
 
 **Cuenta resuelta: medir con la escala del ocular.** El microscopio lleva una regla grabada en el ocular, sin unidades: solo divisiones. Se calibra con un **micrómetro de platina** (*stage micrometer*), un portaobjetos con una regla de longitud conocida. Valores de ejemplo: 100 µm del micrómetro ocupan 40 divisiones del ocular.
 

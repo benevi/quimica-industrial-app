@@ -29,7 +29,7 @@ Tú ya has escrito tests. La PI 011-3 (12.1) recoge los tres niveles que conoces
 | En desarrollo web | En validación GMP |
 |---|---|
 | Los tests los escribe y los mira el equipo de desarrollo | Las pruebas contra los requisitos de usuario son responsabilidad de la empresa usuaria (PI 011-3, nota 22) |
-| Pasa el CI y se despliega | Hay una aceptación formal y un paso controlado a producción (PI 011-3, 13.6) |
+| Pasa la integración continua (CI) y se despliega | Hay una aceptación formal y un paso controlado a producción (PI 011-3, 13.6) |
 | El log del CI se borra a los días | La evidencia se guarda como registro GMP: quién probó, cuándo y con qué resultado |
 | Se prueba el código | Se prueba el sistema **en su uso**: con la receta, los usuarios y los datos de la planta |
 | Un fallo es un *bug* en el *backlog* | Un fallo es una incidencia de prueba que se resuelve antes de aceptar |

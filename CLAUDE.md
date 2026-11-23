@@ -104,6 +104,8 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   - `operador.ts`: ruta corta del operador (28 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
   - `tarjetas.ts`: tarjetas de repaso (ids estables, no renombrar; añadir con id nueva).
   - `fds.ts`: fichas de datos de seguridad ficticias; frases H/P con el texto oficial CLP.
+  - `siglas.ts`: significado de las siglas, en el glosario y el buscador. Una sigla nueva en una lección se explica la
+    primera vez que sale en esa lección y, si se va a repetir en otras, se añade aquí.
   - `media.ts`: imágenes (`public/media`), señales ISO 7010, vídeos por lección (`lessonMedia`).
 - `src/sim/`: motor del simulador. `engine.ts` (lote FX-101, incidentes en `INCIDENTS` + `raise()`), `nutsche.ts`
   (filtro-secador FD-401, modo relevo de turno), `audit.ts` (hojas con errores para auditar, `AUDIT_CASES`), `review.ts`.
