@@ -27,14 +27,14 @@ export const navGroups: NavGroup[] = [
     id: "aprender",
     label: "Aprender",
     items: [
-      { href: "/operador", label: "Ruta del operador", en: "Operator track", icon: "shield", hint: "31 lecciones imprescindibles para tu turno." },
+      { href: "/operador", label: "Ruta del operador", en: "Operator track", icon: "shield", hint: "32 lecciones imprescindibles para tu turno." },
       {
         href: "/temario",
         label: "Temario completo",
         en: "Full course",
         icon: "book",
         match: ["/nivel", "/leccion"],
-        hint: "249 lecciones en 22 niveles, de las bases a los sistemas.",
+        hint: "252 lecciones en 22 niveles, de las bases a los sistemas.",
       },
       { href: "/mapa", label: "Mapa de planta", en: "Plant map", icon: "map", hint: "Dónde encaja cada lección en el recorrido de un lote." },
       { href: "/glosario", label: "Glosario", en: "Glossary", icon: "abc", hint: "Todos los términos en español e inglés." },
