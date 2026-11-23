@@ -93,7 +93,7 @@ Un método oficial de 1987 publicado en el BOE (grasa en galletas) lo usa así: 
 
 **El montaje seguro**, según la NTP 464: cualquier fuga de vapor del disolvente inflamable puede incendiarse. Baño maría o de aceite a la temperatura justa para que hierva, vitrina, extintor y manta ignífuga cerca y, en extracciones largas, control del agua del refrigerante.
 
-En planta, el pariente es lavar o resuspender el sólido en el equipo, como en «Filtros a fondo».
+En planta, el pariente es lavar o resuspender el sólido en el equipo, como verás en «Filtros a fondo».
 
 ### Destilar: simple, fraccionada y a vacío
 **Destilación simple** (*simple distillation*): balón con el líquido, una cabeza con un termómetro que mide la temperatura del vapor, un refrigerante y un matraz colector. La NTP 464 pide revisar material y estanqueidad, echar **trocitos de porcelana porosa** antes de calentar para regular la ebullición, trabajar en vitrina y vigilar la temperatura de autoinflamación; si se para el agua del refrigerante, salen vapores inflamables. Separa bien cuando un líquido hierve mucho antes que el otro; si hierven cerca, no basta.
@@ -123,7 +123,7 @@ El manual de la FDA da una secuencia completa: refrigerante y matraz colector a 
 **Cuenta 7. Por qué basta un baño a 35 °C.** Con las constantes de Antoine del NIST para el metanol: a 1013 mbar hierve a 64,5 °C; a 200 mbar, a **28,2 °C**. A 35 °C su presión de vapor es de 280 mbar. A 200 mbar, el baño a 35 °C está unos 7 °C por encima de la ebullición: el metanol se evapora sin calentar el producto, y el refrigerante a −15 °C lo condensa en vez de mandarlo a la bomba.
 
 ### Recristalizar
-**Recristalizar** (*recrystallization*) es purificar un sólido disolviéndolo y volviéndolo a cristalizar: la cristalización del lote ficticio FX-101 de «Cristalización a fondo», en un matraz.
+**Recristalizar** (*recrystallization*) es purificar un sólido disolviéndolo y volviéndolo a cristalizar: la cristalización del lote ficticio FX-101 que verás en «Cristalización a fondo», en un matraz.
 
 1. Elegir un disolvente que disuelva mucho producto en caliente y poco en frío.
 2. Disolver el sólido en la **mínima cantidad** de disolvente caliente.
@@ -151,7 +151,7 @@ La clave es el **punto triple** (*triple point*), la presión y temperatura a la
 Esa es la hermana de planta: el **liofilizador** (*freeze dryer*), que congela el producto y sublima el hielo a vacío.
 
 ### Secar en estufa y desecador
-La **estufa** (*drying oven*) seca muestras a temperatura controlada; la **estufa de vacío** (*vacuum oven*) lo hace a menos temperatura, como la estufa de bandejas de vacío de «El secado a fondo». Su seguridad está en «El laboratorio a fondo»; la NTP 464 añade temperaturas moderadas, sin superar en ningún punto la de autoinflamación, y que un sólido empapado de un líquido volátil se puede secar en frío.
+La **estufa** (*drying oven*) seca muestras a temperatura controlada; la **estufa de vacío** (*vacuum oven*) lo hace a menos temperatura, como la estufa de bandejas de vacío que verás en «El secado a fondo». Su seguridad está en «El laboratorio a fondo»; la NTP 464 añade temperaturas moderadas, sin superar en ningún punto la de autoinflamación, y que un sólido empapado de un líquido volátil se puede secar en frío.
 
 El método de humedad del BOE de 1987 enseña a secar bien:
 

@@ -175,7 +175,7 @@ Los halógenos, a un electrón de completar el subnivel p, liberan mucho; el clo
 
 **Absorción atómica** (*atomic absorption spectrometry*, AAS). Usa el «negativo» del espectro. La disolución se aspira a una llama que deja el elemento en forma de átomos, y la atraviesa la luz de una **lámpara de cátodo hueco** (*hollow cathode lamp*) del mismo elemento que se busca: emite justo sus rayas, y los átomos las absorben. Cuanta más luz desaparece (más absorbancia), más elemento hay. El método 4.1 de la FDA para plomo y cadmio usa llama de aire y acetileno, lámparas específicas de cada elemento, 283,3 o 217,0 nm para el plomo y 228,8 nm para el cadmio, y dice que con estas lámparas las interferencias por rayas superpuestas son extremadamente raras.
 
-**Plasma acoplado inductivamente (ICP).** En el ICP-OES los átomos excitados en un plasma de argón emiten sus rayas; en el ICP-MS se cuentan como iones. Es la técnica del análisis de paladio de «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP».
+**Plasma acoplado inductivamente (ICP).** En el ICP-OES los átomos excitados en un plasma de argón emiten sus rayas; en el ICP-MS se cuentan como iones. Es la técnica del análisis de paladio que verás en «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP».
 
 **Lo que te toca a ti.** Tu muestra decide el resultado: un recipiente de metal o una espátula oxidada pueden añadir justo el elemento que se mide. Usa el envase y el utensilio que indique el procedimiento.
 

@@ -130,7 +130,7 @@ Lo básico está en la lección de velocidad. Aquí, lo que cambia en los númer
 | Ejemplos | Un ácido como el sulfúrico en una esterificación («Equilibrio químico a fondo») o cualquier compuesto que actúe disuelto en la mezcla | Paladio o platino sobre carbón; níquel en forma de aleación de níquel y aluminio, que ICH Q3D cita como catalizador de hidrogenación |
 | En la ley de velocidad | Su concentración aparece con su orden, como en el ejemplo 2 | Cuenta la superficie activa, la cantidad cargada y cómo llegan los reactivos hasta ella (agitación, presión) |
 
-**Cuánto catalizador es «poco».** Se suele expresar en porcentaje molar: moles de metal por cada 100 moles de sustrato. Con el ejemplo de «Hidrogenación a fondo» (0,4 kg de paladio para 200 kg de un intermedio de 160 g/mol), y la masa molar del paladio, 106,42 g/mol según el NIST:
+**Cuánto catalizador es «poco».** Se suele expresar en porcentaje molar: moles de metal por cada 100 moles de sustrato. Con un ejemplo que volverá en «Hidrogenación a fondo» (0,4 kg de paladio para 200 kg de un intermedio de 160 g/mol), y la masa molar del paladio, 106,42 g/mol según el NIST:
 
 1. Moles de sustrato: 200000 / 160 = **1250 mol**.
 2. Moles de paladio: 400 / 106,42 = **3,76 mol**.
@@ -161,7 +161,7 @@ La MTD 43 cita el **coque** como «tanto un veneno del catalizador como un resid
 La tendencia es la señal de la vida útil: cada uso necesita más tiempo para llegar al mismo IPC. Cuántas veces se reutiliza y con qué criterio lo fija el proceso validado, no el turno. Si el catalizador se reutiliza en la planta, la guía ICH Q7 no lo nombra, pero sus apartados 14.40 a 14.43, sobre materiales recuperados, piden procedimientos aprobados, que el material recuperado cumpla una especificación adecuada a su uso y que su uso quede documentado.
 
 ### Regenerar o recuperar
-**Regenerar** es devolverle actividad al catalizador. Las mismas conclusiones europeas (MTD 17, técnica d) recogen la regeneración de catalizadores y adsorbentes «por ejemplo por tratamiento térmico o químico», y la MTD 25 pide enviar el gas de la regeneración del catalizador de hidrogenación a un sistema de tratamiento. En esta app, el Pd/C gastado sigue el camino de «Hidrogenación a fondo»: se guarda húmedo y se envía a recuperar el metal.
+**Regenerar** es devolverle actividad al catalizador. Las mismas conclusiones europeas (MTD 17, técnica d) recogen la regeneración de catalizadores y adsorbentes «por ejemplo por tratamiento térmico o químico», y la MTD 25 pide enviar el gas de la regeneración del catalizador de hidrogenación a un sistema de tratamiento. En esta app, el Pd/C gastado sigue el camino que verás en «Hidrogenación a fondo»: se guarda húmedo y se envía a recuperar el metal.
 
 **Recuperar** es sacar el metal del catalizador gastado. Tres razones:
 

@@ -78,7 +78,7 @@ El vocabulario internacional de metrología (VIM, entrada 4.26) avisa de que el 
 Solo el principio:
 
 - **Compensación electromagnética** (*electromagnetic force compensation*), propia de las balanzas más exactas, como las analíticas. El platillo va unido a una bobina metida en un imán. Al poner la carga, el platillo intenta bajar; un sensor lo nota y la electrónica manda corriente por la bobina hasta devolverlo a su sitio. La corriente necesaria crece con la fuerza, y de ahí sale la masa. Es como sujetar una bandeja para que no baje.
-- **Célula de carga** (*load cell*), propia de balanzas sencillas y de básculas grandes. Una pieza de metal se dobla un poquito con la carga. Pegadas a ella van **galgas extensométricas** (*strain gauges*), hilos que cambian su resistencia eléctrica al estirarse. Es la misma célula de los reactores pesados de «Instrumentos de medida a fondo».
+- **Célula de carga** (*load cell*), propia de balanzas sencillas y de básculas grandes. Una pieza de metal se dobla un poquito con la carga. Pegadas a ella van **galgas extensométricas** (*strain gauges*), hilos que cambian su resistencia eléctrica al estirarse. Es la misma célula de los reactores pesados que verás en «Instrumentos de medida a fondo».
 
 ### Las fuentes de error, una a una
 El manual de laboratorio de la FDA enumera como errores típicos la balanza sin nivelar, las puertas abiertas, las manos húmedas, la muestra sin enfriar, la carga estática, las vibraciones y corrientes de aire y la muestra que gana o pierde humedad en el platillo. Uno a uno:

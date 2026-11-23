@@ -168,7 +168,7 @@ Casi nunca hay una sola reacción en el reactor.
 
 **En paralelo** (*parallel reactions*): A puede dar B (lo que quieres) o D (un subproducto) a la vez. Cuál gana depende de las condiciones. Si la reacción secundaria tiene una colina más alta, la temperatura la favorece más. Ejemplo de cálculo con Arrhenius: con una reacción principal de 60 kJ/mol y una secundaria de 100 kJ/mol, subir de 50 a 60 °C acelera la principal × 1,95 y la secundaria × 3,06. Más calor, más proporción de impureza.
 
-Esos C y D son los **subproductos** y **productos de degradación** de «Impurezas en el API». Por eso la hoja da a la vez un tiempo mínimo, para que la reacción llegue, y límites de temperatura y a veces de tiempo máximo, para que no se pase.
+Esos C y D son los **subproductos** y **productos de degradación** que verás en «Impurezas en el API». Por eso la hoja da a la vez un tiempo mínimo, para que la reacción llegue, y límites de temperatura y a veces de tiempo máximo, para que no se pase.
 
 En planta manda siempre el procedimiento vigente (SOP) y la hoja de producción de cada lote.
 `,

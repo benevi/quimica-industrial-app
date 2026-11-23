@@ -60,7 +60,7 @@ Ejemplos típicos (los límites son valores de ejemplo):
 | Aspecto | Detectar color, turbidez o partículas raras | Suspensión blanca, sin partículas negras |
 | Oxígeno antes de cargar | Comprobar la inertización | O₂ ≤ 2,0 % |
 
-El oxígeno es especial: el medidor toma el gas en su punto de muestra. Como viste en «Inertización a fondo», la lectura vale para ese punto y ese momento, y deja de valer si se abre el equipo.
+El oxígeno es especial: el medidor toma el gas en su punto de muestra. Como verás en «Inertización a fondo», la lectura vale para ese punto y ese momento, y deja de valer si se abre el equipo.
 
 ICH Q7 relaciona los controles con el tiempo (8.20): cuando se trabaja hasta un objetivo, como un ajuste de pH, una hidrogenación o un secado hasta especificación, el final del paso lo decide el muestreo y el análisis, no el reloj.
 
@@ -88,7 +88,7 @@ ICH Q7 relaciona los controles con el tiempo (8.20): cuando se trabaja hasta un 
 **Muestra caliente o a presión.** Una muestra a 70 °C quema, suelta más vapor y cambia al enfriarse: aparecen cristales o se pierde disolvente. Y no se abre una toma de un equipo con presión si el tomamuestras no está hecho para ello: primero, las condiciones que diga el procedimiento.
 
 ### La centrífuga
-La torta se muestrea con la centrífuga **parada** y en las condiciones seguras de «La centrífuga a fondo». Nunca se mete la mano ni un útil con el cesto girando.
+La torta se muestrea con la centrífuga **parada** y en las condiciones seguras que verás en «La centrífuga a fondo». Nunca se mete la mano ni un útil con el cesto girando.
 
 La torta no es igual en todas partes: la capa junto a la tela y la del centro reciben distinto lavado, y el borde puede estar más húmedo o sucio. ICH Q7 cita la capa de cristales húmedos que queda en el cesto tras descargar como resto que pasa al lote siguiente (8.50); tampoco representa la torta. El procedimiento dice de qué puntos y a qué profundidad se saca. Si rascas el borde, el análisis hablará del borde.
 

@@ -93,9 +93,9 @@ La línea líquido-vapor del diagrama es la **curva de presión de vapor** (*vap
 4. log P = 4,07827 − 4,6443 = −0,5660.
 5. P = 10 elevado a −0,5660 = **0,2716 bar**, unos 272 mbar.
 
-Es el dato de la planta de «Destilación a fondo»: con la masa a 70 °C, el tolueno no hierve hasta bajar de unos 272 mbar.
+Es el dato de planta que verás en «Destilación a fondo»: con la masa a 70 °C, el tolueno no hierve hasta bajar de unos 272 mbar.
 
-**Ejercicio resuelto 2. ¿A qué temperatura se seca etanol a 100 mbar?** Cada juego de constantes vale solo en su intervalo. Despejando, T = B / (A − log P) − C. Con P = 0,1 bar, log P = −1: T = 1670,409 / 6,37229 + 40,191 = 302,33 K, es decir, **29,2 °C**. A presión atmosférica el etanol hierve a 78,3 °C. Es la razón de «El secado a fondo»: en el tramo constante, la torta se queda cerca de esa temperatura aunque la camisa esté más caliente.
+**Ejercicio resuelto 2. ¿A qué temperatura se seca etanol a 100 mbar?** Cada juego de constantes vale solo en su intervalo. Despejando, T = B / (A − log P) − C. Con P = 0,1 bar, log P = −1: T = 1670,409 / 6,37229 + 40,191 = 302,33 K, es decir, **29,2 °C**. A presión atmosférica el etanol hierve a 78,3 °C. Es la razón de lo que verás en «El secado a fondo»: en el tramo constante, la torta se queda cerca de esa temperatura aunque la camisa esté más caliente.
 
 ### Mezclas de dos líquidos: la ley de Raoult
 En una mezcla de dos líquidos parecidos, cada uno «escapa» en proporción a lo que hay de él en el líquido. Es la **ley de Raoult** (*Raoult's law*):
@@ -123,7 +123,7 @@ Cuando las moléculas de los dos líquidos se atraen mucho menos o mucho más qu
 
 - **De mínimo punto de ebullición**: la mezcla hierve por debajo de los dos puros. Es el caso de etanol y agua citado en «Destilación y concentración».
 - **De máximo punto de ebullición**: hierve por encima de los dos.
-- **Heterogéneo**: dos líquidos que casi no se mezclan, como tolueno y agua, hierven juntos por debajo de los dos. La cuenta de «Destilación a fondo» da 84,4 °C a 1013 mbar y es la base del secado azeotrópico.
+- **Heterogéneo**: dos líquidos que casi no se mezclan, como tolueno y agua, hierven juntos por debajo de los dos. La cuenta, que verás en «Destilación a fondo», da 84,4 °C a 1013 mbar y es la base del secado azeotrópico.
 
 En planta se nota porque la temperatura de vapor se queda quieta y la cromatografía de gases da siempre la misma proporción por mucho que destiles. Los datos medidos de azeótropos homogéneos no los hemos podido leer en una fuente gratuita, así que aquí no damos cifras: el procedimiento ya los tiene en cuenta.
 
@@ -174,7 +174,7 @@ con c en mol/L, R = 0,083145 L·bar/(mol·K) y T en kelvin.
 
 **Ejercicio resuelto 8. Suero al 0,9 %** (9 g/L de cloruro de sodio) a 37 °C: c = 9 / 58,44 = 0,154 mol/L; π = 2 × 0,154 × 0,083145 × 310,15 = **7,9 bar**, en la cuenta ideal.
 
-**Ejercicio resuelto 9. La ósmosis inversa del agua de planta.** Un agua de alimentación con 1000 mg/L de sal, a 25 °C: π = 2 × (1 / 58,44) × 0,083145 × 298,15 = **0,85 bar**. La bomba de la ósmosis inversa de «Agua farmacéutica a fondo» tiene que empujar por encima de eso para que el agua vaya al revés, del lado salado al limpio, y el rechazo, más concentrado, pide cada vez más.
+**Ejercicio resuelto 9. La ósmosis inversa del agua de planta.** Un agua de alimentación con 1000 mg/L de sal, a 25 °C: π = 2 × (1 / 58,44) × 0,083145 × 298,15 = **0,85 bar**. La bomba de la ósmosis inversa («Agua farmacéutica a fondo», nivel 14) tiene que empujar por encima de eso para que el agua vaya al revés, del lado salado al limpio, y el rechazo, más concentrado, pide cada vez más.
 
 ### Qué te llevas al turno
 | Lo que ves | El mapa que hay detrás |

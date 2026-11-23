@@ -168,7 +168,7 @@ Despejando: **n = P · V / (R · T)**. «Ideal» quiere decir que se toma el gas
 
 > P₂ = P₁ × T₂ / T₁ = 1,2 × 353,15 / 293,15 = **1,45 bar a**, o sea, 0,45 bar g.
 
-Si hubieras usado grados Celsius, 1,2 × 80 / 20 = 4,8 bar a: cuatro veces más, y falso. Es la misma ecuación que la ley de Boyle de «Nitrógeno, aire comprimido y vacío a fondo», solo que allí se deja fija la temperatura y aquí el volumen. Un aviso: esta cuenta es solo para el gas. Si dentro hay disolvente, al calentar también se evapora y la presión sube mucho más; eso se ve en «El reactor a fondo».
+Si hubieras usado grados Celsius, 1,2 × 80 / 20 = 4,8 bar a: cuatro veces más, y falso. Es la misma ecuación que la ley de Boyle, que verás en «Nitrógeno, aire comprimido y vacío a fondo», solo que allí se deja fija la temperatura y aquí el volumen. Un aviso: esta cuenta es solo para el gas. Si dentro hay disolvente, al calentar también se evapora y la presión sube mucho más; eso se ve en «El reactor a fondo».
 
 ### Concentraciones: todas las formas
 La **concentración** (*concentration*) dice cuánto soluto hay en una cantidad de disolución. La lección «Disoluciones y concentración» explica las diluciones y la riqueza de los productos comerciales; aquí tienes todas las formas con un ejemplo de cada una.

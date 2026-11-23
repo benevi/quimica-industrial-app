@@ -109,7 +109,7 @@ Si el alqueno no es simétrico, ¿a qué carbono va el H? La **regla de Markovni
 
 > CH₂=CHCH₃ + HBr da CH₃CHBrCH₃
 
-El propeno y el bromuro de hidrógeno dan sobre todo **2-bromopropano**; el 1-bromopropano sale poco. La hidrogenación de «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión» también es una adición (H₂ sobre el doble enlace), pero sobre un catalizador y sin carbocatión.
+El propeno y el bromuro de hidrógeno dan sobre todo **2-bromopropano**; el 1-bromopropano sale poco. La hidrogenación, que verás en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión», también es una adición (H₂ sobre el doble enlace), pero sobre un catalizador y sin carbocatión.
 
 **Ejercicio resuelto 3. El gas de una desprotección.** En «Reacciones en la fabricación de API a fondo» viste que quitar un grupo Boc con ácido suelta **isobuteno**, (CH₃)₂C=CH₂. ¿Qué se forma si se encuentra con HCl?
 1. El H⁺ va al CH₂, el carbono con más hidrógenos.
