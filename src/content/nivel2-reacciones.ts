@@ -41,7 +41,7 @@ Cómo se multiplican los rendimientos de varias etapas lo tienes en «Estequiome
 ### Los tipos de reacción, uno a uno
 No necesitas saber dibujar mecanismos. Necesitas saber **qué hace cada reacción, qué suelta y qué la estropea**.
 
-**1. Acilación y formación de amidas** (*acylation, amide formation*). Una **amida** es la unión de un ácido con una amina, dos grupos que viste en «Grupos funcionales a fondo». El ácido solo reacciona despacio, así que se «activa» convirtiéndolo en un **cloruro de ácido** (*acid chloride*) o en un **anhídrido** (*anhydride*). Con un cloruro de ácido, por cada enlace de amida que se forma se libera una molécula de cloruro de hidrógeno (HCl):
+**1. Acilación y formación de amidas** (*acylation, amide formation*). Una **amida** es la unión de un ácido con una amina, dos grupos que verás en «Grupos funcionales a fondo». El ácido solo reacciona despacio, así que se «activa» convirtiéndolo en un **cloruro de ácido** (*acid chloride*) o en un **anhídrido** (*anhydride*). Con un cloruro de ácido, por cada enlace de amida que se forma se libera una molécula de cloruro de hidrógeno (HCl):
 
 > Cloruro de ácido + amina da amida + HCl
 
@@ -84,7 +84,7 @@ Según la NTP 527 del INSST, el autocalentamiento de una reacción **aumenta exp
 | 85 | 116,7 | 120 | Todavía retira más, por poco |
 | 90 | 161,3 | 140 | Genera más: ya no vuelve |
 
-La NTP 527 llama a esos dos cruces punto C y punto D. En **C** (aquí, 60 °C) la operación es estable: si la masa se aparta un poco, vuelve. **D** (aquí, unos 85,9 °C) también es un equilibrio, pero inestable: un poco por debajo, la masa vuelve a C; un poco por encima, el descontrol es **irreversible**. La nota lo llama **temperatura sin retorno** (*temperature of no return*).
+La NTP 527 llama a esos dos cruces punto C y punto D. En **C** (aquí, 60 °C) la operación es estable: si la masa se aparta un poco, vuelve. **D** (aquí, unos 85,8 °C) también es un equilibrio, pero inestable: un poco por debajo, la masa vuelve a C; un poco por encima, el descontrol es **irreversible**. La nota lo llama **temperatura sin retorno** (*temperature of no return*).
 
 ¿Qué mueve la línea de la camisa? Su **inclinación** la marca U × A, que baja si se ensucia la pared o si **falla la agitación**, como cita la NTP 527. Su **punto de partida** es la temperatura del fluido de camisa: en el ejemplo, si llega a unos **60,2 °C**, solo 5,2 °C más caliente, la línea ya no corta a la curva y no queda ningún punto estable. Una alarma de agua de refrigeración caliente no es un detalle.
 
@@ -105,7 +105,7 @@ La **temperatura máxima de la reacción de síntesis** (*maximum temperature of
 |---|---|---|---|
 | Adición normal (dato del laboratorio) | 30 % | 80 + 64,8 × 0,30 = **99,4 °C** | Por debajo de la ebullición del tolueno (111 °C) |
 | Agitador parado y adición sin cortar | 80 % | 80 + 64,8 × 0,80 = **131,8 °C** | Pasa de la ebullición: hierve, sube la presión |
-| Todo cargado de golpe sin reaccionar | 100 % | 80 + 64,8 = **144,8 °C** | Si el DSC de la mezcla diera, por ejemplo, una descomposición desde 150 °C, el margen sería mínimo |
+| Todo cargado de golpe sin reaccionar | 100 % | 80 + 64,8 = **144,8 °C** | Si la calorimetría diferencial de barrido (DSC) de la mezcla diera, por ejemplo, una descomposición desde 150 °C, el margen sería mínimo |
 
 Lo que el operador controla de esa tabla es **la acumulación**: la velocidad de adición, la temperatura mínima y la agitación.
 

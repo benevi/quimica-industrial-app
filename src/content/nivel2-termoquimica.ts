@@ -147,7 +147,7 @@ La NTP 527 añade que en un calorímetro de reacción se simula con facilidad el
 ### Descomposiciones y reacciones secundarias
 A temperaturas más altas pueden empezar otras reacciones: una **descomposición** (*decomposition*), en la que una sustancia se rompe sola en otras, o una **reacción secundaria** (*side reaction*). Suelen dar mucho calor y, a menudo, gases.
 
-La NTP 529 analizó accidentes de la base de datos europea MARS. De los ocurridos en planta de proceso, el 19,8 % se debieron a la pérdida de control de una reacción. Y entre las causas específicas de esos casos, la descomposición aparece en el 25 % y la reacción inesperada en el 27,1 %.
+La NTP 529 analizó accidentes de la base de datos europea de accidentes graves (*Major Accident Reporting System*, MARS). De los ocurridos en planta de proceso, el 19,8 % se debieron a la pérdida de control de una reacción. Y entre las causas específicas de esos casos, la descomposición aparece en el 25 % y la reacción inesperada en el 27,1 %.
 
 Una masa caliente puede llegar a ellas, aunque la reacción principal haya terminado, si se queda sin agitar o sin frío. La NTP 529 describe el accidente de Seveso, en Italia: al terminar un lote se paró el agitador sin esperar a que la masa se enfriara, no se refrigeró el reactor y se desconectó el registro de temperatura cuando marcaba 158 °C. Seis horas y media después se produjo una reacción exotérmica cuya sobrepresión rompió el disco de ruptura y liberó dioxina al exterior. La NTP 527 recoge la misma idea como **tiempo de seguridad**: para cada etapa hay que saber cuánto tiempo puede estar la masa a temperatura elevada sin que algo inestable se descomponga.
 

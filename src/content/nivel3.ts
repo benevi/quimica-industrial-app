@@ -39,7 +39,7 @@ Los **hidrocarburos** (*hydrocarbons*) solo tienen C e H.
 - **Fórmula semidesarrollada** (*condensed formula*): CH₃–CH₂–OH.
 - **Fórmula de esqueleto** (*skeletal formula*): una línea en zigzag; cada vértice es un C y los H unidos al C no se dibujan. Es la que verás en fichas técnicas y certificados.
 
-Dos moléculas pueden tener **la misma fórmula molecular** y ser distintas (isómeros, lo verás en la lección 4).
+Dos moléculas pueden tener **la misma fórmula molecular** y ser distintas (isómeros, lo verás en «Isómeros y quiralidad»).
 
 ### Prefijos para contar carbonos
 | Nº C | Prefijo | Alcano |
@@ -122,13 +122,13 @@ Un conjunto de átomos dentro de una molécula que le da **propiedades y reactiv
 | Grupo | Estructura | Familia | Ejemplo en planta |
 |---|---|---|---|
 | Hidroxilo | –OH | Alcohol (*alcohol*) | Metanol, etanol, isopropanol |
-| Éter | R–O–R | Éter (*ether*) | THF, MTBE |
+| Éter | R–O–R | Éter (*ether*) | Tetrahidrofurano (THF), metil terc-butil éter (MTBE) |
 | Carbonilo en extremo | –CHO | Aldehído (*aldehyde*) | Formaldehído |
-| Carbonilo interno | R–CO–R | Cetona (*ketone*) | Acetona, MEK, MIBK |
+| Carbonilo interno | R–CO–R | Cetona (*ketone*) | Acetona, metiletilcetona (MEK), metilisobutilcetona (MIBK) |
 | Carboxilo | –COOH | Ácido carboxílico (*carboxylic acid*) | Ácido acético |
 | Éster | R–COO–R | Éster (*ester*) | Acetato de etilo |
 | Amino | –NH₂, –NHR, –NR₂ | Amina (*amine*) | Trietilamina |
-| Amida | –CO–N | Amida (*amide*) | DMF, DMAc |
+| Amida | –CO–N | Amida (*amide*) | Dimetilformamida (DMF), dimetilacetamida (DMAc) |
 | Halógeno | –Cl, –Br, –F | Haluro (*halide*) | Diclorometano |
 | Nitrilo | –C≡N | Nitrilo (*nitrile*) | Acetonitrilo |
 
@@ -152,7 +152,7 @@ En el paso 3 de un proceso ficticio se **acetila un alcohol**: sobre la solució
 `,
     batchRecord: `
 - Instrucciones del tipo "Adicionar cloruro de acetilo en ≥ 30 min manteniendo T ≤ 10 °C".
-- Ensayos en proceso (IPC) que siguen la desaparición de un grupo (por ejemplo, éster < 1,0 % por HPLC).
+- Ensayos en proceso (IPC) que siguen la desaparición de un grupo (por ejemplo, éster < 1,0 % por cromatografía de líquidos, HPLC).
 `,
     terms: [
       { es: "Grupo funcional", en: "Functional group", def: "Agrupación de átomos que da a la molécula su reactividad típica." },
@@ -207,23 +207,23 @@ Disolver reactivos, controlar la temperatura de reacción, **extraer**, **crista
 
 ### Propiedades que debes conocer
 - **Punto de ebullición** (*boiling point*): a qué temperatura hierve (marca si se puede destilar o secar fácilmente).
-- **Punto de inflamación** (*flash point*): temperatura mínima a la que sus vapores pueden arder con una llama. Si está por debajo de la temperatura ambiente, el disolvente es **muy inflamable** y la zona puede ser ATEX.
+- **Punto de inflamación** (*flash point*): temperatura mínima a la que sus vapores pueden arder con una llama. Si está por debajo de la temperatura ambiente, el disolvente es **muy inflamable** y la zona puede ser ATEX (atmósfera explosiva).
 - **Miscibilidad con agua** (*water miscibility*): si se mezcla con agua o forma dos fases. Esto decide si sirve para una extracción.
 - **Polaridad**: lo polar disuelve lo polar ("lo semejante disuelve lo semejante").
 
-| Disolvente | Ebullición (°C) | Inflamación (°C, aprox.) | ¿Miscible en agua? | Clase ICH Q3C |
+| Disolvente | Ebullición (°C) | Punto de inflamación (°C) | ¿Miscible en agua? | Clase ICH Q3C |
 |---|---|---|---|---|
-| Diclorometano (DCM) | 40 | no inflamable en ensayo estándar | No | 2 |
-| Acetona | 56 | −20 | Sí | 3 |
-| Metanol | 65 | 11 | Sí | 2 |
-| THF | 66 | −14 | Sí | 2 |
-| Acetato de etilo | 77 | −4 | Poco | 3 |
-| Etanol | 78 | 13 | Sí | 3 |
-| Isopropanol | 82 | 12 | Sí | 3 |
-| Heptano | 98 | −4 | No | 3 |
-| Tolueno | 111 | 4 | No | 2 |
+| Diclorometano (DCM) | 40 | sin clase de inflamable en el CLP | No | 2 |
+| Acetona | 56 | menor de 23 | Sí | 3 |
+| Metanol | 65 | unos 10 | Sí | 2 |
+| THF | 66 | menor de 23 | Sí | 2 |
+| Acetato de etilo | 77 | menor de 23 | Poco | 3 |
+| Etanol | 78 | menor de 23 | Sí | 3 |
+| Isopropanol | 82 | menor de 23 | Sí | 3 |
+| Heptano | 98 | menor de 23 | No | 3 |
+| Tolueno | 111 | unos 4 | No | 2 |
 
-Valores de referencia redondeados; los exactos están en la **ficha de datos de seguridad** (FDS) de tu proveedor.
+Los valores del metanol y del tolueno son redondeados, de sus fichas. «Menor de 23» significa que el Reglamento CLP clasifica ese disolvente como líquido muy inflamable (H225), que exige un punto de inflamación por debajo de 23 °C. El valor exacto de cada uno está en la sección 9 de la **ficha de datos de seguridad** (FDS) de tu proveedor: manda la FDS.
 
 ### Disolventes residuales: ICH Q3C
 El API terminado siempre retiene trazas del disolvente. La guía **ICH Q3C** los clasifica por toxicidad:
@@ -312,7 +312,7 @@ Las dos formas espejo se llaman **enantiómeros** (*enantiomers*) y se nombran *
 - En el cuerpo pueden tener efectos muy distintos, porque las proteínas también son quirales.
 
 ### Por qué importa en farmacia
-El caso histórico es la **talidomida** (años 50–60): se relacionó uno de sus enantiómeros con malformaciones graves. Además, en el cuerpo los dos enantiómeros se interconvierten, así que separarlos no habría bastado. Desde entonces las autoridades exigen estudiar y controlar cada enantiómero.
+El caso histórico es la **talidomida** (años 50–60), un fármaco que se usaba como mezcla de sus dos enantiómeros y que causó malformaciones graves. Los dos enantiómeros de un fármaco pueden tener efectos distintos en el cuerpo; por eso hoy las autoridades exigen estudiar y controlar cada enantiómero.
 
 Hoy muchos API se fabrican como **un solo enantiómero** y el otro se trata como una **impureza** con su propio límite.
 
@@ -327,7 +327,7 @@ Hoy muchos API se fabrican como **un solo enantiómero** y el otro se trata como
 - **HPLC quiral** (*chiral HPLC*): columna especial que separa enantiómeros y da el % de cada uno.
 `,
     plant: `
-En un proceso ficticio, el intermedio racémico se trata con ácido (R)-mandélico en isopropanol. Cristaliza la sal del enantiómero deseado y el otro queda en las aguas madre. El IPC pide **ee ≥ 99,0 %** por HPLC quiral antes de seguir.
+En un proceso ficticio, el intermedio racémico se trata con ácido (R)-mandélico en isopropanol. Cristaliza la sal del enantiómero deseado y el otro queda en las aguas madres. El IPC pide **ee ≥ 99,0 %** por HPLC quiral antes de seguir.
 `,
     batchRecord: `
 - IPC "Pureza enantiomérica / ee por HPLC quiral".
@@ -414,7 +414,7 @@ Muchos API son ácidos o bases. Se convierten en **sales** para mejorar la solub
 
 ### Cómo se identifica la forma
 - **Difracción de rayos X de polvo** (*X-ray powder diffraction, XRPD*, Ph. Eur. 2.9.33): la "huella dactilar" de cada polimorfo.
-- **DSC**, **IR** y **TGA** (pérdida de peso al calentar, útil para solvatos).
+- **Calorimetría diferencial de barrido** (DSC), **infrarrojo** (IR) y **termogravimetría** (TGA, pérdida de peso al calentar, útil para solvatos).
 `,
     plant: `
 La hoja de cristalización dice: "Enfriar de 60 a 45 °C en ≥ 1 h, sembrar con 0,5 % de forma II, mantener 2 h, enfriar a 0–5 °C en ≥ 4 h". Si se enfría de golpe, puede salir la forma I o un sólido amorfo. El lote se analiza por XRPD para confirmar la forma II.
@@ -481,7 +481,7 @@ Cualquier componente del API que **no es el API**. Ninguna síntesis es perfecta
 ### Tipos (ICH Q3A)
 1. **Orgánicas**: materiales de partida, intermedios, **subproductos** de reacciones secundarias, productos de **degradación**, reactivos.
 2. **Inorgánicas**: sales, catalizadores metálicos (Pd, Ni), cenizas (*residue on ignition / sulphated ash*).
-3. **Disolventes residuales**: los de ICH Q3C (lección anterior).
+3. **Disolventes residuales**: los de ICH Q3C («Disolventes orgánicos y disolventes residuales»).
 
 ### Umbrales de ICH Q3A (dosis máxima diaria ≤ 2 g/día)
 | Umbral | Valor | Qué significa |
@@ -495,7 +495,7 @@ Para dosis mayores de 2 g/día los umbrales bajan a 0,03 %, 0,05 % y 0,05 %.
 Una impureza **especificada** tiene su propio límite en la especificación; las demás entran como "impureza no especificada, cada una ≤ 0,10 %" y en "impurezas totales".
 
 ### Impurezas elementales (ICH Q3D)
-Metales que pueden venir de **catalizadores** (paladio, platino, níquel), de los reactivos o de los equipos. Se clasifican por toxicidad (clase 1: Cd, Pb, As, Hg) y tienen PDE en µg/día. Ejemplo: paladio por vía oral, 100 µg/día. Se analizan por **ICP-MS**.
+Metales que pueden venir de **catalizadores** (paladio, platino, níquel), de los reactivos o de los equipos. Se clasifican por toxicidad (clase 1: Cd, Pb, As, Hg) y tienen PDE en µg/día. Ejemplo: paladio por vía oral, 100 µg/día. Se analizan por **ICP-MS** (plasma acoplado inductivamente con espectrometría de masas).
 
 ### Impurezas mutagénicas (ICH M7)
 Algunas impurezas pueden dañar el ADN (*mutagenic*), como ciertos agentes alquilantes o **nitrosaminas**. Se controlan a niveles muchísimo más bajos: para un tratamiento de por vida, el umbral general (*TTC, Threshold of Toxicological Concern*) es **1,5 µg/día**, y algunas nitrosaminas tienen límites aún más bajos.
@@ -505,7 +505,7 @@ Algunas impurezas pueden dañar el ADN (*mutagenic*), como ciertos agentes alqui
 - Adición rápida o en orden incorrecto: reacciones secundarias.
 - Equipo mal limpiado: **contaminación cruzada** con otro producto.
 - Agua o aire donde no deben: hidrólisis u oxidación.
-- Lavado insuficiente de la torta: aguas madre (con impurezas) retenidas.
+- Lavado insuficiente de la torta: aguas madres (con impurezas) retenidas.
 
 Seguir las instrucciones de la hoja (temperaturas, tiempos, orden y velocidad de adición) es **la principal herramienta** para controlar impurezas.
 `,
@@ -515,7 +515,7 @@ Un API de 500 mg/día da una impureza desconocida a 0,12 %. Supera el umbral de 
     batchRecord: `
 - Límites de temperatura y tiempos de adición con su justificación ("para evitar la impureza B").
 - IPC de impurezas por HPLC antes de pasar al siguiente paso.
-- En el CoA: impurezas especificadas, no especificadas, totales, disolventes residuales y metales.
+- En el certificado de análisis (CoA): impurezas especificadas, no especificadas, totales, disolventes residuales y metales.
 `,
     terms: [
       { es: "Impureza", en: "Impurity", def: "Cualquier componente del API que no es el propio API." },
@@ -538,7 +538,7 @@ Un API de 500 mg/día da una impureza desconocida a 0,12 %. Supera el umbral de 
           "Es un disolvente residual",
         ],
         answer: 1,
-        explain: "0,12 % supera el 0,10 % de identificación pero no el 0,15 % de cualificación. Con 500 mg al día mandan los porcentajes, porque 0,10 % y 0,15 % de 500 mg son 0,5 mg y 0,75 mg, menos que el otro límite de 1,0 mg al día. Con dosis mayores (por ejemplo 1 g al día) manda el límite de 1,0 mg al día y los umbrales en porcentaje bajan.",
+        explain: "0,12 % supera el 0,10 % de identificación pero no el 0,15 % de cualificación. Con 500 mg al día mandan los porcentajes, porque 0,10 % y 0,15 % de 500 mg son 0,5 mg y 0,75 mg, menos que el otro límite de 1,0 mg al día. Con dosis mayores (por ejemplo 1,5 g al día) manda el límite de 1,0 mg al día y los umbrales en porcentaje bajan.",
       },
       {
         kind: "number",

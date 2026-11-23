@@ -140,7 +140,7 @@ Un **catalizador** (*catalyst*) abre un camino con una **colina más baja**. Tre
 
 1. **Rebaja la energía de activación.** Con Arrhenius, y suponiendo el mismo factor A, bajar la colina de 100 a 80 kJ/mol a 60 °C multiplica la velocidad por unas 1370 veces (cálculo de ejemplo).
 2. **No se consume.** Sale igual que entró; por eso basta poca cantidad y a veces se recupera.
-3. **No cambia el equilibrio.** Llega antes al mismo final; no saca más producto del que permite el equilibrio (lo viste en «Equilibrio químico»).
+3. **No cambia el equilibrio.** Llega antes al mismo final; no saca más producto del que permite el equilibrio (lo verás en «Equilibrio químico»).
 
 Hay dos tipos:
 
@@ -149,7 +149,7 @@ Hay dos tipos:
 | **Homogéneo** (*homogeneous*) | Disuelto en la misma fase que los reactivos | Un ácido en pequeña cantidad | Con lavados, extracción o cristalización |
 | **Heterogéneo** (*heterogeneous*) | Un sólido en el líquido | Paladio sobre carbón (Pd/C) | Por filtración |
 
-En el **paladio sobre carbón**, el metal está repartido en granitos finísimos sobre carbón en polvo, para que haya mucha superficie: lo que ya sabes de los cubitos. Al acabar se retira **filtrando**, y el metal que quede en el producto se controla como impureza elemental (lo viste en «Impurezas en el API»).
+En el **paladio sobre carbón**, el metal está repartido en granitos finísimos sobre carbón en polvo, para que haya mucha superficie: lo que ya sabes de los cubitos. Al acabar se retira **filtrando**, y el metal que quede en el producto se controla como impureza elemental (lo verás en «Impurezas en el API»).
 
 El **envenenamiento del catalizador** (*catalyst poisoning*): algunas sustancias se pegan a la superficie activa y la tapan; un ejemplo clásico de libro de texto son los compuestos de azufre sobre los metales. El síntoma en planta es una reacción que va más lenta de lo normal o que no arranca. Por eso importan la limpieza del equipo y la calidad de cada materia prima.
 
@@ -289,7 +289,7 @@ Con el reactivo sustituido y la autorización registrada, reanudas: esta vez la 
     },
     {
       kind: "choice",
-      q: "El IPC de una etapa cumple, pero el reactor se quedó 3 h más a temperatura por un retraso. El análisis final muestra más de una impureza conocida. ¿Cuál es la explicación más probable?",
+      q: "El IPC de una etapa cumple, pero el reactor se quedó 3 h más a temperatura por un retraso. El análisis final muestra más cantidad de una impureza conocida. ¿Cuál es la explicación más probable?",
       options: [
         "El catalizador se envenenó y dejó de actuar durante la espera",
         "La reacción se hizo de orden cero al pasar más tiempo caliente",

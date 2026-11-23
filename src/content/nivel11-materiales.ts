@@ -39,7 +39,7 @@ El reglamento europeo de etiquetado (CLP, anexo I, 2.16) da una idea del ritmo q
 
 Dos lecciones de esta tabla:
 
-- **Las peores son las que no se ven.** Una picadura o una grieta bajo tensión pueden atravesar la pared con la superficie casi intacta. La guía de la FDA sobre sistemas de agua de alta pureza cuenta el caso de un intercambiador de inoxidable: se vaciaba el agua de refrigeración cuando no se usaba, la humedad que quedaba con el aire corroyó los tubos, y aparecieron **agujeros diminutos** (*pinholes*). La recomendación fue no vaciarlos.
+- **Las peores son las que no se ven.** Una picadura o una grieta bajo tensión pueden atravesar la pared con la superficie casi intacta. La guía de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) sobre sistemas de agua de alta pureza cuenta el caso de un intercambiador de inoxidable: se vaciaba el agua de refrigeración cuando no se usaba, la humedad que quedaba con el aire corroyó los tubos, y aparecieron **agujeros diminutos** (*pinholes*). La recomendación fue no vaciarlos.
 - **Los huecos y lo parado son el enemigo.** Juntas mal asentadas, restos de producto pegados, líquido que se queda en un punto bajo. Por eso la limpieza no solo sirve para el siguiente producto: también protege el equipo («Limpieza de equipos a fondo»).
 
 El reglamento español de equipos a presión (Real Decreto 809/2021) obliga a inspecciones periódicas. En la de nivel B, con el equipo fuera de servicio, un organismo de control revisa las zonas con más esfuerzo y más corrosión y **mide espesores**. Tú no haces esa inspección, pero ves el equipo todos los días.
@@ -47,14 +47,14 @@ El reglamento español de equipos a presión (Real Decreto 809/2021) obliga a in
 ### El acero inoxidable: 304 y 316L
 El **acero inoxidable** (*stainless steel*) es hierro con cromo y, según el tipo, níquel (ICH Q3D lo describe como una aleación de hierro con cromo y níquel). Su truco ya lo conoces: el cromo forma con el oxígeno una **capa pasiva** (*passive layer*), una película finísima e invisible de óxido que separa el metal del líquido. Si se raya, se rehace sola con oxígeno.
 
-Los dos tipos que verás en las placas:
+Los dos tipos que verás en las placas, con la numeración del AISI (*American Iron and Steel Institute*, el instituto estadounidense del hierro y el acero):
 
 | Tipo | Qué es | Dónde se usa |
 |---|---|---|
 | **304** (AISI 304) | El inoxidable «de cocina» | Estructuras, cubiertas, equipos sin contacto con productos agresivos |
 | **316L** (AISI 316L) | Lleva además molibdeno, que mejora la resistencia a picaduras y rendijas con cloruros. La **L** (*low carbon*) indica poco carbono, lo que lo protege mejor en las zonas soldadas | Equipos y tuberías en contacto con producto; agua farmacéutica |
 
-Las guías de agua de la OMS (TRS 1033, anexo 3) y de la EMA citan el 316L como material adecuado, y la de la OMS pide materiales que no cedan sustancias, no las retengan y resistan la corrosión. En este libro no damos los porcentajes de cada elemento: los fija la norma del material, que es de pago.
+Las guías de agua de la Organización Mundial de la Salud (OMS, TRS 1033, anexo 3) y de la Agencia Europea de Medicamentos (EMA) citan el 316L como material adecuado, y la de la OMS pide materiales que no cedan sustancias, no las retengan y resistan la corrosión. En este libro no damos los porcentajes de cada elemento: los fija la norma del material, que es de pago.
 
 **Qué destruye la capa pasiva.** Tres cosas, y juntas son mucho peores:
 
@@ -126,7 +126,7 @@ Lo que dicen las guías leídas:
 
 - La OMS pide que juntas y membranas de los sistemas de agua sean adecuadas en todas las condiciones de trabajo (también en la sanitización) y que se compruebe que se montan las correctas y bien apretadas.
 - La EMA pide revisar con regularidad juntas tóricas y juntas, y cambiarlas, dentro del mantenimiento preventivo.
-- La NTP 1017 del INSST pide cambiar «igual por igual»: si no queda la junta del material de la lista de repuestos, no se pone otra «parecida» («Mantenimiento a fondo»).
+- La nota técnica de prevención NTP 1017 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) pide cambiar «igual por igual»: si no queda la junta del material de la lista de repuestos, no se pone otra «parecida» («Mantenimiento a fondo»).
 
 ### Lo que vigila el operador
 | Lo que ves | Qué puede ser | Qué haces |

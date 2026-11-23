@@ -131,7 +131,7 @@ La **velocidad de punta** (*tip speed*) indica lo fuerte que «corta» la pala. 
 
 Sin deflectores, el líquido termina girando entero con el rodete, como el agua de un vaso que remueves en círculo. En el centro se forma un embudo, el **vórtice** (*vortex*). El líquido da vueltas, pero las capas apenas se cruzan: hay poca mezcla de arriba abajo. Si el embudo es profundo, el rodete además puede tragar gas del espacio de cabeza.
 
-El deflector es un obstáculo fijo que rompe ese giro y lo convierte en remolinos. La NTP 528 del INSST lo recomienda en reactores discontinuos y semicontinuos agitados: los rompecorrientes aumentan la turbulencia, y con ella la velocidad de transferencia de calor y la de la reacción.
+El deflector es un obstáculo fijo que rompe ese giro y lo convierte en remolinos. La nota técnica de prevención NTP 528 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) lo recomienda en reactores discontinuos y semicontinuos agitados: los rompecorrientes aumentan la turbulencia, y con ella la velocidad de transferencia de calor y la de la reacción.
 
 Un vórtice profundo por la mirilla, o una superficie que gira «en bloque», se anota y se comenta.
 

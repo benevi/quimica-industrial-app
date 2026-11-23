@@ -119,7 +119,7 @@ Mezclas que hierven a temperatura fija y destilan con composición constante, as
 - Nunca concentrar **a sequedad** si la hoja no lo dice: puede haber descomposiciones peligrosas.
 `,
     plant: `
-"Concentrar a vacío (T producto ≤ 50 °C) desde 1000 L hasta 400 L. Añadir 600 L de isopropanol y volver a concentrar a 400 L. IPC: metanol residual ≤ 1,0 % por GC". Es un cambio de disolvente de metanol a isopropanol en dos ciclos.
+"Concentrar a vacío (T producto ≤ 50 °C) desde 1000 L hasta 400 L. Añadir 600 L de isopropanol y volver a concentrar a 400 L. IPC: metanol residual ≤ 1,0 % por GC" (IPC es el control en proceso, *in-process control*; GC, la cromatografía de gases, *gas chromatography*). Es un cambio de disolvente de metanol a isopropanol en dos ciclos.
 `,
     batchRecord: `
 - Vacío, T producto y T camisa al inicio y durante la destilación.
@@ -212,7 +212,7 @@ Maduración (*aging*) con agitación suave, **filtración o centrifugación**, *
 "Disolver a 70 °C. Filtrar en caliente por filtro de cartucho de 1 µm (clarificación). Enfriar a 55 °C, sembrar con 0,3 kg de forma A, mantener 1 h. Enfriar a 0–5 °C en ≥ 5 h (rampa automática). Mantener 2 h y centrifugar". Si la rampa se interrumpe, el operador lo anota y avisa: un enfriamiento brusco es una posible desviación.
 `,
     batchRecord: `
-- Temperatura de disolución, de siembra y final; perfil de enfriamiento (gráfico del DCS adjunto).
+- Temperatura de disolución, de siembra y final; perfil de enfriamiento (gráfico del sistema de control distribuido, DCS, adjunto).
 - Lote y cantidad de semilla.
 - Tiempo de maduración y aspecto (aparición de cristales).
 - Volumen y destino de las aguas madres.
@@ -282,8 +282,8 @@ El cliente (la planta de formulación) pide un **tamaño de partícula** concret
 Velocidad del rotor, tamaño de la **malla o criba** (*screen*), presión de aire (micronizador), velocidad de alimentación. Cambian el tamaño final.
 
 ### Riesgos importantes
-- **Explosión de polvo** (*dust explosion*): el polvo fino en el aire puede explotar con una chispa. Se trabaja con **puesta a tierra**, inertización con N₂ y equipos **ATEX**.
-- **Exposición** a un principio activo potente: sistemas cerrados, aislador o EPI respiratorio según la evaluación.
+- **Explosión de polvo** (*dust explosion*): el polvo fino en el aire puede explotar con una chispa. Se trabaja con **puesta a tierra**, inertización con N₂ y equipos **ATEX** (aptos para atmósferas explosivas).
+- **Exposición** a un principio activo potente: sistemas cerrados, aislador o equipo de protección individual (EPI) respiratorio según la evaluación.
 - **Calor**: la molienda calienta y puede cambiar la forma cristalina.
 - **Contaminación**: la malla rota o desgastada deja trozos de metal. Por eso se **revisa la integridad de la malla** antes y después, y muchas líneas llevan **detector de metales**.
 

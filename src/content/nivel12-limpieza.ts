@@ -99,7 +99,7 @@ Cada paso tiene su razón. Las cifras de esta tabla son **valores de ejemplo** p
 
 Cada aclarado multiplica el residuo por 0,02. Si te saltas el tercero, dejas 4 mg/L en vez de 0,08 mg/L: cincuenta veces más. La realidad es peor que el modelo, porque el residuo pegado a la pared no se mezcla al momento. Pero la lección vale: los aclarados se cuentan uno a uno y ninguno sobra.
 
-**Por qué se seca.** La FDA pide que el equipo se seque antes de guardarlo y que nunca quede agua estancada tras la limpieza (guía de inspección de 1993). La OMS dice lo mismo (apéndice 3, 8.4).
+**Por qué se seca.** La FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) pide que el equipo se seque antes de guardarlo y que nunca quede agua estancada tras la limpieza (guía de inspección de 1993). La OMS dice lo mismo (apéndice 3, 8.4).
 
 ### Los dos relojes: tiempo sucio y tiempo limpio
 - **Tiempo sucio máximo** (*dirty hold time*). Desde que termina el lote hasta que empieza la limpieza. Si se pasa, los restos se secan y se pegan: la FDA recuerda que el secado de los residuos afecta directamente a la eficacia de la limpieza.

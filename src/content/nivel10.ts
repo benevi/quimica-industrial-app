@@ -290,7 +290,7 @@ Fecha de fabricación, fecha de reanálisis y condiciones de almacenamiento en l
         q: "¿Cuáles son las condiciones típicas de un estudio acelerado?",
         options: ["25 °C / 60 % HR", "40 °C / 75 % HR", "5 °C", "−20 °C"],
         answer: 1,
-        explain: "40 °C / 75 % HR durante 6 meses según ICH Q1.",
+        explain: "40 °C / 75 % HR durante 6 meses según ICH Q1A(R2).",
       },
       {
         kind: "choice",

@@ -344,7 +344,7 @@ El paracetamol tiene precisamente M = 151,2 g/mol: es un buen ejemplo para pract
 | % p/v (*w/v*) | g de soluto en 100 mL de disolución | NaCl 0,9 % p/v |
 | g/L | gramos por litro | 50 g/L |
 | mol/L o M (*molarity*) | moles por litro | HCl 1 M |
-| Volúmenes (*volumes, vol*) | L de disolvente por kg de producto | "10 vol de metanol" = 10 L por kg |
+| Volúmenes (*volumes, vol*) | L de disolvente por kg de material de partida | "10 vol de metanol" = 10 L por kg |
 
 ### Cuidado con las soluciones comerciales
 El ácido clorhídrico se compra al ~37 % p/p y la sosa al 30–50 % p/p. Si necesitas 10 kg de HCl **puro**, cargas 10 / 0,37 = **27,0 kg** de HCl 37 %.

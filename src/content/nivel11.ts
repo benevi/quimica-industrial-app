@@ -20,7 +20,7 @@ const fluidos: Lesson[] = [
 ### Tuberías (*piping*)
 - **Diámetro nominal** (*DN, nominal diameter*): tamaño de referencia en mm (DN25, DN50…). En planos americanos se usan pulgadas (1", 2").
 - **Presión nominal** (*PN*): presión máxima de diseño a temperatura de referencia (PN10, PN16…).
-- **Materiales**: acero inoxidable **AISI 316L** (el más común en farma), acero **vitrificado** (*glass-lined*) para ácidos, **Hastelloy** para corrosivos fuertes, tuberías con **revestimiento de PTFE** (*PTFE-lined*).
+- **Materiales**: acero inoxidable **AISI 316L** (numeración del *American Iron and Steel Institute*; el más común en farma), acero **vitrificado** (*glass-lined*) para ácidos, **Hastelloy** para corrosivos fuertes, tuberías con **revestimiento de PTFE** (politetrafluoroetileno, el teflón; *PTFE-lined*).
 - **Identificación**: cada línea lleva una etiqueta o código de colores con el **fluido** y una **flecha** con el sentido del flujo. Aprende el código de tu planta.
 
 ### Conexiones
@@ -38,13 +38,13 @@ const fluidos: Lesson[] = [
 | De diafragma | *Diaphragm valve* | Fluidos limpios o corrosivos, zona estéril |
 | De retención | *Check valve* | Impide el retroceso del fluido |
 | De fondo de reactor | *Bottom outlet valve* | Descargar el reactor |
-| Válvula de control | *Control valve* | La mueve el sistema de control (DCS) para regular |
+| Válvula de control | *Control valve* | La mueve el sistema de control distribuido (DCS, *Distributed Control System*) para regular |
 | Válvula de seguridad | *Safety / relief valve (PSV)* | Se abre sola si la presión supera el tarado |
 | Disco de ruptura | *Rupture disc* | Se rompe a una presión fija; protege el equipo |
 
 ### Válvulas manuales y automáticas: abrir y cerrar
 - **Manual**: la mueve el operador con una **palanca** (bola, mariposa: ¼ de vuelta) o un **volante** (asiento, diafragma: varias vueltas). En las de palanca, **palanca paralela a la tubería = abierta**; perpendicular = cerrada.
-- **Automática todo/nada** (*on/off valve*, en el P&ID suele llamarse **XV**): la abre o la cierra el sistema de control con un **actuador neumático** (*pneumatic actuator*) que recibe aire de instrumentos a través de una **electroválvula** (*solenoid valve*).
+- **Automática todo/nada** (*on/off valve*, en el P&ID, el diagrama de tuberías e instrumentación (*Piping and Instrumentation Diagram*), suele llamarse **XV**): la abre o la cierra el sistema de control con un **actuador neumático** (*pneumatic actuator*) que recibe aire de instrumentos a través de una **electroválvula** (*solenoid valve*).
 - **Válvula de control** (*control valve*; en los planos, **FV**, **TV**, **LV**… según la variable que controla, y en muchas plantas **FCV**, **TCV**…): no solo abre o cierra, sino que se queda en cualquier posición intermedia (0–100 %) que le pide el controlador.
 
 **Posición de fallo** (*fail-safe position*): qué hace la válvula si se corta el aire o la electricidad. Se elige para que el proceso quede **seguro**:
@@ -169,7 +169,7 @@ Una **bomba** (*pump*) da energía a un líquido para moverlo a otro sitio o a m
 - Mueven un volumen fijo por ciclo: **membrana neumática** (*AODD, air-operated double diaphragm*), **engranajes** (*gear*), **lóbulos**, **peristáltica**, **pistón**.
 - En las de **engranajes, lóbulos, pistón y peristáltica** **nunca** se cierra la impulsión con la bomba en marcha: como empujan un volumen fijo, la presión sube hasta romper algo. Por eso llevan **válvula de alivio** (*relief valve*).
 - La de **membrana neumática** es la excepción: con la salida cerrada simplemente **se para sola**, porque no puede dar más presión que la del aire comprimido que la mueve. Aun así, la manguera y la línea tienen que aguantar esa presión.
-- La de membrana neumática es muy común en plantas químicas: aguanta trabajar en vacío y suspensiones, y no tiene motor eléctrico (útil en zonas ATEX).
+- La de membrana neumática es muy común en plantas químicas: aguanta trabajar en vacío y suspensiones, y no tiene motor eléctrico (útil en zonas ATEX, de atmósfera explosiva).
 
 ### Problemas típicos
 - **Trabajar en seco** (*dry running*): sin líquido, el **cierre mecánico** (*mechanical seal*) se quema. Muchas bombas llevan protección por falta de caudal.
@@ -352,7 +352,7 @@ Medidas de control:
 - **Adición dosificada** (*semi-batch*): el reactivo se añade poco a poco. Si falla el frío, **se para la adición**: la reacción deja de recibir reactivo nuevo.
 - **Sin acumulación** (*accumulation*): parar la adición solo frena la reacción si el reactivo se ha ido gastando según entraba. Si se ha añadido reactivo que **no ha reaccionado todavía** (porque la masa estaba demasiado fría, el agitador parado o la reacción no había arrancado), ese reactivo sigue ahí y puede reaccionar de golpe aunque la adición esté parada. Por eso no se dosifica con la temperatura por debajo de la que marca la hoja ni sin agitación.
 - Límites de temperatura con **alarmas** y **enclavamientos** que cortan la adición.
-- Estudios de seguridad (DSC, calorimetría de reacción) que fijan la temperatura máxima segura.
+- Estudios de seguridad (calorimetría diferencial de barrido, DSC, *Differential Scanning Calorimetry*, y calorimetría de reacción) que fijan la temperatura máxima segura.
 
 ### Qué hace el operador
 - Comprobar antes de empezar que el servicio de frío está disponible y a la temperatura correcta.
@@ -421,13 +421,13 @@ Adición de un reactivo exotérmico: "Adicionar en ≥ 2 h manteniendo T ≤ 15 
 ### Formas de manipular sólidos
 - **Sacos y bidones** (*bags, drums*): carga manual por la boca de hombre (*manway*) o una estación de vaciado de sacos.
 - **Big bags / FIBC** (*Flexible Intermediate Bulk Container*): sacos grandes (500–1500 kg) con estación de descarga.
-- **Contenedores IBC** de acero o **contenedores con válvula de cierre** (*split butterfly valve*): carga **contenida**, sin exponer al operador.
+- **Contenedores IBC** (*Intermediate Bulk Container*, contenedor intermedio para graneles) de acero o **contenedores con válvula de cierre** (*split butterfly valve*): carga **contenida**, sin exponer al operador.
 - **Transporte neumático o por vacío** (*pneumatic / vacuum conveying*): el polvo viaja por una tubería arrastrado por gas.
 - **Tornillos sinfín** (*screw feeders*) y carga por **gravedad**.
 
 ### Riesgos
 - **Electricidad estática**: el polvo cargando en un reactor con disolvente puede dar una chispa e incendiar los vapores. Por eso se **inertiza** antes y se usan sacos y equipos **antiestáticos** con puesta a tierra.
-- **Exposición** a polvo activo: contención, extracción localizada y EPI.
+- **Exposición** a polvo activo: contención, extracción localizada y equipos de protección individual (EPI).
 - **Ergonomía**: sacos de 25 kg, posturas. Ayudas mecánicas.
 
 ### Balance de materia (*mass balance*)
@@ -444,7 +444,7 @@ Sirve para:
 Igual que con la materia: el calor que entra (camisa, reacción) = el que sale (camisa, condensador) + el que se acumula (sube la temperatura). Es la base del diseño seguro de las reacciones exotérmicas.
 
 ### Conciliación (*reconciliation*)
-Las GMP piden **conciliar** materiales: comprobar que lo usado + lo devuelto + lo desechado = lo recibido para el lote. Se aplica sobre todo a etiquetas y material de acondicionamiento, y también a materias primas.
+Las buenas prácticas de fabricación (GMP, *Good Manufacturing Practice*) piden **conciliar** materiales: comprobar que lo usado + lo devuelto + lo desechado = lo recibido para el lote. Se aplica sobre todo a etiquetas y material de acondicionamiento, y también a materias primas.
 `,
     plant: `
 Se cargan 120 kg de materia prima, 400 kg de disolvente y 30 kg de reactivo (550 kg). Al final se miden 410 kg de filtrado y 125 kg de torta húmeda. Faltan 15 kg, coherentes con el disolvente evaporado al venteo durante la reacción. Si faltaran 100 kg, habría que investigar.

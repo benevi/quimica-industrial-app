@@ -374,10 +374,10 @@ El sólido que sale de la centrífuga o del filtro está **húmedo** de disolven
 - **Tiempo** y **agitación** (si la hay). Agitar demasiado puede romper los cristales.
 
 ### ¿Cuándo está seco? Punto final (*end point*)
-Se toma una muestra (IPC) y se analiza:
+Se toma una muestra de control en proceso (IPC, *in-process control*) y se analiza:
 - **LOD** (*loss on drying*, pérdida por secado): cuánto peso pierde al calentarlo. Por ejemplo, especificación ≤ 0,5 %.
 - **Karl Fischer (KF)**: mide solo el **agua**.
-- **Disolventes residuales** por GC (*residual solvents*): cuánto queda de cada disolvente, según ICH Q3C.
+- **Disolventes residuales** por cromatografía de gases, GC (*residual solvents*): cuánto queda de cada disolvente, según ICH Q3C.
 
 ### Riesgos
 - Polvos y vapores inflamables, vacío, superficies calientes.

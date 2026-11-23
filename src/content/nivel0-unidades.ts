@@ -154,7 +154,7 @@ El truco: si 1 m³ = 1000 L, la fracción (1000 L / 1 m³) vale exactamente 1. M
 
 **9. Temperaturas.** La masa está a 65 °C; en kelvin: 65 + 273,15 = **338,15 K**. Un manual dice «no superar 350 °F»: (350 − 32) / 1,8 = **176,7 °C**. Aquí no basta una fracción: las escalas no empiezan en el mismo cero.
 
-**10. Una diferencia de temperatura no es una temperatura.** El manual dice «subir como máximo 36 °F por hora». Es una diferencia, no una lectura. El 32 solo mueve el cero de la escala, y en una diferencia los ceros se anulan: 36 / 1,8 = **20 °C por hora**, que son también 20 K por hora. Si aplicas por error la fórmula entera, (36 − 32) / 1,8 = 2,2 °C, te sale un límite diez veces más pequeño que el real.
+**10. Una diferencia de temperatura no es una temperatura.** El manual dice «subir como máximo 36 °F por hora». Es una diferencia, no una lectura. El 32 solo mueve el cero de la escala, y en una diferencia los ceros se anulan: 36 / 1,8 = **20 °C por hora**, que son también 20 K por hora. Si aplicas por error la fórmula entera, (36 − 32) / 1,8 = 2,2 °C, te sale un límite unas nueve veces más pequeño que el real.
 
 **11. Energía y potencia.** Una resistencia de 2,5 kW funciona 3 h. Energía: 2,5 kW × 3 h = **7,5 kWh**. En kilojulios, con 1 kW = 1 kJ/s y 1 h = 3600 s: 7,5 kWh × (3600 kJ / 1 kWh) = **27 000 kJ**. Un enfriador antiguo dice «50 000 kcal/h». 50 000 kcal/h × (1 kJ / 0,239 kcal) × (1 h / 3600 s) = 58,1 kJ/s = **58,1 kW**.
 

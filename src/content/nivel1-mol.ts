@@ -188,7 +188,7 @@ Tres apuntes:
 - En el % v/v, al mezclar etanol y agua los volúmenes no se suman exactos. Por eso se dice «hasta 100 L» y no «más 30 L de agua».
 - El real decreto define ppm como 10⁻⁶ y pide decir siempre de qué magnitud se habla. «ppm en masa» y «ppm en volumen», que se usa en gases, no son lo mismo.
 
-**Las ppm en un principio activo.** El disolvente que queda en el producto seco se da en ppm en masa. La guía ICH Q3C (versión R8) fija para el metanol un límite de 3000 ppm. En 50 kg de producto, 3000 mg/kg × 50 kg = 150000 mg = **150 g** de metanol como máximo. Para los disolventes de la clase 3, los de baja toxicidad, la misma guía considera aceptables sin más justificación 5000 ppm, que es el 0,5 %: para pasar de ppm a %, divide entre 10000.
+**Las ppm en un principio activo.** El disolvente que queda en el producto seco se da en ppm en masa. La guía ICH Q3C fija para el metanol un límite de 3000 ppm. En 50 kg de producto, 3000 mg/kg × 50 kg = 150000 mg = **150 g** de metanol como máximo. Para los disolventes de la clase 3, los de baja toxicidad, la misma guía considera aceptables sin más justificación 5000 ppm, que es el 0,5 %: para pasar de ppm a %, divide entre 10000.
 
 ### De % en masa a mol/L
 Muchos reactivos vienen en % m/m, pero a veces te piden mol/L. Hace falta la densidad. Método: piensa en un litro.

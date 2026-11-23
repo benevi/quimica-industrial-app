@@ -181,7 +181,7 @@ El agua corriente lleva sales y gases disueltos. Dos de ellos estropean una cald
 Por eso el agua se trata antes de entrar: se **descalcifica** (*softening*) para quitarle la cal y se **desgasifica** para quitarle el oxígeno, con calor y con aditivos. Además, como el vapor se va y las sales se quedan, el agua de la caldera se concentra. Para controlarlo se hacen **purgas** (*blowdown*): se saca una parte del agua concentrada y se repone con agua limpia.
 
 ### Lo que dice el Reglamento
-En España las calderas se rigen por el Reglamento de equipos a presión (Real Decreto 809/2021) y su instrucción técnica ITC EP-1. Lo que te conviene conocer:
+En España las calderas se rigen por el Reglamento de equipos a presión (Real Decreto 809/2021) y su instrucción técnica complementaria (ITC) EP-1. Lo que te conviene conocer:
 
 - **Quién lleva la caldera.** La conducción de calderas debe confiarse a personal capacitado técnicamente, instruido por el fabricante, la empresa instaladora o la propia empresa (artículo 13.1). La empresa debe designar a una persona capacitada para operar la caldera mientras funciona (artículo 12.1).
 - **Operador industrial de calderas.** Las calderas de vapor de clase segunda deben conducirlas operadores industriales de calderas, una acreditación específica (artículo 13.3). La clase depende del tipo de caldera y de multiplicar su presión máxima de servicio por su volumen (artículo 3).

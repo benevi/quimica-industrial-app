@@ -19,7 +19,7 @@ Un **LIMS** (*Laboratory Information Management System*) es el programa que gest
 
 ### El viaje de una muestra en el LIMS
 1. **Registro** (*login / sample registration*): se crea la muestra con su producto, lote, punto de muestreo y fecha. El LIMS genera una **etiqueta con código de barras**.
-2. **Asignación de análisis** (*test assignment*): según la especificación, el LIMS sabe qué ensayos hay que hacer (HPLC, KF, LOD…).
+2. **Asignación de análisis** (*test assignment*): según la especificación, el LIMS sabe qué ensayos hay que hacer: cromatografía de líquidos (HPLC), agua por Karl Fischer (KF), pérdida por secado (LOD)…
 3. **Recepción** en el laboratorio: se escanea la etiqueta. Queda registrado quién la recibió y cuándo (**cadena de custodia**).
 4. **Introducción de resultados** (*result entry*): a mano o directamente desde el instrumento (balanza, KF, sistema de cromatografía).
 5. **Comparación con la especificación**: el LIMS marca en rojo lo que está **fuera de especificación** (*OOS*).
@@ -33,7 +33,7 @@ Un **LIMS** (*Laboratory Information Management System*) es el programa que gest
 - **Audit trail** de cada cambio.
 
 ### Qué tiene que ver contigo
-Como operador, tú **tomas las muestras** del proceso (IPC, producto final). La etiqueta del LIMS y los datos que registras al muestrear (hora, punto, cantidad, quién) son el **inicio de la cadena**. Una muestra mal identificada invalida el análisis.
+Como operador, tú **tomas las muestras** del proceso (controles en proceso, IPC, y producto final). La etiqueta del LIMS y los datos que registras al muestrear (hora, punto, cantidad, quién) son el **inicio de la cadena**. Una muestra mal identificada invalida el análisis.
 `,
     plant: `
 Tomas el IPC de la etapa de reacción. Imprimes la etiqueta del LIMS para "Lote 24-0117, Etapa 2, IPC fin de reacción", la pegas en el vial, anotas la hora de toma en la hoja y la llevas al laboratorio. Allí la escanean: el LIMS sabe que hay que hacer un HPLC y que el límite es ≤ 1,0 %.
@@ -260,7 +260,7 @@ El ERP dice qué fabricar y con qué; el MES, cómo se fabrica paso a paso; y el
 **Practica:** en el [simulador de ERP tipo SAP](/sap) puedes crear una orden, consumir lotes y ver cómo cambia su estado.
 `,
     plant: `
-Vas a cargar un saco de reactivo y el escáner dice "Lote en cuarentena". No se usa: el laboratorio aún no lo ha aprobado. Avisas al supervisor para comprobar si hay otro lote liberado.
+Vas a cargar un saco de reactivo y el escáner dice "Lote en cuarentena". No se usa: calidad aún no lo ha aprobado. Avisas al supervisor para comprobar si hay otro lote liberado.
 `,
     batchRecord: `
 - Número de orden de fabricación.
@@ -364,7 +364,7 @@ Si SAP decide qué lote se puede consumir o vender, es **GMP**: debe estar **val
 **Practica:** haz el recorrido completo en el [simulador de ERP](/sap), con datos ficticios.
 `,
     plant: `
-Vas a cargar el reactivo ficticio **RX-3**. En la tableta escaneas el bidón: el lote 2604-RX3 sale **en control de calidad**. El MES no deja continuar. El supervisor consulta en **MMBE** y ve otro lote del mismo material en **libre utilización**: se usa ese. Si se hubiera consumido el bloqueado por error, la corrección sería un movimiento **262** y una desviación, nunca "borrar" el consumo.
+Vas a cargar el reactivo ficticio **RX-3**. En la tableta escaneas el bidón: el lote 2604-RX3 sale **en control de calidad**. El MES no deja continuar. El supervisor consulta en **MMBE** y ve otro lote del mismo material en **libre utilización**: se usa ese. Si se hubiera consumido por error el lote en control de calidad, la corrección sería un movimiento **262** y una desviación, nunca "borrar" el consumo.
 `,
     batchRecord: `
 - Número de **orden de proceso** y de **lote** de SAP.

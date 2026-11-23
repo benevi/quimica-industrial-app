@@ -16,7 +16,7 @@ En «Polimorfismo, sales y solvatos» viste las palabras. Aquí vas a entender q
 Imagina una caja de piezas de lego iguales. Puedes montarlas de dos maneras:
 
 - **En orden**: cada pieza encajada con la de al lado, fila tras fila, siempre con el mismo patrón. Eso es un **sólido cristalino** (*crystalline solid*). El patrón que se repite en las tres direcciones es la **red cristalina** (*crystal lattice*).
-- **A montón**: las piezas echadas en un cubo, tocándose, pero sin orden. Eso es un **sólido amorfo** (*amorphous solid*). La guía de la FDA sobre polimorfismo lo define así: moléculas en una disposición desordenada, sin una red cristalina reconocible.
+- **A montón**: las piezas echadas en un cubo, tocándose, pero sin orden. Eso es un **sólido amorfo** (*amorphous solid*). La guía de la FDA (la agencia del medicamento de Estados Unidos) sobre polimorfismo lo define así: moléculas en una disposición desordenada, sin una red cristalina reconocible.
 
 El montón se deshace antes y el muro aguanta más.
 
@@ -81,7 +81,7 @@ Un ejemplo de hoja para el clorhidrato del producto ficticio **VX-30**, que se f
 | 3 | Enfriar a 50 ± 2 °C y sembrar con 0,75 kg de semilla de forma B (lote aprobado) | Temperatura de siembra y forma de la semilla |
 | 4 | Mantener 2 h a 50 °C | Maduración: que crezca solo la forma B |
 | 5 | Enfriar a 0–5 °C a 10 °C/h como máximo | Enfriar más deprisa puede dar forma A |
-| 6 | Mantener 2 h como mínimo; IPC de forma por XRPD | Confirmar la forma antes de separar |
+| 6 | Mantener 2 h como mínimo; Control en proceso (IPC) de forma por difracción de rayos X (XRPD) | Confirmar la forma antes de separar |
 | 7 | Secar a 50 mbar abs como máximo, producto a 45 °C como máximo | Por encima, la forma B pasa a forma A (dato de ejemplo) |
 | 8 | Moler en el molino cónico con la criba y la velocidad indicadas | Sin calentar el producto por encima del límite |
 

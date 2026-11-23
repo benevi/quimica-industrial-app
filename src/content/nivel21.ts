@@ -17,7 +17,7 @@ const validacion: Lesson[] = [
 Un sistema informatizado que afecta a la calidad (LIMS, MES, ERP, control de planta, software de un equipo de laboratorio) debe estar **validado**: demostrado y documentado que hace lo que debe.
 
 ### GAMP 5
-Guía de la industria (ISPE) para validar sistemas con un enfoque **basado en riesgos**: más pruebas donde más riesgo hay. La 2.ª edición (2022) clasifica el software en categorías:
+Guía de la industria (ISPE) para validar sistemas con un enfoque **basado en riesgos**: más pruebas donde más riesgo hay. Según los resúmenes públicos (la guía es de pago y no se ha podido leer), GAMP 5 clasifica el software en estas categorías; ya no usa la 2 (firmware) de GAMP 4:
 
 | Categoría | Tipo | Ejemplo | Esfuerzo de validación |
 |---|---|---|---|
@@ -112,11 +112,11 @@ Un compañero ha hecho una hoja de Excel para calcular las cargas "porque es má
 ### El modelo en V
 Cada especificación de la izquierda se comprueba con una prueba de la derecha:
 
-| Especificación | ↔ | Prueba |
-|---|---|---|
-| URS (qué necesita el usuario) | ↔ | **PQ / UAT**: el sistema funciona en el proceso real, con usuarios reales |
-| FS (qué funciones tiene) | ↔ | **OQ**: cada función hace lo especificado, incluidos errores y límites |
-| DS / CS (cómo está montado) | ↔ | **IQ**: está instalado y configurado como se diseñó (versión, servidor, parámetros) |
+| Especificación | Se comprueba con |
+|---|---|
+| URS (qué necesita el usuario) | **PQ / UAT**: el sistema funciona en el proceso real, con usuarios reales |
+| FS (qué funciones tiene) | **OQ**: cada función hace lo especificado, incluidos errores y límites |
+| DS / CS (cómo está montado) | **IQ**: está instalado y configurado como se diseñó (versión, servidor, parámetros) |
 
 ### Cómo es una prueba
 Un **guion de prueba** (*test script*) tiene pasos con **resultado esperado**, y el probador anota el **resultado obtenido**, marca si pasa o no, firma, fecha y guarda **evidencia** (captura de pantalla, informe):

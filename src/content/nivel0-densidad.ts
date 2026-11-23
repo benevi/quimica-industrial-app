@@ -85,7 +85,7 @@ El VIM pone un ejemplo con una barra de acero: su longitud a 23 °C no es la de 
 | 60 °C | 983,21 | 0,983 |
 | 80 °C | 971,80 | 0,972 |
 
-Fíjate en tres cosas:
+Fíjate en dos cosas:
 
 - El agua es más densa hacia los 4 °C (el cálculo da el máximo cerca de 3,96 °C); por debajo vuelve a dilatarse un poco.
 - 1000 kg de agua ocupan 1001,8 L a 20 °C y 1029,0 L a 80 °C: un 2,7 % más. Usar 1,00 kg/L vale en frío, no en caliente.

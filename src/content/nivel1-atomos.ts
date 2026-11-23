@@ -174,7 +174,7 @@ El hidrógeno va arriba del grupo 1 por su único electrón, pero es un gas y no
 Lo peligroso es el elemento libre o ciertos compuestos, no el elemento en cualquier forma: el sodio metálico reacciona con el agua; el Na⁺ de la sal común, no. Cómo se almacenan estos productos lo verás en «Almacenamiento, emergencias y residuos a fondo», y cómo leer sus peligros en «Pictogramas, frases H y P y fichas de datos de seguridad».
 
 ### Parte 8. Metales que no deben quedarse en el producto
-El paladio o el platino aceleran una reacción y, en principio, no se consumen, pero un poco de metal puede quedarse en el producto, y el paciente no gana nada con él. De eso trata la guía **ICH Q3D** de impurezas elementales (*elemental impurities*). En «Impurezas en el API» viste que existe; aquí miramos dentro de su revisión 2, de 2022, con el ojo de la tabla periódica.
+El paladio o el platino aceleran una reacción y, en principio, no se consumen, pero un poco de metal puede quedarse en el producto, y el paciente no gana nada con él. De eso trata la guía **ICH Q3D** de impurezas elementales (*elemental impurities*). En «Impurezas en el API» (nivel 3) volverás a encontrarla; aquí miramos dentro de su revisión 2, de 2022, con el ojo de la tabla periódica.
 
 **De dónde vienen.** La guía nombra cuatro fuentes: elementos añadidos a propósito, como los catalizadores; los que traen el principio activo, el agua o los excipientes; lo que aportan los equipos de fabricación; y lo que pasa desde el envase.
 

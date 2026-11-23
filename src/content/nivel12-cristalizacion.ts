@@ -143,7 +143,7 @@ Para ti: siembra con la forma correcta, respeta temperaturas y rampas, y no deje
 | Sondas de proceso, si las hay | Miden en el propio equipo | Lectura y hora |
 | Control en proceso (IPC) | Confirma que se puede pasar a separar | Resultado y hora |
 
-Sobre las sondas: la guía de la FDA sobre tecnología analítica de procesos (*process analytical technology*, PAT), de 2004, distingue la medida **en línea** (*in-line*: el sensor está dentro y la muestra no sale del proceso), **en derivación** (*on-line*: la muestra se desvía y puede volver) y **junto a la línea** (*at-line*: la muestra se saca y se analiza al lado). Cita el tamaño y la forma de partícula entre los atributos físicos que conviene entender. Algunas plantas tienen en el cristalizador sondas de turbidez o de tamaño de partícula; si la tuya no las tiene, el aviso de la nube es tu vista por la mirilla y la temperatura.
+Sobre las sondas: la guía de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) sobre tecnología analítica de procesos (*process analytical technology*, PAT), de 2004, distingue la medida **en línea** (*in-line*: el sensor está dentro y la muestra no sale del proceso), **en derivación** (*on-line*: la muestra se desvía y puede volver) y **junto a la línea** (*at-line*: la muestra se saca y se analiza al lado). Cita el tamaño y la forma de partícula entre los atributos físicos que conviene entender. Algunas plantas tienen en el cristalizador sondas de turbidez o de tamaño de partícula; si la tuya no las tiene, el aviso de la nube es tu vista por la mirilla y la temperatura.
 
 ### Problemas típicos y qué hace el operador
 | Lo que ves | Causa probable | Qué haces |

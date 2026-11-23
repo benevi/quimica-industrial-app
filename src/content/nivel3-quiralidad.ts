@@ -27,11 +27,11 @@ En los **isómeros estructurales** (*constitutional isomers*) cambia qué átomo
 Las propiedades cambian porque lo que sujeta a unas moléculas con otras depende de su forma y sus grupos («Enlaces y fuerzas entre moléculas a fondo»). El etanol tiene un hidrógeno unido a oxígeno y forma puentes de hidrógeno: a temperatura ambiente es un líquido. El dimetil éter tiene el oxígeno entre dos carbonos, sin ese hidrógeno, y no forma esos puentes: es un gas. El 1-propanol y el 2-propanol se parecen más, pero tampoco hierven a la misma temperatura, y en una hoja no se cambia uno por otro.
 
 ### Estereoisómeros: mismas uniones, otra colocación en el espacio
-En los **estereoisómeros** (*stereoisomers*) los átomos están unidos en el mismo orden; cambia hacia dónde apuntan en el espacio. Así los define la guía de la EMA sobre principios activos quirales.
+En los **estereoisómeros** (*stereoisomers*) los átomos están unidos en el mismo orden; cambia hacia dónde apuntan en el espacio. Así los define la guía de la Agencia Europea de Medicamentos (EMA) sobre principios activos quirales.
 
 El primer tipo es el **cis-trans** o **geométrico** (*cis-trans isomers*, *geometric isomers*). Un doble enlace no deja girar la molécula por ese punto, como dos tablas unidas con dos clavos. Si cada carbono del doble enlace lleva un grupo distinto del hidrógeno, esos grupos pueden quedar del mismo lado (**cis**, «de este lado» en latín) o en lados opuestos (**trans**, «al otro lado»).
 
-Ejemplo: el 2-buteno, CH₃–CH=CH–CH₃. En el cis-2-buteno los dos CH₃ quedan del mismo lado del doble enlace; en el trans-2-buteno, en lados opuestos. La guía de la FDA de 1992 sobre fármacos estereoisómeros dice que los isómeros geométricos son química y farmacológicamente distintos, se separan sin técnicas quirales y se tratan como fármacos distintos.
+Ejemplo: el 2-buteno, CH₃–CH=CH–CH₃. En el cis-2-buteno los dos CH₃ quedan del mismo lado del doble enlace; en el trans-2-buteno, en lados opuestos. La guía de la FDA (la agencia del medicamento de Estados Unidos) de 1992 sobre fármacos estereoisómeros dice que los isómeros geométricos son química y farmacológicamente distintos, se separan sin técnicas quirales y se tratan como fármacos distintos.
 
 ### Quiralidad: la mano y el guante
 Tus manos son imagen una de la otra en un espejo, pero no coinciden si las pones una encima de la otra: el pulgar queda al lado contrario. Por eso un guante derecho no entra bien en la mano izquierda. Lo que no coincide con su imagen en el espejo es **quiral** (*chiral*). Una taza no lo es.
@@ -56,7 +56,7 @@ Tres ejemplos reales y un contraejemplo:
 ### En qué se parecen y en qué no dos enantiómeros
 La guía de la EMA lo resume así: fuera de un ambiente quiral, los enantiómeros tienen propiedades fisicoquímicas idénticas, salvo que giran el plano de la luz polarizada en sentidos opuestos y en la misma cantidad. La FDA dice lo mismo. En la práctica:
 
-- **Iguales:** punto de fusión y de ebullición, densidad, solubilidad en disolventes no quirales como agua, metanol o tolueno, y comportamiento en una HPLC normal. Por eso no se separan destilando ni cristalizando en un disolvente corriente.
+- **Iguales:** punto de fusión y de ebullición, densidad, solubilidad en disolventes no quirales como agua, metanol o tolueno, y comportamiento en una cromatografía de líquidos (HPLC) normal. Por eso no se separan destilando ni cristalizando en un disolvente corriente.
 - **Distintos:** el sentido en que giran la luz polarizada (la **rotación óptica**, *optical rotation*) y cómo reaccionan o se unen con **otra molécula quiral**.
 
 Según la EMA, los seres vivos están hechos sobre todo de piezas quirales, aminoácidos L y azúcares D: el cuerpo es un ambiente quiral. En un fármaco, eso es lo que importa. Las enzimas y los receptores son como guantes: un enantiómero encaja y el otro entra mal o no entra.

@@ -40,7 +40,7 @@ Piensa en una olla de sopa. Si no remueves, lo de abajo se quema y lo de arriba 
 3. **Repartir el calor**: llevar el líquido hasta la pared de la camisa y traerlo de vuelta.
 4. **Dispersar lo que se añade**: que un reactivo que entra se reparta y reaccione, en vez de quedarse en una zona.
 
-Según la NTP 527 del INSST, perder la agitación tiene dos efectos inmediatos: una mezcla pobre de los reactivos y una mala transferencia de calor. Con mezcla pobre los reactivos se acumulan, y si hay dos líquidos que no se mezclan pueden separarse en capas que reaccionan peligrosamente al volver a agitar. Por eso recomienda vigilar la velocidad de giro o el consumo del motor, y que la válvula de adición se cierre sola si el agitador falla.
+Según la nota técnica de prevención NTP 527 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST), perder la agitación tiene dos efectos inmediatos: una mezcla pobre de los reactivos y una mala transferencia de calor. Con mezcla pobre los reactivos se acumulan, y si hay dos líquidos que no se mezclan pueden separarse en capas que reaccionan peligrosamente al volver a agitar. Por eso recomienda vigilar la velocidad de giro o el consumo del motor, y que la válvula de adición se cierre sola si el agitador falla.
 
 ### Tipos de agitador
 

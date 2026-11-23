@@ -23,10 +23,10 @@ La definición de **Brønsted-Lowry** es muy sencilla:
 - Un **ácido** (*acid*) es una sustancia que **da** un protón.
 - Una **base** (*base*) es una sustancia que **acepta** un protón.
 
-Piensa en un balón que se pasan dos jugadores: el ácido lo lanza y la base lo recoge. Nadie suelta el protón al vacío; siempre hay quien lo recibe, y muchas veces es el propio agua:
+Piensa en un balón que se pasan dos jugadores: el ácido lo lanza y la base lo recoge. Nadie suelta el protón al vacío; siempre hay quien lo recibe, y muchas veces es la propia agua:
 
 - **Ácido clorhídrico en agua**: HCl + H₂O da H₃O⁺ + Cl⁻. El HCl da su protón; el agua lo acepta y hace de base. Queda el ion cloruro, Cl⁻.
-- **Amoníaco en agua**: NH₃ + H₂O ⇌ NH₄⁺ + OH⁻. Aquí el agua da un protón y hace de ácido; el amoníaco lo acepta y hace de base. Quedan el ion amonio, NH₄⁺, y el ion **hidróxido** (*hydroxide*), OH⁻. El símbolo ⇌ (doble flecha) significa que la reacción va en los dos sentidos a la vez, como viste en «Equilibrio químico».
+- **Amoníaco en agua**: NH₃ + H₂O ⇌ NH₄⁺ + OH⁻. Aquí el agua da un protón y hace de ácido; el amoníaco lo acepta y hace de base. Quedan el ion amonio, NH₄⁺, y el ion **hidróxido** (*hydroxide*), OH⁻. El símbolo ⇌ (doble flecha) significa que la reacción va en los dos sentidos a la vez, como verás en «Equilibrio químico».
 
 El agua puede dar y aceptar protones. Lo que queda de un ácido tras soltar el protón es su **base conjugada** (*conjugate base*): el Cl⁻ del HCl, el acetato del ácido acético. Es la misma pieza sin el balón.
 

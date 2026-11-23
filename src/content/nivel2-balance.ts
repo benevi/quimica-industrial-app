@@ -155,7 +155,8 @@ Con el mismo lote. Entra metanol en tres sitios: 600,0 kg puro, 40,0 kg en la di
 
 Pérdida por venteos y vacío: 670,0 − 666,5 = **3,5 kg**, un 0,52 %. Se recupera el 46,8 % (313,4 kg) y va a residuo el 52,7 % (353,1 kg).
 
-El disolvente recuperado puede volver al proceso: ICH Q7 (14.41 y 14.42) lo admite si la recuperación está controlada, el disolvente cumple su estándar antes de reutilizarse y, si se mezcla con disolvente nuevo, los ensayos demuestran que vale. 
+El disolvente recuperado puede volver al proceso: ICH Q7 (14.41 y 14.42) lo admite si la recuperación está controlada, el disolvente cumple su estándar antes de reutilizarse y, si se mezcla con disolvente nuevo, los ensayos demuestran que vale.
+
 **El medio ambiente.** El metanol que se escapa es un **compuesto orgánico volátil** (*volatile organic compound*, COV). El Real Decreto 117/2003, del BOE, limita estas emisiones y en su anexo I incluye la fabricación de productos farmacéuticos; los umbrales y límites están en «Almacenamiento, emergencias y residuos a fondo». Lo nuevo aquí es su anexo IV: la planta hace un **plan de gestión de disolventes**, que es exactamente un balance de masa. Suma las entradas (el disolvente comprado y el recuperado que se reutiliza) y reparte las salidas: gases residuales, disolvente en el agua, en los productos, en los residuos recogidos, recuperado para reutilizar y emisiones no capturadas por ventanas, puertas y respiraderos. Ese plan solo es bueno si cada lote ha anotado bien sus destilados y residuos.
 
 ### Conciliación de materiales y de etiquetas
