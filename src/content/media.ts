@@ -1115,6 +1115,17 @@ export const phetSims = [
 
 /** Simulaciones PhET por lección. Se suman a lo que la lección tenga en lessonMedia. */
 export const lessonSims: Record<string, Sim[]> = {
+  "gases-a-fondo": [
+    { sim: "gases-intro", title: "Gases: introducción", why: "Fija la temperatura, el volumen o la presión y comprueba con números las leyes de Boyle, Charles y Gay-Lussac." },
+    { sim: "gas-properties", title: "Propiedades de los gases", why: "Bombea partículas pesadas y ligeras, calienta o comprime la caja y mira cómo responde la presión: P·V = n·R·T en movimiento." },
+  ],
+  "estructura-electronica-a-fondo": [
+    { sim: "models-of-the-hydrogen-atom", title: "Modelos del átomo de hidrógeno", why: "Compara el modelo de Bohr con el cuántico y mira qué rayas de luz salen cuando el electrón baja de nivel." },
+  ],
+  "geometria-molecular-a-fondo": [
+    { sim: "molecule-shapes", title: "Geometría molecular", why: "Añade enlaces y pares solitarios al átomo central y mira cómo se reparten en el espacio y cambian los ángulos." },
+    { sim: "molecule-shapes-basics", title: "Geometría molecular: conceptos básicos", why: "Empieza por aquí: forma moléculas sencillas y nombra su geometría antes de pasar a la versión completa." },
+  ],
   densidad: [{ sim: "density", title: "Densidad", why: "Cambia la masa y el volumen de un bloque y míralo flotar o hundirse en el agua: la densidad decide." }],
   "densidad-a-fondo": [{ sim: "density", title: "Densidad", why: "Mide la masa y el volumen de bloques misteriosos y calcula su densidad para saber de qué material son." }],
   "la-materia": [{ sim: "states-of-matter-basics", title: "Estados de la materia: conceptos básicos", why: "Calienta y enfría agua, oxígeno o neón y mira cómo se mueven las partículas en sólido, líquido y gas." }],
