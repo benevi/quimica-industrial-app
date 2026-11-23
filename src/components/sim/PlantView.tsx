@@ -506,7 +506,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         {/* datos en vivo */}
         {(cur === "carga" || cur === "reaccion" || cur === "previas") && (
           <g>
-            <Chip x={440} y={170} label="TI-101 masa" value={`${E.fmtNum(r.T, 1)} °C`} tone={cur === "reaccion" && r.addEnd == null && r.T > 40 ? "bad" : "hot"} />
+            <Chip x={440} y={170} label="TI-101 masa" value={`${E.fmtNum(E.tiMasa(s), 1)} °C`} tone={cur === "reaccion" && r.addEnd == null && E.tiMasa(s) > 40 ? "bad" : "hot"} />
             <Chip x={440} y={214} label="Agitador" value={r.agit ? "Marcha" : "Paro"} tone={r.agit ? "ok" : "dark"} />
             {cur === "carga" && <Chip x={440} y={258} label="AI-101 O₂" value={`${E.fmtNum(s.o2, 1)} %`} tone={s.o2 > 2 ? "bad" : "ok"} />}
             {cur === "reaccion" && <Chip x={440} y={258} label="Adición" value={r.interlock ? "Bloqueada" : `${r.rate} L/min`} tone={r.interlock ? "bad" : "dark"} />}

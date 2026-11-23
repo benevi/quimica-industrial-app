@@ -147,8 +147,13 @@ export function PanelCarga({ s, act, active }: P) {
           </li>
           <li>
             Cargar el 4-aminofenol pesado por la estación de carga.
-            <div className="mt-1">
-              <Btn disabled={dis || s.afCharged} onClick={() => act(E.chargeAF)}>{s.afCharged ? "Cargado" : "Cargar sólido"}</Btn>
+            <div className="mt-1 flex flex-wrap gap-1.5">
+              <Btn disabled={dis || s.afCharged} onClick={() => act((x) => E.chargeAF(x))}>{s.afCharged ? "Cargado" : "Cargar sólido"}</Btn>
+              {s.events.tierra?.active && s.events.tierra.resolved == null && s.events.tierra.notified == null && !s.afCharged && (
+                <Btn tone="danger" disabled={dis} onClick={() => act((x) => E.chargeAF(x, true))}>
+                  Cargar igualmente, sin continuidad
+                </Btn>
+              )}
             </div>
           </li>
         </ol>
@@ -185,7 +190,8 @@ export function PanelReaccion({ s, act, active, running, setRunning, speed, setS
         <div className="flex flex-wrap items-center gap-4">
           <Vessel name="R-101" T={r.T} Tj={r.Tj} levelPct={(s.water + 80 + r.added) / 6} agit={r.agit} />
           <div className="grid min-w-[15rem] flex-1 grid-cols-2 gap-2">
-            <Readout label="TI-101 producto" value={n1(r.T)} unit="°C" alert={!addDone && r.T > 40} />
+            <Readout label="TI-101 producto" value={n1(E.tiMasa(s))} unit="°C" alert={!addDone && E.tiMasa(s) > 40} />
+            <Readout label="TI-103 producto (respaldo)" value={n1(r.T)} unit="°C" />
             <Readout label="TI-102 camisa" value={n1(r.Tj)} unit="°C" />
             <Readout label={`Anhídrido añadido (de ${n1(total)} L)`} value={n1(r.added)} unit="L" />
             <Readout label="Reloj" value={E.fmtTime(s.clock).slice(6)} />
