@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const dev = process.env.NODE_ENV !== "production";
 
-// Política de seguridad del contenido: solo se carga lo propio, los vídeos de YouTube sin cookies, sus miniaturas
+// Política de seguridad del contenido: solo se carga lo propio, los vídeos de YouTube sin cookies, sus miniaturas,
+// las simulaciones PhET (Universidad de Colorado)
 // y la nube de Supabase. Next necesita scripts y estilos en línea; en desarrollo, además, eval para recargar en caliente.
 const csp = [
   "default-src 'self'",
@@ -10,7 +11,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://i.ytimg.com",
   "font-src 'self'",
-  "frame-src https://www.youtube-nocookie.com",
+  "frame-src https://www.youtube-nocookie.com https://phet.colorado.edu",
   `connect-src 'self' https://*.supabase.co wss://*.supabase.co${dev ? " ws:" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",

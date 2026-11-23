@@ -97,7 +97,7 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   `/repaso`, `/fds` (+ `/fds/[id]`), `/certificaciones` (+ `/certificaciones/[id]`), `/examen/[modulo]`, `/simulacro/[mock]`,
   `/supuesto/[caso]`, `/autoevaluacion/[uc]`, `/progreso`, `/creditos`.
 - `src/content/`: lecciones, en `nivelN.ts` (más `nivel12-separacion.ts` y `nivel20-alcoa.ts`, que son lecciones cortas en archivo
-  aparte); las lecciones largas «a fondo» van cada una en `nivelN-tema.ts`; 228 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
+  aparte); las lecciones largas «a fondo» van cada una en `nivelN-tema.ts`; 249 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
   bloques de la ruta en `blocks.ts`, índice en `index.ts`. Las páginas del navegador no importan `@/content` (pesa más de
   1 MB): usan `catalog.ts` (título, nivel, minutos, resumen) y `terms.ts`, generados en `*.generated.json` por
   `scripts/gen-catalog.mjs`. Las certificaciones usan `certs/summary.ts` para contar preguntas sin cargarlas. El contenido de `src/content` manda sobre `docs/temario.md`

@@ -6,6 +6,10 @@ import { cineticaAFondo } from "./nivel2-cinetica";
 import { balanceAFondo } from "./nivel2-balance";
 import { redoxAFondo } from "./nivel2-redox";
 import { reaccionesEnApiAFondo } from "./nivel2-reacciones";
+import { termodinamicaAFondo } from "./nivel2-termodinamica";
+import { electroquimicaAFondo } from "./nivel2-electroquimica";
+import { acidoBaseAvanzadoAFondo } from "./nivel2-acidobase";
+import { leyDeVelocidadAFondo } from "./nivel2-velocidad";
 
 const reacciones: Lesson[] = [
   {
@@ -631,4 +635,4 @@ En la hoja ves "Etapa 3: desprotección Boc con HCl en isopropanol". No hace fal
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel2-tema.ts.
-export const nivel2: Lesson[] = [...reacciones, equilibrioAFondo, estequiometriaAFondo, termoquimicaAFondo, cineticaAFondo, balanceAFondo, redoxAFondo, reaccionesEnApiAFondo];
+export const nivel2: Lesson[] = [...reacciones, equilibrioAFondo, estequiometriaAFondo, termoquimicaAFondo, cineticaAFondo, balanceAFondo, redoxAFondo, reaccionesEnApiAFondo, termodinamicaAFondo, electroquimicaAFondo, acidoBaseAvanzadoAFondo, leyDeVelocidadAFondo];

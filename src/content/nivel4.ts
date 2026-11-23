@@ -5,6 +5,7 @@ import { balanzasAFondo } from "./nivel4-balanzas";
 import { metrologiaAFondo } from "./nivel4-metrologia";
 import { laboratorioSeguridadAFondo } from "./nivel4-seguridad";
 import { bplAFondo } from "./nivel4-bpl";
+import { operacionesLaboratorioAFondo } from "./nivel4-operaciones";
 
 const laboratorio: Lesson[] = [
   {
@@ -483,4 +484,4 @@ El IPC de humedad da 0,9 % y el límite es 0,5 %. El laboratorio no "repite hast
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel4-tema.ts.
-export const nivel4: Lesson[] = [...laboratorio, reactivosPatronesAFondo, volumetricoAFondo, balanzasAFondo, metrologiaAFondo, laboratorioSeguridadAFondo, bplAFondo];
+export const nivel4: Lesson[] = [...laboratorio, reactivosPatronesAFondo, volumetricoAFondo, balanzasAFondo, metrologiaAFondo, laboratorioSeguridadAFondo, bplAFondo, operacionesLaboratorioAFondo];

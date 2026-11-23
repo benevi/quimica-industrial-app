@@ -7,6 +7,10 @@ import {
   commonsUrl,
   englishVideoNote,
   images,
+  phetCredit,
+  phetPage,
+  phetUrl,
+  type Sim,
   licenses,
   signs,
   type ImageId,
@@ -31,6 +35,10 @@ export function LessonMedia({ media }: { media: Media }) {
           ))}
         </div>
       )}
+
+      {media.sims?.map((s) => (
+        <SimCard key={s.sim} s={s} />
+      ))}
 
       {media.images && media.images.length > 0 && (
         <div className="grid gap-4 sm:grid-cols-2">
@@ -128,6 +136,43 @@ function Credit({ author, license, commons }: { author: string; license: License
         l.label
       )}
     </span>
+  );
+}
+
+/** Simulación PhET: no se descarga hasta que se pulsa (pesan varios MB). */
+function SimCard({ s }: { s: Sim }) {
+  const [on, setOn] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-xl border border-line bg-bg">
+      <div className="relative aspect-[16/10] w-full bg-soft">
+        {on ? (
+          <iframe src={phetUrl(s.sim)} title={`Simulación: ${s.title}`} allowFullScreen className="absolute inset-0 h-full w-full border-0 bg-white" />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setOn(true)}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center hover:bg-bg"
+            aria-label={`Abrir la simulación interactiva: ${s.title}`}
+          >
+            <span className="rounded-full border border-line bg-bg px-3 py-1 text-xs text-muted">Simulación interactiva</span>
+            <span className="text-lg font-semibold leading-snug">{s.title}</span>
+            <span className="text-sm text-accent underline">Pulsa para cargarla aquí</span>
+          </button>
+        )}
+      </div>
+      <div className="space-y-1.5 p-3 text-sm">
+        <p className="leading-snug">{s.why}</p>
+        <p className="text-xs text-muted">
+          <a href={phetUrl(s.sim)} target="_blank" rel="noreferrer" className="underline hover:text-ink">
+            Abrir en pantalla completa
+          </a>
+          {" · "}
+          <a href={phetPage(s.sim)} target="_blank" rel="noreferrer" className="hover:underline">
+            {phetCredit}
+          </a>
+        </p>
+      </div>
+    </div>
   );
 }
 
