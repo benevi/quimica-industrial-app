@@ -11,7 +11,7 @@ sirve para practicar causa y efecto con números coherentes, no para diseñar pr
 
 - **Calor por la camisa**: Q = U · A · (T camisa − T masa), con A la superficie mojada según el nivel (fondo abombado más
   virola de 1,8 m de diámetro) y U que baja si se para el agitador o si la pared está sucia.
-- **Camisa**: la unidad de termorregulación calienta como mucho 60 kW y enfría con agua de torre (15 °C) o glicol (−10 °C)
+- **Camisa**: la unidad de termorregulación calienta como mucho 60 kW y enfría con agua de torre (15 °C: agua de torre en un día fresco, valor de ejemplo; en verano llega más caliente) o glicol (−10 °C)
   a través de un intercambiador de U·A = 700 W/K. La camisa tiene su propia inercia térmica.
 - **Masa**: balance de energía con calor de camisa, reacción, agitación, pérdidas y el calor que se lleva el reactivo frío.
   Al llegar a ebullición, el exceso de energía se va en vapor al condensador; lo que no condensa sale por el venteo
