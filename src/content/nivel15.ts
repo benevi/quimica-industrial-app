@@ -1,6 +1,11 @@
 import type { Lesson } from "./types";
+import { permisosAFondo } from "./nivel15-permisos";
+import { epiAFondo } from "./nivel15-epi";
+import { exposicionAFondo } from "./nivel15-exposicion";
+import { atexAFondo } from "./nivel15-atex";
+import { emergenciasYResiduosAFondo } from "./nivel15-emergencias";
 
-export const nivel15: Lesson[] = [
+const seguridad: Lesson[] = [
   {
     slug: "pictogramas-y-fds",
     level: 15,
@@ -168,7 +173,7 @@ Para tomar una muestra de un disolvente orgánico con riesgo de vapores, el proc
   {
     slug: "incendio-y-atex",
     level: 15,
-    order: 3,
+    order: 4,
     title: "Incendio, explosión y zonas ATEX",
     titleEn: "Fire, explosion and ATEX zones",
     minutes: 18,
@@ -254,7 +259,7 @@ Antes de trasvasar tolueno de un bidón a un recipiente, el operador conecta las
   {
     slug: "exposicion-y-contencion",
     level: 15,
-    order: 4,
+    order: 6,
     title: "Exposición a productos y contención",
     titleEn: "Exposure limits and containment (OEL, OEB)",
     minutes: 15,
@@ -335,7 +340,7 @@ La carga de un API de banda alta se hace con un contenedor con válvula de marip
   {
     slug: "permisos-y-consignacion",
     level: 15,
-    order: 5,
+    order: 8,
     title: "Permisos de trabajo y consignación",
     titleEn: "Permits to work and lockout/tagout (LOTO)",
     minutes: 15,
@@ -417,7 +422,7 @@ Mantenimiento va a cambiar el cierre mecánico de la bomba P-104. El operador ci
   {
     slug: "emergencias-y-residuos",
     level: 15,
-    order: 6,
+    order: 10,
     title: "Emergencias, vertidos y residuos",
     titleEn: "Emergencies, spills and waste management",
     minutes: 15,
@@ -498,3 +503,6 @@ Al desconectar una manguera caen unos 2 L de metanol al suelo. El metanol es inf
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel15-tema.ts.
+export const nivel15: Lesson[] = [...seguridad, permisosAFondo, epiAFondo, exposicionAFondo, atexAFondo, emergenciasYResiduosAFondo];
