@@ -1,6 +1,11 @@
 import type { Lesson } from "./types";
+import { estabilidadAFondo } from "./nivel10-estabilidad";
+import { especificacionesAFondo } from "./nivel10-especificaciones";
+import { liberacionAFondo } from "./nivel10-liberacion";
+import { validacionAFondo } from "./nivel10-validacion";
+import { oosAFondo } from "./nivel10-oos";
 
-export const nivel10: Lesson[] = [
+const calidad: Lesson[] = [
   {
     slug: "especificaciones-y-metodos",
     level: 10,
@@ -80,7 +85,7 @@ IPC con su límite en cada paso; el CoA final con la especificación del API.
   {
     slug: "validacion-de-metodos",
     level: 10,
-    order: 2,
+    order: 3,
     title: "Validación de métodos analíticos (ICH Q2)",
     titleEn: "Analytical method validation",
     minutes: 15,
@@ -160,7 +165,7 @@ No aparece en la hoja de producción, pero todos los IPC y análisis que la acom
   {
     slug: "oos-y-oot",
     level: 10,
-    order: 3,
+    order: 5,
     title: "Resultados OOS y OOT: cómo se investigan",
     titleEn: "OOS and OOT investigations",
     minutes: 12,
@@ -236,7 +241,7 @@ Comentarios y anomalías anotados en la hoja: son clave en las investigaciones.
   {
     slug: "estabilidad",
     level: 10,
-    order: 4,
+    order: 7,
     title: "Estudios de estabilidad",
     titleEn: "Stability studies",
     minutes: 12,
@@ -312,7 +317,7 @@ Fecha de fabricación, fecha de re-análisis y condiciones de almacenamiento en 
   {
     slug: "certificado-de-analisis",
     level: 10,
-    order: 5,
+    order: 9,
     title: "El certificado de análisis y la liberación del lote",
     titleEn: "Certificate of Analysis and batch release",
     minutes: 10,
@@ -381,3 +386,6 @@ La hoja de producción completa es una de las bases de la liberación del lote.
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel10-tema.ts.
+export const nivel10: Lesson[] = [...calidad, estabilidadAFondo, especificacionesAFondo, liberacionAFondo, validacionAFondo, oosAFondo];
