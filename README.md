@@ -27,7 +27,18 @@ npm run check:repaso   # tarjetas de repaso y fichas de seguridad
 npm run check:media    # imágenes y vídeos con su archivo y sus créditos
 npm run check:cloud    # sincronización con la nube
 npm run check:sim      # simuladores: lote completo, Nutsche y reactor con sus averías
+npm run check:operador # edición de operador: índice, textos, licencias y que no cargue simuladores ni SAP
 npm run build
+```
+
+## Edición de operador
+
+Versión aparte para formar a operadores de planta, sin simuladores, SAP ni certificaciones, en la carpeta `operador/`.
+Usa las mismas lecciones. Explicación y su índice en [`docs/edicion-operador.md`](docs/edicion-operador.md).
+
+```bash
+npm run dev:operador     # http://localhost:3001
+npm run build:operador
 ```
 
 ## Guardar el progreso en la nube (opcional)

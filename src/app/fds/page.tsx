@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { allFdsItems } from "@/certs/pool";
+import { allFdsItems } from "@/certs/fdsPool";
 import { pictograms, sdsList, sdsSections, type GhsCode } from "@/content/fds";
 import { GhsPictogram } from "@/components/GhsPictogram";
 import { FdsBest } from "@/components/fds/FdsBest";

@@ -1,0 +1,4 @@
+/* Mismo sistema visual que la edición completa (docs/diseno.md). Tailwind busca las clases en las dos carpetas. */
+@import "../../../src/app/globals.css";
+@source "../../../src";
+@source "..";

@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# edición de operador: build y archivos copiados de public/ (scripts/operador-media.mjs)
+/operador/.next/
+/operador/public/
+
 # production
 /build
 

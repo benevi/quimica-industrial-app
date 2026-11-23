@@ -1144,7 +1144,8 @@ export interface Video {
 /**
  * Simulación interactiva PhET (Universidad de Colorado Boulder), en español. Se carga dentro de la lección al pulsar.
  * Las versiones publicadas desde marzo de 2026 tienen licencia CC BY-NC 4.0 (uso no comercial): válida para esta edición
- * personal; para la edición de operador habrá que revisarlo.
+ * personal. La edición de operador no las lleva (el archivo de la simulación dice que el uso comercial necesita
+ * licencia de la Universidad de Colorado; comprobado el 23/11/2026).
  */
 export interface Sim {
   /** Nombre de la simulación en la web de PhET (p. ej. "ph-scale"). */

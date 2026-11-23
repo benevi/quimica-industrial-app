@@ -4,7 +4,7 @@
 //   case:<caso>:<índice>     → pregunta de un supuesto práctico
 //   fds:<ejercicio>:<índice> → ejercicio de fichas de seguridad (src/content/fds.ts)
 import { getLesson } from "@/content";
-import { fdsQuestions, fdsQuizIds, fdsQuizTitle } from "@/content/fds";
+import { fdsQuestions, fdsQuizTitle } from "@/content/fds";
 import type { Question } from "@/content/types";
 import { quie0108 } from "./bancos/quie0108";
 import { gmp } from "./bancos/gmp";
@@ -12,7 +12,9 @@ import { sap } from "./bancos/sap";
 import { getCase } from "./casos";
 import { preps } from "./prep";
 
-export type PoolItem = { id: string; q: Question; from: string; unit: string };
+import type { PoolItem } from "./fdsPool";
+export type { PoolItem } from "./fdsPool";
+export { fdsItems, allFdsItems } from "./fdsPool";
 
 const banks: Record<string, Question[]> = { ...quie0108, ...gmp, ...sap };
 
@@ -66,13 +68,6 @@ export function questionById(id: string): PoolItem | undefined {
   }
   return undefined;
 }
-
-/** Preguntas de un ejercicio de fichas de seguridad, con id estable para el repaso de fallos */
-export function fdsItems(quizId: string): PoolItem[] {
-  return fdsQuestions(quizId).map((q, i) => ({ id: `fds:${quizId}:${i}`, q, from: fdsQuizTitle(quizId), unit: "" }));
-}
-
-export const allFdsItems = () => fdsQuizIds.flatMap(fdsItems);
 
 // Los resúmenes ligeros (ids, tamaño del banco, indicador) están en summary.ts para no cargar los tests en el navegador.
 export { bankSize, prepIds, prepSummary } from "./summary";

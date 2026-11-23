@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { isRight, type Answer } from "@/certs/grading";
-import type { PoolItem } from "@/certs/pool";
+import type { PoolItem } from "@/certs/fdsPool";
 import { useCertState } from "@/certs/useCertState";
 import { QuestionItem } from "@/components/certs/QuestionItem";
 import { btn } from "@/components/ui";
+import { edicionOperador } from "@/lib/edicion";
 
 /** Ejercicio de fichas de seguridad. Guarda la mejor nota y manda las preguntas falladas al repaso de fallos. */
 export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: string; items: PoolItem[]; title?: string }) {
@@ -55,7 +56,7 @@ export function FdsQuiz({ quizId, items, title = "Ejercicios" }: { quizId: strin
         <div className="mt-6 space-y-3" role="status">
           <p className="font-medium">
             {right} de {items.length} correctas.
-            {right < items.length && (
+            {right < items.length && !edicionOperador && (
               <span className="font-normal text-muted">
                 {" "}
                 Las falladas pasan a tu <Link href="/repaso" className="text-accent underline underline-offset-2 hover:decoration-2">

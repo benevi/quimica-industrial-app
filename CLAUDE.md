@@ -33,11 +33,13 @@ Tiene tres partes:
      todo en profundidad. Es la prioridad. La auditoría de noviembre de 2026 midió 27 horas de estudio frente a las
      610 del certificado QUIE0108 y las 2000 de un ciclo de FP: hay que ampliarla, empezando por reactores,
      centrífugas, filtros y secaderos.
-  2. **Edición de operador** (después, cuando la completa esté lista): una versión aparte con solo lo imprescindible
+  2. **Edición de operador** (empezada el 23/11/2026 con el ok de Victor): una versión aparte con solo lo imprescindible
      para trabajar como operador de planta, pensada para presentarla a la empresa de Victor y, si les gusta, que la
-     usen las nuevas incorporaciones. Su punto de partida es la ruta del operador (`src/content/operador.ts`).
-     No se empieza hasta que Victor lo diga. Sigue valiendo la regla de confidencialidad: nada de datos, documentos
-     ni procedimientos reales de la empresa salvo que la empresa los aporte y lo autorice por escrito.
+     usen las nuevas incorporaciones. Vive en `operador/` (ver `docs/edicion-operador.md`): 12 etapas del proceso,
+     las lecciones del temario con ajustes de texto, sin simuladores, SAP, certificaciones, vídeos de YouTube ni
+     simulaciones PhET (licencia no comercial), y sin nube. Sigue valiendo la regla de confidencialidad: nada de datos,
+     documentos ni procedimientos reales de la empresa salvo que la empresa los aporte y lo autorice por escrito.
+     Tampoco sale el nombre de Victor.
 - **Simulador del reactor, lo más realista posible** (petición de Victor, noviembre de 2026): cuando se trabaje en el
   simulador del reactor, el objetivo es practicar lo más cerca posible de la realidad de planta. Eso significa, entre
   otras cosas: un modelo físico creíble (calentar y enfriar con Q = U·A·ΔT y tiempos reales, no minutos; presión que
@@ -80,9 +82,15 @@ npm run check:media    # imágenes y vídeos: archivo existe y tiene créditos
 npm run check:cloud    # lógica de sincronización con la nube (src/lib/cloud.ts)
 npm run check:sim      # simulador de planta: lote completo, informe de QA y Nutsche (src/sim)
 npm run check:problemas # banco de problemas: cada generador da cuentas coherentes (src/problemas)
+npm run check:operador # edición de operador: índice, ajustes, textos, licencias y que no cargue simuladores ni SAP
+
+# Edición de operador (carpeta operador/)
+npm run dev:operador   # http://localhost:3001
+npm run build:operador
 ```
 
-Antes de dar un cambio por terminado: `npm run lint`, `npx tsc --noEmit`, los `check:*` afectados y `npm run build`.
+Antes de dar un cambio por terminado: `npm run lint`, `npx tsc --noEmit`, los `check:*` afectados y `npm run build`
+(y `npm run build:operador` si tocas lecciones de la edición de operador, componentes compartidos o `operador/`).
 El CI de GitHub (`.github/workflows/ci.yml`) ejecuta todo eso en cada PR y en cada cambio de `main`: un PR en rojo no se fusiona.
 
 Variables de entorno (opcionales, solo para la nube): copia `.env.example` a `.env.local` y rellena
@@ -124,6 +132,12 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
 - `src/lib/`: `progress.ts` (progreso en localStorage), `backup.ts` (exportar/importar), `cloud.ts` (Supabase).
 - `src/components/shell/`: barra lateral y navegación. Una sección nueva se añade en `nav.ts` (también la encuentra el buscador).
 - `src/components/ui/index.tsx`: piezas comunes (PageHeader, Card, btn.*, Bar, Status, Disclosure).
+- `operador/`: edición de operador, una segunda app Next.js que usa `src/` (alias `@/`) y lo suyo (alias `@op/`).
+  Índice en `operador/src/edicion.ts`, ajustes de texto de las lecciones en `operador/src/ajustes.ts`. Si cambias un
+  componente compartido, comprueba las dos ediciones; lo que solo es de la completa (simuladores, nube, buscador, vídeos)
+  va en un componente aparte (`Sidebar`/`SidebarFrame`, `Flashcards`/`FlashcardsBase`, `Quiz`/`QuizCore`,
+  `LessonMedia`/`LessonImages`, `certs/pool`/`certs/fdsPool`). Si una lección de la edición deja de cuadrar con un
+  ajuste, `check:operador` lo dice.
 - `supabase/migrations/`: SQL de la tabla `aula_progreso` (con RLS).
 - `scripts/`: los `check-*.mjs`.
 - `docs/fuentes/`: tabla de fuentes de cada lección «a fondo», afirmación por afirmación, con lo que se leyó en la
@@ -165,6 +179,9 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   Hecha también la 3.7: misiones de planta en las certificaciones QUIE0108 y GMP (lista en `src/certs/misiones-planta.ts`,
   comprobación en `src/sim/misiones.ts`; se marcan solas al terminar cada simulador). Decidir con
   Victor si el verde de las válvulas abiertas se queda como código de planta.
+- Edición de operador: hecha la primera versión (12 etapas, 54 lecciones básicas y 5 de ampliación, glosario, tarjetas,
+  fichas de seguridad y calculadoras). Pendiente de Victor: decidir si se añade la lección «Un lote de principio a fin» y
+  cuándo y dónde publicarla.
 - Pendiente además: biotecnología (módulos FP 1390/1393) queda fuera del
   temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP
   (a 21/11/2026 siguen siendo borradores) y actualizar entonces `part-11-y-anexo-11`, `normas-integridad-a-fondo`,

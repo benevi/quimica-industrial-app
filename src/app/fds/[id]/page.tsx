@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { fdsItems } from "@/certs/pool";
+import { fdsItems } from "@/certs/fdsPool";
 import { getSds, sdsList, sdsSections } from "@/content/fds";
 import { Icon } from "@/components/icons";
 import { Markdown } from "@/components/Markdown";
