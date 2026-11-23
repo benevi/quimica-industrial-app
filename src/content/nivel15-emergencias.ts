@@ -54,7 +54,7 @@ Casi todo sale de la MIE APQ-10:
 - **Ventilación** natural o forzada. Si es forzada, lleva alarma de avería (artículo 6).
 - **Envases cerrados**, ordenados, en su envase original si es posible y siempre etiquetados según el CLP (artículos 8 y 9). La FDS de cada producto, disponible (artículo 9).
 - **Separación**. Hay tres grados: sin restricción, separado (mismo sector de incendio, con distancia, pared o cubetos independientes) e independiente (otro sector de incendio). Ácidos y álcalis que reaccionen llevan, como mínimo, cubetos separados. Los líquidos inflamables no comparten área con comburentes, salvo en armarios protegidos (artículos 18 y 19).
-- **Inflamables**: sector propio. Un armario de seguridad admite como máximo 500 litros, y de ellos solo 250 litros de H225 (artículo 21).
+- **Inflamables**: sector propio. Un armario de seguridad admite como máximo 500 litros, y de ellos solo 250 litros de los más inflamables (de H222 a H225) (artículo 21).
 - **Duchas y lavaojos** a no más de 10 metros de los puntos de trasvase y de toma de muestras, sin obstáculos y señalizados. Se prueban al menos una vez por semana (artículos 13 y 15).
 - **Tomas de tierra**: su continuidad se revisa cada año (artículo 16). El INSST recuerda que en los trasvases de inflamables la instalación debe descargar a tierra la electricidad estática. Al descargar una cisterna, la pinza se conecta antes de empezar y durante toda la operación (MIE APQ-1, artículo 35).
 - **Botellas de gases** (MIE APQ-5, artículo 5): de pie y sujetas contra caídas, con la válvula cerrada y la caperuza puesta, llenas y vacías en grupos separados, sin tocarlas con guantes grasientos y en zonas que no pasen de 50 °C.

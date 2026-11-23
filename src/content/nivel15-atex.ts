@@ -34,7 +34,7 @@ En la lección anterior los viste como LII y LSI, de «inflamabilidad». Es lo m
 
 Dos avisos. Estar por encima del LSE no es estar a salvo: en cuanto entra aire, la mezcla se diluye y cruza el rango. Y el LIE no es un muro: al calentar, el rango se ensancha, y la guía técnica del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) pide trabajar con un margen de seguridad por debajo.
 
-**Temperatura de autoignición** (*auto-ignition temperature*). Es la temperatura mínima a la que la sustancia, en contacto con el aire, arde sola, sin chispa ni llama. Como el aceite de una sartén olvidada en el fuego. La mayoría de los líquidos combustibles la tienen entre 450 y 600 °C, pero la del éter etílico son 160 °C: le basta una superficie caliente.
+**Temperatura de autoignición** (*auto-ignition temperature*). Es la temperatura mínima a la que la sustancia, en contacto con el aire, arde sola, sin chispa ni llama. Como el aceite de una sartén olvidada en el fuego. Varía mucho de un líquido a otro: algunos disolventes la tienen por encima de 400 °C, pero otros, como algunos hidrocarburos muy usados, la tienen bastante más baja, y la del éter etílico son 160 °C: a estos les basta una superficie caliente. Mírala siempre en la sección 9 de la ficha de tu producto.
 
 No las confundas: el punto de inflamación dice cuándo hay vapor suficiente; la autoignición, cuándo ya no hace falta chispa.
 

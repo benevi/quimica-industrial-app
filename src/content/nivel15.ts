@@ -17,11 +17,11 @@ const seguridad: Lesson[] = [
     summary: "Cómo leer la etiqueta de un producto químico y dónde buscar toda la información de seguridad.",
     body: `
 ### El sistema de etiquetado
-En la UE lo regula el **Reglamento CLP** (CE 1272/2008), basado en el **Sistema Globalmente Armonizado** de la ONU (en inglés *GHS*; en español, SGA). Cada envase lleva:
+En la UE lo regula el **Reglamento CLP** (clasificación, etiquetado y envasado; en inglés *Classification, Labelling and Packaging*; CE 1272/2008), basado en el **Sistema Globalmente Armonizado** de la ONU (en inglés *GHS*; en español, SGA). Cada envase lleva:
 - **Pictogramas** (*hazard pictograms*): rombos con borde rojo.
 - **Palabra de advertencia** (*signal word*): **"Peligro"** (*Danger*, el más grave) o **"Atención"** (*Warning*).
 - **Indicaciones de peligro** o **frases H** (*hazard statements*): qué peligro tiene. Ejemplo: H225 "Líquido y vapores muy inflamables".
-- **Consejos de prudencia** o **frases P** (*precautionary statements*): qué hacer. Ejemplo: P210 "Mantener alejado del calor, chispas, llama abierta…".
+- **Consejos de prudencia** o **frases P** (*precautionary statements*): qué hacer. Ejemplo: P210 "Mantener alejado del calor, de superficies calientes, de chispas, de llamas abiertas y de cualquier otra fuente de ignición. No fumar.".
 
 ### Los 9 pictogramas
 | Pictograma | Código | Significa |
@@ -43,7 +43,7 @@ En inglés *Safety Data Sheet* (SDS). Exigida por el reglamento **REACH** (regis
 - **Sección 5**: lucha contra incendios.
 - **Sección 6**: qué hacer en caso de vertido.
 - **Sección 7**: manipulación y almacenamiento (incompatibilidades).
-- **Sección 8**: controles de exposición y **EPI**, con los límites de exposición.
+- **Sección 8**: controles de exposición y **EPI** (equipos de protección individual), con los límites de exposición.
 - **Sección 9**: propiedades físicas (punto de inflamación, ebullición…).
 
 Antes de manipular un producto nuevo para ti, **lee su FDS** o al menos las secciones 2, 7 y 8.
@@ -115,7 +115,7 @@ Antes de pensar en EPI, se intenta en este orden:
 | Zona | EPI | Notas |
 |---|---|---|
 | Ojos y cara | Gafas de seguridad, gafas de montura integral (*goggles*), pantalla facial | Las de montura integral protegen de salpicaduras; la pantalla se pone encima |
-| Manos | Guantes químicos (norma EN ISO 374) | Cada material resiste unos químicos: nitrilo, neopreno, butilo, Viton… Mira el tiempo de paso (*breakthrough time*) |
+| Manos | Guantes químicos (norma EN ISO 374) | Cada material resiste unos químicos: nitrilo, neopreno, butilo, fluoroelastómero (FKM)… Mira el tiempo de paso (*breakthrough time*) |
 | Vías respiratorias | Mascarillas FFP2/FFP3 (polvo), máscaras con filtro, equipos de aire | Filtros por colores (EN 14387): **A marrón** (vapores orgánicos), **B gris** (inorgánicos), **E amarillo** (ácidos), **K verde** (amoniaco), **P blanco** (partículas) |
 | Cuerpo | Bata, buzo desechable (tipo 5/6), traje químico | Según el riesgo de salpicadura o polvo |
 | Pies | Calzado de seguridad, antiestático | En zonas ATEX, antiestático |
@@ -129,7 +129,7 @@ Antes de pensar en EPI, se intenta en este orden:
 - El EPI es **personal** y se entrega con **formación**.
 `,
     plant: `
-Para tomar una muestra de un disolvente orgánico con riesgo de vapores, el procedimiento indica: gafas de montura integral, guantes de nitrilo de puño largo y máscara con filtro A2. El operador revisa la fecha del filtro antes de entrar. Si el filtro está caducado, pide otro.
+Para tomar una muestra de heptano con riesgo de vapores, el procedimiento indica: gafas de montura integral, guantes de nitrilo de puño largo (con otros disolventes el material del guante cambia, y lo dice la sección 8 de su ficha) y máscara con filtro A2 (vapores orgánicos con punto de ebullición mayor de 65 °C). El operador revisa la fecha del filtro antes de entrar. Si el filtro está caducado, pide otro.
 `,
     batchRecord: `
 - Recordatorio de EPI en las etapas de riesgo (carga de corrosivos, muestreo de producto potente).
@@ -186,8 +186,8 @@ Hacen falta tres cosas: **combustible**, **comburente** (oxígeno del aire) y **
 ### Límites de inflamabilidad
 Un vapor solo arde mezclado con el aire en cierta proporción:
 - **LII** (límite inferior de inflamabilidad; en inglés *LEL, Lower Explosive Limit*).
-- **LSI** (*UEL, Upper Explosive Limit*).
-Acetona: aproximadamente del 2,5 % al 13 % en volumen. Los **detectores de gas** suelen dar la primera alarma al **10 % del LII**: para la acetona, 0,25 % en volumen = 2500 ppm.
+- **LSI** (límite superior de inflamabilidad; en inglés *UEL, Upper Explosive Limit*).
+Acetona: aproximadamente del 2,5 % al 13 % en volumen. Los **detectores de gas** dan la alarma a un porcentaje del LII que fija cada planta (a menudo el **10 % del LII**): para la acetona, 0,25 % en volumen = 2500 ppm.
 
 ### Polvo combustible
 Muchos sólidos orgánicos (API, azúcar, harina) en forma de nube de polvo pueden **explotar**. Una pequeña explosión puede levantar el polvo acumulado y causar otra mayor: por eso **la limpieza del polvo** es una medida de seguridad.
@@ -270,7 +270,7 @@ Antes de trasvasar tolueno de un bidón a un recipiente, el operador conecta las
 **Inhalación** (la más frecuente en planta), **contacto con la piel**, **ingestión** (manos sucias) y **ojos**.
 
 ### Límites de exposición profesional
-En España los publica el **INSST** ("Límites de exposición profesional para agentes químicos"):
+En España los publica el **INSST** (Instituto Nacional de Seguridad y Salud en el Trabajo) ("Límites de exposición profesional para agentes químicos"):
 - **VLA-ED** (*valor límite ambiental – exposición diaria*): media ponderada de 8 h.
 - **VLA-EC** (*exposición de corta duración*): media de 15 min.
 En inglés se llaman *OEL* (*Occupational Exposure Limit*), *TWA* (8 h) y *STEL* (15 min). Se expresan en ppm o en mg/m³.
@@ -285,7 +285,7 @@ Los principios activos son, por diseño, **biológicamente activos** a dosis baj
 - **Cabinas de pesada** con flujo descendente (*downflow booth*).
 - Sistemas cerrados: **válvulas de mariposa partida** (*split butterfly valves*), **bolsas continuas** (*continuous liners*), transferencia por vacío.
 - **Aisladores** (*isolators*) y **cajas de guantes** (*glove boxes*).
-- EPI respiratorio adicional (máscaras motorizadas con capucha, *PAPR*).
+- EPI respiratorio adicional (máscaras motorizadas con capucha, *PAPR, Powered Air-Purifying Respirator*).
 
 ### Higiene
 - No comer, beber ni fumar en planta.
@@ -435,7 +435,7 @@ Cada planta tiene un **plan de autoprotección** con alarmas, rutas de evacuaci�
 - Cómo suena cada **alarma** y a quién llamar.
 
 ### Salpicaduras en ojos o piel
-- **Lavaojos** o **ducha de emergencia** inmediatamente, al menos **15 minutos**, quitándose la ropa contaminada.
+- **Lavaojos** o **ducha de emergencia** inmediatamente, al menos **15 minutos** (el INSST habla de 15 a 20 como mínimo; en los ojos, a menudo 20), quitándose la ropa contaminada.
 - Pedir ayuda y atención médica con la FDS del producto.
 
 ### Vertidos (*spills*)
