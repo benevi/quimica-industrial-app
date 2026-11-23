@@ -10,6 +10,7 @@ import { LessonSidebar } from "@/components/LessonSidebar";
 import { stepsFor, type lessonSteps } from "@/components/lessonSteps";
 import { LessonMedia } from "@/components/LessonMedia";
 import { practicas } from "@/content/practica";
+import { GENERADORES } from "@/problemas/generadores";
 import { mediaFor } from "@/content/media";
 import { Icon } from "@/components/icons";
 
@@ -122,6 +123,27 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
                   <Link href={p.href} className="block rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent">
                     <span className="font-medium text-accent">{p.label}</span>
                     <span className="mt-1 block text-sm text-muted">{p.detalle}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {GENERADORES.some((g) => g.leccion === lesson.slug) && (
+          <section aria-labelledby="problemas-h" className="rounded-[var(--radius)] border border-line bg-surface px-5 py-5 sm:px-6">
+            <h2 id="problemas-h" className="mb-3 flex flex-wrap items-baseline gap-x-2.5">
+              <span className="t-h2">Problemas para practicar</span>
+              <span lang="en" className="text-sm text-muted">
+                Practice problems
+              </span>
+            </h2>
+            <p className="mb-3 text-sm text-muted">Con números nuevos cada vez y la solución paso a paso.</p>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {GENERADORES.filter((g) => g.leccion === lesson.slug).map((g) => (
+                <li key={g.id}>
+                  <Link href={`/problemas?tema=${g.id}`} className="block rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent">
+                    <span className="font-medium text-accent">{g.titulo}</span>
                   </Link>
                 </li>
               ))}

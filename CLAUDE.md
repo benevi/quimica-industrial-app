@@ -79,6 +79,7 @@ npm run check:repaso   # tarjetas de repaso y fichas FDS
 npm run check:media    # imágenes y vídeos: archivo existe y tiene créditos
 npm run check:cloud    # lógica de sincronización con la nube (src/lib/cloud.ts)
 npm run check:sim      # simulador de planta: lote completo, informe de QA y Nutsche (src/sim)
+npm run check:problemas # banco de problemas: cada generador da cuentas coherentes (src/problemas)
 ```
 
 Antes de dar un cambio por terminado: `npm run lint`, `npx tsc --noEmit`, los `check:*` afectados y `npm run build`.
@@ -94,7 +95,7 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
 
 - `src/app/`: páginas. Rutas principales: `/` (Hoy), `/operador`, `/temario`, `/nivel/[n]`, `/leccion/[slug]`, `/mapa`,
   `/glosario`, `/simulador` (+ `/reactor`, `/auditoria`, `/nutsche`), `/sap` (+ `/sap/examen`), `/calculadoras`, `/tarjetas`,
-  `/repaso`, `/fds` (+ `/fds/[id]`), `/certificaciones` (+ `/certificaciones/[id]`), `/examen/[modulo]`, `/simulacro/[mock]`,
+  `/repaso`, `/problemas`, `/fds` (+ `/fds/[id]`), `/certificaciones` (+ `/certificaciones/[id]`), `/examen/[modulo]`, `/simulacro/[mock]`,
   `/supuesto/[caso]`, `/autoevaluacion/[uc]`, `/progreso`, `/creditos`.
 - `src/content/`: lecciones, en `nivelN.ts` (más `nivel12-separacion.ts` y `nivel20-alcoa.ts`, que son lecciones cortas en archivo
   aparte); las lecciones largas «a fondo» van cada una en `nivelN-tema.ts`; 252 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
@@ -117,6 +118,8 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   pantalla del reactor en `reactor/`.
 - `src/certs/`: certificaciones. `misiones-planta.ts` (misiones de los simuladores, ids estables), `prep.ts` (temario oficial), `bancos/*` y `casos.ts` (**añadir solo al final**: el índice
   es el id del repaso), `data.ts`, `autoevaluacion.ts`, `useCertState.ts` (Leitner compartido con las tarjetas).
+- `src/problemas/`: banco de problemas (`/problemas`). Cada tipo es un generador con semilla que da enunciado, respuesta y
+  solución paso a paso; todos los datos van en el enunciado. Ids estables (se guardan en `quimica-app:problemas:v1`).
 - `src/sap/`: simulador ERP (`engine.ts`) y su examen (`exam.ts`).
 - `src/lib/`: `progress.ts` (progreso en localStorage), `backup.ts` (exportar/importar), `cloud.ts` (Supabase).
 - `src/components/shell/`: barra lateral y navegación. Una sección nueva se añade en `nav.ts` (también la encuentra el buscador).

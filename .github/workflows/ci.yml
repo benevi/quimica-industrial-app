@@ -42,5 +42,7 @@ jobs:
         run: npm run check:cloud
       - name: Simuladores
         run: npm run check:sim
+      - name: Banco de problemas
+        run: npm run check:problemas
       - name: Build de producción
         run: npm run build

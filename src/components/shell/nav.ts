@@ -46,6 +46,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { href: "/simulador", label: "Simulador de planta", en: "Plant simulator", icon: "reactor", hint: "Fabrica un lote con su hoja de producción." },
       { href: "/sap", label: "Simulador ERP", en: "ERP simulator", icon: "screen", match: ["/sap"], hint: "Lleva un lote por el ERP, tipo SAP." },
+      { href: "/problemas", label: "Problemas", en: "Practice problems", icon: "quiz", hint: "Ejercicios con números nuevos cada vez y solución paso a paso." },
       { href: "/calculadoras", label: "Calculadoras", en: "Calculators", icon: "calc", hint: "Cargas, moles, diluciones y rendimiento." },
       { href: "/tarjetas", label: "Tarjetas de repaso", en: "Flashcards", icon: "cards", match: ["/repaso"], hint: "Cinco minutos de repaso antes del turno." },
       { href: "/fds", label: "Fichas de seguridad", en: "Safety data sheets", icon: "hazard", hint: "Aprende a leer una FDS." },
