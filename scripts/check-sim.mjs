@@ -517,5 +517,50 @@ function reactorLote(opts = {}) {
   }
 }
 
-console.log(errors ? `${errors} errores` : "Simulador de planta: 18 escenarios OK");
+// 19. Misiones de certificaciones: cada simulador marca las suyas cuando se cumplen, y solo entonces
+{
+  const M = await jiti.import(root + "/sim/misiones.ts");
+  const MP = await jiti.import(root + "/certs/misiones-planta.ts");
+  const A = await jiti.import(root + "/sim/audit.ts");
+  const ids = new Set(MP.MISIONES_PLANTA.map((m) => m.id));
+  expect(ids.size === MP.MISIONES_PLANTA.length, "19: ids de misión repetidas");
+  for (const m of MP.MISIONES_PLANTA) {
+    expect(m.certs.every((c) => ["quie0108", "upv-gmp"].includes(c)), `19: ${m.id} apunta a una certificación que no existe`);
+    expect(/^\/simulador(\/(reactor|nutsche|auditoria))?(\?modo=guiado)?$/.test(m.href), `19: ${m.id} enlaza a una ruta que no existe: ${m.href}`);
+  }
+  const todas = (xs) => xs.every((x) => ids.has(x));
+
+  const normal = M.misionesLote(perfect("normal"));
+  expect(normal.includes("pl-lote-liberable") && !normal.includes("pl-lote-incidencias") && todas(normal), `19: lote normal perfecto → ${normal}`);
+  const duro = M.misionesLote(perfect(null, E.EVENTS.map((e) => e.id)));
+  expect(duro.includes("pl-lote-incidencias") && duro.includes("pl-lote-turno-duro") && !duro.includes("pl-lote-liberable"), `19: lote con todas las incidencias → ${duro}`);
+  const malo = M.misionesLote(perfect(null, ["tierra", "frio"], ["tierra"]));
+  expect(!malo.includes("pl-lote-incidencias"), `19: cargar sin tierra no cumple la misión de incidencias → ${malo}`);
+  const abierto = E.newSim("normal");
+  expect(M.misionesLote(abierto).length === 0, "19: un lote sin cerrar no cumple nada");
+  const g = E.newSim("normal", { guided: true }); g.closed = true;
+  expect(M.misionesLote(g).includes("pl-lote-guiado"), "19: un lote guiado cerrado cumple la misión del guiado");
+
+  const L = reactorLote();
+  const rm = M.misionesReactor(L.s, L.h);
+  expect(rm.includes("pl-r204-conforme") && !rm.includes("pl-r204-turno"), `19: R-204 conforme → ${rm} (${L.r.hallazgos.map((x) => x.texto)})`);
+  expect(M.misionesReactor(RM.newState(null), RH.newHoja()).length === 0, "19: un R-204 sin descargar no cumple nada");
+
+  const ns = (mode, told) => Object.assign(N.newNutsche(mode), { closed: true, samples: [{ time: 0, value: 0.3 }], imp: 0.05, Tj: 50, lumps: false, findings: [], supervisorTold: told });
+  expect(M.misionesNutsche(ns("normal", false)).join() === "pl-nutsche", "19: Nutsche conforme cumple su misión");
+  expect(M.misionesNutsche(ns("relevo", false)).length === 0, "19: relevo sin avisar no cumple");
+  expect(M.misionesNutsche(ns("relevo", true)).includes("pl-nutsche-relevo"), "19: relevo bien hecho cumple su misión");
+  expect(M.misionesNutsche(Object.assign(ns("normal", false), { findings: [{ sev: "mayor", text: "x" }] })).length === 0, "19: Nutsche con hallazgo mayor no cumple");
+
+  for (const c of A.AUDIT_CASES) {
+    const res = A.gradeAudit(c, c.errors.map((e) => ({ line: e.line, cat: e.cat })));
+    expect(M.misionesAuditoria({ [c.id]: { score: res.score, max: res.max } }).includes(`pl-auditoria-${c.id}`), `19: auditoría ${c.id} perfecta cumple su misión`);
+    const sobra = c.lines.find((l) => !c.errors.some((e) => e.line === l.id));
+    const res2 = A.gradeAudit(c, [...c.errors.map((e) => ({ line: e.line, cat: e.cat })), { line: sobra.id, cat: "spec" }]);
+    expect(M.misionesAuditoria({ [c.id]: { score: res2.score, max: res2.max } }).length === 0, `19: auditoría ${c.id} con un falso positivo no cumple`);
+    expect(ids.has(`pl-auditoria-${c.id}`), `19: falta la misión de la auditoría ${c.id}`);
+  }
+}
+
+console.log(errors ? `${errors} errores` : "Simulador de planta: 19 escenarios OK");
 process.exit(errors ? 1 : 0);

@@ -5,6 +5,8 @@ import { AUDIT_CASES, AUDIT_CATEGORIES, gradeAudit, type AuditCase, type AuditCa
 import { Icon } from "@/components/icons";
 import { Disclosure, btn } from "@/components/ui";
 import { Badge, Btn } from "./ui";
+import { misionesAuditoria } from "@/sim/misiones";
+import { MisionesAviso } from "@/components/certs/MisionesAviso";
 
 const KEY = "quimica-app:auditoria:v1";
 type Best = Record<string, { score: number; max: number }>;
@@ -171,6 +173,7 @@ function AuditCaseView({ c, onBack, onGraded }: { c: AuditCase; onBack: () => vo
         </div>
       </section>
 
+      {result && <MisionesAviso ids={misionesAuditoria({ [c.id]: { score: result.score, max: result.max } })} />}
       {result && <AuditReport c={c} r={result} />}
     </div>
   );

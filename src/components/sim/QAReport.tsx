@@ -5,6 +5,8 @@ import { useState } from "react";
 import { erpHandoff, fmtTime, type Sim } from "@/sim/engine";
 import { FX_KEY } from "@/sap/engine";
 import { reviewBatch } from "@/sim/review";
+import { misionesLote } from "@/sim/misiones";
+import { MisionesAviso } from "@/components/certs/MisionesAviso";
 import { Badge, Card } from "./ui";
 
 export function QAReport({ s }: { s: Sim }) {
@@ -13,6 +15,7 @@ export function QAReport({ s }: { s: Sim }) {
   const areas = ["Seguridad", "Proceso", "Documentación (ALCOA+)", "Calidad del producto"] as const;
   return (
     <div className="space-y-4" id="informe-qa">
+      <MisionesAviso ids={misionesLote(s)} />
       <Card title="Decisión de QA">
         <div className="flex flex-wrap items-center gap-3">
           <Badge tone={tone}>{r.decision}</Badge>
