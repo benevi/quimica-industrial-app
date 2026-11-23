@@ -1,6 +1,10 @@
 import type { Lesson } from "./types";
+import { trazabilidadAFondo } from "./nivel17-trazabilidad";
+import { recepcionAFondo } from "./nivel17-recepcion";
+import { envasadoAFondo } from "./nivel17-envasado";
+import { almacenAFondo } from "./nivel17-almacen";
 
-export const nivel17: Lesson[] = [
+const logistica: Lesson[] = [
   {
     slug: "recepcion-y-cuarentena",
     level: 17,
@@ -89,7 +93,7 @@ Llega un lote de 16 bidones de un reactivo. Uno tiene el precinto roto. El almac
   {
     slug: "almacenamiento",
     level: 17,
-    order: 2,
+    order: 3,
     title: "Almacenamiento: condiciones, FEFO y fechas",
     titleEn: "Storage: conditions, FEFO and dating",
     minutes: 15,
@@ -170,7 +174,7 @@ Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en sep
   {
     slug: "envasado-y-etiquetado",
     level: 17,
-    order: 3,
+    order: 5,
     title: "Envasado y etiquetado del API",
     titleEn: "API packaging and labelling",
     minutes: 15,
@@ -247,7 +251,7 @@ Se emiten 20 etiquetas para un lote que se envasará en 18 bidones. Se usan 18, 
   {
     slug: "trazabilidad-y-distribucion",
     level: 17,
-    order: 4,
+    order: 7,
     title: "Trazabilidad, distribución, devoluciones y retiradas",
     titleEn: "Traceability, distribution, returns and recalls",
     minutes: 12,
@@ -320,3 +324,6 @@ Un cliente reclama partículas negras en un bidón. Con el número de lote, Cali
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel17-tema.ts.
+export const nivel17: Lesson[] = [...logistica, trazabilidadAFondo, recepcionAFondo, envasadoAFondo, almacenAFondo];
