@@ -43,6 +43,8 @@ export const siglas: Sigla[] = [
   { sigla: "GC", es: "Cromatografía de gases", en: "Gas Chromatography" },
   { sigla: "GHS / SGA", es: "Sistema Globalmente Armonizado de clasificación y etiquetado de productos químicos (ONU)", en: "Globally Harmonized System" },
   { sigla: "GMP", es: "Buenas prácticas de fabricación (en España, normas de correcta fabricación, NCF)", en: "Good Manufacturing Practice" },
+  { sigla: "GDP", es: "Buenas prácticas de distribución (en otros contextos, de documentación: mira el contexto)", en: "Good Distribution Practice / Good Documentation Practice" },
+  { sigla: "GxP", es: "Todas las buenas prácticas reguladas a la vez (fabricación, laboratorio, distribución, clínica…)", en: "Good x Practice" },
   { sigla: "HEPA", es: "Filtro de partículas de alta eficacia", en: "High Efficiency Particulate Air" },
   { sigla: "HMI", es: "Pantalla de operación de una máquina o sistema", en: "Human-Machine Interface" },
   { sigla: "HPLC", es: "Cromatografía de líquidos de alta resolución", en: "High Performance Liquid Chromatography" },
