@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getLesson } from "@/content";
 import { pictograms, type GhsCode } from "@/content/fds";
 import { Disclosure, PageHeader } from "@/components/ui";
-import { commonsUrl, images, lessonMedia, licenses, signCredit, signs, type ImageId, type SignId } from "@/content/media";
+import { commonsUrl, images, lessonMedia, lessonSims, licenses, phetCredit, phetPage, signCredit, signs, type ImageId, type SignId } from "@/content/media";
 
 export const metadata = { title: "Créditos de imágenes y vídeos · Aula de Química" };
 
@@ -24,6 +24,7 @@ function LicenseLink({ k }: { k: keyof typeof licenses }) {
 }
 
 export default function CreditosPage() {
+  const uniqueSims = [...new Map(Object.values(lessonSims).flat().map((s) => [s.sim, s])).values()];
   const videos = Object.entries(lessonMedia).flatMap(([slug, m]) => (m.videos ?? []).map((v) => ({ ...v, slug })));
   const uniqueVideos = [...new Map(videos.map((v) => [v.id, v])).values()];
 
@@ -137,6 +138,21 @@ export default function CreditosPage() {
                   {" "}
                   · {v.channel} · {v.duration} · {v.lang === "es" ? "español" : "inglés"}
                 </span>
+              </li>
+            ))}
+          </ul>
+        </Disclosure>
+
+        <Disclosure summary={sum("Simulaciones interactivas", uniqueSims.length)}>
+          <p className="mb-3 max-w-[68ch] text-sm text-muted">
+            Las simulaciones no se copian: se cargan desde la web de PhET al pulsarlas. {phetCredit}. Uso no comercial.
+          </p>
+          <ul className="-mx-4 -mb-4 divide-y divide-line border-t border-line text-sm">
+            {uniqueSims.map((s) => (
+              <li key={s.sim} className="px-4 py-3">
+                <a href={phetPage(s.sim)} target="_blank" rel="noreferrer" className="font-medium hover:text-accent hover:underline">
+                  {s.title}
+                </a>
               </li>
             ))}
           </ul>

@@ -30,12 +30,19 @@ for (const [slug, m] of Object.entries(M.lessonMedia)) {
     if (!v.why.trim()) err(`${slug}: vídeo ${v.id} sin explicación`);
   }
 }
+for (const [slug, list] of Object.entries(M.lessonSims)) {
+  if (!slugs.has(slug)) err(`simulación en lección inexistente: ${slug}`);
+  for (const s of list) {
+    if (!M.phetSims.includes(s.sim)) err(`${slug}: simulación PhET no comprobada ${s.sim}`);
+    if (!s.title.trim() || !s.why.trim()) err(`${slug}: simulación ${s.sim} sin título o explicación`);
+  }
+}
 for (const id of Object.keys(M.images)) if (!usedImages.has(id)) err(`imagen sin usar: ${id}`);
 const files = new Set(Object.values(M.images).map((i) => i.file));
 for (const f of readdirSync(`${pub}/media`)) if (f.endsWith(".jpg") && !files.has(f)) err(`archivo sin ficha de créditos: public/media/${f}`);
 
 const n = Object.keys(M.lessonMedia).length;
 const nv = new Set(Object.values(M.lessonMedia).flatMap((m) => (m.videos ?? []).map((v) => v.id))).size;
-console.log(`${n} lecciones con material, ${Object.keys(M.images).length} imágenes, ${Object.keys(M.signs).length} señales, ${nv} vídeos`);
+console.log(`${n} lecciones con material, ${Object.keys(M.images).length} imágenes, ${Object.keys(M.signs).length} señales, ${nv} vídeos, ${Object.values(M.lessonSims).flat().length} simulaciones en ${Object.keys(M.lessonSims).length} lecciones`);
 if (errors) { console.error(`${errors} errores`); process.exit(1); }
 console.log("OK");

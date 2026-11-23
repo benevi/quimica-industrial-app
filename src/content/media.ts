@@ -634,8 +634,27 @@ export interface Video {
   why: string;
 }
 
+/**
+ * Simulación interactiva PhET (Universidad de Colorado Boulder), en español. Se carga dentro de la lección al pulsar.
+ * Las versiones publicadas desde marzo de 2026 tienen licencia CC BY-NC 4.0 (uso no comercial): válida para esta edición
+ * personal; para la edición de operador habrá que revisarlo.
+ */
+export interface Sim {
+  /** Nombre de la simulación en la web de PhET (p. ej. "ph-scale"). */
+  sim: string;
+  title: string;
+  /** Qué hacer con ella y en qué fijarse. */
+  why: string;
+}
+
+export const phetUrl = (sim: string) => `https://phet.colorado.edu/sims/html/${sim}/latest/${sim}_es.html`;
+export const phetPage = (sim: string) => `https://phet.colorado.edu/es/simulations/${sim}`;
+export const phetCredit = "PhET Interactive Simulations, University of Colorado Boulder (phet.colorado.edu), CC BY-NC 4.0";
+
 export interface LessonMedia {
   images?: ImageId[];
+  /** Simulaciones interactivas PhET. */
+  sims?: Sim[];
   /** Muestra la tabla de los 9 pictogramas oficiales GHS/CLP. */
   ghs?: boolean;
   signs?: { title: string; ids: SignId[] }[];
@@ -1081,7 +1100,65 @@ export const lessonMedia: Record<string, LessonMedia> = {
   "pid-y-simbologia": { images: ["pid-real", "valvula-asiento-esquema", "reactor-agitado-esquema"] },
 };
 
-/** Imágenes, señales y vídeos de una lección (undefined si no tiene). */
+/**
+ * Simulaciones PhET comprobadas: su versión HTML5 en español existe (comprobado el 23/11/2026).
+ * Una simulación nueva se añade aquí primero; check:media no admite otras.
+ */
+export const phetSims = [
+  "density", "states-of-matter", "states-of-matter-basics", "gas-properties", "gases-intro", "diffusion",
+  "build-an-atom", "isotopes-and-atomic-mass", "models-of-the-hydrogen-atom", "molecule-shapes", "molecule-shapes-basics",
+  "molecule-polarity", "build-a-molecule", "atomic-interactions", "concentration", "molarity", "beers-law-lab",
+  "acid-base-solutions", "ph-scale", "ph-scale-basics", "balancing-chemical-equations", "reactants-products-and-leftovers",
+  "molecules-and-light", "plinko-probability", "curve-fitting", "least-squares-regression", "energy-forms-and-changes",
+  "unit-rates", "graphing-lines",
+] as const;
+
+/** Simulaciones PhET por lección. Se suman a lo que la lección tenga en lessonMedia. */
+export const lessonSims: Record<string, Sim[]> = {
+  densidad: [{ sim: "density", title: "Densidad", why: "Cambia la masa y el volumen de un bloque y míralo flotar o hundirse en el agua: la densidad decide." }],
+  "densidad-a-fondo": [{ sim: "density", title: "Densidad", why: "Mide la masa y el volumen de bloques misteriosos y calcula su densidad para saber de qué material son." }],
+  "la-materia": [{ sim: "states-of-matter-basics", title: "Estados de la materia: conceptos básicos", why: "Calienta y enfría agua, oxígeno o neón y mira cómo se mueven las partículas en sólido, líquido y gas." }],
+  "materia-a-fondo": [
+    { sim: "states-of-matter", title: "Estados de la materia", why: "Relaciona la temperatura con el movimiento de las partículas y mira el cambio de estado en el diagrama de fases." },
+    { sim: "diffusion", title: "Difusión", why: "Quita la pared entre dos gases y mira cómo se mezclan solos: más rápido cuanto más calientes y más ligeros." },
+  ],
+  "atomos-y-tabla-periodica": [{ sim: "build-an-atom", title: "Construye un átomo", why: "Añade protones, neutrones y electrones: el número de protones decide el elemento; los neutrones, el isótopo; los electrones, la carga." }],
+  "atomos-a-fondo": [
+    { sim: "build-an-atom", title: "Construye un átomo", why: "Comprueba el número atómico, el másico y la carga de un ion construyéndolo partícula a partícula." },
+    { sim: "isotopes-and-atomic-mass", title: "Isótopos y masa atómica", why: "Mezcla isótopos y mira cómo sale la masa atómica media que aparece en la tabla periódica." },
+  ],
+  "enlaces-y-polaridad": [{ sim: "molecule-polarity", title: "Polaridad de las moléculas", why: "Cambia la electronegatividad de los átomos y mira aparecer las cargas parciales y el dipolo." }],
+  "enlaces-a-fondo": [
+    { sim: "molecule-polarity", title: "Polaridad de las moléculas", why: "Pon la molécula en un campo eléctrico: las polares se orientan; las simétricas, aunque tengan enlaces polares, no." },
+    { sim: "atomic-interactions", title: "Interacciones atómicas", why: "Acerca dos átomos y mira la curva de energía: a qué distancia se atraen y cuándo se repelen." },
+  ],
+  disoluciones: [{ sim: "concentration", title: "Concentración", why: "Añade soluto o agua y mira cómo cambia el color y la concentración; llega a saturar la disolución." }],
+  "disoluciones-a-fondo": [
+    { sim: "molarity", title: "Molaridad", why: "Cambia los moles de soluto y el volumen y comprueba la fórmula M = n / V sin hacer cuentas." },
+    { sim: "concentration", title: "Concentración", why: "Diluye y evapora: la cantidad de soluto no cambia, solo el volumen (C₁·V₁ = C₂·V₂)." },
+  ],
+  "acidos-bases-ph": [{ sim: "ph-scale-basics", title: "Escala de pH: conceptos básicos", why: "Mide el pH de líquidos de casa y mira qué pasa al diluirlos con agua." }],
+  "acidos-bases-a-fondo": [
+    { sim: "ph-scale", title: "Escala de pH", why: "Relaciona el pH con la concentración de H₃O⁺ y OH⁻ en escala logarítmica: un punto de pH es un factor 10." },
+    { sim: "acid-base-solutions", title: "Disoluciones ácido-base", why: "Compara un ácido fuerte con uno débil a la misma concentración: cuántas moléculas se disocian y qué pH da." },
+  ],
+  "ecuaciones-y-estequiometria": [{ sim: "balancing-chemical-equations", title: "Balanceo de ecuaciones químicas", why: "Ajusta ecuaciones con los coeficientes y comprueba en la balanza que hay los mismos átomos a cada lado." }],
+  "estequiometria-a-fondo": [{ sim: "balancing-chemical-equations", title: "Balanceo de ecuaciones químicas", why: "Practica el ajuste en el modo juego, con niveles de dificultad creciente." }],
+  "reactivo-limitante": [{ sim: "reactants-products-and-leftovers", title: "Reactivos, productos y sobrantes", why: "Prepara sándwiches y luego moléculas: el ingrediente que se acaba primero decide cuánto producto sale y cuánto sobra." }],
+  "espectroscopia-uv-vis": [{ sim: "beers-law-lab", title: "Laboratorio de la ley de Beer", why: "Cambia la concentración, el ancho de la cubeta y la longitud de onda y mira la absorbancia: A = ε·b·c." }],
+  "espectroscopia-a-fondo": [
+    { sim: "beers-law-lab", title: "Laboratorio de la ley de Beer", why: "Comprueba que la absorbancia es proporcional a la concentración y que la transmitancia no lo es." },
+    { sim: "molecules-and-light", title: "Moléculas y luz", why: "Ilumina moléculas con microondas, infrarrojo, visible y ultravioleta y mira qué hace cada luz: rotar, vibrar o excitar electrones." },
+  ],
+  "espectroscopia-infrarrojo": [{ sim: "molecules-and-light", title: "Moléculas y luz", why: "Con luz infrarroja las moléculas vibran: es lo que mide un espectro IR." }],
+  "calculo-de-resultados-a-fondo": [{ sim: "plinko-probability", title: "Probabilidad Plinko", why: "Deja caer bolas y mira cómo se forma la campana de Gauss: así se reparten los resultados de las réplicas." }],
+  "validacion-de-metodos-a-fondo": [{ sim: "least-squares-regression", title: "Regresión por mínimos cuadrados", why: "Pon puntos de calibración y mira la recta que mejor se ajusta y su coeficiente de correlación r." }],
+};
+
+/** Imágenes, señales, vídeos y simulaciones de una lección (undefined si no tiene). */
 export function mediaFor(slug: string): LessonMedia | undefined {
-  return lessonMedia[slug];
+  const m = lessonMedia[slug];
+  const sims = lessonSims[slug];
+  if (!sims) return m;
+  return { ...m, sims: [...(m?.sims ?? []), ...sims] };
 }
