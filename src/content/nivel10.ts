@@ -4,6 +4,7 @@ import { especificacionesAFondo } from "./nivel10-especificaciones";
 import { liberacionAFondo } from "./nivel10-liberacion";
 import { validacionAFondo } from "./nivel10-validacion";
 import { oosAFondo } from "./nivel10-oos";
+import { calidadDelLaboratorioAFondo } from "./nivel10-calidadlab";
 
 const calidad: Lesson[] = [
   {
@@ -388,4 +389,4 @@ La hoja de producción completa es una de las bases de la liberación del lote.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel10-tema.ts.
-export const nivel10: Lesson[] = [...calidad, estabilidadAFondo, especificacionesAFondo, liberacionAFondo, validacionAFondo, oosAFondo];
+export const nivel10: Lesson[] = [...calidad, estabilidadAFondo, especificacionesAFondo, liberacionAFondo, validacionAFondo, oosAFondo, calidadDelLaboratorioAFondo];
