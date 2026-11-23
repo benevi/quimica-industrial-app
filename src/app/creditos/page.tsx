@@ -136,7 +136,7 @@ export default function CreditosPage() {
                 </a>
                 <span className="text-muted">
                   {" "}
-                  · {v.channel} · {v.duration} · {v.lang === "es" ? "español" : "inglés"}
+                  · {v.channel}{v.duration ? ` · ${v.duration}` : ""} · {v.lang === "es" ? "español" : "inglés"}
                 </span>
               </li>
             ))}

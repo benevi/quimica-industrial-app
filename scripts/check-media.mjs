@@ -26,8 +26,9 @@ for (const [slug, m] of Object.entries(M.lessonMedia)) {
   for (const g of m.signs ?? []) for (const id of g.ids) if (!M.signs[id]) err(`${slug}: señal ${id} no existe`);
   for (const v of m.videos ?? []) {
     if (!/^[\w-]{11}$/.test(v.id)) err(`${slug}: id de vídeo no válido ${v.id}`);
-    if (!/^\d{1,2}:\d{2}$/.test(v.duration)) err(`${slug}: duración no válida ${v.duration}`);
+    if (v.duration !== undefined && !/^\d{1,2}:\d{2}$/.test(v.duration)) err(`${slug}: duración no válida ${v.duration}`);
     if (!v.why.trim()) err(`${slug}: vídeo ${v.id} sin explicación`);
+    if (!v.title.trim() || !v.channel.trim()) err(`${slug}: vídeo ${v.id} sin título o canal`);
   }
 }
 for (const [slug, list] of Object.entries(M.lessonSims)) {

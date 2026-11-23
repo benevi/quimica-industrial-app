@@ -148,7 +148,7 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
 
 ## Estado y pendientes (noviembre de 2026)
 
-- Hecho: Aula con 228 lecciones (todos los niveles tienen lecciones «a fondo» con su tabla de fuentes, y cada lección corta tiene ya su versión «a fondo»; `reactivo-limitante` se trata a fondo dentro de `estequiometria-a-fondo`; temas nuevos sin lección corta: materiales y corrosión, hidrogenación, turno y factor humano), ruta del operador,
+- Hecho: Aula con 249 lecciones (todos los niveles tienen lecciones «a fondo» con su tabla de fuentes, y cada lección corta tiene ya su versión «a fondo»; `reactivo-limitante` se trata a fondo dentro de `estequiometria-a-fondo`; temas nuevos sin lección corta: materiales y corrosión, hidrogenación, turno y factor humano), ruta del operador,
   simulador (lote FX-101 con válvulas manuales, incidentes, paneles de filtro/centrífuga/secadero, Nutsche con relevo de
   turno, auditoría de hojas y reactor R-204 con modelo físico, 13 averías, turno real, pistas y guía), certificaciones y
   simulador ERP, tarjetas y FDS, imágenes y vídeos con licencia, rediseño de la interfaz, progreso en la nube con Supabase,

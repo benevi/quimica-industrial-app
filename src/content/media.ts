@@ -1135,8 +1135,8 @@ export interface Video {
   title: string;
   channel: string;
   lang: "es" | "en";
-  /** Duración, mm:ss. */
-  duration: string;
+  /** Duración, mm:ss. Opcional: desde la sesión de trabajo solo se puede comprobar que el vídeo existe, su título y su canal. */
+  duration?: string;
   /** Por qué verlo y en qué fijarse. */
   why: string;
 }
