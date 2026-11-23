@@ -1,0 +1,13 @@
+{
+  "name": "formacion-operadores",
+  "private": true,
+  "description": "Edición de operador. Las dependencias se instalan en la raíz del repositorio; este archivo solo sirve para que Vercel reconozca la app de esta carpeta (versiones iguales a las de la raíz, lo comprueba check:operador).",
+  "scripts": {
+    "build": "cd .. && npm run build:operador"
+  },
+  "dependencies": {
+    "next": "15.5.29",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  }
+}

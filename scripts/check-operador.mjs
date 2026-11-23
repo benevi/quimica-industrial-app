@@ -159,6 +159,10 @@ for (const f of alcanzados) {
     err(`la edición de operador carga ${rel} (${cadena.reverse().join(" › ")})`);
   }
 }
+// operador/package.json solo existe para Vercel: sus versiones tienen que ser las de la raíz
+const raiz = JSON.parse(readFileSync(join(repo, "package.json"), "utf8")).dependencies;
+const suyo = JSON.parse(readFileSync(join(repo, "operador/package.json"), "utf8")).dependencies;
+for (const [dep, v] of Object.entries(suyo)) if (raiz[dep] !== v) err(`operador/package.json: ${dep} ${v} no coincide con la raíz (${raiz[dep]})`);
 const conf = readFileSync(join(repo, "operador/next.config.ts"), "utf8");
 if (/youtube|phet/i.test(conf)) err("operador/next.config.ts permite YouTube o PhET en la CSP");
 

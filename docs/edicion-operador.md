@@ -70,13 +70,13 @@ npm run start:operador   # sirve la build en el puerto 3001
 npm run check:operador
 ```
 
-Publicar (Vercel, un servidor de la empresa u otro hosting) solo con el ok de Victor. En Vercel sería un proyecto aparte con
-el mismo repositorio, el comando `npm run build:operador` y `operador` como carpeta de la app.
+Se publica en Vercel (ok de Victor del 23/11/2026) como un proyecto aparte, `formacion-operadores`, conectado al mismo
+repositorio: carpeta raíz `operador`, instalación `cd .. && npm ci` y build `cd .. && npm run build:operador`.
+`operador/package.json` solo existe para que Vercel reconozca la app de esa carpeta; sus versiones de Next y React
+tienen que ser las de la raíz (lo comprueba `check:operador`).
 
 ## Pendiente
 
-- Opcional, propuesto a Victor: una lección final «Un lote de principio a fin», con una hoja de producción ficticia que
-  recorra todas las etapas. Llevaría su tabla de fuentes en `docs/fuentes/`.
 - Si la empresa aporta y autoriza por escrito sus procedimientos, se podrían adaptar las etapas. Hasta entonces, todo
   ficticio.
 - Al añadir lecciones clave para el turno a la edición completa, valorar sumarlas aquí (en `edicion.ts`).

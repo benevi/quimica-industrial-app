@@ -180,8 +180,8 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   comprobación en `src/sim/misiones.ts`; se marcan solas al terminar cada simulador). Decidir con
   Victor si el verde de las válvulas abiertas se queda como código de planta.
 - Edición de operador: hecha la primera versión (12 etapas, 54 lecciones básicas y 5 de ampliación, glosario, tarjetas,
-  fichas de seguridad y calculadoras). Pendiente de Victor: decidir si se añade la lección «Un lote de principio a fin» y
-  cuándo y dónde publicarla.
+  fichas de seguridad y calculadoras). Se publica en Vercel como proyecto
+  aparte (`formacion-operadores`, ver `docs/edicion-operador.md`). Victor descartó la lección «Un lote de principio a fin».
 - Pendiente además: biotecnología (módulos FP 1390/1393) queda fuera del
   temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP
   (a 21/11/2026 siguen siendo borradores) y actualizar entonces `part-11-y-anexo-11`, `normas-integridad-a-fondo`,
