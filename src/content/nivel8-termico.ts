@@ -142,7 +142,7 @@ Ninguna de las dos dice **qué** se ha ido: para eso están el Karl Fischer y la
 ICH Q6A cita, para saber si hay varias formas, el punto de fusión (con microscopía de platina calefactora), el infrarrojo del sólido, la difracción de rayos X de polvo, el análisis térmico (DSC, TGA y DTA), el Raman, la microscopía óptica y la resonancia del sólido. La FDA dice que la difracción de polvo puede dar una prueba inequívoca de polimorfismo. En la práctica, DSC y punto de fusión dan la alarma y la difracción confirma la forma. Dos fusiones, o una fusión seguida de un pico exotérmico, son una pista de varias formas o de una transformación al calentar; lo interpreta el laboratorio.
 
 ### La otra cara: el DSC en seguridad de proceso
-El DSC también dice **a qué temperatura un producto o una mezcla empieza a descomponerse dando calor**, y cuánto. La NTP 527 del INSST lo cita entre los calorímetros que muestran cómo varía la actividad exotérmica con la temperatura; el objetivo es fijar el límite por debajo del cual se trabaja con seguridad, con un **margen** respecto a la temperatura de descontrol. Como medida preventiva propone que el medio calefactor no pueda pasar de la temperatura de descomposición. La NTP 302 avisa de que la medida no es tan fácil como parece y de que extrapolar a las condiciones reales puede ser complejo.
+El DSC también dice **a qué temperatura un producto o una mezcla empieza a descomponerse dando calor**, y cuánto. La nota técnica de prevención (NTP) 527 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) lo cita entre los calorímetros que muestran cómo varía la actividad exotérmica con la temperatura; el objetivo es fijar el límite por debajo del cual se trabaja con seguridad, con un **margen** respecto a la temperatura de descontrol. Como medida preventiva propone que el medio calefactor no pueda pasar de la temperatura de descomposición. La NTP 302 avisa de que la medida no es tan fácil como parece y de que extrapolar a las condiciones reales puede ser complejo.
 
 Por eso el pico exotérmico de un DSC de cribado **no es una temperatura de trabajo**: es una señal de peligro, medida en miligramos, que seguridad de proceso convierte en límites con margen. Llegan a la hoja como temperatura máxima de camisa del reactor o de producto en el secadero y el molino.
 
@@ -153,14 +153,14 @@ Un resultado fuera de especificación se investiga según procedimiento (ICH Q7,
 
 | Causa en planta | Pista en el laboratorio | Qué se mira en la hoja |
 |---|---|---|
-| Secado incompleto | LOD alto; Karl Fischer (KF) o cromatografía de gases dicen qué es | Tiempo, vacío, temperatura de producto, IPC de secado, muestra de dónde |
+| Secado incompleto | LOD alto; Karl Fischer (KF) o cromatografía de gases dicen qué es | Tiempo, vacío, temperatura de producto, control en proceso (IPC) de secado, muestra de dónde |
 | Impurezas: reacción, lavado o aguas madres | Cromatografía de líquidos (HPLC) con impurezas altas | Temperaturas, tiempos, adiciones, volumen y temperatura del lavado |
 | Otra forma o un solvato | DSC distinto, escalón en TGA, difracción de polvo distinta | Siembra, enfriamiento, disolvente, temperatura de secado |
 | Muestra no representativa o mal cerrada | Repetición sobre otra muestra distinta | Punto y hora de muestreo, envase, identificación |
 
 Qué haces tú como operador:
 
-- **No lo arreglas por tu cuenta.** Ni secas «un poco más» ni mezclas con otro lote: ICH Q7 dice que los lotes fuera de especificación no deben mezclarse con otros para que cumplan (8.41). Seguir secando cuando un control en proceso (IPC) dice que el paso no ha terminado es proceso normal (14.21); tras un resultado de liberación fuera de especificación, decide calidad.
+- **No lo arreglas por tu cuenta.** Ni secas «un poco más» ni mezclas con otro lote: ICH Q7 dice que los lotes fuera de especificación no deben mezclarse con otros para que cumplan (8.41). Seguir secando cuando un IPC dice que el paso no ha terminado es proceso normal (14.21); tras un resultado de liberación fuera de especificación, decide calidad.
 - **Anotas y cuentas** lo que viste: aspecto de la torta, descarga húmeda o con grumos, valores raros del secadero, punto de muestreo.
 - **Conservas** el lote identificado y en cuarentena (14.10) y las muestras como diga el procedimiento.
 - **Sabes lo que viene.** Repetir un paso del proceso, como volver a secar o recristalizar, es reprocesar (14.20); cambiar el proceso es retrabajar y exige investigar antes (14.30).

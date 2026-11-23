@@ -146,7 +146,7 @@ El agua templada y pulverizada es un sitio ideal para la bacteria *Legionella*, 
 - limpieza y desinfección del sistema completo al menos dos veces al año;
 - análisis de *Legionella* como mínimo cada mes, y control diario del pH, la temperatura y el biocida;
 - separadores de gotas que dejen escapar menos del 0,002 % del agua que circula;
-- parar la instalación, limpiar y desinfectar si el recuento llega a 10 000 UFC por litro.
+- parar la instalación, limpiar y desinfectar si el recuento llega a 10 000 unidades formadoras de colonias (UFC) por litro.
 
 Para ti: no usar esa agua para otra cosa y avisar si ves la balsa sucia o un separador roto.
 

@@ -10,7 +10,7 @@ export const salasAFondo: Lesson = {
   summary:
     "Qué es una partícula en el aire y de dónde sale, los grados A a D del anexo 1 con sus límites de partículas y de microorganismos, la diferencia entre clasificar y vigilar, qué zonas pide ICH Q7 a un API no estéril y qué haces tú al entrar material, al abrir un bidón o un secadero y ante una alarma o un resultado fuera de límite.",
   body: `
-En «Salas limpias y su clasificación» viste qué es una sala limpia. En «Aire, presiones y salas a fondo» (nivel 14), la unidad de aire, los filtros HEPA, las renovaciones, la cascada de presiones y las esclusas. Aquí vamos a lo que se mide en la sala, a lo que exige la norma de un principio activo y a lo que haces tú.
+En «Salas limpias y su clasificación» viste qué es una sala limpia. En «Aire, presiones y salas a fondo» (nivel 14), la unidad de aire, los filtros de alta eficacia (HEPA), las renovaciones, la cascada de presiones y las esclusas. Aquí vamos a lo que se mide en la sala, a lo que exige la norma de un principio activo y a lo que haces tú.
 
 ### Qué es una partícula en suspensión
 Una **partícula en suspensión** (*airborne particle*) es un trocito de materia, sólido o una gota, tan pequeño y ligero que flota en el aire en vez de caer enseguida. Las que cuentan en una sala limpia no se ven a simple vista.

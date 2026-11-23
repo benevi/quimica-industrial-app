@@ -31,18 +31,18 @@ La guía ICH Q7 pide que las superficies en contacto con materias primas, interm
 |---|---|---|
 | Acero inoxidable 316L | Resiste la corrosión gracias al cromo, que forma una capa protectora | Los cloruros y los ácidos pueden atacarlo (lección «Oxidación y reducción a fondo») |
 | Acero al carbono | Es el acero corriente, sin esa capa | Se oxida; con ácidos se disuelve (misma lección) |
-| Tubería revestida de PTFE (*PTFE-lined*) | Tubo de acero por fuera para aguantar la presión y una funda de PTFE por dentro que aguanta productos muy corrosivos | No se usa fuera de sus límites de vacío y temperatura: los da el fabricante |
+| Tubería revestida de PTFE (politetrafluoroetileno, el teflón; *PTFE-lined*) | Tubo de acero por fuera para aguantar la presión y una funda de PTFE por dentro que aguanta productos muy corrosivos | No se usa fuera de sus límites de vacío y temperatura: los da el fabricante |
 | Acero vitrificado (*glass-lined*) | Capa de vidrio sobre acero: resiste casi todos los ácidos | Choque térmico y golpes (lección «El reactor a fondo») |
 | Vidrio | Resiste muchos productos y deja ver el líquido | Es frágil: no se golpea ni se aprieta de más |
 
 La guía de la Organización Mundial de la Salud sobre agua para uso farmacéutico (TRS 1033, anexo 3, 2021) pide materiales que no cedan ni absorban sustancias y que resistan la corrosión, y recomienda en general el inoxidable 316L. De las tuberías revestidas de PTFE solo hay aquí información de fabricantes vista en un buscador (la funda es el punto débil en vacío): por eso no se dan cifras.
 
 ### Uniones: soldadura, bridas y clamp
-**Soldadura** (*welding*). Los dos tubos se funden y quedan como una pieza. La Directiva de equipos a presión la llama **unión permanente**: solo se separa rompiéndola. No tiene junta que se gaste. La guía de la OMS pide para el agua farmacéutica soldadura orbital (una máquina que gira alrededor del tubo) con registros de cada soldadura.
+**Soldadura** (*welding*). Los dos tubos se funden y quedan como una pieza. La Directiva de equipos a presión la llama **unión permanente**: solo se separa rompiéndola. No tiene junta que se gaste. La guía de la Organización Mundial de la Salud (OMS) pide para el agua farmacéutica soldadura orbital (una máquina que gira alrededor del tubo) con registros de cada soldadura.
 
 **Brida con junta** (*flange and gasket*). Dos anillos de metal, uno en cada extremo, se atornillan con una junta en medio. Según Kuphaldt, la junta es de un material más blando que la brida y, al apretar los tornillos, se aplasta y tapa todos los caminos por donde podría salir el líquido. Se puede desmontar: por eso va donde hay equipos que se quitan para mantenimiento.
 
-**Clamp sanitario** (*sanitary clamp*). Dos bridas pequeñas, lisas, unidas por una abrazadera exterior con una junta entre ellas. La guía de la FDA sobre sistemas de agua de alta pureza dice que en un sistema de agua farmacéutica **no debe haber uniones roscadas**: todas deben ser sanitarias o soldadas a tope. El motivo, según Kuphaldt: entre los hilos de una rosca quedan huecos diminutos donde se refugian los microbios y la limpieza no llega.
+**Clamp sanitario** (*sanitary clamp*). Dos bridas pequeñas, lisas, unidas por una abrazadera exterior con una junta entre ellas. La guía de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) sobre sistemas de agua de alta pureza dice que en un sistema de agua farmacéutica **no debe haber uniones roscadas**: todas deben ser sanitarias o soldadas a tope. El motivo, según Kuphaldt: entre los hilos de una rosca quedan huecos diminutos donde se refugian los microbios y la limpieza no llega.
 
 ### Por qué fallan las juntas
 Una junta solo sella si está **bien elegida, bien colocada y bien apretada**. Lo que sale de las fuentes leídas:

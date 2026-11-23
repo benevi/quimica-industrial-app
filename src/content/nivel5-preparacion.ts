@@ -18,7 +18,7 @@ Tú bajas al laboratorio un frasco con 500 g de producto del secadero. El cromat
 ### Por qué hay que preparar la muestra
 Casi ningún equipo analiza un sólido tal como sale del secadero. El HPLC necesita una disolución sin partículas; un equipo que mide metales, la muestra destruida y disuelta en ácido.
 
-La preparación también mete error. La guía de la Organización Mundial de la Salud (OMS) para laboratorios de control (*WHO TRS 1052, anexo 4*, apéndice 3) separa el error en el de la **medida** del equipo y el de la **preparación** (pesadas y diluciones). En su ejemplo de una riqueza por HPLC da a cada uno la mitad del error total permitido; pesar 50,0 mg con una incertidumbre de 0,2 mg ya aporta un 0,4 %, y coger 1,0 mL con pipeta, un 0,74 %.
+La preparación también mete error. La guía de la Organización Mundial de la Salud (OMS) para laboratorios de control (*WHO TRS 1052, anexo 4*, apéndice 3) separa el error en el de la **medida** del equipo y el de la **preparación** (pesadas y diluciones). En su ejemplo de una riqueza por HPLC da a cada uno la mitad del error total permitido; pesar 50,0 mg con una incertidumbre de 0,2 mg ya aporta un 0,4 %, y coger 1,0 mL con pipeta graduada, un 0,74 %.
 
 La guía de la FDA sobre resultados fuera de especificación (*Investigating OOS Test Results*, 2022) admite que una investigación concluya que la muestra se preparó mal y no representaba al lote; una pista son resultados muy distintos entre porciones de la misma muestra.
 
@@ -67,7 +67,7 @@ Si el sólido viene en terrones o cristales grandes, se muele (*grinding*) en un
 - **Contaminación.** El instrumental no debe aportar lo que se quiere medir (el reglamento lo dice de los oligoelementos, metales en cantidades pequeñas).
 - **Cambio de forma cristalina.** La FDA (guía de polimorfismo de 2007) cita la molienda y la micronización entre los procesos que pueden transformar una forma cristalina en otra («Polimorfismo, sales y solvatos a fondo»).
 
-Seguridad: el polvo de un principio activo se respira. La NTP 432 del INSST pide trabajar en vitrina siempre que sea posible.
+Seguridad: el polvo de un principio activo se respira. La nota técnica de prevención (NTP) 432 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) pide trabajar en vitrina siempre que sea posible.
 
 ### Secar antes o corregir después: tal cual y base seca
 Un sólido lleva algo de agua o disolvente. El resultado se puede dar:

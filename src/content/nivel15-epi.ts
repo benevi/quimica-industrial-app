@@ -151,7 +151,7 @@ La guía del INSST pide que te formen para ponerte y quitarte guantes y ropa sin
 
 Para ponérselo: traje y calzado, luego la máscara con su comprobación de ajuste, después las gafas y, al final, los guantes.
 
-Para quitárselo, la idea es una: lo más sucio sale primero y la piel no toca nunca la cara exterior. Primero los guantes. Luego el traje, enrollándolo hacia fuera y hacia abajo, de modo que lo sucio quede dentro del rollo. Después las gafas, cogidas por la banda de atrás. La máscara sale la última y ya fuera de la zona. Para acabar, lavado de manos.
+Para quitárselo, la idea es una: lo más sucio sale primero y la piel no toca nunca la cara exterior. Primero los guantes (si llevas doble guante, los exteriores). Luego el traje, cogiéndolo solo por dentro y enrollándolo hacia abajo, de modo que lo sucio quede dentro del rollo. Otra práctica habitual es quitarse el traje con los guantes puestos y dejar los guantes para el final: el orden de tu planta está en su procedimiento. Después las gafas, cogidas por la banda de atrás. La máscara sale la última y ya fuera de la zona. Para acabar, lavado de manos.
 
 ### Cuidar, guardar y desechar
 Según la guía del INSST:

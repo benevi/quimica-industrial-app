@@ -37,7 +37,7 @@ De esa red salen las propiedades de las sales:
 
 **En planta:**
 
-- **Cloruro de sodio en las aguas de lavado.** Cuando se neutraliza ácido clorhídrico con hidróxido de sodio queda cloruro de sodio, y al lavar con agua se va a la fase acuosa. La salmuera ayuda además a romper emulsiones, como viste en «Extracción líquido-líquido y separación de fases».
+- **Cloruro de sodio en las aguas de lavado.** Cuando se neutraliza ácido clorhídrico con hidróxido de sodio queda cloruro de sodio, y al lavar con agua se va a la fase acuosa. La salmuera ayuda además a romper emulsiones, como verás en «Extracción líquido-líquido y separación de fases».
 - **Sales del principio activo.** Un **clorhidrato** (*hydrochloride*) es la sal de una base orgánica con ácido clorhídrico; se fabrica para mejorar la solubilidad, la estabilidad o la cristalización. Lo tienes en «Polimorfismo, sales y solvatos» (nivel 3). La idea aquí: una parte de la molécula pasa a ser un ion, y eso cambia dónde se disuelve.
 
 ### Enlace covalente: compartir electrones
@@ -122,7 +122,7 @@ Hervir es despegar del todo las moléculas para que pasen a gas. Cuanto más fue
 | Agua | 18 | Muchos puentes de hidrógeno | 100 |
 | Tolueno | 92 | Dispersión, molécula grande | 111 |
 
-Fíjate en tres cosas:
+Fíjate en cuatro cosas:
 
 - **El agua es la más ligera de la tabla y casi la que hierve más alto.** El nitrógeno pesa más y hierve unos 300 grados más abajo. Cada molécula de agua forma puentes de hidrógeno por sus dos hidrógenos y por los dos pares solitarios de su oxígeno, y se engancha en red con sus vecinas.
 - **Una molécula de metanol pesa casi el doble que una de agua, y aun así el metanol hierve antes.** Solo tiene un O–H por molécula. Su ficha de seguridad de la app da una presión de vapor de 12,9 kPa a 20 °C, y el agua tiene 2,34 kPa a esa temperatura: unas 5,5 veces más vapor.
@@ -159,14 +159,14 @@ Para disolverse, las moléculas de una sustancia tienen que separarse entre sí 
 | Apolar | Heptano | Solo dispersión | No |
 
 ### El antidisolvente en una cristalización
-En «Cristalización» (nivel 12) viste que se puede cristalizar añadiendo un **antidisolvente** (*antisolvent*), un líquido en el que el producto no se disuelve. Ahora ves por qué funciona.
+En «Cristalización» (nivel 12) verás que se puede cristalizar añadiendo un **antidisolvente** (*antisolvent*), un líquido en el que el producto no se disuelve. Ahora ves por qué funciona.
 
 Un producto con parte polar está disuelto en isopropanol, que lo sujeta con puentes de hidrógeno. Añades heptano poco a poco. El heptano solo ofrece dispersión y no puede sujetar la parte polar. Cada molécula de producto tiene cada vez menos disolvente que la sujete y le compensa más pegarse a otras moléculas de producto. Se juntan, se ordenan y forman cristales. Con un producto poco polar en un orgánico pasa lo mismo al añadir agua: el agua prefiere engancharse consigo misma. La velocidad, la temperatura y la siembra deciden el tamaño y la forma: eso es cosa de «Cristalización».
 
 ### En el secado: disolvente atrapado y solvatos
 El disolvente que moja la superficie de los cristales se va con calor y vacío, como explica «El secado a fondo». Hay dos casos más difíciles:
 
-- **Disolvente atrapado dentro del cristal.** Un cristal que creció deprisa puede encerrar gotitas de aguas madre, rodeadas de sólido, que no llegan a la superficie para evaporarse.
+- **Disolvente atrapado dentro del cristal.** Un cristal que creció deprisa puede encerrar gotitas de aguas madres, rodeadas de sólido, que no llegan a la superficie para evaporarse.
 - **Solvatos e hidratos.** Las moléculas de disolvente o de agua forman parte de la red cristalina, sujetas al producto por fuerzas intermoleculares, a menudo puentes de hidrógeno. Es un **solvato** (*solvate*) o un **hidrato** (*hydrate*). Sacarlas deshace esa red y el producto puede pasar a ser otra forma sólida (lo tienes en «Polimorfismo, sales y solvatos»).
 
 Por eso un disolvente que no baja en el análisis no siempre se arregla con más horas de secado. Se avisa y se sigue el procedimiento.

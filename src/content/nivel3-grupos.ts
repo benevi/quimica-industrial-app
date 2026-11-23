@@ -46,7 +46,7 @@ Tres ideas que ya tienes:
 
 **Reaccionan** con los metales alcalinos desprendiendo hidrógeno (FDS del metanol de la app); con los oxidantes (la NTP 479 los pone en las listas del peróxido de hidrógeno, el ácido crómico y el permanganato), que los llevan a aldehído y a ácido como viste en «Oxidación y reducción a fondo»; y con los ácidos, para formar ésteres.
 
-**Peligros.** Los tres son H225: puntos de inflamación de unos 11, 13 y 12 °C, por debajo de 23 °C, y hierven por encima de 35 °C. El metanol es además tóxico por las tres vías (H301, H311, H331) y H370; el isopropanol, H319 («Provoca irritación ocular grave») y H336 («Puede provocar somnolencia o vértigo»). En ICH Q3C, metanol clase 2 (3000 ppm); etanol e isopropanol, clase 3.
+**Peligros.** Los tres son H225: puntos de inflamación por debajo de 23 °C (el del metanol, unos 10 °C según su ficha; los otros dos, en su FDS), y hierven por encima de 35 °C. El metanol es además tóxico por las tres vías (H301, H311, H331) y H370; el isopropanol, H319 («Provoca irritación ocular grave») y H336 («Puede provocar somnolencia o vértigo»). En ICH Q3C, metanol clase 2 (3000 ppm); etanol e isopropanol, clase 3.
 
 ### 4. Éteres
 **Cómo se reconocen.** Un oxígeno entre dos carbonos, **R–O–R**, sin hidrógeno en el oxígeno. El nombre lleva **éter** (éter dietílico, terc-butil metil éter o MTBE); el THF (tetrahidrofurano) es un éter en anillo.
@@ -64,7 +64,7 @@ Tres ideas que ya tienes:
 
 **Reaccionan.** Los aldehídos se oxidan con facilidad a ácido. La NTP 479 hace la acetona incompatible con el **ácido nítrico concentrado y sus mezclas con sulfúrico**, y con el permanganato.
 
-**Peligros.** Acetona: H225 (punto de inflamación de unos −20 °C), H319, H336 y **EUH066**, «La exposición repetida puede provocar sequedad o formación de grietas en la piel»; clase 3 en ICH Q3C. El formaldehído, solo como mención, lleva en 2008 H351, H331, H311, H301, H314 y H317.
+**Peligros.** Acetona: H225 (punto de inflamación por debajo de 23 °C), H319, H336 y **EUH066**, «La exposición repetida puede provocar sequedad o formación de grietas en la piel»; clase 3 en ICH Q3C. El formaldehído, solo como mención, lleva en 2008 H351, H331, H311, H301, H314 y H317.
 
 ### 6. Ácidos carboxílicos
 **Cómo se reconocen.** El **grupo carboxilo** (*carboxyl group*), **–COOH**; nombre **ácido ...-oico** (ácido etanoico, el acético).
@@ -90,7 +90,7 @@ Un mol de sosa por mol de éster. Comprobación: 4 C, 9 H, 3 O y 1 Na a cada lad
 
 **La lección práctica.** Si lavas con sosa una fase de acetato de etilo, el disolvente también se come la sosa, y más cuanto más caliente y más rato. La hoja fija reactivo, temperatura y tiempo del lavado.
 
-**Peligros.** H225 (punto de inflamación de unos −4 °C), H319, H336 y EUH066; clase 3 en ICH Q3C. La NTP 479 lo pone entre los incompatibles del peróxido de hidrógeno.
+**Peligros.** H225 (punto de inflamación por debajo de 23 °C), H319, H336 y EUH066; clase 3 en ICH Q3C. La NTP 479 lo pone entre los incompatibles del peróxido de hidrógeno.
 
 ### 8. Aminas
 **Cómo se reconocen.** Un **nitrógeno** con uno, dos o tres grupos de carbono, primo del amoníaco; terminación **-amina**: trietilamina, (CH₃CH₂)₃N; anilina, con el nitrógeno sobre un anillo de benceno.

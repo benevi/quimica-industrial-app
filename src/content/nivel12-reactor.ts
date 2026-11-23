@@ -40,7 +40,7 @@ Piensa en una olla de sopa. Si no remueves, lo de abajo se quema y lo de arriba 
 3. **Repartir el calor**: llevar el líquido hasta la pared de la camisa y traerlo de vuelta.
 4. **Dispersar lo que se añade**: que un reactivo que entra se reparta y reaccione, en vez de quedarse en una zona.
 
-Según la NTP 527 del INSST, perder la agitación tiene dos efectos inmediatos: una mezcla pobre de los reactivos y una mala transferencia de calor. Con mezcla pobre los reactivos se acumulan, y si hay dos líquidos que no se mezclan pueden separarse en capas que reaccionan peligrosamente al volver a agitar. Por eso recomienda vigilar la velocidad de giro o el consumo del motor, y que la válvula de adición se cierre sola si el agitador falla.
+Según la nota técnica de prevención NTP 527 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST), perder la agitación tiene dos efectos inmediatos: una mezcla pobre de los reactivos y una mala transferencia de calor. Con mezcla pobre los reactivos se acumulan, y si hay dos líquidos que no se mezclan pueden separarse en capas que reaccionan peligrosamente al volver a agitar. Por eso recomienda vigilar la velocidad de giro o el consumo del motor, y que la válvula de adición se cierre sola si el agitador falla.
 
 ### Tipos de agitador
 
@@ -198,7 +198,7 @@ Cargas el tolueno. Son 3000 L, la mitad del reactor, muy por encima del volumen 
 
 Empiezas a calentar. Con la masa a 20 °C, la camisa no puede pasar de 70 °C. Según sube la masa, el sistema sube la camisa. Los últimos grados van lentos, como esperabas.
 
-Durante la adición, a los 25 minutos, la temperatura de masa baja a 67 °C: el reactivo entra frío. Paras la bomba. No sigues añadiendo por debajo de 68 °C, porque el reactivo se acumularía sin reaccionar. Esperas a recuperar 70 °C, reanudas y anotas la parada con su hora y su motivo. Avisas al jefe de turno, que decide si se abre una desviación.
+Durante la adición, a los 25 minutos, la temperatura de masa baja a 67 °C. Con la reacción en marcha no debería bajar: cada kilo de B desprende más calor del que cuesta calentarlo, así que o la camisa está enfriando de más o B no reacciona y se está acumulando. Paras la bomba y avisas al jefe de turno, como pide la hoja. No sigues añadiendo por debajo de 68 °C. Cuando la masa vuelve a 70 °C, reanudas con su visto bueno y anotas la parada con su hora y su motivo. El jefe de turno decide si se abre una desviación.
 `,
   batchRecord: `
 - Código del reactor, estado de limpieza y etiqueta de estado comprobados, con hora y firma.

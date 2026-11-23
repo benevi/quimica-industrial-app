@@ -128,7 +128,7 @@ El limitante es el **anhídrido**: quedará aminofenol sin reaccionar, que es un
 `,
     batchRecord: `
 - Equivalentes de cada reactivo.
-- IPC de "material de partida residual ≤ x %" para comprobar que el limitante se ha consumido.
+- Control en proceso (IPC, *in-process control*) de "material de partida residual ≤ x %" para comprobar que el limitante se ha consumido.
 `,
     terms: [
       { es: "Reactivo limitante", en: "Limiting reagent", def: "Reactivo que se consume primero y determina la cantidad de producto." },
@@ -352,7 +352,7 @@ Aceleran la reacción **sin consumirse**. Ejemplos en API:
 Los catalizadores de metal se retiran después por filtración y se controla el **metal residual** en el API (guía ICH Q3D de impurezas elementales; más detalle en el nivel 3).
 
 ### ¿Cuándo ha terminado la reacción?
-No se sabe "a ojo". Se toma una muestra y se analiza: **control en proceso** (*IPC, in-process control*), normalmente por HPLC o TLC (técnicas que verás en el nivel 7). Ejemplo: "material de partida ≤ 0,5 %". Si no cumple, se espera y se repite según la hoja.
+No se sabe "a ojo". Se toma una muestra y se analiza: **control en proceso** (*IPC, in-process control*), normalmente por cromatografía de líquidos (HPLC) o en capa fina (TLC) (técnicas que verás en el nivel 7). Ejemplo: "material de partida ≤ 0,5 %". Si no cumple, se espera y se repite según la hoja.
 `,
     plant: `
 La hoja dice *"Mantener a 60 ± 2 °C. IPC a las 3 h: material de partida ≤ 1,0 %. Si no cumple, mantener 1 h más y repetir."*

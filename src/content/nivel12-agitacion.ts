@@ -98,7 +98,7 @@ Compruébalo con las unidades: kg/m³ × 1/s³ × m⁵ = kg·m²/s³, que es jus
 
 En régimen turbulento y con deflectores, Np se mantiene casi constante, y entonces la fórmula dice dos cosas muy prácticas.
 
-**La velocidad va al cubo.** Si doblas las rpm, la potencia se multiplica por 2 × 2 × 2 = **8**. En la centrífuga viste que la fuerza G va con el cuadrado de las rpm; aquí es todavía más fuerte, con el cubo.
+**La velocidad va al cubo.** Si doblas las rpm, la potencia se multiplica por 2 × 2 × 2 = **8**. En «La centrífuga a fondo» verás que la fuerza G va con el cuadrado de las rpm; aquí es todavía más fuerte, con el cubo.
 
 **El diámetro va a la quinta.** Un rodete un poco más grande consume mucho más. Pasar de 0,9 a 1,0 m (un 11 % más) multiplica la potencia por (1,0 / 0,9)⁵ = **1,69**.
 
@@ -131,7 +131,7 @@ La **velocidad de punta** (*tip speed*) indica lo fuerte que «corta» la pala. 
 
 Sin deflectores, el líquido termina girando entero con el rodete, como el agua de un vaso que remueves en círculo. En el centro se forma un embudo, el **vórtice** (*vortex*). El líquido da vueltas, pero las capas apenas se cruzan: hay poca mezcla de arriba abajo. Si el embudo es profundo, el rodete además puede tragar gas del espacio de cabeza.
 
-El deflector es un obstáculo fijo que rompe ese giro y lo convierte en remolinos. La NTP 528 del INSST lo recomienda en reactores discontinuos y semicontinuos agitados: los rompecorrientes aumentan la turbulencia, y con ella la velocidad de transferencia de calor y la de la reacción.
+El deflector es un obstáculo fijo que rompe ese giro y lo convierte en remolinos. La nota técnica de prevención NTP 528 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) lo recomienda en reactores discontinuos y semicontinuos agitados: los rompecorrientes aumentan la turbulencia, y con ella la velocidad de transferencia de calor y la de la reacción.
 
 Un vórtice profundo por la mirilla, o una superficie que gira «en bloque», se anota y se comenta.
 
@@ -145,10 +145,10 @@ En «El reactor a fondo» viste que el calor que pasa por la camisa es Q = U × 
 
 Una forma sencilla de imaginarlo: pegada a la pared hay una capa de líquido casi quieto que el calor cruza despacio. Agitar renueva esa capa; sin agitación, el líquido junto a la pared apenas cambia y U cae.
 
-**Ejemplo con el modelo del simulador.** En el reactor R-204 de la app, U vale 300 W/(m²·K) a 90 rpm y, con el agitador parado, baja a la quinta parte, 60 W/(m²·K) (valores de ejemplo del modelo). Con A = 12 m² y la camisa 30 °C más fría que la masa:
+**Ejemplo con el modelo del simulador.** En el reactor R-204 de la app, U vale 300 W/(m²·K) a 90 rpm y, con el agitador parado, baja a la quinta parte, 60 W/(m²·K) (valores de ejemplo del modelo). Con la carga de la hoja y el reactivo B ya dentro, la superficie mojada es de unos 9,6 m². Con la camisa 10 °C más fría que la masa:
 
-- Agitando: 300 × 12 × 30 = 108000 W = **108 kW** retirados.
-- Parado: 60 × 12 × 30 = 21600 W = **21,6 kW** retirados.
+- Agitando: 300 × 9,6 × 10 = 28800 W = **28,8 kW** retirados, casi todo lo que da de sí la camisa.
+- Parado: 60 × 9,6 × 10 = 5760 W = **5,8 kW** retirados.
 
 La camisa sigue fría, pero el frío ya no llega a la masa.
 

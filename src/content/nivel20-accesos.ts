@@ -91,7 +91,7 @@ Quedan cambios de área y sustituciones sin cerrar. Por eso se revisa:
 | Qué guarda | Datos, metadatos y audit trail; según el riesgo, también aplicaciones y configuración | Datos y metadatos ya cerrados, protegidos contra cambios y borrado |
 | Anexo 11 vigente | 7.1: datos protegidos y accesibles todo el periodo; 7.2: copias regulares, con integridad y restauración comprobadas en la validación y vigiladas periódicamente | 17: comprobar accesibilidad, legibilidad e integridad; si cambia el sistema, asegurar y probar que se pueden recuperar |
 
-Cuidado con las palabras: la FDA (2018, pregunta 3e) llama *backup* a una **copia fiel conservada todo el periodo de conservación**, equivalente a lo que otras guías llaman archivo; una copia temporal para recuperarse de un fallo no cumple ese requisito.
+Cuidado con las palabras: la FDA (2018, pregunta 1e) llama *backup* a una **copia fiel conservada todo el periodo de conservación**, equivalente a lo que otras guías llaman archivo; una copia temporal para recuperarse de un fallo no cumple ese requisito.
 
 **PI 041-1 (9.9)** pide que las copias guarden datos, metadatos y audit trail, y se puedan restaurar enteras; que tengan los mismos controles que el original (en un disco portátil, que no se pueda borrar); que las rutinarias estén en un lugar **remoto y separado físicamente**, y las de archivo también separadas del original y de las copias; y que la **restauración** de lo archivado se pruebe con regularidad.
 

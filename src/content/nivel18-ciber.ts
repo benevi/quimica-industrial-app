@@ -49,7 +49,7 @@ Traducido a tu mundo: es una API interna con un endpoint de escritura **sin aute
 
 **Cortafuegos** (*firewall*). Cuando sí hace falta pasar datos, se pone un cortafuegos que filtra según una lista de reglas (*Access Control List*, ACL). Kuphaldt lo describe así: cada red a un lado del cortafuegos es una **zona** de comunicación y el cortafuegos es un **conducto** entre zonas que solo deja pasar ciertos mensajes. Y marca una diferencia clave: en oficina se suele usar **lista negra** (*blacklist*: todo pasa menos lo prohibido); en control se suele usar **lista blanca** (*whitelist*: nada pasa salvo lo expresamente permitido), porque el tráfico legítimo de planta es poco y siempre entre los mismos equipos. Es la idea de «denegar por defecto» que conoces de los grupos de seguridad de un servidor en la nube.
 
-**DMZ industrial** (*demilitarized zone*). Es un servidor intermedio entre dos cortafuegos. Su objetivo es que **ningún tráfico pase directo** de una red a otra: todo pasa por ese servidor, que solo hace lo justo. El ejemplo típico es el historiador: lee los controladores y sirve los datos a la oficina, así que nadie de la oficina necesita hablar con un PLC. Si te ayuda: es un proxy inverso con una sola función. Para atacar la red de control, primero habría que comprometer el servidor de la DMZ: una capa más.
+**DMZ industrial** (*demilitarized zone*). Es una red intermedia, entre dos cortafuegos, donde están los servidores por los que pasa todo intercambio. Su objetivo es que **ningún tráfico pase directo** de una red a otra: todo pasa por un servidor de la DMZ, que solo hace lo justo. El ejemplo típico es el historiador: lee los controladores y sirve los datos a la oficina, así que nadie de la oficina necesita hablar con un PLC. Si te ayuda: es un proxy inverso con una sola función. Para atacar la red de control, primero habría que comprometer el servidor de la DMZ: una capa más.
 
 **Diodo de datos** (*data diode*). Solo deja pasar datos en un sentido: desde fuera se lee, pero no se escribe.
 
@@ -152,7 +152,7 @@ Sistemas desconecta de forma controlada el enlace con la DMZ y confirma que la c
     { es: "Cortafuegos", en: "Firewall", def: "Equipo o programa que deja pasar o bloquea mensajes entre redes según una lista de reglas." },
     { es: "Lista blanca", en: "Whitelist", def: "Política que bloquea todo salvo lo expresamente permitido; la habitual en redes de control." },
     { es: "Zona y conducto", en: "Zone and conduit", def: "Una zona es un grupo de equipos en la misma red protegida; un conducto es el paso controlado entre zonas." },
-    { es: "Zona desmilitarizada industrial", en: "Industrial DMZ", def: "Servidor intermedio entre dos cortafuegos por el que pasa todo intercambio entre la red de oficina y la de control." },
+    { es: "Zona desmilitarizada industrial", en: "Industrial DMZ", def: "Red intermedia entre dos cortafuegos, con los servidores por los que pasa todo intercambio entre la red de oficina y la de control." },
     { es: "Diodo de datos", en: "Data diode", def: "Dispositivo que solo permite enviar datos en un sentido: desde fuera se puede leer, pero no escribir." },
     { es: "Programa de secuestro", en: "Ransomware", def: "Programa malicioso que cifra datos y sistemas y pide un rescate para liberarlos." },
     { es: "Suplantación dirigida", en: "Spear phishing", def: "Engaño que parece venir de alguien de confianza para que reveles datos o abras un archivo infectado." },

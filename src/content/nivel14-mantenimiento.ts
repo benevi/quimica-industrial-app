@@ -10,7 +10,7 @@ export const mantenimientoAFondo: Lesson = {
   summary:
     "Tu parte en el mantenimiento: detectar y describir una avería, pedir el trabajo, entregar el equipo limpio y seguro, recibirlo, probar que no fuga, vigilar la etiqueta de estado y la caducidad de la limpieza, y entender los indicadores que oirás en planta.",
   body: `
-En la lección anterior viste los tipos de mantenimiento y la orden de trabajo en pocas líneas. Aquí vas a ver tu parte, paso a paso: avisar, entregar el equipo, recibirlo y comprobarlo. Los permisos y la consignación están en «Permisos a fondo»; la calibración, en «Instrumentos a fondo»; la cualificación, en «Validación a fondo». No se repiten aquí.
+En la lección anterior viste los tipos de mantenimiento y la orden de trabajo en pocas líneas. Aquí vas a ver tu parte, paso a paso: avisar, entregar el equipo, recibirlo y comprobarlo. Los permisos y la consignación están en «Permisos de trabajo, consignación y espacios confinados a fondo»; la calibración, en «Instrumentos de medida a fondo»; la cualificación, en «Cualificación y validación a fondo». No se repiten aquí.
 
 ### Por qué el mantenimiento también es cosa tuya
 El mecánico ve el reactor unas horas al año. Tú lo oyes, lo ves, lo hueles y lo tocas cada turno. Eres quien nota que hoy suena distinto que ayer. La NTP 577 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) lo dice así: el personal implicado en las tareas suele ser el primero en detectar los fallos, y cualquier trabajador que detecte un defecto o un indicio de avería en los equipos que usa debe comunicarlo de inmediato a su mando directo.
@@ -76,7 +76,7 @@ Nada se arregla «de palabra». Sin orden no hay permiso, no hay registro, nadie
 1. **Vaciar** equipo y líneas.
 2. **Limpiar o descontaminar** hasta el nivel que pida el procedimiento. La NTP 1017 pide que, siempre que sea posible, se limpie antes de que entre mantenimiento y que lo haga producción, que conoce las sustancias. La inspección visual puede bastar, pero con productos muy potentes hace falta un análisis.
 3. **Inertizar o ventilar**, según se vaya a abrir o no.
-4. **Aislar y consignar.** Está en «Permisos a fondo».
+4. **Aislar y consignar.** Está en «Permisos de trabajo, consignación y espacios confinados a fondo».
 5. **Etiquetar el estado:** «en mantenimiento».
 6. **Informar de lo que contuvo:** producto, disolventes y sus fichas de datos de seguridad (*safety data sheets*, SDS).
 7. **Documento de descontaminación** si una pieza sale del área. La NTP 1017 aconseja adjuntar el boletín de análisis a la lista de comprobación de limpieza, donde consta quién, cómo y cuándo limpió. Si no se puede garantizar la descontaminación completa, la pieza se limpia, se humedece para que no levante polvo y viaja en bolsa de plástico cerrada.

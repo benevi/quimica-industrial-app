@@ -20,7 +20,7 @@ const micro: Lesson[] = [
 - **Esporas** (*spores*): formas de resistencia de algunas bacterias y hongos; aguantan calor y desinfectantes.
 
 ### Fuentes de contaminación
-1. **Personas**: la principal. Perdemos millones de partículas de piel cada día.
+1. **Personas**: la principal. Soltamos sin parar escamas de piel, pelo y gotitas con microorganismos.
 2. **Agua**: el agua estancada en tuberías favorece el crecimiento.
 3. **Aire**: polvo y partículas.
 4. **Materias primas**, sobre todo las naturales.
@@ -207,7 +207,7 @@ Comprobación de presiones diferenciales, temperatura y humedad de la sala antes
       { es: "Cascada de presiones", en: "Pressure cascade", def: "Diferencias de presión entre salas para que el aire vaya de lo limpio a lo menos limpio." },
       { es: "Esclusa", en: "Airlock", def: "Pequeña sala entre dos zonas para pasar sin mezclar el aire." },
       { es: "Monitorización ambiental", en: "Environmental monitoring (EM)", def: "Control periódico de partículas y microorganismos de las salas." },
-      { es: "Placa de contacto", en: "Contact plate (RODAC)", def: "Placa de cultivo que se apoya en una superficie para tomar muestra." },
+      { es: "Placa de contacto", en: "Contact plate (RODAC, replicate organism detection and counting)", def: "Placa de cultivo que se apoya en una superficie para tomar muestra." },
     ],
     quiz: [
       {

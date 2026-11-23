@@ -20,10 +20,10 @@ En una planta GMP no hay "un programa": hay una **cadena de sistemas**, cada uno
 
 | Nivel | Qué hay | Ejemplos | Ritmo de los datos |
 |---|---|---|---|
-| **4. Negocio y logística** | Planificación, compras, stock, ventas | **ERP** (SAP S/4HANA) | Días, semanas |
-| **3. Gestión de operaciones** | Cómo se fabrica y se analiza cada lote | **MES**, **LIMS**, historiador de planta, almacén (WMS) | Turnos, horas, minutos |
-| **2. Supervisión** | Ver y mandar sobre el proceso | **SCADA**, pantallas **HMI**, estaciones del **DCS** | Segundos |
-| **1. Control básico** | Leer sensores y mover actuadores | **PLC**, controladores, tarjetas de E/S | Milisegundos |
+| **4. Negocio y logística** | Planificación, compras, stock, ventas | **ERP** (planificación de recursos empresariales, *Enterprise Resource Planning*; p. ej. SAP S/4HANA) | Días, semanas |
+| **3. Gestión de operaciones** | Cómo se fabrica y se analiza cada lote | **MES** (*Manufacturing Execution System*), **LIMS** (sistema del laboratorio, *Laboratory Information Management System*), historiador de planta, gestión de almacén (*Warehouse Management System*, WMS) | Turnos, horas, minutos |
+| **2. Supervisión** | Ver y mandar sobre el proceso | **SCADA** (supervisión y adquisición de datos), pantallas **HMI** (*Human-Machine Interface*), estaciones del **DCS** (sistema de control distribuido) | Segundos |
+| **1. Control básico** | Leer sensores y mover actuadores | **PLC** (autómata programable), controladores, tarjetas de entradas y salidas (E/S) | Milisegundos |
 | **0. Proceso físico** | El reactor y sus instrumentos | Sondas de temperatura, válvulas, bombas | Tiempo real |
 
 El **modelo Purdue** es la misma idea aplicada a redes y ciberseguridad (lo verás en la lección de ciberseguridad).
@@ -46,13 +46,13 @@ El **modelo Purdue** es la misma idea aplicada a redes y ciberseguridad (lo ver�
 - **GMAO** (*CMMS, Computerized Maintenance Management System*): mantenimiento y calibraciones.
 - **Sistema de datos cromatográficos** (*CDS*): los datos crudos del HPLC.
 
-Un sistema es **GMP** (o *GxP*) si crea, guarda o procesa datos que sirven para decidir sobre la calidad del producto. Si lo es, tiene que estar **validado** y cumplir el **Anexo 11**.
+Un sistema es **GMP** (o *GxP*) si crea, guarda o procesa datos que sirven para decidir sobre la calidad del producto. Si lo es, tiene que estar **validado**: en principios activos lo exige la parte II de las GMP europeas (ICH Q7, apartado 5.40), y el **Anexo 11** sirve de referencia europea para hacerlo.
 
 ### El "sistema de registro"
 Para cada dato hay que saber **dónde vive el original** (*system of record*). Si el peso de una carga lo registra la báscula y pasa al MES, el registro GMP es el del MES. Una copia en Excel nunca es el original.
 `,
     plant: `
-Lote 26-0412 del intermedio ficticio **INT-12**. A las 7:00 el ERP libera la orden de proceso 1000231. En la tableta del MES aparece el paso "Cargar 180,0 kg de tolueno". El DCS abre la válvula de dosificación y el caudalímetro totaliza 180,2 kg; el historiador guarda la curva de caudal y el MES registra el total. A media mañana tomas el IPC: el LIMS imprime la etiqueta. Cuando el laboratorio aprueba, el lote pasa en el ERP de **"en control de calidad"** a **"libre utilización"**.
+Lote 26-0412 del intermedio ficticio **INT-12**. A las 7:00 el ERP libera la orden de proceso 1000231. En la tableta del MES aparece el paso "Cargar 180,0 kg de tolueno". El DCS abre la válvula de dosificación y el caudalímetro totaliza 180,2 kg; el historiador guarda la curva de caudal y el MES registra el total. A media mañana tomas el IPC: el LIMS imprime la etiqueta. Cuando calidad toma la decisión de empleo, el lote pasa en el ERP de **"en control de calidad"** a **"libre utilización"**.
 
 Cinco sistemas distintos han tocado el mismo lote, y todos dejan rastro.
 `,

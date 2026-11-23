@@ -183,11 +183,11 @@ Reglas para ti:
 Los números de esta lección sirven para entender. En planta manda siempre el procedimiento vigente (SOP): el método, las presiones, el número de ciclos y el límite de oxígeno son los que diga tu hoja.
 `,
   plant: `
-Turno de mañana. Vas a preparar el reactor R-204 para cargar tolueno en el lote del intermedio ficticio KV-17. La hoja dice: *«Inertizar R-204 con 3 ciclos de vacío hasta 150 mbar abs, rompiendo con nitrógeno hasta 1000 mbar abs. Verificar O₂ ≤ 2,0 % con el analizador AO-204. Mantener con nitrógeno.»*
+Turno de mañana. Vas a preparar el reactor R-204 para cargar tolueno en el lote del intermedio ficticio AX-22. La hoja dice: *«Inertizar R-204 con 3 ciclos de vacío hasta 150 mbar abs, rompiendo con nitrógeno hasta 1000 mbar abs. Verificar O₂ ≤ 2,0 % con el analizador AI-204. Mantener con nitrógeno.»*
 
 Haces la cuenta de cabeza para saber qué esperar: el factor es 150 / 1000 = 0,15. Del 21 % pasarías a 3,15 %, luego a 0,47 % y al final a 0,07 %.
 
-Cierras boca de hombre y válvula de fondo, arrancas el vacío y llegas a 150 mbar abs. Rompes con nitrógeno. Repites dos veces más y anotas la presión alcanzada en cada ciclo. Mides: el AO-204 marca 3,8 %.
+Cierras boca de hombre y válvula de fondo, arrancas el vacío y llegas a 150 mbar abs. Rompes con nitrógeno. Repites dos veces más y anotas la presión alcanzada en cada ciclo. Mides: el AI-204 marca 3,8 %.
 
 No cuadra. Esperabas en torno al 0,07 % y tienes unas cincuenta veces más. No cargas. Haces vacío otra vez, aíslas el reactor y miras el vacuómetro: la presión sube sola, poco a poco. Está entrando aire.
 
@@ -200,7 +200,7 @@ En ningún momento te has asomado a la boca de hombre para «ver qué pasa».
   batchRecord: `
 En la hoja de producción (*batch record*) verás una instrucción con cuatro datos: método, número de ciclos, presiones (fíjate en si son absolutas o manométricas) y límite de oxígeno. Y casillas para anotar:
 
-- **Equipo**: código del reactor (p. ej. R-204) y del analizador de oxígeno usado (p. ej. AO-204), con su calibración vigente.
+- **Equipo**: código del reactor (p. ej. R-204) y del analizador de oxígeno usado (p. ej. AI-204), con su calibración vigente.
 - **Cada ciclo**: presión baja y presión alta realmente alcanzadas, con su unidad (mbar abs o bar g), no el valor teórico.
 - **Oxígeno medido**: el valor real que marca el analizador (0,2 %, no «cumple»), con fecha, hora y firma, justo antes de la carga.
 - **Límite**: la hoja lo trae escrito (p. ej. O₂ ≤ 2,0 %); tú comparas y registras el resultado.

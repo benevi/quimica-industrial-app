@@ -37,7 +37,7 @@ Q6A (3.2.1) llama **ensayos universales** (*universal tests*) a los que se aplic
 | Ensayo | Qué pide Q6A | Por qué importa en planta |
 |---|---|---|
 | **Descripción** | Afirmación cualitativa del estado (sólido, líquido) y del color; si cambia en el almacenamiento, se investiga | Primer filtro: un tono amarillo o puntos negros pueden venir de un secado caliente o de una junta gastada |
-| **Identificación** | Específica del producto, por ejemplo infrarrojo; un solo tiempo de retención en cromatografía no basta, pero dos cromatografías distintas o HPLC con detector de diodos o de masas suelen aceptarse | Demuestra que el bidón contiene lo que dice la etiqueta |
+| **Identificación** | Específica del producto, por ejemplo infrarrojo; un solo tiempo de retención en cromatografía no basta, pero dos cromatografías distintas o cromatografía líquida (HPLC) con detector de diodos o de masas suelen aceptarse | Demuestra que el bidón contiene lo que dice la etiqueta |
 | **Riqueza** (*assay*) | Método específico e **indicador de estabilidad**, a menudo el mismo HPLC que las impurezas; una valoración, que no es específica, se combina con un ensayo de impurezas | Dice cuánto principio activo hay de verdad |
 | **Impurezas** | Orgánicas, inorgánicas y disolventes residuales, según ICH Q3A y Q3C | Temperaturas, tiempos, lavados y secados deciden cuántas quedan |
 
@@ -56,7 +56,7 @@ Q6A (3.3.1) añade **ensayos específicos** (*specific tests*), que se incluyen 
 | **Impurezas inorgánicas** | Según el proceso, por ejemplo restos de catalizador; las cenizas sulfatadas siguen la farmacopea | Filtración del catalizador y lavados |
 | **Límites microbianos** | Aerobios, hongos y levaduras y ausencia de bacterias como *Escherichia coli*, según producto, proceso y uso; endotoxinas si va a un inyectable | Higiene de la descarga y del envasado |
 
-Cada uno tiene su lección «a fondo» en los niveles 7 a 9.
+Cada uno tiene su lección «a fondo» entre los niveles 3 y 9.
 
 ### De dónde sale cada límite
 Q6A (3.1.2) pide justificar **cada** ensayo y **cada** criterio con datos de desarrollo, farmacopea, lotes de toxicología y clínicos y estabilidad, contando con una variabilidad razonable del análisis y la fabricación. Las cinco fuentes de un límite:
@@ -174,7 +174,7 @@ Especificación del principio activo ficticio **VR-260**, versión 3. Todos los 
 | Cualquier impureza no especificada | MA-260-03, HPLC | ≤ 0,10 % |
 | Impurezas totales | MA-260-03, HPLC | ≤ 0,50 % |
 | Agua | MA-260-04, Karl Fischer | ≤ 0,5 % |
-| Metanol | MA-260-05, GC | ≤ 3000 ppm |
+| Metanol | MA-260-05, cromatografía de gases (GC) | ≤ 3000 ppm |
 | Tolueno | MA-260-05, GC | ≤ 890 ppm |
 | Etanol | MA-260-05, GC | ≤ 5000 ppm |
 | Cenizas sulfatadas | MA-260-06 | ≤ 0,1 % |

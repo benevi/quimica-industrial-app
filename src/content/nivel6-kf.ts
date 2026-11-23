@@ -171,7 +171,7 @@ Lo que sale de la celda es un residuo peligroso: disolvente orgánico con yodo, 
 Los números de esta lección son para entender. En planta y en el laboratorio manda siempre el procedimiento vigente (SOP): el método, el tipo de recipiente, el límite y lo que se hace con cada resultado son los de tu hoja.
 `,
   plant: `
-Turno de tarde. En el secadero de paletas a vacío SV-610 se seca el intermedio ficticio LT-58, lavado al final con un disolvente orgánico. La hoja dice: *«Secar a vacío con camisa a 55 °C. IPC: LOD ≤ 0,5 % y KF ≤ 0,3 %. La etapa siguiente usa el reactivo RX-9, que se destruye con el agua.»*
+Turno de tarde. En el secadero de paletas a vacío SV-610 se seca el intermedio ficticio LT-58, lavado al final con un disolvente orgánico. La hoja dice: *«Secar a vacío con camisa a 55 °C. Control en proceso (IPC): LOD ≤ 0,5 % y KF ≤ 0,3 %. La etapa siguiente usa el reactivo RX-9, que se destruye con el agua.»*
 
 A las seis horas tomas la primera muestra: rompes el vacío con nitrógeno, llenas el frasco de vidrio con cierre hermético casi hasta arriba, lo cierras enseguida y lo etiquetas. No lo dejas abierto aunque esté caliente.
 

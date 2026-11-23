@@ -272,7 +272,7 @@ A las 05:40 llega el resultado: 0,6 % de disolvente frente a un límite de ejemp
         "Lo juntas con la muestra de reserva del lote anterior",
       ],
       answer: 2,
-      explain: "La guía de muestreo de la OMS dice que las muestras nunca se devuelven al lote. El sobrante va donde diga el procedimiento: residuo o reserva de ese mismo lote.",
+      explain: "La guía de muestreo de la OMS dice que las muestras nunca se devuelven al lote. El sobrante va donde diga el procedimiento, normalmente a residuos. La muestra de reserva se toma aparte, con su propio procedimiento.",
     },
     {
       kind: "choice",

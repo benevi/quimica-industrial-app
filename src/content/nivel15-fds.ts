@@ -124,7 +124,7 @@ Epígrafes del Reglamento 2020/878 y lo que buscas en planta:
 | 6. Vertido | 6.1 protegerse; 6.2 medio ambiente; 6.3 contener y limpiar | El orden ante un derrame |
 | 7. Manipulación y almacenamiento | 7.1 manipulación; 7.2 almacenamiento e incompatibilidades | Tierra en trasvases, temperatura, material del envase |
 | 8. Exposición y protección | 8.1 valores límite; 8.2 controles técnicos y equipo | Límites, extracción, guante (material, espesor, tiempo de paso), filtro |
-| 9. Propiedades | 9.1 de la a) a la q) | Punto de inflamación, explosividad, densidad, presión de vapor |
+| 9. Propiedades | 9.1 de la a) a la r) | Punto de inflamación, explosividad, densidad, presión de vapor |
 | 10. Estabilidad y reactividad | 10.4 condiciones a evitar; 10.5 incompatibles; 10.6 descomposición | Con qué no se mezcla ni se calienta |
 | 11. Toxicología | 11.1 por clase de peligro | Por qué es peligroso; escrita sobre todo para médicos |
 | 12. Ecología | 12.1 a 12.7 | Daño al agua, persistencia |

@@ -144,7 +144,7 @@ Si el error es físico (cargaste un saco en cuarentena), no lo arregla el ERP: e
 **Lo que no se hace nunca:** borrar, pedir a alguien que «lo quite de la base de datos», ajustar el inventario para que cuadre o contabilizar con el usuario de otro. El anexo 11 pide audit trail de los cambios GMP con su motivo (apartado 9) y una comprobación adicional para los datos críticos tecleados a mano (apartado 6), igual que ICH Q7 (5.43 y 5.45).
 
 ### Practica en el simulador
-En el [simulador de ERP](/sap) haz las nueve misiones, de MMBE y C203 a la decisión de empleo. La novena fabrica un segundo lote con una impureza del 0,14 % (máximo 0,1 %) que obliga a rechazarlo. Cuando las hagas sin pistas, pasa al examen cronometrado.
+En el [simulador de ERP](/sap) haz las diez misiones, de MMBE y C203 a la decisión de empleo. La novena fabrica un segundo lote con una impureza del 0,14 % (máximo 0,1 %) que obliga a rechazarlo. La décima pasa al ERP el lote FX-101 que fabricaste en el simulador de planta. Cuando las hagas sin pistas, pasa al examen cronometrado.
 
 En planta manda siempre el procedimiento vigente (SOP): los códigos, las pantallas y las tolerancias de tu ERP pueden ser distintos de los del simulador.
 `,

@@ -177,7 +177,7 @@ Para que funcione no puedes estorbar al aire:
 Los límites de tu sala pueden ser más estrechos, porque los marca el producto.
 
 ### Extracción localizada y lavadores, en breve
-La OMS es clara: el polvo y los vapores se retiran en origen siempre que se pueda, y el HVAC no debe ser el mecanismo principal de control del polvo. Para eso está la **extracción localizada**, la boca que aspira junto al foco. Puede ir enclavada con la unidad de aire, porque extraer aire de una sala cambia su presión. El aire extraído se lava o se filtra antes de salir; el equipo que lo lava con un líquido es el **lavador de gases** (*scrubber*). Más en «Sólidos a fondo» y «Exposición a productos químicos a fondo».
+La OMS es clara: el polvo y los vapores se retiran en origen siempre que se pueda, y el HVAC no debe ser el mecanismo principal de control del polvo. Para eso está la **extracción localizada**, la boca que aspira junto al foco. Puede ir enclavada con la unidad de aire, porque extraer aire de una sala cambia su presión. El aire extraído se lava o se filtra antes de salir; el equipo que lo lava con un líquido es el **lavador de gases** (*scrubber*). Más en «Manejo de sólidos a fondo» y «Exposición a productos químicos a fondo».
 
 ### Vigilancia, cualificación y mantenimiento
 Se vigilan y registran las presiones entre salas, la temperatura, la humedad, la presión diferencial de los filtros y, en salas clasificadas, las partículas y los microorganismos (nivel 9). Cada parámetro tiene límite de **alerta** y de **acción**.

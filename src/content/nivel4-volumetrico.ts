@@ -153,7 +153,7 @@ Una pipeta de 10 mL se pesa cinco veces a 20 °C: 9,9781; 9,9841; 9,9751; 9,9811
 4. Divide entre el número de medidas menos uno (4): 0,0000125. Se resta uno porque la media ya salió de esos mismos datos.
 5. Raíz cuadrada: **s = 0,0035 mL**, un 0,035 % de la media. Python (statistics.stdev) da lo mismo.
 
-La pipeta es precisa (valores casi iguales) y exacta (media a 0,003 mL del nominal). Una pipeta con la punta rota podría dar cinco valores igual de juntos alrededor de 9,960 mL: precisa pero no exacta. Una mala técnica dispersa los valores: crece el error aleatorio.
+La pipeta es precisa (valores casi iguales) y de buena veracidad (media a 0,003 mL del nominal). Una pipeta con la punta rota podría dar cinco valores igual de juntos alrededor de 9,960 mL: precisa pero no exacta. Una mala técnica dispersa los valores: crece el error aleatorio.
 
 ### Limpieza, secado, almacenamiento e inspección
 - **Limpio de verdad**: según la FDA, si el agua escurre en película continua sin formar gotas, está limpio. Gotas pegadas: grasa, y la pipeta vierte menos.
@@ -252,7 +252,7 @@ Siempre se anota el valor medido o recibido, con su unidad, nunca el esperado.
       answer: 25.009,
       tolerance: 0.0002,
       unit: "mL",
-      explain: "Volumen = masa / densidad = 24,9530 / 0,997773 = 25,009 mL. Error: +0,009 mL.",
+      explain: "Volumen = masa / densidad = 24,9530 / 0,997773 = 25,009 mL. Error sin corregir el aire: +0,009 mL; con la corrección del aire (un 0,1 % más), unos 25,034 mL, es decir, +0,034 mL. Por eso los métodos exactos la aplican.",
     },
     {
       kind: "number",

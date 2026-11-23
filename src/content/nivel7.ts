@@ -34,7 +34,7 @@ Como ε y b son constantes, **A es proporcional a c**. En la práctica se compar
 
 > c muestra = c patrón × A muestra / A patrón
 
-La ley funciona bien en un rango; normalmente se trabaja con absorbancias entre 0,2 y 1,0 aproximadamente.
+La ley funciona bien en un rango; normalmente se trabaja con absorbancias entre 0,2 y 0,8 aproximadamente.
 
 ### Usos
 - **Contenido** (*assay*) de un API que absorbe en UV.
@@ -184,8 +184,8 @@ El detector dibuja una línea con un **pico** (*peak*) por cada componente:
 - El **área** del pico dice **cuánto** hay.
 
 ### Tipos
-- **Capa fina** (TLC): sobre una placa; rápida y barata, a veces para IPC.
-- **Líquida de alta resolución** (HPLC/UPLC): la más usada para pureza y contenido.
+- **Capa fina** (TLC, *thin-layer chromatography*): sobre una placa; rápida y barata, a veces para controles en proceso (IPC).
+- **Líquida de alta resolución** (HPLC, *high-performance liquid chromatography*, o UPLC, *ultra performance liquid chromatography*, a presión aún más alta): la más usada para pureza y contenido.
 - **De gases** (GC): para sustancias volátiles, como los disolventes.
 
 ### Calidad de la separación
@@ -254,8 +254,8 @@ Resultados IPC expresados en "% área" del material de partida o de impurezas.
 3. **Inyector automático** (*autosampler*): toma unos µL de cada vial.
 4. **Columna** (*column*): tubo relleno de partículas muy finas. La más común es la **C18 de fase reversa** (*reversed phase*): retiene más lo poco polar.
 5. **Horno de columna**: temperatura constante.
-6. **Detector**, casi siempre **UV** (o de diodos, DAD). A veces **masas** (MS).
-7. **Software** (CDS): controla el equipo y guarda los datos con audit trail.
+6. **Detector**, casi siempre **UV** (o de diodos, DAD, *diode array detector*). A veces **masas** (MS).
+7. **Software** (sistema de datos cromatográficos, CDS, *chromatography data system*): controla el equipo y guarda los datos con audit trail.
 
 ### Isocrático y gradiente
 - **Isocrático**: la fase móvil tiene siempre la misma composición.

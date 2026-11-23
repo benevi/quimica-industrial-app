@@ -22,11 +22,13 @@ const datos: Lesson[] = [
 | **Anexo 11** de las GMP de la UE (2011) | Comisión Europea (EudraLex vol. 4) | Sistemas informatizados en GMP |
 | **ICH Q7**, apartado 5.4 | ICH (aplicada en la UE como GMP Parte II) | Sistemas informatizados en la fabricación de API |
 | **MHRA** *GxP Data Integrity Guidance* (2018) | Reino Unido | Integridad de datos |
-| **PIC/S PI 041-1** (2021) | Cooperación de más de 50 autoridades de inspección | Integridad de datos en entornos GMP/GDP |
+| **PIC/S PI 041-1** (2021) | Cooperación de más de 50 autoridades de inspección | Integridad de datos en fabricación (GMP) y distribución (*Good Distribution Practice*, GDP) |
 | **FDA** *Data Integrity and Compliance With Drug CGMP* (2018) | FDA | Preguntas y respuestas sobre integridad de datos |
 | **GAMP 5** (2.ª ed., 2022) | ISPE (guía de la industria, no ley) | Cómo validar con un enfoque basado en riesgos |
 
-Una planta de API que exporta a EE. UU. cumple **las dos**: Part 11 y Anexo 11.
+GxP agrupa todas las buenas prácticas reguladas: fabricación, laboratorio, clínica, distribución.
+
+Una planta europea de API que exporta a EE. UU. sigue la parte II de las GMP europeas (ICH Q7, apartado 5.4), con el Anexo 11 como referencia, y Part 11 para los registros electrónicos que piden las normas de la FDA o que se le envían.
 
 ### 21 CFR Part 11 en una tabla
 **Subparte B, registros electrónicos.** El apartado **11.10** pide, para sistemas cerrados:

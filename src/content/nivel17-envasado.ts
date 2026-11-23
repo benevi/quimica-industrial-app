@@ -101,7 +101,7 @@ En la práctica, el despeje se hace dos veces:
 
 Además: va en la lengua oficial del país (17.2); si figura «Peligro», no aparece «Atención» (20.3); no más de seis consejos de prudencia salvo que haga falta (28.3); y se fija con firmeza al envase (31.1).
 
-Ejemplo: un producto ficticio sensibilizante cutáneo de categoría 1, según el anexo I en su texto de 2008, llevaría el pictograma GHS07 (signo de exclamación), la palabra «Atención», la frase H317 «Puede provocar una reacción alérgica en la piel» y consejos de prudencia como P261 («Evitar respirar el polvo/el humo/el gas/la niebla/los vapores/el aerosol.») y P280 («Llevar guantes/prendas/gafas/máscara de protección.»). El reglamento se ha modificado varias veces desde 2008; la clasificación real de tu producto y la versión vigente las aplica tu empresa en la etiqueta maestra.
+Ejemplo: un producto ficticio sensibilizante cutáneo de categoría 1, según el anexo I en su texto de 2008, llevaría el pictograma GHS07 (signo de exclamación; GHS es el Sistema Globalmente Armonizado de la ONU), la palabra «Atención», la frase H317 «Puede provocar una reacción alérgica en la piel» y consejos de prudencia como P261 («Evitar respirar el polvo/el humo/el gas/la niebla/los vapores/el aerosol.») y P280 («Llevar guantes/prendas/gafas/máscara de protección.»). El reglamento se ha modificado varias veces desde 2008; la clasificación real de tu producto y la versión vigente las aplica tu empresa en la etiqueta maestra.
 
 ### La operación paso a paso
 Este es el orden general. Los detalles, los fija tu procedimiento.

@@ -118,7 +118,7 @@ Reducir una molécula orgánica suele ser añadirle hidrógeno. Una forma de hac
 **En planta, en orden**, en un reactor a presión:
 
 1. **Carga** del sustrato, del disolvente y del catalizador, húmedo, en la forma y el orden que marque la hoja.
-2. **Inertización**: ciclos de nitrógeno hasta bajar el oxígeno por debajo del límite de la hoja. La NTP 567 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) da una concentración límite de oxígeno del 5 % para el hidrógeno y pide quedarse de un 2 a un 3 % por debajo («Inertización a fondo»).
+2. **Inertización**: ciclos de nitrógeno hasta bajar el oxígeno por debajo del límite de la hoja. La NTP 567 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) da una concentración límite de oxígeno del 5 % para el hidrógeno y pide quedarse de 2 a 3 puntos por debajo («Inertización a fondo»).
 3. **Presurización con hidrógeno** hasta la consigna, con agitación: el gas tiene que disolverse y llegar al catalizador.
 4. **Reacción**: se vigilan presión, temperatura y **consumo de hidrógeno**. Si el consumo se detiene, el control en proceso confirma si ha terminado.
 5. **Despresurización** al venteo y **purga con nitrógeno** antes de abrir nada. Las dos purgas, antes y después, impiden lo mismo: que hidrógeno y aire se junten dentro del equipo.
@@ -136,7 +136,7 @@ Se cargan 500 kg de intermedio, de masa molar 250 g/mol.
 
 1. Moles de intermedio: 500000 g / 250 g/mol = **2000 mol** (2 kmol).
 2. Cada mol consume 3 mol de H₂: 2000 × 3 = **6000 mol** de H₂ (6 kmol).
-3. En **metros cúbicos normales** (*normal cubic metres*, m³N o Nm³), aquí tomados a 0 °C y 1 atm. Ojo: como viste en «Nitrógeno, aire comprimido y vacío a fondo», no todos los documentos usan la misma referencia (el reglamento de equipos a presión usa 15 °C y 1,013 bar), así que mira siempre cuál. Con 0 °C y 1 atm: 6000 × 22,4 L = 134400 L = **134 m³N**.
+3. En **metros cúbicos normales** (*normal cubic metres*, m³N o Nm³), aquí tomados a 0 °C y 1 atm. Ojo: como verás en «Nitrógeno, aire comprimido y vacío a fondo», no todos los documentos usan la misma referencia (el reglamento de equipos a presión usa 15 °C y 1,013 bar), así que mira siempre cuál. Con 0 °C y 1 atm: 6000 × 22,4 L = 134400 L = **134 m³N**.
 4. En masa: 6000 × 2 g = **12 kg** de hidrógeno.
 
 Doce kilos que llenarían un salón hasta el techo. Si el contador marca mucho menos al pararse el consumo, la reacción puede estar incompleta; si marca mucho más, algo no cuadra (una fuga, una reacción distinta). En los dos casos se avisa. Y mira las condiciones de referencia de la hoja: el Real Decreto 2032/2009 recuerda que los datos se refieren hoy a 1 bar y antes de 1982 a la atmósfera normal.
@@ -186,7 +186,7 @@ La **corrosión** (*corrosion*) del hierro es una oxidación: el hierro (0) pier
 - **Los cloruros** (Cl⁻, del ácido clorhídrico, la sal o la lejía) rompen la capa en puntos concretos. Allí el metal se disuelve hacia dentro: una **picadura** (*pitting*), un agujero pequeño y profundo, casi invisible por fuera. La guía de la FDA sobre sistemas de agua de alta pureza cuenta que tubos de inoxidable de un intercambiador, vaciados con restos de humedad y aire, acabaron con agujeros diminutos (*pinholes*).
 - **Los ácidos fuertes**, sobre todo calientes, disuelven la capa y el metal, desprendiendo hidrógeno como en la parte 4.
 
-Por eso las etapas con ácidos o cloruros se hacen en **acero vitrificado** (*glass-lined steel*) o en aleaciones especiales, como viste en «Tuberías, válvulas y conexiones». Los cuidados del vidrio están en «El reactor a fondo».
+Por eso las etapas con ácidos o cloruros se hacen en **acero vitrificado** (*glass-lined steel*) o en aleaciones especiales, como verás en «Tuberías, válvulas y conexiones». Los cuidados del vidrio están en «El reactor a fondo».
 
 **Limpiar y pasivar.** La guía ICH Q7 pide que las superficies que tocan materias, intermedios o principios activos no alteren su calidad, y un acero corroído suelta metal al producto. La guía de la OMS recomienda considerar el **pasivado** (*passivation*) de los sistemas de acero inoxidable tras la instalación y tras modificaciones importantes, con un procedimiento escrito que fije disolución, concentración, temperatura y tiempo de contacto, y con registro. Pasivar es tratar la superficie limpia para que la capa pasiva quede completa; lo hace quien indique el procedimiento.
 

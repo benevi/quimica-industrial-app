@@ -32,7 +32,7 @@ Es una pequeña planta: depósitos, bomba, válvula de carga, separación, medid
 | **Detector** (*detector*) | Convierte lo que sale en señal | Lámpara gastada, celda sucia o con burbujas |
 | **Sistema de datos** (*chromatography data system*, CDS) | Controla, guarda, integra y calcula | Permisos mal dados, copias de seguridad olvidadas |
 
-**El bucle de inyección.** El inyector llena un tubito de volumen conocido, el **bucle** (*sample loop*), y una válvula lo pone en el camino de la fase móvil, como una esclusa. Los dos métodos del INSST consultados inyectan 10 y 20 µL.
+**El bucle de inyección.** El inyector llena un tubito de volumen conocido, el **bucle** (*sample loop*), y una válvula lo pone en el camino de la fase móvil, como una esclusa. Los dos métodos del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) consultados inyectan 10 y 20 µL.
 
 **La bomba y la presión.** La bomba fija el caudal, no la presión. La presión es la resistencia de la columna al paso del líquido, como soplar por una pajita llena de arena. Es el primer chivato: si sube, algo se tapa; si cae de golpe, hay una fuga o la bomba no aspira. Una pequeña **pulsación** (*pulsation*) de los pistones es normal; una oscilación grande, no.
 
@@ -158,14 +158,14 @@ Una prueba que el **equipo** funciona; la otra, que el **método** sirve para lo
 **Validación del método.** ICH Q2(R2), adoptada el 1 de noviembre de 2023, pide demostrar **especificidad** (mide lo que debe sin interferencias), **intervalo** (*range*) con respuesta adecuada (la **linealidad**, si es una recta), **exactitud** y **precisión**. La **robustez**, aguantar pequeños cambios deliberados de los parámetros del método (por ejemplo, el caudal), se estudia en el desarrollo según ICH Q14. Para la riqueza de un producto, la tabla de ejemplos de Q2(R2) propone un intervalo del 80 % al 120 % del contenido declarado o de los límites de especificación. Más en «Validación de métodos analíticos» (nivel 10). La guía de la FDA de 1994 *Validation of Chromatographic Methods* figura como retirada desde el 25 de noviembre de 2024 en la lista de la propia FDA.
 
 ### Seguridad: disolventes y residuos
-Límites de exposición del INSST (edición de 2021, la que se ha podido leer):
+Límites de exposición del INSST (edición de 2021, la que se ha podido leer); el VLA-ED es el valor límite ambiental de exposición diaria:
 
 | Disolvente | VLA-ED | Notas | Indicaciones de peligro |
 |---|---|---|---|
 | Acetonitrilo | 40 ppm (68 mg/m³) | Vía dérmica | H225, H332, H312, H302, H319 |
 | Metanol | 200 ppm (266 mg/m³) | Vía dérmica | H225, H331, H311, H301, H370 |
 
-Los dos son líquidos y vapores muy inflamables (H225). El acetonitrilo es nocivo por inhalación, piel e ingestión y provoca irritación ocular grave; el metanol es tóxico por las tres vías y provoca daños en los órganos. «Vía dérmica» quiere decir que la piel contribuye mucho a la exposición: el guante adecuado importa tanto como la vitrina. La NTP 461 del INSST lista el acetonitrilo también como cianuro de metilo. Manda la ficha de datos de seguridad y la edición vigente de los límites.
+Los dos son líquidos y vapores muy inflamables (H225). El acetonitrilo es nocivo por inhalación, piel e ingestión y provoca irritación ocular grave; el metanol es tóxico por las tres vías y provoca daños en los órganos. «Vía dérmica» quiere decir que la piel contribuye mucho a la exposición: el guante adecuado importa tanto como la vitrina. La nota técnica de prevención (NTP) 461 del INSST lista el acetonitrilo también como cianuro de metilo. Manda la ficha de datos de seguridad y la edición vigente de los límites.
 
 **Residuos.** La fase móvil usada va a un bidón cerrado y etiquetado, nunca al desagüe. La NTP 480 del INSST separa los **disolventes no halogenados** (alcoholes, nitrilos y otros, con menos de un 2 % de halógenos) de los halogenados y pide no juntar disolventes que no se mezclan entre sí.
 

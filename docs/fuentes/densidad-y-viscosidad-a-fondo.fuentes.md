@@ -54,7 +54,7 @@ Documentos leídos de verdad:
 | Todas las respuestas numéricas del test (0,875; 1,2; 16,7; 0,678; 0,5925; 5) | Cálculo | Recalculado |
 
 ## Lo que quería incluir y dejé fuera
-- La tabla de clasificación de fluidez de la Farmacopea Europea 2.9.36 / USP <1174> (de pago; no se leyó en ningún documento oficial gratuito). **Aviso:** la lección corta `densidad-viscosidad` de `src/content/nivel8.ts` sí la reproduce (1,00–1,11 excelente, etc.) sin fuente leída.
+- La tabla de clasificación de fluidez de la Farmacopea Europea 2.9.36 / USP <1174> (de pago; no se leyó en ningún documento oficial gratuito). La lección corta `densidad-viscosidad` de `src/content/nivel8.ts` tampoco la reproduce (dice que es de pago y que el límite lo fija la especificación); sus preguntas solo dicen si el polvo se asienta mucho o poco y remiten a la especificación (revisión cruzada de noviembre de 2026).
 - Detalles del método de densidad aparente y compactada (probeta de 250 mL, 100 g, número de golpes): solo en los textos de farmacopea, de pago. El borrador de la OMS para la Farmacopea Internacional (2011) solo se vio en un registro de ProQuest, no accesible.
 - Números de capítulo de la Farmacopea Europea para densidad relativa y viscosidad: no se pudieron comprobar en una fuente gratuita.
 - Dilatación de mezclas etanol-agua con la temperatura: los coeficientes C de la fórmula salen con exponentes ilegibles en el BOE y no se reconstruyeron.

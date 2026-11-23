@@ -155,7 +155,7 @@ Criterio de este ejemplo: se actúa sobre todo fallo con NPR de 20 o más y sobr
 | 5 | Tiempo mínimo de carga escrito en la hoja | 3 | 2 | 3 | 18 |
 | 6 | Ninguna: se acepta | 3 | 2 | 2 | 12 |
 
-Fíjate en que aquí la gravedad no baja en ningún fallo: las acciones tocan la probabilidad o la detección. Y los fallos 1 y 4 se tratan aunque su número no sea el más alto, porque su gravedad es la máxima.
+Fíjate en que aquí la gravedad no baja en ningún fallo: las acciones tocan la probabilidad o la detección. Y los fallos 1 y 4 se tratarían aunque su NPR quedara por debajo de 20, porque su gravedad es la máxima.
 
 La tolva del fallo 4 trae un problema nuevo: es un equipo más que limpiar. El 4.4 de ICH Q9 lo avisa: las medidas de reducción pueden introducir riesgos nuevos, y puede hacer falta volver a la valoración. Se añade el fallo 7, «tolva mal limpiada entre productos»: G 5, P 2, D 3, NPR 30. Con su limpieza escrita en el procedimiento y una comprobación visual firmada pasa a P 1 y D 2: NPR 10.
 

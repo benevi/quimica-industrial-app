@@ -34,7 +34,7 @@ Un porcentaje es "partes de cada 100".
 ### 3. Notación científica (*scientific notation*)
 Sirve para números muy grandes o muy pequeños:
 - 0,0005 = 5 × 10⁻⁴
-- 6.000.000 = 6 × 10⁶
+- 6 000 000 = 6 × 10⁶
 
 La verás en analíticas: "impureza 3 × 10⁻² %" significa 0,03 %.
 
@@ -257,7 +257,7 @@ Tu planta fabrica el API; otra fábrica lo convierte en medicamento.
 - **Garantía de calidad, QA** (*Quality Assurance*): revisa documentos, desviaciones y libera los lotes.
 
 ### El lote (*batch*)
-Cantidad de producto fabricada en un ciclo, con un **número de lote** único. Todo lo que pasa en ese lote se registra en su **hoja de producción** (*batch record*, BR o BMR).
+Cantidad de producto fabricada en un ciclo, con un **número de lote** único. Todo lo que pasa en ese lote se registra en su **hoja de producción** (*batch record*, BR, o *batch manufacturing record*, BMR).
 
 ### Quién hace qué
 - **Operador**: ejecuta y registra los pasos.

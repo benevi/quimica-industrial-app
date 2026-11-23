@@ -81,7 +81,7 @@ El anexo 15 piensa en equipos; en un sistema informatizado se traduce así (la �
 |---|---|---|
 | **Cualificación de la instalación** (IQ) | Verificar la instalación contra planos y especificaciones, calibrar instrumentos, recoger manuales (3.9) | Versión del software y de la base de datos igual a la DS, servidor y copias configurados, balanzas calibradas, manuales archivados |
 | **Cualificación de la operación** (OQ) | Pruebas que demuestran que funciona como se diseñó, incluidos límites superior e inferior y peor caso (3.11) | Cada función contra la FS y la CS: tolerancias en el borde, accesos, audit trail, etiquetas, interfaz con el ERP, mensajes de error |
-| **Cualificación de las prestaciones** (PQ) | Pruebas en condiciones normales de operación con el tamaño de lote más desfavorable, en todo el rango previsto (3.14) | Órdenes completas simuladas por los operadores reales, con la orden más larga de la receta, dos balanzas a la vez y el turno de noche |
+| **Cualificación del funcionamiento** (PQ) | Pruebas en condiciones normales de operación con el tamaño de lote más desfavorable, en todo el rango previsto (3.14) | Órdenes completas simuladas por los operadores reales, con la orden más larga de la receta, dos balanzas a la vez y el turno de noche |
 
 El anexo 11 (4.7) pide demostrar métodos y escenarios de prueba adecuados y considerar en especial los **límites de parámetros**, los **límites de datos** y la **gestión de errores**. El borrador (9.3) pide verificar instalación y configuración antes de cualquier prueba: la IQ va primero. El anexo 15 (2.5) permite juntar IQ y OQ en un documento.
 
@@ -254,7 +254,7 @@ Durante las pruebas no se fabrica producto vendible con el MES-PES. Lo que sí v
       q: "En el nuevo sistema se comprueba que la versión del software, la base de datos y el servidor coinciden con la especificación de diseño antes de probar funciones. ¿Qué etapa es?",
       options: [
         "Cualificación de la operación (OQ), que prueba cada función",
-        "Cualificación de las prestaciones (PQ), con usuarios reales",
+        "Cualificación del funcionamiento (PQ), con usuarios reales",
         "Cualificación de la instalación (IQ), contra las especificaciones",
         "Migración de datos, porque se mira la base de datos del sistema",
       ],

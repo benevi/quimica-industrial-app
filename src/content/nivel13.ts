@@ -44,7 +44,7 @@ Muchos transmisores envían una corriente de 4 mA (cero de escala) a 20 mA (fond
 Ejemplo: transmisor de 0–10 bar que envía 12 mA: (12 − 4) / 16 × 10 = 5 bar.
 
 ### Calibración (*calibration*)
-Comparar el instrumento con un **patrón trazable** (*traceable standard*) y comprobar que el error está dentro de la **tolerancia**. Los instrumentos **críticos para GMP** (los que deciden la calidad: temperatura de reacción, báscula de carga) tienen un plan de calibración. Antes de usarlos se mira la **etiqueta de calibración**: si está caducada, no se usa y se avisa.
+Comparar el instrumento con un **patrón trazable** (*traceable standard*) y comprobar que el error está dentro de la **tolerancia**. Los instrumentos **críticos para las GMP** (buenas prácticas de fabricación, *Good Manufacturing Practice*) (los que deciden la calidad: temperatura de reacción, báscula de carga) tienen un plan de calibración. Antes de usarlos se mira la **etiqueta de calibración**: si está caducada, no se usa y se avisa.
 `,
     plant: `
 La hoja pide "Pesar 85,0 kg ± 0,5 kg en la báscula B-05". Antes de pesar, el operador comprueba la etiqueta de calibración (válida hasta el mes próximo) y hace la **verificación diaria** con una pesa patrón de 50 kg: lee 50,02 kg, dentro de tolerancia. Lo anota y pesa.
@@ -135,7 +135,7 @@ Ejemplos:
 
 ### Símbolos básicos
 - **Círculo**: instrumento suelto. Sin raya: instalado **en campo**, junto al equipo. Con una **raya horizontal continua**: en un sitio al que llega el operador, como el panel o la sala de control. Con raya **discontinua**: detrás del panel, no accesible normalmente.
-- **Círculo dentro de un cuadrado**: función del **sistema de control** (pantalla y control compartidos, como en un DCS). Es el símbolo que más verás en un P&ID moderno: el indicador o el controlador no es un aparato suelto, sino una pantalla del sistema.
+- **Círculo dentro de un cuadrado**: función del **sistema de control** (pantalla y control compartidos, como en un DCS (sistema de control distribuido, *Distributed Control System*)). Es el símbolo que más verás en un P&ID moderno: el indicador o el controlador no es un aparato suelto, sino una pantalla del sistema.
 - Las formas exactas cambian algo entre ediciones de la norma y entre empresas: cada P&ID trae una hoja de **leyenda** (*legend sheet*) que manda.
 - Líneas continuas gruesas: tuberías de proceso. Líneas discontinuas: señales eléctricas.
 - Cada equipo lleva su **código**: R-101 (reactor), P-101 (bomba), E-101 (intercambiador), T-101 o TK-101 (tanque), C-101 (centrífuga, aunque varía según la empresa).
@@ -315,10 +315,10 @@ La **receta maestra** (*master recipe*) es la aprobada. Cada lote ejecuta una **
 ### Interacción del operador
 - **Arrancar** fases, **confirmar** pasos manuales (por ejemplo, "Carga de sólido realizada"), **responder a preguntas** del sistema.
 - Las acciones quedan registradas con **usuario, fecha y hora**: es parte del registro del lote.
-- **Usuario personal**: nunca se comparte contraseña ni se deja la sesión abierta para otro (ALCOA+: atribuible).
+- **Usuario personal**: nunca se comparte contraseña ni se deja la sesión abierta para otro (principios ALCOA+ de integridad de datos: atribuible).
 
 ### GMP de los sistemas
-Un sistema que controla o registra datos GMP es un **sistema informatizado** validado (EU GMP Anexo 11, GAMP 5): pruebas, control de acceso, *audit trail*, copias de seguridad. Lo verás a fondo en el bloque de Sistemas informáticos (niveles 18 a 21).
+Un sistema que controla o registra datos GMP es un **sistema informatizado** validado (EU GMP Anexo 11 y la guía GAMP 5, *Good Automated Manufacturing Practice*): pruebas, control de acceso, *audit trail*, copias de seguridad. Lo verás a fondo en el bloque de Sistemas informáticos (niveles 18 a 21).
 `,
     plant: `
 El DCS ejecuta la operación "Reacción". Al llegar a la fase "Carga manual de sólido", se para y pide confirmación. El operador carga, escanea el código del saco y confirma con su usuario. El sistema sigue con la fase "Calentar a 60 °C".
@@ -389,7 +389,7 @@ Lógica automática que **impide** una acción o **lleva el equipo a estado segu
 - No se puede abrir la válvula de fondo si el reactor está a presión.
 
 ### Sistemas instrumentados de seguridad (*SIS, Safety Instrumented System*)
-Protección independiente del control normal, diseñada según **IEC 61511** con un nivel de integridad **SIL** (*Safety Integrity Level*). Actúa como última barrera instrumentada antes de las protecciones mecánicas (PSV, discos de ruptura).
+Protección independiente del control normal, diseñada según **IEC 61511** con un nivel de integridad **SIL** (*Safety Integrity Level*). Actúa como última barrera instrumentada antes de las protecciones mecánicas (válvulas de seguridad o PSV, discos de ruptura).
 
 ### Capas de protección
 1. Diseño del proceso.

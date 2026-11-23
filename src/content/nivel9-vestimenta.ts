@@ -94,14 +94,14 @@ El anexo 1 (7.13) describe la ropa típica de cada grado:
 
 Más reglas del anexo 1 sobre la ropa:
 
-- La ropa debe soltar pocas fibras y elegirse para limitar lo que se desprende al moverse (7.12).
+- La ropa debe elegirse para limitar lo que se desprende al moverse (7.12); la de grado B, además, no debe soltar fibras ni partículas (7.13).
 - Se revisa a la vista que esté limpia y entera justo antes y después de vestirse, y otra vez al salir (7.11).
 - En los grados A y B, ropa estéril limpia **en cada entrada**, de la talla adecuada (7.15).
 - La ropa reutilizable se lava en una lavandería separada, con un proceso cualificado y un número máximo de lavados (7.17).
 
 **¿Y en tu planta de API no estéril?** Q7 solo pide ropa limpia adecuada y protección adicional cuando haga falta (3.21), según la etapa. Una forma habitual de organizarlo, que decide y documenta tu empresa, es:
 
-- **Zona de síntesis**, con equipos cerrados: ropa de trabajo limpia, calzado de seguridad y los EPI químicos del puesto.
+- **Zona de síntesis**, con equipos cerrados: ropa de trabajo limpia, calzado de seguridad y los equipos de protección individual (EPI) químicos del puesto.
 - **Zona de acabado**, donde el producto final sale de la centrífuga o del filtro, se seca, se muele y se envasa: aquí el producto ya no tiene etapa posterior que lo limpie. Suele pedirse una ropa parecida a la de un grado D: gorro que cubra todo el pelo, cubrebarba si hace falta, buzo o bata de sala, calzado de sala o cubrezapatos, y guantes.
 - **API que irá a un medicamento estéril**: más exigencias, que fija el cliente y tu sistema de calidad.
 

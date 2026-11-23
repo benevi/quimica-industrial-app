@@ -16,7 +16,7 @@ const logistica: Lesson[] = [
     body: `
 ### El recorrido de un material
 1. **Llegada**: se comprueba el albarán (*delivery note*) contra el pedido, que el **proveedor está aprobado** y el estado de los envases (roturas, precintos, etiquetas legibles).
-2. **Registro** en el ERP: se le asigna un **número de lote interno** y queda en **cuarentena** (*quarantine*). Se etiqueta.
+2. **Registro** en el sistema de gestión de la empresa (ERP, *enterprise resource planning*): se le asigna un **número de lote interno** y queda en **cuarentena** (*quarantine*). Se etiqueta.
 3. **Muestreo** por personal formado, en una zona o cabina adecuada, y análisis según la especificación.
 4. **Decisión de Calidad**: **aprobado** (*released / approved*) o **rechazado** (*rejected*).
 5. Ubicación en el almacén según el estado.
@@ -32,7 +32,7 @@ ICH Q7 (sección 7) pide que los materiales se mantengan en cuarentena hasta su 
 | Rechazado | *Rejected* | No; se separa y se devuelve o destruye |
 | Bloqueado | *Blocked / on hold* | No (investigación en curso) |
 
-El estado puede indicarse con **etiquetas de colores**, con **zonas físicas separadas** o, cada vez más, solo en el **sistema informático** (ERP/WMS) con lectura de código de barras. Lo que manda es el procedimiento de tu empresa.
+El estado puede indicarse con **etiquetas de colores**, con **zonas físicas separadas** o, cada vez más, solo en el **sistema informático** (ERP o sistema de gestión del almacén, WMS) con lectura de código de barras. Lo que manda es el procedimiento de tu empresa.
 
 ### Proveedores
 Solo se compra a **proveedores aprobados** tras una evaluación (cuestionarios, auditorías, historial). Los materiales críticos se reciben con el **certificado de análisis** del proveedor, que se verifica con análisis propios.
@@ -127,7 +127,7 @@ La normativa de almacenamiento de productos químicos (**RD 656/2017** y sus ins
 Palés en buen estado, nada en el suelo, pasillos libres, plagas controladas (*pest control*), zonas identificadas. Una confusión en el almacén se convierte en un **error de carga** en producción.
 `,
     plant: `
-Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en septiembre. Aunque el B está más a mano, el operador coge el A (FEFO). El escáner del ERP lo confirma.
+Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en septiembre. Aunque el B está más a mano, el operador coge el A (FEFO). El escáner del sistema de gestión (ERP) lo confirma.
 `,
     batchRecord: `
 - Comprobación en la carga: lote aprobado y dentro de fecha.
@@ -165,7 +165,7 @@ Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en sep
       {
         kind: "choice",
         q: "¿Qué no debe almacenarse junto a disolventes inflamables?",
-        options: ["Otros inflamables en su armario", "Oxidantes", "Etiquetas", "Palés vacíos en su zona"],
+        options: ["Otros inflamables en su armario", "Oxidantes", "Etiquetas", "Las fichas de datos de seguridad de esos disolventes"],
         answer: 1,
         explain: "Oxidante + combustible = riesgo de incendio grave.",
       },
@@ -181,7 +181,7 @@ Hay dos lotes aprobados del mismo disolvente: el A caduca en junio y el B en sep
     summary: "El último paso en planta: meter el producto en sus envases sin errores ni contaminación.",
     body: `
 ### Cómo se envasa un API
-Normalmente en **doble bolsa de polietileno** (*double PE liner*), cerrada con bridas, dentro de un **bidón** de cartón (*fibre drum*) o de plástico (HDPE). A veces con **desecante** o **atmósfera de nitrógeno**. Se cierra con un **precinto de seguridad** (*tamper-evident seal*) numerado.
+Normalmente en **doble bolsa de polietileno** (*double polyethylene liner*), cerrada con bridas, dentro de un **bidón** de cartón (*fibre drum*) o de plástico (polietileno de alta densidad, HDPE). A veces con **desecante** o **atmósfera de nitrógeno**. Se cierra con un **precinto de seguridad** (*tamper-evident seal*) numerado.
 
 El material de envase en contacto con el producto debe estar **especificado y aprobado**: si se cambia la bolsa por otra "parecida", es un cambio que se evalúa.
 
@@ -261,7 +261,7 @@ Se emiten 20 etiquetas para un lote que se envasará en 18 bidones. Se usan 18, 
 Tiene dos direcciones:
 - **Hacia atrás**: de un lote de API a todos los lotes de materias primas, equipos, personas y registros que intervinieron.
 - **Hacia delante**: de un lote a todos los clientes que lo recibieron.
-Se consigue con los números de lote, el ERP y registros completos. Sin trazabilidad, una retirada es imposible.
+Se consigue con los números de lote, el sistema de gestión de la empresa (ERP) y registros completos. Sin trazabilidad, una retirada es imposible.
 
 ### Distribución
 Los API se distribuyen siguiendo las **Buenas Prácticas de Distribución** para principios activos (*GDP for active substances*, directrices de la Comisión Europea de 2015):
@@ -280,7 +280,7 @@ Un API devuelto se pone en **cuarentena**. Solo puede volver al stock si Calidad
 - **Retirada** (*recall*): si un lote puede ser un riesgo, se retira del mercado. Debe haber un procedimiento probado para hacerlo rápido, gracias a la trazabilidad hacia delante.
 `,
     plant: `
-Un cliente reclama partículas negras en un bidón. Con el número de lote, Calidad localiza en la hoja de fabricación el equipo de molienda usado, la revisión de la malla, el operador y los lotes de bolsas. Encuentra que una junta del molino se había desgastado y abre una CAPA. Gracias a la trazabilidad hacia delante sabe qué otros clientes recibieron el mismo lote.
+Un cliente reclama partículas negras en un bidón. Con el número de lote, Calidad localiza en la hoja de fabricación el equipo de molienda usado, la revisión de la malla, el operador y los lotes de bolsas. Encuentra que una junta del molino se había desgastado y abre una acción correctiva y preventiva (CAPA). Gracias a la trazabilidad hacia delante sabe qué otros clientes recibieron el mismo lote.
 `,
     batchRecord: `
 - Todos los números de lote, equipos, firmas y horas: son la base de la trazabilidad.

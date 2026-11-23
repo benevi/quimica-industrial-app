@@ -115,7 +115,7 @@ Todo junto, en una riqueza por HPLC con **patrón externo** (*external standard*
 
 Si dividieras entre n (6) en lugar de n − 1, saldría 0,18 %. El manual de la FDA explica que con una muestra de medidas se divide entre n − 1; entre n solo si se ha medido la población entera, algo raro en un laboratorio. Una hoja de cálculo puede usar una u otra: el método dice cuál. La forma de calcular s la tienes paso a paso en [Metrología a fondo](/leccion/metrologia-a-fondo).
 
-**Paso 2. La riqueza del patrón.** El patrón no es puro al 100 %: su certificado le asigna una riqueza, aquí **99,6 %**, y dice cómo usarla. Ese número entra multiplicando. Olvidarlo sube el resultado medio punto.
+**Paso 2. La riqueza del patrón.** El patrón no es puro al 100 %: su certificado le asigna una riqueza, aquí **99,6 %**, y dice cómo usarla. Ese número entra multiplicando. Olvidarlo sube el resultado unas cuatro décimas.
 
 **Paso 3. Las diluciones.** El patrón se pesa (25,12 mg) en 50 mL y se diluyen 5 mL a 50 mL: factor de dilución 10. Concentración final: 25,12 / 50 / 10 = **0,05024 mg/mL**. La muestra se pesa (50,38 mg) en 100 mL y se diluyen 5 mL a 50 mL: factor 10. Concentración final: **0,05038 mg/mL**.
 
@@ -129,7 +129,7 @@ Dos errores y lo que hacen (calculados con los mismos datos):
 
 | Error | Resultado |
 |---|---|
-| Olvidar la riqueza del patrón | 100,5 % en base seca en vez de 99,6 % |
+| Olvidar la riqueza del patrón | 100,0 % en base seca en vez de 99,6 % |
 | Tomar la muestra como si estuviera en 50 mL y no en 100 mL | 49,6 % tal cual: la mitad |
 
 El primero es pequeño y pasa desapercibido. Por eso ICH Q7 (6.60) pide que el registro del laboratorio guarde todos los cálculos, con sus unidades y factores de conversión, y la firma de una segunda persona que revisa los datos originales.

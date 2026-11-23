@@ -27,13 +27,13 @@ El agua que toca el producto (en reacciones, lavados, limpieza final) puede apor
 Las monografías de la **Farmacopea Europea** (*Purified water*, *Water for injections*) fijan los requisitos. Valores clave:
 - **Conductividad** (*conductivity*): indica sales disueltas. PW: ≤ 5,1 µS/cm a 25 °C; WFI: ≤ 1,3 µS/cm a 25 °C (ensayo en línea, etapa 1).
 - **TOC** (*Total Organic Carbon*, carbono orgánico total): ≤ 0,5 mg/L.
-- **Microbiología** (límites de acción): PW ≤ 100 UFC/mL; WFI ≤ 10 UFC/100 mL.
+- **Microbiología** (límites de acción): PW ≤ 100 UFC/mL (unidades formadoras de colonias); WFI ≤ 10 UFC/100 mL.
 - **Endotoxinas** (solo WFI): < 0,25 UI/mL (unidades internacionales por mililitro).
 
 ### Cómo se produce el agua purificada
 1. **Pretratamiento**: filtros, descalcificador (*softener*), carbón activo o bisulfito (quitar el cloro).
 2. **Ósmosis inversa** (*reverse osmosis, RO*): membrana que retiene sales y casi todo lo demás.
-3. **Electrodesionización** (*EDI*) para pulir.
+3. **Electrodesionización** (*EDI, electrodeionization*) para pulir.
 4. **Almacenamiento y bucle** (*storage tank and loop*): el agua circula continuamente por un **anillo** de acero inoxidable, sin zonas muertas, con lámpara **UV** u **ozono**, o en caliente, para que no crezcan bacterias.
 
 La WFI se obtiene por **destilación** o por un sistema de membranas equivalente aprobado por la farmacopea, y se mantiene normalmente caliente.
@@ -255,7 +255,7 @@ En la sala de envasado del API (con requisitos similares a un grado D; los grado
 | Correctivo | *Corrective* | Reparar cuando falla |
 | Preventivo | *Preventive* | Tareas planificadas por tiempo o uso (cambiar juntas cada x meses) |
 | Predictivo | *Predictive* | Medir el estado (vibraciones, temperatura, termografía) para intervenir antes del fallo |
-| Autónomo | *Autonomous (TPM)* | Pequeñas tareas que hace el propio operador: limpieza, inspección, reapriete, lubricación sencilla |
+| Autónomo | *Autonomous (TPM, Total Productive Maintenance)* | Pequeñas tareas que hace el propio operador: limpieza, inspección, reapriete, lubricación sencilla |
 
 ### Cómo se gestiona
 - **Orden de trabajo** (*work order*) en un sistema de gestión de mantenimiento (**GMAO**, en inglés *CMMS, Computerized Maintenance Management System*).
@@ -292,7 +292,7 @@ El agitador del R-102 hace un ruido nuevo. El operador detiene el lote según el
     quiz: [
       {
         kind: "choice",
-        q: "Cambiar una junta de PTFE por una de otro material 'porque había' es…",
+        q: "Cambiar una junta de PTFE (politetrafluoroetileno) por una de otro material 'porque había' es…",
         options: [
           "Un cambio igual por igual",
           "Un cambio que requiere control de cambios y evaluación",

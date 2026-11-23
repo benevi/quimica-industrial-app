@@ -124,7 +124,7 @@ Densidad de soluciones preparadas; densidad aparente y compactada en el CoA de a
         answer: 1.4,
         tolerance: 0.001,
         unit: "",
-        explain: "0,56 / 0,40 = 1,4: un polvo que fluye mal.",
+        explain: "0,56 / 0,40 = 1,4: se asienta mucho, señal de un polvo que fluye mal; si cumple, lo dice su especificación.",
       },
       {
         kind: "choice",
@@ -139,7 +139,7 @@ Densidad de soluciones preparadas; densidad aparente y compactada en el CoA de a
         answer: 1.2,
         tolerance: 0.01,
         unit: "",
-        explain: "0,54 / 0,45 = 1,2: flujo aceptable.",
+        explain: "0,54 / 0,45 = 1,2: se asienta poco; si cumple, lo dice su especificación.",
       },
     ],
   },
@@ -237,7 +237,7 @@ Descripción visual: "polvo cristalino blanco o casi blanco". Un cambio de color
 Se disuelve el producto y se compara con los patrones de **opalescencia** (turbidez; Ph. Eur. 2.2.1) y de **color** (Ph. Eur. 2.2.2) de la farmacopea. Detecta impurezas coloreadas o insolubles.
 
 ### Términos de solubilidad de la farmacopea
-Volumen de disolvente necesario para disolver 1 g:
+Volumen de disolvente necesario para disolver 1 g. Son las cifras que reproducen los libros de texto; no se han podido comprobar en el texto oficial de la farmacopea, que es de pago, así que manda la tabla de la farmacopea vigente o la del método:
 
 | Término | mL de disolvente por g |
 |---|---|

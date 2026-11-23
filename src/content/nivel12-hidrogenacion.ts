@@ -80,7 +80,7 @@ Las cuentas son las de «Inertización a fondo»: cada ciclo multiplica el gas v
 
 - **Fase 1.** Del aire, con 21 % de oxígeno, tres ciclos de nitrógeno: 21 × 0,2 × 0,2 × 0,2 = **0,17 %** de oxígeno. Se mide con el analizador antes de seguir.
 - **Fase 2.** Tres ciclos con hidrógeno, venteando cada vez a un lugar seguro: el nitrógeno baja de 100 % a 100 × 0,008 = **0,8 %**, y el poco oxígeno que quedaba se diluye igual.
-- **Fase 3.** Al terminar, se despresuriza al venteo y se hacen ciclos de nitrógeno. Partiendo de hidrógeno puro, tres ciclos dejan **0,8 %** de hidrógeno; con ciclos hasta 4 bar a, solo 1,56 %. El número de ciclos y el límite los fija la hoja.
+- **Fase 3.** Al terminar, se despresuriza al venteo y se hacen ciclos de nitrógeno. Partiendo de hidrógeno puro, tres ciclos dejan **0,8 %** de hidrógeno; con ciclos solo hasta 4 bar a, quedaría el 1,56 %, casi el doble. El número de ciclos y el límite los fija la hoja.
 
 La presión no te dice qué gas hay: lo dice el analizador.
 
@@ -142,7 +142,7 @@ Un poco de metal puede atravesar el filtro y quedarse en el API. La guía **ICH 
 
 La **exposición diaria permitida** (*permitted daily exposure*, PDE) es lo máximo aceptable al día. La opción 1 la pasa a concentración suponiendo 10 g de medicamento al día: 100 / 10 = 10 µg/g («Átomos y tabla periódica a fondo»).
 
-**Cuánto metal puede quedarse.** Siguiendo el ejemplo de antes, cargaste 0,4 kg de paladio, es decir, 400 g. Si obtienes 300 kg de producto con un límite de 10 µg/g, en todo el lote caben como mucho 300000 × 10 = 3000000 µg, es decir, **3 g** de paladio. Eso es el 0,75 % de lo cargado. El filtro tiene que retener más del 99 % del metal. Un cartucho mal colocado o roto basta para que el lote no cumpla. El análisis se hace por ICP en el laboratorio («Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP»).
+**Cuánto metal puede quedarse.** Siguiendo el ejemplo de antes, cargaste 0,4 kg de paladio, es decir, 400 g. Si obtienes 300 kg de producto con un límite de 10 µg/g, en todo el lote caben como mucho 300000 × 10 = 3000000 µg, es decir, **3 g** de paladio. Eso es el 0,75 % de lo cargado. El filtro tiene que retener más del 99 % del metal. Un cartucho mal colocado o roto basta para que el lote no cumpla. El análisis se hace por espectrometría de plasma acoplado inductivamente (ICP) en el laboratorio («Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP»).
 
 ### Detectores de hidrógeno y qué haces si salta uno
 Los detectores de gases inflamables suelen dar la lectura en **porcentaje del límite inferior de explosividad** (% del LIE). La relación entre % del LIE y % en volumen está en «Atmósferas explosivas a fondo». Un detector es una ayuda, no una garantía: puede estar mal ajustado o mal colocado.

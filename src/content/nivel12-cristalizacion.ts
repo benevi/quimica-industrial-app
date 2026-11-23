@@ -76,12 +76,12 @@ La hoja del FX-101 pide enfriar hasta 0–5 °C en **120 minutos como mínimo** 
 
 Que la duración sea «como mínimo» no es casual. Al principio de la rampa hay pocos cristales y poca superficie donde depositar producto, y además es justo donde la curva es más empinada: cada grado libera mucho producto. Si se enfría deprisa en ese tramo, la sobresaturación se acumula, sale de la zona metaestable y nuclea. Por eso, en muchos procesos, la rampa no es una recta: va despacio al principio y más deprisa al final, cuando ya hay mucha superficie de cristal y la curva es casi plana. El perfil exacto lo define desarrollo y lo ejecuta el sistema de control en modo automático; tú lo vigilas.
 
-**La camisa y la pared.** El calor sale por la pared, que siempre está más fría que la masa. Junto a la pared el líquido está más frío y, por tanto, más sobresaturado que en el centro. Si la diferencia entre camisa y masa es muy grande, el producto cristaliza **sobre la pared**: son las **incrustaciones** (*encrustation*). Esa costra frena el paso del calor (el ensuciamiento de «Intercambio de calor y frío a fondo»), se suelta a trozos y ensucia el lote. Y en un reactor vidriado como el R-102, meter glicol a −10 °C con la masa a 80 °C es un **choque térmico** que puede agrietar el vidrio («El reactor a fondo»). En el simulador, programar la rampa en menos de 30 minutos rompe el vidrio del R-102.
+**La camisa y la pared.** El calor sale por la pared, que siempre está más fría que la masa. Junto a la pared el líquido está más frío y, por tanto, más sobresaturado que en el centro. Si la diferencia entre camisa y masa es muy grande, el producto cristaliza **sobre la pared**: son las **incrustaciones** (*encrustation*). Esa costra frena el paso del calor (el ensuciamiento de «Intercambio de calor y frío a fondo»), se suelta a trozos y ensucia el lote. Y en un reactor vitrificado como el R-102, meter glicol a −10 °C con la masa a 80 °C es un **choque térmico** que puede agrietar el vidrio («El reactor a fondo»). En el simulador, programar la rampa en menos de 30 minutos rompe el vidrio del R-102.
 
 ### Enfriar deprisa: finos que filtran mal
 Un enfriamiento demasiado rápido produce finos, y los finos se pagan aguas abajo:
 
-- **Filtran despacio.** En «Filtros a fondo» viste que la finura de los cristales hace la torta menos permeable. En «La centrífuga a fondo», que una torta de finos escurre peor.
+- **Filtran despacio.** En «Filtros a fondo» verás que la finura de los cristales hace la torta menos permeable, y en «La centrífuga a fondo», que una torta de finos escurre peor.
 - **Retienen más aguas madres.** En el simulador, una torta buena sale de la centrífuga C-201 con un 13 % de líquido y una de finos con un 25 % (valores del simulador). Con 130 kg de producto seco: 130 / (1 − 0,13) = 149,4 kg de torta húmeda, con 19,4 kg de líquido; o 130 / (1 − 0,25) = 173,3 kg, con **43,3 kg** de líquido. Más del doble de aguas madres, con sus impurezas, y más líquido que evaporar en el secadero.
 - **Se lavan peor**, porque el líquido de lavado busca los caminos fáciles y deja zonas sin lavar.
 
@@ -143,7 +143,7 @@ Para ti: siembra con la forma correcta, respeta temperaturas y rampas, y no deje
 | Sondas de proceso, si las hay | Miden en el propio equipo | Lectura y hora |
 | Control en proceso (IPC) | Confirma que se puede pasar a separar | Resultado y hora |
 
-Sobre las sondas: la guía de la FDA sobre tecnología analítica de procesos (*process analytical technology*, PAT), de 2004, distingue la medida **en línea** (*in-line*: el sensor está dentro y la muestra no sale del proceso), **en derivación** (*on-line*: la muestra se desvía y puede volver) y **junto a la línea** (*at-line*: la muestra se saca y se analiza al lado). Cita el tamaño y la forma de partícula entre los atributos físicos que conviene entender. Algunas plantas tienen en el cristalizador sondas de turbidez o de tamaño de partícula; si la tuya no las tiene, el aviso de la nube es tu vista por la mirilla y la temperatura.
+Sobre las sondas: la guía de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) sobre tecnología analítica de procesos (*process analytical technology*, PAT), de 2004, distingue la medida **en línea** (*in-line*: el sensor está dentro y la muestra no sale del proceso), **en derivación** (*on-line*: la muestra se desvía y puede volver) y **junto a la línea** (*at-line*: la muestra se saca y se analiza al lado). Cita el tamaño y la forma de partícula entre los atributos físicos que conviene entender. Algunas plantas tienen en el cristalizador sondas de turbidez o de tamaño de partícula; si la tuya no las tiene, el aviso de la nube es tu vista por la mirilla y la temperatura.
 
 ### Problemas típicos y qué hace el operador
 | Lo que ves | Causa probable | Qué haces |
@@ -159,7 +159,7 @@ Cualquier valor fuera de rango se anota tal cual, con hora y aviso: ICH Q7 pide 
 Los números de esta lección son de ejemplo para entender. En planta manda siempre el procedimiento vigente (SOP) y la hoja de producción de tu lote.
 `,
   plant: `
-Turno de tarde. En el cristalizador vidriado ficticio **R-102** tienes la disolución del lote FX-101: unos 420 L a 80 °C, recién pasados por el filtro de cartucho F-301. Todos los valores son de ejemplo.
+Turno de tarde. En el cristalizador vitrificado ficticio **R-102** tienes la disolución del lote FX-101: unos 420 L a 80 °C, recién pasados por el filtro de cartucho F-301. Todos los valores son de ejemplo.
 
 Pones la rampa hasta 60 °C en automático. A 60,5 °C la masa está transparente: bien, todavía no ha nucleado. Tu compañero y tú comprobáis la etiqueta de la semilla (forma especificada, lote aprobado, cantidad de la hoja), sembráis por la boca de carga con nitrógeno y anotáis 60,5 °C y la hora. A los diez minutos la masa empieza a enturbiarse de forma pareja: la semilla ha agarrado.
 

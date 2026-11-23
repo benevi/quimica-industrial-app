@@ -159,7 +159,7 @@ Así encajan los 22 niveles de la app con tu trabajo.
 | 4 | El laboratorio | Pesar bien, calibración. |
 | 5 | Muestreo y preparación de muestras | Muestrear sin estropear la muestra. |
 | 6 | Análisis químico clásico | Qué significa un resultado de agua o de valoración. |
-| 7 | Análisis instrumental | Qué mide el laboratorio con HPLC o GC. |
+| 7 | Análisis instrumental | Qué mide el laboratorio con cromatografía de líquidos (HPLC) o de gases (GC). |
 | 8 | Ensayos físicos y fisicoquímicos | Tamaño de partícula, pérdida por secado. |
 | 9 | Microbiología y áreas limpias | Comportarte en la zona de acabado. |
 | 10 | Calidad analítica | Especificaciones, resultados fuera de especificación, certificado. |
