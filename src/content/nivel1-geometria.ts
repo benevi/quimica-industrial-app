@@ -16,7 +16,7 @@ En «Enlaces y fuerzas entre moléculas a fondo: por qué unas cosas se disuelve
 Una molécula es un objeto en tres dimensiones, como una pieza de mecano. Su forma decide tres cosas que ves en planta:
 
 - **Si es polar o no**, y por tanto en qué disolvente se disuelve y en qué fase queda al decantar.
-- **Si puede ser quiral**: si existe en dos versiones, «de mano derecha» y «de mano izquierda».
+- **Si puede ser quiral** (*chiral*): si existe en dos versiones, «de mano derecha» y «de mano izquierda».
 - **Cómo se apilan las moléculas en un cristal**, y con ello la forma sólida que sale de la centrífuga.
 
 Se llega a la forma en tres pasos: estructura de Lewis, cargas formales y regla de repulsión.
@@ -141,7 +141,7 @@ En un principio activo, esas partes planas y rígidas conviven con cadenas sp³ 
 
 ### La forma decide: polaridad, solubilidad y quiralidad
 - **Polaridad y solubilidad.** CH₂Cl₂ frente a CCl₄ y NH₃ frente a BF₃: no basta con saber qué enlaces hay, hay que saber hacia dónde apuntan. De la polaridad sale «lo semejante disuelve a lo semejante».
-- **Quiralidad.** Un carbono **sp³** tiene sus cuatro grupos en las esquinas de un tetraedro. Si los cuatro son distintos, hay dos maneras de colocarlos, imagen especular una de otra: es un estereocentro. Un carbono **sp²** es plano y su imagen en el espejo es la misma molécula girada: no puede ser estereocentro. Por eso la racemización ocurre cuando un estereocentro pasa un instante a ser plano: al volver a sp³, el grupo puede entrar por cualquiera de las dos caras.
+- **Quiralidad.** Un carbono **sp³** tiene sus cuatro grupos en las esquinas de un tetraedro. Si los cuatro son distintos, hay dos maneras de colocarlos, imagen especular una de otra: es un estereocentro (*stereocentre*). Un carbono **sp²** es plano y su imagen en el espejo es la misma molécula girada: no puede ser estereocentro. Por eso la racemización (*racemisation*: pasar a una mezcla a partes iguales de las dos versiones) ocurre cuando un estereocentro pasa un instante a ser plano: al volver a sp³, el grupo puede entrar por cualquiera de las dos caras.
 
 ### Sólidos iónicos: la energía reticular y el ciclo de Born-Haber
 En una sal no hay moléculas con forma propia: hay una red de iones. Su fortaleza se mide con la **energía reticular** (*lattice energy*): la energía necesaria para separar un mol del sólido en sus iones gaseosos, muy alejados entre sí. Aquí la tomamos con signo positivo: lo que cuesta romper la red.
@@ -179,7 +179,7 @@ El «mar de electrones» de un metal se afina así: al juntar muchísimos átomo
 ### En el laboratorio de control de calidad
 Los enlaces vibran según los átomos que unen y su forma, y eso lee el infrarrojo («Espectroscopia a fondo: lo que la luz cuenta de una molécula (UV-Vis e infrarrojo)»). «Identificación conforme» significa que la huella del lote coincide con la del patrón.
 
-En planta manda siempre el procedimiento vigente (SOP): cuánto ácido se añade para formar la sal, con qué disolvente y a qué temperatura lo fija la hoja de producción, no la teoría.
+En planta manda siempre el procedimiento vigente (SOP, *Standard Operating Procedure*): cuánto ácido se añade para formar la sal, con qué disolvente y a qué temperatura lo fija la hoja de producción, no la teoría.
 `,
   plant: `
 Turno de mañana en el reactor R-318. La hoja de producción del intermedio ficticio QV-52 dice: *«Base libre de QV-52 disuelta en isopropanol a 50 °C. Añadir disolución de cloruro de hidrógeno en isopropanol durante 60 minutos. Enfriar a 5 °C en 4 horas. Filtrar en el filtro-secador FD-406.»* (Todos los valores son de ejemplo.)
@@ -316,7 +316,7 @@ En la hoja de producción (*batch record*) no vas a ver dibujos de Lewis ni áng
         "Que el producto pase a ser un sólido iónico",
       ],
       answer: 1,
-      explain: "Si la base arranca el hidrógeno del estereocentro, ese carbono queda plano (sp²) un instante y, al recuperarlo, puede salir por cualquiera de las dos caras: parte del producto pasa al otro enantiómero.",
+      explain: "Si la base arranca el hidrógeno del estereocentro, ese carbono queda plano (sp²) un instante y, al recuperarlo, puede salir por cualquiera de las dos caras: parte del producto pasa a la otra versión, su imagen en el espejo (el otro enantiómero, *enantiomer*).",
     },
   ],
 };

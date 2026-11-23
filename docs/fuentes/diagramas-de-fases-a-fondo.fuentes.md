@@ -97,7 +97,7 @@ Abreviaturas:
 
 ## Valores de ejemplo declarados
 
-Productos y equipos ficticios (TQ-58, R-207), la hoja del ejemplo de planta (300 mbar, 75 °C, 63 °C, 5 %), el resultado 3,8 % y los 62,8 °C, la masa que hierve a unos 74 °C, el intervalo de fusión 146–149 °C y la especificación 148–150 °C; el ejemplo de eutéctico A-B; la sustancia del ejercicio 7.
+Productos y equipos ficticios (TQ-58, R-207), la hoja del ejemplo de planta (300 mbar, 75 °C, 63 °C, 5 %), el resultado 3,8 % y los 62,1 °C (con Raoult y las constantes del NIST, 62,1 °C a 300 mbar corresponde a un 3,4 % de tolueno, coherente con el 3,8 %), la masa que hierve a unos 74 °C, el intervalo de fusión 146–149 °C y la especificación 148–150 °C; el ejemplo de eutéctico A-B; la sustancia del ejercicio 7.
 
 ## Lo que quise incluir y dejé fuera por no poder verificarlo
 

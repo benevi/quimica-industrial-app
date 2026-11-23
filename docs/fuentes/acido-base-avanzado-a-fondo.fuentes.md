@@ -61,7 +61,7 @@ Fuentes leídas de verdad:
 | Impureza ácida pKa 4,5, K 20: a pH 11 queda en el agua 99,999 % | Valores de ejemplo + cálculo | Recalculado (99,9994 %) |
 | 30 kg / 250 g/mol = 120 mol; + 0,01 × 300 = 3 mol; 123 mol = 123 L de HCl 1 M | Valores de ejemplo + cálculo | Recalculado |
 | Preguntas numéricas: 4,75; 2,5 %; 2,56 (× 10⁻⁵); 8,88; 3,16; 18 % | Cálculo | Recalculadas: 10⁻⁶/0,039 = 2,564 × 10⁻⁵; 10^0,5 = 3,162; 1/(1 + 4,545) = 0,1803 |
-| Plant y batchRecord: R-236, AM-7, PH-236, volúmenes, pH 9,4 y 10,9, intervalo 10,5–11,5, tampones 7 y 10 | Ficticios. Elegir tampones que encierren el valor medido: `potenciometria-a-fondo` (Kuphaldt) | Coherente con la tabla del cuerpo |
+| Plant y batchRecord: R-236, AM-7, PH-236, volúmenes, pH 9,4 y 10,9, intervalo 10,5–11,5, tampones 10 y 12 | Ficticios. Elegir tampones que encierren el valor medido: `potenciometria-a-fondo` (Kuphaldt) | Coherente con la tabla del cuerpo |
 
 ## Solo vistos en fragmentos del buscador (no usados para cifras)
 

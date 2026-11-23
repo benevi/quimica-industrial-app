@@ -45,7 +45,7 @@ Tres ideas que salen de la tabla:
 Dos cosas más, que el Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) describe en su método para captar vapores con tubos de carbón activo (MTA/MA-032/A98): la capacidad del carbón **baja si sube la temperatura**, y otras sustancias presentes, incluido el vapor de agua, **compiten** por los mismos huecos. Un carbón no atrapa solo lo que tú quieres: también retiene algo de producto, y se nota en el rendimiento.
 
 ### Ejercicio resuelto 1: cuánto secuestrante hace falta
-Valores de ejemplo. Tras una hidrogenación tienes 2000 L de disolución con 200 kg de producto y 30 mg/L de paladio. El límite del producto es 10 µg/g, la concentración de la opción 1 de la guía ICH Q3D para el paladio por vía oral («Hidrogenación a fondo»).
+Valores de ejemplo. Tras una hidrogenación tienes 2000 L de disolución con 200 kg de producto y 30 mg/L de paladio. El límite del producto es 10 µg/g, la concentración de la opción 1 de la guía ICH Q3D (Consejo Internacional de Armonización, *International Council for Harmonisation*) para el paladio por vía oral («Hidrogenación a fondo»).
 
 1. **Paladio total:** 30 mg/L × 2000 L = 60000 mg = 60 g.
 2. **Si todo acabara en el producto:** 60000000 µg / 200000 g = **300 µg/g**. Treinta veces el límite.
@@ -62,7 +62,7 @@ Mismo caso, pero en dos tandas de 14,5 kg: se añade, se agita, se filtra y se r
 
 Con el mismo secuestrante en total, ocho veces menos paladio que en una sola tanda. Es la lógica de «varias extracciones pequeñas mejor que una grande». A cambio, se filtra dos veces.
 
-Por eso un **secuestrante de metales** (*metal scavenger*) es útil: es un sólido con grupos químicos que atrapan un metal concreto. La guía ICH Q11, en sus preguntas y respuestas, cita el uso de secuestrantes junto a la extracción y la destilación entre las operaciones que eliminan impurezas. Cuál se usa, cuánto y cuántas veces lo fija la hoja; el paladio lo confirma el análisis por ICP («Espectroscopia atómica y fluorescencia a fondo»).
+Por eso un **secuestrante de metales** (*metal scavenger*) es útil: es un sólido con grupos químicos que atrapan un metal concreto. La guía ICH Q11, en sus preguntas y respuestas, cita el uso de secuestrantes junto a la extracción y la destilación entre las operaciones que eliminan impurezas. Cuál se usa, cuánto y cuántas veces lo fija la hoja; el paladio lo confirma el análisis por plasma de acoplamiento inductivo (ICP, *inductively coupled plasma*) («Espectroscopia atómica y fluorescencia a fondo»).
 
 ### Lecho fijo y ruptura
 A veces el adsorbente va empaquetado en un cartucho y el líquido pasa a través. La primera capa se satura, luego la siguiente, y la zona saturada avanza como una mancha. Cuando llega al final, el líquido sale con la sustancia que debía quedarse dentro: es la **ruptura** (*breakthrough*). El INSST la define, para sus tubos de carbón, como el momento en que la salida alcanza el 5 % de la concentración de entrada. El volumen máximo por cartucho lo da el procedimiento, y se respeta aunque el filtrado «se vea bien»: la ruptura no se ve.
@@ -115,7 +115,7 @@ La NTP 338 dice que la cantidad se calcula «en principio» con la estequiometr�
 
 La clave es el calor latente. El libro de instrumentación de Tony Kuphaldt da para el agua 539,1 cal/g a presión atmosférica, es decir, 539,1 × 4,184 = **2256 kJ por kilo** evaporado. Y el vapor que sale guarda casi todo ese calor.
 
-**La idea del múltiple efecto.** En un evaporador simple, un kilo de vapor de calefacción evapora, como mucho, en torno a un kilo de agua. Pero el vapor que sale del producto sigue siendo vapor: se puede usar para calentar un segundo evaporador que trabaje a menor presión, donde el líquido hierve a menos temperatura. Y el de ese, un tercero. Es el **evaporador de múltiple efecto** (*multiple-effect evaporator*). Los kilos evaporados por kilo de vapor se llaman **economía de vapor** (*steam economy*). La guía de inspección de la FDA sobre sistemas de agua de alta pureza (1993) ya contaba que la mayoría de los sistemas nuevos de agua para inyectables usaban destiladores de múltiple efecto.
+**La idea del múltiple efecto.** En un evaporador simple, un kilo de vapor de calefacción evapora, como mucho, en torno a un kilo de agua. Pero el vapor que sale del producto sigue siendo vapor: se puede usar para calentar un segundo evaporador que trabaje a menor presión, donde el líquido hierve a menos temperatura. Y el de ese, un tercero. Es el **evaporador de múltiple efecto** (*multiple-effect evaporator*). Los kilos evaporados por kilo de vapor se llaman **economía de vapor** (*steam economy*). La guía de inspección de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) sobre sistemas de agua de alta pureza (1993) ya contaba que la mayoría de los sistemas nuevos de agua para inyectables usaban destiladores de múltiple efecto.
 
 ### Ejercicio resuelto 4: el vapor de una concentración
 Valores de ejemplo. Hay que evaporar 3000 kg de agua.
@@ -143,7 +143,7 @@ La velocidad de caída de una partícula pequeña la da la **ley de Stokes** (*S
 Por eso los finos casi no sedimentan. Cuando la gravedad no basta, la centrífuga la multiplica («La centrífuga a fondo: fuerza G, ciclo completo y qué hacer cuando vibra»).
 
 ### El lecho fluidizado
-Pon arena sobre un fondo agujereado y sopla aire desde abajo. Con poco aire, la arena no se mueve: es un **lecho fijo**. Si aumentas el aire, llega un punto en que el empuje del gas sujeta el peso de los granos: se separan y la arena se mueve como un líquido que hierve. Es un **lecho fluidizado** (*fluidized bed*). La guía SUPAC de la FDA sobre equipos describe así el secadero de lecho fluido: las partículas están expandidas, sostenidas por el arrastre del gas, y sólidos y gas se mezclan y se comportan como un líquido en ebullición. Si sigues aumentando el gas, se lleva las partículas: es el **arrastre** (*entrainment*), y el polvo acaba en los filtros de polvo del secadero.
+Pon arena sobre un fondo agujereado y sopla aire desde abajo. Con poco aire, la arena no se mueve: es un **lecho fijo**. Si aumentas el aire, llega un punto en que el empuje del gas sujeta el peso de los granos: se separan y la arena se mueve como un líquido que hierve. Es un **lecho fluidizado** (*fluidized bed*). La guía SUPAC (*Scale-Up and Post-Approval Changes*, cambios de escala y posteriores a la autorización) de la FDA sobre equipos describe así el secadero de lecho fluido: las partículas están expandidas, sostenidas por el arrastre del gas, y sólidos y gas se mezclan y se comportan como un líquido en ebullición. Si sigues aumentando el gas, se lleva las partículas: es el **arrastre** (*entrainment*), y el polvo acaba en los filtros de polvo del secadero.
 
 **Ejercicio resuelto 6: la presión diferencial del lecho.** Cuando el lecho está fluidizado, el gas sostiene todo su peso, así que la caída de presión a través del lecho es, aproximadamente, el peso del lecho entre el área de la placa. Valores de ejemplo: 250 kg de producto sobre una placa de 0,8 m²:
 
@@ -159,7 +159,7 @@ En todas estas operaciones el patrón es el mismo: material aprobado y pesado co
 Los números de esta lección son de ejemplo y sirven para entender. En planta manda siempre el procedimiento vigente (SOP): cantidades de carbón y secuestrante, temperaturas, límites del lavador y consignas del lecho fluido son los de tu hoja de producción.
 `,
   plant: `
-Turno de tarde. En el reactor R-512 tienes disuelto en etanol el intermedio ficticio PZ-17, que viene de una hidrogenación. La hoja dice: *«Calentar a 65–70 °C. Cargar 12 kg de carbón activo CA-3 como papilla en etanol por la línea de carga cerrada. Agitar 60 min. Filtrar en caliente por F-513 (con ayuda filtrante) y por el cartucho de pulido F-514 al reactor R-515. Enjuagar con 80 L de etanol a 65 °C. IPC: color de la disolución y paladio por ICP.»*
+Turno de tarde. En el reactor R-512 tienes disuelto en etanol el intermedio ficticio PZ-17, que viene de una hidrogenación. La hoja dice: *«Calentar a 65–70 °C. Cargar 12 kg de carbón activo CA-3 como papilla en etanol por la línea de carga cerrada. Agitar 60 min. Filtrar en caliente por F-513 (con ayuda filtrante) y por el cartucho de pulido F-514 al reactor R-515. Enjuagar con 80 L de etanol a 65 °C. IPC: color de la disolución y paladio por ICP.»* (IPC es el control en proceso, *in-process control*.)
 
 Antes de nada compruebas lo que no se ve: R-512 inertizado y con la medida de oxígeno anotada, pinza de tierra conectada en el bidón de papilla, filtro F-513 y líneas con el traceado caliente a temperatura. Lote del carbón aprobado en la etiqueta.
 

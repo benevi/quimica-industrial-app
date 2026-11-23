@@ -36,7 +36,7 @@ Abreviaturas de fuentes:
 | Definición de polímero y de unidad monomérica; distribución de pesos moleculares (art. 3.5) | REACH | Leído en el documento |
 | Masa molar del etileno 28,0532; propeno 42,0797; fluoruro de vinilideno 64,0341; TFE 100,0150; cloruro de vinilo 62,498; hexametilendiamina 116,2046; ácido adípico 146,1412; agua 18,0153 g/mol (redondeadas a dos decimales en el texto) | NIST | Leído en el documento |
 | Fórmulas CH₂=CH₂, CH₂CHCH₃, CH₂=CHCl, C₂F₄, CH₂=CF₂ | ICSC 0475, 0559, 0082, 1779, 0687 | Leído en el documento |
-| Grado de polimerización 280000/28,05 = 9981 (masa 280000 g/mol, valor de ejemplo) | Cálculo | Recalculado con Python (`tmp-polimeros/calc.py`) |
+| Grado de polimerización 280000/28,05 = 9982 (masa 280000 g/mol, valor de ejemplo) | Cálculo | Recalculado con Python (`tmp-polimeros/calc.py`) |
 | Los dobles enlaces pueden generar reacciones de polimerización por adición | NTP 302 | Leído en el documento |
 | Etileno se usa para fabricar polietileno; del etileno se obtiene el cloruro de vinilo, base del PVC; el propileno puede polimerizarse directamente a polipropileno | OIT-77 (pág. 77.25-77.26) | Leído en el documento |
 | En la adición no hay subproducto y la masa se conserva (1000 kg dan como máximo 1000 kg) | Cálculo (balance de átomos de n C₂H₄ = (C₂H₄)ₙ) | Razonado y comprobado por balance |
@@ -75,6 +75,8 @@ Abreviaturas de fuentes:
 | Una junta incompatible se hincha, encoge, ablanda o agrieta; cambio igual por igual (NTP 1017) | Lecciones de la app «Materiales de los equipos y corrosión a fondo» y «Mantenimiento a fondo» | Leído en `src/content/nivel11-materiales.ts` |
 | ICH Q7 6.17: especificaciones para «process aids, gaskets, or other materials… that could critically impact on quality» | Q7 | Leído en el documento |
 | Guantes químicos normalmente de elastómeros (no dejan pasar aire); lista látex, PVC, nitrilo, neopreno, polietileno, «Vitón», butilo, PVA | NTP 1136, apartado 2 | Leído en el documento |
+| La lección no repite «normalmente de elastómeros» de la NTP: dice «polímeros flexibles» y separa elastómeros (látex, nitrilo, neopreno, butilo) de termoplásticos (PVC, polietileno), coherente con la clasificación de la propia lección | Clasificación de la lección (tabla de termoplásticos y elastómeros) | Ajuste de redacción tras la revisión cruzada de noviembre de 2026 |
+| Escena de la junta: campaña anterior en heptano (no en tolueno), porque el nitrilo resiste los hidrocarburos alifáticos y no los aromáticos; la tabla de la OIT es general y la compatibilidad concreta la da el fabricante | Conocimiento general de compatibilidad de elastómeros; FDS del tolueno de la app (el nitrilo solo para salpicaduras) | No comprobado en una tabla de fabricante: por eso la lección remite a ella sin dar cifras |
 | Permeación: absorción en la parte externa, difusión a través del material y desorción por la interna | NTP 1136 | Leído en el documento |
 | PVA buena barrera frente a casi todos los disolventes orgánicos pero se degrada con agua; látex resistente al agua pero fácilmente soluble en tolueno y hexano | OIT-31 (31.18) | Leído en el documento |
 | ICH Q7 5.11 (superficies) y 9.21 (envases no reactivos, aditivos ni absorbentes) | Q7 | Leído en el documento |

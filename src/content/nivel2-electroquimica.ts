@@ -229,7 +229,7 @@ Los números de esta lección sirven para entender. En planta manda siempre el p
   plant: `
 Planta ficticia de la lección, turno de tarde. En el reactor vitrificado R-318 se oxida un intermedio ficticio con una disolución acuosa de permanganato de potasio, en medio básico. La hoja indica pH de la masa entre 10 y 11 antes de empezar la adición y avisa: en este medio se forma un sólido pardo, dióxido de manganeso, que luego se filtra en el filtro FP-322.
 
-Nuria, la operadora, mide el pH de la muestra: 9,2. No empieza la adición. Sabe por qué: en medio ácido o casi neutro el permanganato no sigue la misma reacción y la estequiometría de la hoja dejaría de valer. Avisa a la jefa de turno, que manda ajustar con sosa según el procedimiento. Nueva medida: 10,4. Anota las dos lecturas, la hora y la cantidad de sosa añadida.
+Nuria, la operadora, mide el pH de la muestra: 9,2. No empieza la adición. Sabe por qué: el proceso está validado en ese intervalo y fuera de él la reacción puede no ir como prevé la hoja (en ácido, por ejemplo, el permanganato da Mn²⁺ con 5 electrones en lugar de MnO₂ con 3); decidir si 9,2 vale no le toca a ella. Avisa a la jefa de turno, que manda ajustar con sosa según el procedimiento. Nueva medida: 10,4. Anota las dos lecturas, la hora y la cantidad de sosa añadida.
 
 Durante la ronda, Nuria pasa junto al depósito enterrado de gasóleo de la caldera, protegido por corriente impresa. El rectificador muestra una alarma de corriente baja. No toca el equipo: lo anota y avisa a mantenimiento, porque sin corriente el acero enterrado vuelve a ser ánodo.
 

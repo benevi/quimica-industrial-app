@@ -40,7 +40,7 @@ Criterio de signos de esta lección: q y w son **positivos si entran** en el sis
 
 R es la **constante de los gases** (*gas constant*). Sale de multiplicar dos constantes que el Real Decreto 493/2020 fija como exactas, la de Avogadro (6,022 140 76 × 10²³ por mol) y la de Boltzmann (1,380 649 × 10⁻²³ J/K): R = 8,314 J/(mol·K).
 
-**Ejemplo resuelto 1. Una desprotección que suelta gas.** En «Reacciones en la fabricación de API a fondo» (nivel 3) verás una desprotección que suelta 1,6 kmol de gas (CO₂ e isobuteno), que a 25 °C y presión atmosférica ocupan 39,2 m³.
+**Ejemplo resuelto 1. Una desprotección que suelta gas.** En «Reacciones en la fabricación de API a fondo: tipos, etapas y seguridad de reacción» (nivel 3; API es el principio activo farmacéutico, *Active Pharmaceutical Ingredient*) verás una desprotección que suelta 1,6 kmol de gas (CO₂ e isobuteno), que a 25 °C y presión atmosférica ocupan 39,2 m³.
 
 - Con volumen: 101,325 kPa × 39,2 m³ = **3972 kJ**.
 - Con moles: 1600 mol × 8,314 × 298,15 K = 3 966 000 J = **3966 kJ**.

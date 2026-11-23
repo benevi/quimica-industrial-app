@@ -67,6 +67,7 @@ No accesibles en esta sesión: goldbook.iupac.org (página de comprobación de C
 | Ejercicio 5: 5,14 − 3,61 = 1,53 eV; × 96,49 = 148 kJ/mol | Cálculo | Recalculado |
 | La atracción entre iones en el cristal compensa (ciclo de Born-Haber) | RD 243/2022 nombra Born-Haber; Kuphaldt: los enlaces se forman cuando la energía conjunta baja | Leído en términos generales; balance numérico no incluido |
 | Pd/C se maneja húmedo con agua | Lección «Hidrogenación a fondo» | Leído en la app |
+| Pd/C húmedo por seguridad: seco puede inflamarse solo al aire (pirofórico); el paladio es un metal noble que no reacciona con el agua. La energía de ionización en fase gas no basta para predecir la reactividad con el agua (contraejemplo: Au 9,23 eV frente a Zn 9,39 eV) | Lección «Hidrogenación a fondo» (nivel12-hidrogenacion.ts); NIST para las energías de ionización; revisión cruzada de noviembre de 2026 | Leído en la app; el contraejemplo, recalculado con los datos del NIST de la revisión |
 | Pd: trazas en el producto, filtrado y análisis | «Hidrogenación a fondo», «Átomos… a fondo» (ICH Q3D) | Leído en la app |
 | Sodio 589,59 nm y potasio 766,49 nm como líneas de emisión | FDA EAM 4.4, tabla 3b | Leído |
 | Visible aproximadamente de 400 a 700 nm (Kuphaldt) o 780 (lección de espectroscopia): 766 nm en el límite rojo-infrarrojo | Kuphaldt, spectroscopy; «Espectroscopia a fondo» | Leído |

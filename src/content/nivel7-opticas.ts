@@ -52,7 +52,7 @@ Con sen 90° = 1, la ley de Snell da:
 
 > sen θc = n de la muestra / n del prisma
 
-**Ejercicio resuelto 3.** Prisma de n = 1,75 (valor de ejemplo) y agua (1,3330): sen θc = 1,3330 / 1,75 = 0,7617, θc = **49,6°**. Con un líquido de n = 1,4283, θc = **54,7°**: cada líquido tiene su ángulo límite. Muchos refractómetros de laboratorio se basan en esto: la muestra se pone sobre un prisma de índice conocido y el equipo busca la frontera entre zona clara y zona oscura, que marca el ángulo límite, y la convierte en n. La guía ICH Q6A, sobre especificaciones, cita el índice de refracción entre las propiedades fisicoquímicas que puede llevar un principio activo y nombra la **refractometría de Abbe** (*Abbé refractometry*), el refractómetro de prismas clásico.
+**Ejercicio resuelto 3.** Prisma de n = 1,75 (valor de ejemplo) y agua (1,3330): sen θc = 1,3330 / 1,75 = 0,7617, θc = **49,6°**. Con un líquido de n = 1,4283, θc = **54,7°**: cada líquido tiene su ángulo límite. Muchos refractómetros de laboratorio se basan en esto: la muestra se pone sobre un prisma de índice conocido y el equipo busca la frontera entre zona clara y zona oscura, que marca el ángulo límite, y la convierte en n. La guía ICH Q6A (Consejo Internacional de Armonización, *International Council for Harmonisation*), sobre especificaciones, cita el índice de refracción entre las propiedades fisicoquímicas que puede llevar un principio activo y nombra la **refractometría de Abbe** (*Abbé refractometry*), el refractómetro de prismas clásico.
 
 ### Cómo se mide bien
 Los métodos oficiales del BOE (aceites, mantequilla y zumos) coinciden en lo esencial:
@@ -82,12 +82,12 @@ Ese factor es el de las grasas; cada sustancia tiene el suyo, y lo más seguro e
 
 Ojo con el límite: el refractómetro mide el índice de **toda** la mezcla. No dice qué sustancia lo cambia; si hay dos disueltas, no las separa.
 
-**Detector de HPLC.** La OMS cita el detector de **índice de refracción** entre los opcionales del HPLC (está en «HPLC a fondo: el equipo que da la riqueza y las impurezas de tu lote»).
+**Detector de HPLC** (cromatografía de líquidos de alta resolución). La OMS cita el detector de **índice de refracción** entre los opcionales del HPLC (está en «HPLC a fondo: el equipo que da la riqueza y las impurezas de tu lote»).
 
 ### Luz polarizada: la valla de barrotes
 La luz normal vibra en todas las direcciones a la vez, como una cuerda que agitas sin orden. Si la cuerda pasa por una valla de barrotes verticales, al otro lado solo sigue la vibración vertical. Un **polarizador** (*polarizer*) es esa valla para la luz: deja pasar la que vibra en un solo plano. Esa es la **luz polarizada** (*plane-polarized light*).
 
-El manual de química de medicamentos de la FDA (*ORA Laboratory Manual*, volumen IV, sección 3) define la **polarimetría** como la medida de la **rotación óptica**: muchas sustancias farmacéuticas giran el plano de la luz polarizada que las atraviesa, y la luz sale con un ángulo medible respecto a la que entró. Las que lo giran a la derecha son dextrógiras (+); a la izquierda, levógiras (−). Las que tienen esa propiedad son **quirales**. Qué es un enantiómero y por qué (+) y (−) no tienen nada que ver con R y S está en «Isómeros y quiralidad a fondo»; aquí no se repite.
+El manual de química de medicamentos de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) (*ORA Laboratory Manual*, volumen IV, sección 3) define la **polarimetría** como la medida de la **rotación óptica**: muchas sustancias farmacéuticas giran el plano de la luz polarizada que las atraviesa, y la luz sale con un ángulo medible respecto a la que entró. Las que lo giran a la derecha son dextrógiras (+); a la izquierda, levógiras (−). Las que tienen esa propiedad son **quirales**. Qué es un enantiómero y por qué (+) y (−) no tienen nada que ver con R y S está en «Isómeros y quiralidad a fondo: moléculas gemelas que no hacen lo mismo»; aquí no se repite.
 
 ### El polarímetro
 Piezas, en orden:
@@ -154,7 +154,7 @@ Se le asignan **400 unidades nefelométricas de formacina (UNF)**. Se prepara ca
 
 Por encima de 40 UNF, el BOE prefiere patrones más altos a diluir la muestra (el agua destilada puede disolver partículas). En el tubo no debe haber **burbujas** pegadas: desvían luz como una partícula.
 
-La unidad tiene dos nombres: en España, **UNF**; en las normas de Estados Unidos (40 CFR 141), **NTU** (*nephelometric turbidity unit*).
+Según la norma, la unidad se llama distinto: en España, **UNF**; en las normas de Estados Unidos (40 CFR 141, del Código de Reglamentos Federales, *Code of Federal Regulations*), **NTU** (*nephelometric turbidity unit*). Las dos se refieren a la formacina, pero cada norma fija su propio equipo, así que cada resultado se compara con el límite de su norma.
 
 ### La turbidez del agua
 El Real Decreto 3/2023, de agua de consumo, fija para la turbidez:
@@ -162,11 +162,11 @@ El Real Decreto 3/2023, de agua de consumo, fija para la turbidez:
 | Punto | Valor |
 |---|---|
 | Red de distribución y depósitos (valor paramétrico) | 4,0 UNF |
-| Salida de la potabilizadora (ETAP) o depósito de cabecera | 0,8 UNF de referencia; 2 UNF, no apta |
+| Salida de la estación de tratamiento de agua potable (ETAP) o depósito de cabecera | 0,8 UNF de referencia; 2 UNF, no apta |
 | Salida de la filtración en la ETAP (control operacional) | 0,3 UNF o menos en el 95 % de las muestras del año |
 | Red (no apta) | 6 UNF |
 
-En Estados Unidos (40 CFR 141.173), el agua filtrada debe dar 0,3 NTU o menos en el 95 % de las medidas de cada mes y nunca más de 1 NTU. La norma ata esos límites a que la filtración y la desinfección quiten al menos el 99,9 % de los quistes de *Giardia*: la turbidez es un **chivato** rápido de que el filtro funciona. ICH Q7 (4.31) pide como mínimo agua potable para el proceso de un API; el resto, en «Agua farmacéutica a fondo: cómo se produce, se reparte y se vigila».
+En Estados Unidos (40 CFR 141.173), el agua filtrada debe dar 0,3 NTU o menos en el 95 % de las medidas de cada mes y nunca más de 1 NTU. Para otras tecnologías de filtración, la misma norma pide demostrar que, junto con la desinfección, quitan al menos el 99,9 % de los quistes de *Giardia*, el 99,99 % de los virus y el 99 % de los ooquistes de *Cryptosporidium*: la turbidez es un **chivato** rápido de que el filtro funciona. ICH Q7 (4.31) pide como mínimo agua potable para el proceso de un API; el resto, en «Agua farmacéutica a fondo: cómo se produce, se reparte y se vigila».
 
 ### Colorimetría: la escala platino-cobalto
 **Colorimetría** (*colorimetry*) es medir un color comparándolo con patrones. La escala más usada en aguas es la **platino-cobalto** (*platinum-cobalt*). El método del BOE de 1987:
@@ -194,9 +194,9 @@ En planta manda siempre el procedimiento vigente (SOP): métodos, temperaturas, 
   plant: `
 Turno de mañana en una planta ficticia. Todos los códigos y valores son de ejemplo.
 
-En el reactor **R-512** ha terminado la resolución que da el intermedio quiral inventado **QX-31**. La torta sale de la centrífuga **C-515** y, tras liberar la base, la disolución se concentra. La hoja pide una muestra de IPC para **rotación óptica**: especificación de [α] entre +48,0° y +51,0°. Llenas el frasco hasta arriba, lo cierras y lo llevas al laboratorio sin dejarlo junto a la camisa caliente. Resultado: +49,2°. Se sigue.
+En el reactor **R-512** ha terminado la resolución que da el intermedio quiral inventado **QX-31**. La torta sale de la centrífuga **C-515** y, tras liberar la base, la disolución se concentra. La hoja pide una muestra de control en proceso (IPC, *in-process control*) para **rotación óptica**: especificación de [α] entre +48,0° y +51,0°. Llenas el frasco hasta arriba, lo cierras y lo llevas al laboratorio sin dejarlo junto a la camisa caliente. Resultado: +49,2°. Se sigue.
 
-Mientras, el tolueno recuperado en la columna de destilación **D-520** va al tanque **T-522**. Antes de reutilizarlo, la hoja pide índice de refracción y agua. El laboratorio da n²⁰D fuera de su intervalo de aceptación: el tanque queda bloqueado. Se descubre que el condensador **E-521** perdía agua de refrigeración hacia el lado del producto. Mantenimiento cambia la junta y el tolueno se vuelve a destilar.
+Mientras, el tolueno recuperado en la columna de destilación **D-520** va al tanque **T-522**. Antes de reutilizarlo, la hoja pide índice de refracción y agua. El laboratorio da el agua por encima de su límite (el índice de refracción apenas se mueve, porque el tolueno disuelve muy poca agua): el tanque queda bloqueado. Se descubre que el condensador **E-521** perdía agua de refrigeración hacia el lado del producto. Mantenimiento cambia la junta y el tolueno se vuelve a destilar.
 
 A media mañana, el analizador en línea de turbidez del agua de entrada **AT-601** sube de 0,2 a 1,5 UNF y salta la alarma. No es tu sistema, pero sí tu aviso: lo comunicas al responsable de servicios, que toma una muestra manual. Hay obras en la red municipal. Se pasa al depósito de reserva hasta que la lectura vuelve a su valor normal, y la incidencia queda registrada.
 `,
@@ -220,7 +220,7 @@ A media mañana, el analizador en línea de turbidez del agua de entrada **AT-60
     { es: "Turbidez", en: "Turbidity", def: "Pérdida de transparencia de un líquido por partículas en suspensión que desvían la luz." },
     { es: "Nefelometría", en: "Nephelometry", def: "Medida de la turbidez por la luz desviada hacia un lado por las partículas." },
     { es: "Formacina", en: "Formazin", def: "Suspensión patrón de turbidez preparada con sulfato de hidracina y hexametilentetramina; el BOE le asigna 400 UNF." },
-    { es: "Unidad nefelométrica de formacina", en: "Formazin nephelometric unit (FNU) / NTU", def: "Unidad de turbidez referida a la formacina; en España UNF, en las normas de Estados Unidos NTU." },
+    { es: "Unidad nefelométrica de formacina", en: "Formazin nephelometric unit / NTU", def: "Unidad de turbidez referida a la formacina; en España UNF y en las normas de Estados Unidos NTU. Cada norma fija su propio equipo de medida." },
     { es: "Escala platino-cobalto", en: "Platinum-cobalt colour scale", def: "Escala de color de aguas con patrones de cloroplatinato de potasio y cloruro de cobalto, en mg de platino por litro." },
   ],
   quiz: [

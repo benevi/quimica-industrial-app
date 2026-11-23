@@ -98,7 +98,7 @@ Lecciones de la app leídas enteras para no repetir: `microbiologia-a-fondo`, `e
 | En caso de duda, el grupo de peligrosidad superior | RD664 art. 4.3.a | Leído |
 | Nivel de contención mínimo según grupo | RD664 art. 15.1.b | Leído |
 | CSB en anexo IV: «cuando proceda» (nivel 2), «sí, cuando la infección se propague por el aire» (3), «sí» (4) | RD664 anexo IV, medida 3 | Leído |
-| CSB: flujo de aire dirigido, HEPA H14, 99,995 % a 0,3 µm | NTP1202 | Leído |
+| CSB: flujo de aire dirigido, HEPA H14, 99,995 % a 0,3 µm | NTP1202 | Leído. La lección lo da como «el tamaño que peor atrapan (el más penetrante; la NTP 1202 da como referencia 0,3 µm)», coherente con `nivel14-hvac.ts`: en la EN 1822 (de pago, no leída) el tamaño más penetrante se determina para cada filtro |
 | Clase I: protege persona y entorno, no producto; entrada 0,7-1 m/s; extracción total por HEPA. Clase II: además flujo laminar descendente que protege el producto. Clase III: cerrada, guantes, al menos 200 Pa negativos, grupo 4 | NTP1202 | Leído |
 | 1000000 × 0,005 % = 50; quiz 200000 × 0,00005 = 10 | Cálculo | Recalculado |
 | Flujo laminar no es CSB; trabajar a 10 cm de la rejilla, despacio, una persona, evitar llamas; HEPA no filtra gases ni vapores | NTP1202 | Leído |

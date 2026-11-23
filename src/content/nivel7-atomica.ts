@@ -10,7 +10,7 @@ export const espectroscopiaAtomicaAFondo: Lesson = {
   summary:
     "Absorción atómica de llama, horno de grafito y vapor frío, emisión en llama, ICP-OES e ICP-MS con sus interferencias, fluorescencia molecular, cuándo se usa cada técnica y cómo se calcula con ICH Q3D el límite de paladio de un catalizador.",
   body: `
-En «Electrones, orbitales y tabla periódica a fondo: por qué cada elemento reacciona como reacciona» viste por qué cada átomo emite y absorbe sus propias rayas de luz, y una primera idea de la absorción atómica. En «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP» viste el plasma de argón, la digestión con ácido, la opción 2a de ICH Q3D y el umbral de control del 30 %. Aquí entramos en los equipos: cómo funcionan, qué los engaña y cuándo se elige cada uno. La fuente principal es el manual de análisis elemental de la FDA (*Elemental Analysis Manual*, EAM), escrito para alimentos: sus ideas valen para un laboratorio de API, pero sus límites son de sus métodos, no de tu producto.
+En «Electrones, orbitales y tabla periódica a fondo: por qué cada elemento reacciona como reacciona» viste por qué cada átomo emite y absorbe sus propias rayas de luz, y una primera idea de la absorción atómica. En «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP» viste el plasma de argón, la digestión con ácido, la opción 2a de la guía ICH Q3D (Consejo Internacional de Armonización, *International Council for Harmonisation*) y el umbral de control del 30 %. Aquí entramos en los equipos: cómo funcionan, qué los engaña y cuándo se elige cada uno. La fuente principal es el manual de análisis elemental de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) (*Elemental Analysis Manual*, EAM), escrito para alimentos: sus ideas valen para un laboratorio de API, pero sus límites son de sus métodos, no de tu producto.
 
 ### La idea común: primero, átomos sueltos
 Para medir un metal hay que dejarlo como **átomos libres** en estado gaseoso: la **atomización** (*atomization*). Antes, la muestra se digiere con ácido nítrico y agua oxigenada en recipientes cerrados con microondas. Hace falta un ácido fuerte: según la ficha del paladio de ICH Q3D, el paladio metálico resiste a la mayoría de reactivos salvo el agua regia y el ácido nítrico.
@@ -110,7 +110,7 @@ Límites de cuantificación en disolución para el plomo en los métodos de la F
 | Absorción atómica de llama | 1,0 mg/L | Uno | Metales a niveles altos, equipo barato y robusto |
 | Horno de grafito | 2,7 µg/L | Uno | Trazas de pocos elementos |
 | ICP-OES | Detección en 0,17 mg/L | Decenas | Varios elementos a niveles medios y altos |
-| ICP-MS | 0,11 µg/kg | Decenas | Trazas de muchos elementos a la vez |
+| ICP-MS | 0,11 µg/kg de disolución (unos 0,11 µg/L) | Decenas | Trazas de muchos elementos a la vez |
 | Emisión o fotometría de llama | Sin dato verificado | Uno o dos | Sodio y potasio altos |
 
 **Ejercicio resuelto 6. ¿Llega la llama al paladio?** Un API con 10 µg/g de paladio (valor de ejemplo): se digieren 0,500 g y se llevan a 50 mL.
@@ -129,12 +129,12 @@ Algunas moléculas absorben luz de onda corta, casi siempre ultravioleta, y devu
 
 **Su límite: la selectividad.** Solo fluorescen algunas sustancias, y otra que fluoresca en el mismo color estorba: en el analizador de Kuphaldt, un filtro quita la del óxido nítrico, que emite en otro color, pero los hidrocarburos aromáticos hay que separarlos antes.
 
-**Dónde la verás.** El manual ORA la cita como técnica (capítulos USP 853 y 1853 de la farmacopea estadounidense), como **detector de fluorescencia** de un HPLC y en la capa fina, cuyas placas llevan un aditivo fluorescente que las manchas apagan bajo luz ultravioleta.
+**Dónde la verás.** El manual ORA la cita como técnica (capítulos USP 853 y 1853 de la farmacopea estadounidense), como **detector de fluorescencia** de un HPLC (cromatógrafo de líquidos de alta resolución) y en la capa fina, cuyas placas llevan un aditivo fluorescente que las manchas apagan bajo luz ultravioleta.
 
 ### El paladio con ICH Q3D: lo que faltaba
-Ya conoces la PDE oral (100 µg al día), las opciones 1 y 2a y el umbral del 30 %. Tres piezas más:
+Ya conoces la exposición diaria permitida (PDE, *permitted daily exposure*) oral, 100 µg al día, las opciones 1 y 2a y el umbral del 30 %. Tres piezas más:
 
-**De dónde sale el 100.** La ficha del paladio parte del menor nivel con efecto observado (*LOEL*) en un estudio de por vida con ratones, 1,2 mg por kg y día, para una persona de 50 kg, dividido por factores de seguridad que suman 12 × 10 × 1 × 1 × 5 (el último, 5, porque se usó un nivel con efecto):
+**De dónde sale el 100.** La ficha del paladio parte del menor nivel con efecto observado (*LOEL*) en un estudio de por vida con ratones, 1,2 mg por kg y día, para una persona de 50 kg, dividido por factores de seguridad que, multiplicados, dan 12 × 10 × 1 × 1 × 5 = 600 (el último, 5, porque se usó un nivel con efecto):
 
 > PDE = 1,2 × 50 / (12 × 10 × 1 × 1 × 5) = 60 / 600 = 0,1 mg/día = **100 µg/día**
 

@@ -10,7 +10,7 @@ export const energiaYCalor: Lesson = {
   summary:
     "Qué es la energía y el trabajo, por qué calor y temperatura no son lo mismo, la potencia en kW y la energía en kWh, el calor específico del agua y del tolueno, la fórmula Q = m × cp × ΔT con cuatro ejemplos de planta y cómo entra y sale el calor de un reactor por la camisa.",
   body: `
-En planta pasas el turno calentando y enfriando: subir la masa del reactor a reflujo, bajarla para cristalizar, secar una torta con la camisa caliente. Todo eso es mover **energía**. Esta lección te da las palabras y una sola fórmula para entenderlo. Se apoya en dos lecciones anteriores: en «Unidades de medida a fondo» viste el julio y el vatio, y en «La materia a fondo» que la temperatura mide lo que se agitan las partículas.
+En planta pasas el turno calentando y enfriando: subir la masa del reactor a reflujo, bajarla para cristalizar, secar una torta con la camisa caliente. Todo eso es mover **energía**. Esta lección te da las palabras y una sola fórmula para entenderlo. Se apoya en dos lecciones anteriores: en «Unidades de medida a fondo: el SI, las conversiones de planta y los errores que cuestan caro» viste el julio y el vatio, y en «La materia a fondo: estados, cambios de estado y mezclas» que la temperatura mide lo que se agitan las partículas.
 
 ### Qué es la energía
 La **energía** (*energy*) es lo que permite mover algo o cambiarlo. El libro de instrumentación de Tony Kuphaldt la describe como «lo que permite o produce movimiento», incluido el movimiento de los átomos dentro de una sustancia. Tiene muchas formas y pasa de una a otra:
@@ -34,12 +34,12 @@ En la calle se dice «hace calor» por «hace mucha temperatura». En planta hay
 
 Piensa en una taza de café a 80 °C y en una piscina a 25 °C. El café está a más temperatura, pero la piscina guarda muchísima más energía, porque tiene muchísima más agua. Si echas el café en la piscina, la piscina apenas se calienta: hay poco calor que repartir entre mucha masa.
 
-El calor siempre viaja **de lo caliente a lo frío**, solo, sin que nadie lo empuje. Deja la taza en la mesa: el café se enfría, la mesa y el aire se templan un poco, y el paso de calor se para cuando todo está a la misma temperatura. Sin diferencia de temperatura no pasa calor. Para sacar calor de algo frío y echarlo a algo más caliente hace falta una máquina que gaste energía, como la enfriadora de la planta («Intercambio de calor y frío a fondo»).
+El calor siempre viaja **de lo caliente a lo frío**, solo, sin que nadie lo empuje. Deja la taza en la mesa: el café se enfría, la mesa y el aire se templan un poco, y el paso de calor se para cuando todo está a la misma temperatura. Sin diferencia de temperatura no pasa calor. Para sacar calor de algo frío y echarlo a algo más caliente hace falta una máquina que gaste energía, como la enfriadora de la planta (lo verás en «Intercambio de calor y frío a fondo: cómo se calienta y se enfría un proceso»).
 
 ### Potencia: lo rápido que pasa la energía
 Imagina que llenas un cubo con un grifo. El agua del cubo es la **energía**; lo abierto que está el grifo es la **potencia** (*power*): cuánta energía pasa cada segundo.
 
-La unidad de potencia es el **vatio** (*watt*, W): un julio cada segundo. El Real Decreto 2032/2009 lo define así (W = J/s). En planta se usa el **kilovatio** (kW): mil julios, es decir, **1 kJ cada segundo**.
+La unidad de potencia es el **vatio** (*watt*, W): un julio cada segundo. El Real Decreto 2032/2009 lo define así (W = J/s). En planta se usa el **kilovatio** (kW): mil vatios, es decir, mil julios cada segundo, **1 kJ cada segundo**.
 
 Si conoces la potencia y el tiempo, sabes la energía:
 
@@ -93,7 +93,7 @@ Con el mismo calor y la misma masa, el tolueno sube unas 2,5 veces más. Por eso
 **Ejemplo 4: enfriar.** Hay que enfriar 800 kg de tolueno de 60 a 20 °C. ΔT = 20 − 60 = −40 °C, y Q = 800 × 1,70 × (−40) = −54 400 kJ. El signo menos dice que el calor **sale**: la camisa tiene que **retirar 54 400 kJ**.
 
 ### Calor latente: cuando el termómetro se para
-En «La materia a fondo» viste la meseta: mientras un líquido hierve, el calor se gasta en convertirlo en vapor y la temperatura no sube. Ese es el **calor latente** (*latent heat*), y la fórmula Q = m × cp × ΔT no sirve para él; sus números están en «Vapor y calderas a fondo».
+En «La materia a fondo» viste la meseta: mientras un líquido hierve, el calor se gasta en convertirlo en vapor y la temperatura no sube. Ese es el **calor latente** (*latent heat*), y la fórmula Q = m × cp × ΔT no sirve para él; sus números los verás en «Vapor y calderas a fondo: el servicio que calienta la planta».
 
 ### Cómo entra y sale el calor de un reactor
 El reactor tiene una **camisa** (*jacket*): una segunda pared alrededor, por la que circula vapor, agua o un fluido térmico. El calor cruza la pared del reactor desde el lado caliente al frío. Para calentar, la camisa va más caliente que la masa; para enfriar, más fría. Cuánto calor pasa cada segundo depende de cuatro cosas:
@@ -105,14 +105,14 @@ El reactor tiene una **camisa** (*jacket*): una segunda pared alrededor, por la 
 
 Y a veces el calor nace dentro: una reacción que desprende calor lo suelta en la masa, y la camisa tiene que llevárselo al mismo ritmo.
 
-Lo verás con números en el nivel 11 («Vapor y calderas a fondo» e «Intercambio de calor y frío a fondo») y en el nivel 12 («El reactor a fondo», con la fórmula de la camisa, y «Agitación a fondo»).
+Lo verás con números en el nivel 11 («Vapor y calderas a fondo: el servicio que calienta la planta» e «Intercambio de calor y frío a fondo: cómo se calienta y se enfría un proceso») y en el nivel 12 («El reactor a fondo: agitación, intercambio de calor y protecciones», con la fórmula de la camisa, y «Agitación a fondo: rodetes, potencia y mezcla en el reactor»).
 
 ### Lo que hace el operador
 - Mira siempre **dos temperaturas**: la de la masa y la de la camisa. La diferencia te dice si el calor está pasando.
 - Si la camisa está caliente y la masa no sube, algo falla: agitador parado, camisa con condensado, válvula cerrada. Avisa.
 - Un calentamiento con agua tarda más que con disolvente: es física, no una avería.
 
-Los valores de ejemplo sirven para entender. En planta manda siempre el procedimiento vigente (SOP).
+Los valores de ejemplo sirven para entender. En planta manda siempre el procedimiento vigente (SOP, *Standard Operating Procedure*).
 `,
   plant: `
 Turno de mañana. En el reactor R-118 tienes 1000 kg de tolueno a 20 °C para una etapa del intermedio ficticio QT-17. La hoja dice: *«Calentar la masa a 60 °C (58–62 °C) con agua caliente en camisa. Anotar hora de inicio y de llegada.»*

@@ -56,10 +56,10 @@ Fuentes abreviadas:
 | Formacina: 1,00 g sulfato de hidracina / 100,0 mL; 10,00 g hexametilentetramina / 100,0 mL; 5,0 mL de cada en 100 mL; 48 h a 20-25 °C; precipitado blanco; 400 UNF; preparación mensual; patrones semanales con agua filtrada 0,2 µm; intervalo 0-40 UNF; preferir patrones altos a diluir; dilución con la misma agua filtrada; sin burbujas | BOE-1987, 3.3 y 3.4 | Leído |
 | Resultados en «unidades nefelométricas de formacina (UNF)» | BOE-1987, 3.5 | Leído |
 | Unidad NTU en EE. UU. | 40 CFR 141.73 y 141.173 | Leído |
-| UNF y NTU son unidades nefelométricas equivalentes referidas a la formacina; ángulo de 90° del nefelómetro | Solo fragmentos de buscador (patentes, artículos) | **Fragmento de buscador**: en la lección solo se dice que son los dos nombres de la unidad; no se da el ángulo de 90° |
+| UNF y NTU son unidades nefelométricas equivalentes referidas a la formacina; ángulo de 90° del nefelómetro | Solo fragmentos de buscador (patentes, artículos) | **Fragmento de buscador**: la lección no da la equivalencia como segura: dice que las dos se refieren a la formacina, que cada norma fija su equipo y que cada resultado se compara con el límite de su norma; no se da el ángulo de 90° |
 | RD 3/2023: turbidez 4,0 UNF valor paramétrico (depósitos y red); 0,8 UNF de referencia a la salida de ETAP o depósito de cabecera; ≤ 0,3 UNF en el 95 % de las muestras anuales a la salida de la filtración (control operacional); no aptitud 2 UNF en ETAP y 6 UNF en red | RD 3/2023, anexo I, parte C, parámetro 54, nota 17 | Leído |
 | RD 3/2023: color, valor de referencia 15 mg/L Pt/Co | RD 3/2023, anexo I, parte D, parámetro 56 | Leído |
-| EE. UU.: ≤ 0,3 NTU en el 95 % de las medidas mensuales y nunca más de 1 NTU (filtración convencional o directa); vinculado a 99,9 % de eliminación de quistes de *Giardia* | 40 CFR 141.173(a) y (b) | Leído |
+| EE. UU.: ≤ 0,3 NTU en el 95 % de las medidas mensuales y nunca más de 1 NTU (filtración convencional o directa, apartado a). El 99,9 % de quistes de *Giardia*, 99,99 % de virus y 99 % de ooquistes de *Cryptosporidium* se exige en el apartado (b) a otras tecnologías de filtración | 40 CFR 141.173(a) y (b) | Leído |
 | ICH Q7 4.31: agua potable como mínimo | ICH Q7 (ya verificado en «Agua farmacéutica a fondo») | Leído |
 | Escala platino-cobalto: 1,246 g K₂PtCl₆ (= 500 mg Pt) + 1,000 g CoCl₂·6H₂O + 100 mL HCl d 1,19, a 1000 mL; 500 mg Pt/L; patrones 1-70 mg Pt/L; tubos de Nessler de 50 mL mirando de arriba abajo contra superficie blanca; centrifugar si hay partículas; diluir si > 70 y multiplicar; redondeos 1-50 a 1, 51-100 a 5, 101-250 a 10 | BOE-1987, método 2 | Leído |
 | 1,246 g de K₂PtCl₆ contienen 0,500 g de Pt | NIST WebBook: K 39,0983; Pt 195,084; Cl₂ 70,906 (Cl 35,453); M = 486,00 g/mol | Recalculado (0,5002 g); se dejó en el archivo de fuentes, fuera del cuerpo, por longitud |
@@ -67,6 +67,7 @@ Fuentes abreviadas:
 | Colorímetros de filtro y espectrofotómetro en el visible | Kuphaldt-OA distingue análisis dispersivo y no dispersivo; espectrofotómetro en «Espectroscopia a fondo» y «Aspecto, color, solubilidad y claridad a fondo» | Leído (afirmación general, sin cifras) |
 | Refractómetro opcional y polarímetro en el equipo básico de un laboratorio de control | OMS TRS 957, anexo 1, tabla (no se incluyó en el cuerpo por longitud) | Leído |
 | Plantas ficticias R-512, C-515, D-520, T-522, E-521, AT-601, QX-31, especificaciones de [α] e intervalo | Valores de ejemplo declarados | — |
+| La fuga de agua del condensador la detecta el ensayo de agua, no el índice de refracción: el tolueno disuelve muy poca agua (centésimas de un tanto por ciento a temperatura ambiente) y con un 0,05 % la mezcla lineal mueve n en unas −0,00008 | Solubilidad: conocimiento general, no comprobado en una fuente descargada; Δn recalculado con 1,333 y 1,496 | Recalculado; solubilidad sin fuente leída (la lección no da cifra) |
 
 ## Lo que se quiso incluir y se dejó fuera
 

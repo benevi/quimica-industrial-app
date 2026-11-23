@@ -10,7 +10,7 @@ export const tecnicasMicrobiologicasAFondo: Lesson = {
   summary:
     "Cómo trabaja por dentro el laboratorio de microbiología que analiza tus muestras: el microscopio y la tinción de Gram, los medios generales, selectivos y diferenciales, la siembra en masa, en superficie y por estría, la esterilización por autoclave, calor seco y filtración con sus bioindicadores, la cabina de seguridad biológica y los grupos de riesgo del RD 664/1997, la identificación, el número más probable, el antibiograma y los métodos rápidos.",
   body: `
-En «Microbiología para el operador a fondo» viste qué son bacterias, hongos y esporas; en «Ensayos microbiológicos y de endotoxinas a fondo», las UFC, los controles, las endotoxinas y la monitorización de salas. Aquí entramos en el laboratorio de microbiología y vemos sus herramientas: con qué se mira, dónde se siembra, cómo se esteriliza, cómo se protege el analista y cómo se pone nombre y número a lo que crece.
+En «Microbiología para el operador a fondo» viste qué son bacterias, hongos y esporas; en «Ensayos microbiológicos y de endotoxinas a fondo», las unidades formadoras de colonias (UFC), los controles, las endotoxinas y la monitorización de salas. Aquí entramos en el laboratorio de microbiología y vemos sus herramientas: con qué se mira, dónde se siembra, cómo se esteriliza, cómo se protege el analista y cómo se pone nombre y número a lo que crece.
 
 Te importa porque tu muestra de torta húmeda acaba allí, porque tus frascos estériles salen a menudo de su autoclave y porque, si aparece un microbio en tu lote, la investigación empieza con un microscopio y una placa.
 
@@ -99,7 +99,7 @@ La condición de referencia de la Farmacopea Europea, que recoge la EMA, es **12
 **Y el F0.** Con z = 10 °C, cada 10 °C de diferencia multiplican o dividen el efecto por diez. Un minuto a 131 °C vale 10 minutos a 121 °C. Un minuto a 115 °C vale 10 elevado a (115 − 121)/10, es decir, 0,25 minutos. Veinte minutos a 115 °C dan 20 × 0,25 = **5 minutos de F0**: no llegan a los 8 que pide la EMA.
 
 ### Calor seco y despirogenación
-El **calor seco** (*dry heat*) usa aire muy caliente en un horno o un túnel. La referencia es **160 °C durante al menos 2 horas** (EMA). Necesita más temperatura y más tiempo que el vapor, pero sirve para vidrio y metal y, sobre todo, destruye las endotoxinas (anexo 1, 8.66). A más de 220 °C durante un tiempo validado se usa para esterilizar y **despirogenar** a la vez, demostrando que la endotoxina baja al menos 3 logaritmos (EMA; anexo 1, 8.68): de 1000 UE a 1 UE. Todo el aire que entra al horno pasa por un filtro HEPA (anexo 1, 8.70).
+El **calor seco** (*dry heat*) usa aire muy caliente en un horno o un túnel. La referencia es **160 °C durante al menos 2 horas** (EMA). Necesita más temperatura y más tiempo que el vapor, pero sirve para vidrio y metal y, sobre todo, destruye las endotoxinas (anexo 1, 8.66). A más de 220 °C durante un tiempo validado se usa para esterilizar y **despirogenar** a la vez, demostrando que la endotoxina baja al menos 3 logaritmos (EMA; anexo 1, 8.68): de 1000 unidades de endotoxina (UE) a 1 UE. Todo el aire que entra al horno pasa por un filtro de partículas de alta eficacia (HEPA, *high efficiency particulate air*) (anexo 1, 8.70).
 
 ### Filtración esterilizante
 Lo que no aguanta calor se filtra. El anexo 1 (8.79) pide un filtro estéril de grado esterilizante, con poro nominal de **0,22 µm como máximo**, validado. Para validarlo se reta con *Brevundimonas diminuta*, una bacteria muy pequeña, con al menos 10⁷ por cm² de filtro (FDA 2004; EMA). Con 10 cm² de filtro (valor de ejemplo), 10⁷ × 10 = 10⁸ bacterias, y el filtrado debe salir estéril.
@@ -133,7 +133,7 @@ El Real Decreto 664/1997 protege a quien trabaja con agentes biológicos. Su art
 Un agente que no está en la lista no es por eso del grupo 1 (anexo II, nota 3), y en la duda se elige el grupo más peligroso (artículo 4.3). Cada grupo pide como mínimo su **nivel de contención** (artículo 15): grupo 2, nivel 2, y así. El anexo IV dice que el material infectado se maneje en **cabina de seguridad biológica**: «cuando proceda» en nivel 2, si la infección va por el aire en nivel 3, y siempre en nivel 4.
 
 ### La cabina de seguridad biológica
-La NTP 1202 del INSST (2024) explica las **cabinas de seguridad biológica** (CSB; *biological safety cabinets*). Encierran el trabajo con un flujo de aire dirigido y filtros HEPA de clase H14, que retienen el 99,995 % de las partículas del tamaño más difícil, 0,3 µm.
+La NTP 1202 del INSST (2024) explica las **cabinas de seguridad biológica** (CSB; *biological safety cabinets*). Encierran el trabajo con un flujo de aire dirigido y filtros HEPA de clase H14, que retienen el 99,995 % de las partículas del tamaño que peor atrapan (el más penetrante; la NTP 1202 da como referencia 0,3 µm).
 
 | Clase | Protege a | Cómo |
 |---|---|---|
@@ -172,7 +172,7 @@ Un **antibiograma** (*antimicrobial susceptibility test*) mide si un antibiótic
 - **Difusión con disco** (*disk diffusion*): un disco con antibiótico sobre una placa sembrada; se mide en milímetros el **halo** sin crecimiento alrededor.
 - **Dilución** (*dilution*): una serie de concentraciones del antibiótico; la **concentración mínima inhibitoria** (CMI; *minimum inhibitory concentration*, MIC) es la más baja de las probadas que frena el crecimiento.
 
-El resultado se traduce en tres categorías: **sensible** (S), **intermedio** (I) y **resistente** (R). Para enterobacterias, esa ficha daba: halo de 17 mm o más, S; de 14 a 16, I; de 13 o menos, R; CMI de 8 µg/mL o menos, S; 16, I; 32 o más, R. Esos cortes cambian con los años: hoy la FDA reconoce los de la norma CLSI M100.
+El resultado se traduce en tres categorías: **sensible** (S), **intermedio** (I) y **resistente** (R). Para enterobacterias, esa ficha daba: halo de 17 mm o más, S; de 14 a 16, I; de 13 o menos, R; CMI de 8 µg/mL o menos, S; 16, I; 32 o más, R. Esos cortes cambian con los años: hoy la FDA reconoce los de la norma M100 del CLSI (*Clinical and Laboratory Standards Institute*, la asociación estadounidense de normas de laboratorio clínico).
 
 ### Métodos rápidos
 El anexo 1 (9.28) anima a usar **métodos rápidos** y automáticos para detectar antes la contaminación, siempre que una validación demuestre que son equivalentes o mejores que los clásicos (también 10.11 y OMS, 11.2). Ejemplos en las fuentes leídas:
@@ -320,7 +320,7 @@ En el registro del laboratorio, que no rellenas tú pero que puede consultarse e
     },
     {
       kind: "number",
-      q: "Un filtro HEPA H14 retiene el 99,995 % de las partículas de 0,3 µm. Si le llegan 200000 partículas de ese tamaño, ¿cuántas pasan?",
+      q: "Un filtro HEPA H14 retiene el 99,995 % de las partículas del tamaño más penetrante. Si le llegan 200000 partículas de ese tamaño, ¿cuántas pasan?",
       answer: 10,
       tolerance: 0.01,
       unit: "partículas",

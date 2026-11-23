@@ -156,7 +156,7 @@ Si disuelves la sal NaHX, la cuenta da un pH muy cercano a la media de los dos p
 | 6,5 | 0,3 % | 99,4 % | 0,3 % |
 | 11 | 0 % | 1,0 % | 99,0 % |
 
-La forma «sin carga neta» puede tener las dos cargas a la vez, una positiva y otra negativa, y se llama **zwitterión** (*zwitterion*). El pH en el que la molécula no tiene carga neta es su **punto isoeléctrico** (*isoelectric point*), aquí (4,0 + 9,0) / 2 = 6,5. Siguiendo la regla de que lo que tiene carga prefiere el agua, cerca de ese pH estas moléculas suelen ser menos solubles en agua, y ajustando el pH a ese valor se pueden precipitar. Si eso vale para tu producto lo dice su desarrollo, no la cuenta: la guía ICH M9 pide medir la solubilidad de un principio activo a varios pH, incluido el de menor solubilidad.
+La forma «sin carga neta» puede tener las dos cargas a la vez, una positiva y otra negativa, y se llama **zwitterión** (*zwitterion*). El pH en el que la molécula no tiene carga neta es su **punto isoeléctrico** (*isoelectric point*), aquí (4,0 + 9,0) / 2 = 6,5. Siguiendo la regla de que lo que tiene carga prefiere el agua, cerca de ese pH estas moléculas suelen ser menos solubles en agua, y ajustando el pH a ese valor se pueden precipitar. Si eso vale para tu producto lo dice su desarrollo, no la cuenta: la guía ICH M9 (del Consejo Internacional de Armonización, *International Council for Harmonisation*) pide medir la solubilidad de un principio activo a varios pH entre 1,2 y 6,8, incluido el de menor solubilidad si cae en ese intervalo.
 
 ### Tampones: cómo funcionan y cuánto aguantan
 Kuphaldt define el **tampón** (*buffer solution*) como una disolución preparada para mantener un pH estable incluso con una pequeña contaminación. Por eso con tampones se calibra el pHmetro («pH y conductividad a fondo»).
@@ -201,7 +201,7 @@ La guía ICH M9 pide medir la solubilidad de un principio activo al menos a pH 1
 Mientras queda acetato el pH baja despacio; cuando se acaba, cae de golpe, como en el salto de una valoración.
 
 ### En planta: el pH decide la fase
-En «Extracción líquido-líquido a fondo» tienes lo que queda en el agua tras una extracción: 1 / (1 + K × V orgánico / V acuoso), con K fijo. Con ácidos y bases no lo es: solo la forma **sin carga** pasa de verdad al orgánico; la forma con carga se queda en el agua. El reparto que se ve, llamado **coeficiente de distribución** (*distribution ratio*), D, es entonces:
+En «Extracción líquido-líquido a fondo: fases, lavados y separación en el reactor» (nivel 12) verás lo que queda en el agua tras una extracción: 1 / (1 + K × V orgánico / V acuoso), con K fijo. Con ácidos y bases no lo es: solo la forma **sin carga** pasa de verdad al orgánico; la forma con carga se queda en el agua. El reparto que se ve, llamado **coeficiente de distribución** (*distribution ratio*), D, es entonces:
 
 > D = K de la forma sin carga × fracción sin carga
 
@@ -231,7 +231,7 @@ Turno de mañana. En el reactor R-236 (ficticio) tienes 400 L de acetato de etil
 
 Antes de empezar piensas en la tabla: a pH 11 la amina está casi toda sin carga y se queda en el acetato de etilo, arriba; el ácido, ionizado, se va con el agua, abajo.
 
-Añades la sosa por la bomba dosificadora con la camisa en frío. El primer tramo de sosa apenas mueve el pH: se la está comiendo el ácido de la etapa anterior, que hace de tampón. Luego el pH empieza a subir deprisa, como en la curva de valoración, y bajas el caudal. Paras de dosificar, agitas el tiempo de la hoja y tomas muestra de la fase acuosa. El pHmetro PH-236, calibrado esa mañana con tampones de pH 7 y 10 (los que encierran el valor a medir), marca 9,4.
+Añades la sosa por la bomba dosificadora con la camisa en frío. El primer tramo de sosa apenas mueve el pH: se la está comiendo el ácido de la etapa anterior, que hace de tampón. Luego el pH empieza a subir deprisa, como en la curva de valoración, y bajas el caudal. Paras de dosificar, agitas el tiempo de la hoja y tomas muestra de la fase acuosa. El pHmetro PH-236, calibrado esa mañana con tampones de pH 10 y 12 (los que encierran el intervalo de 10,5 a 11,5 que hay que medir), marca 9,4.
 
 No cumple. A ese pH, cerca del pKa, parte de la amina seguiría en el agua y se iría a residuo. No descargas: anotas 9,4, la hora y la temperatura, y sigues lo que la hoja prevé para un pH bajo (en este proceso, una adición más de sosa y otra medida, siempre dentro de la cantidad máxima escrita). La segunda medida da 10,9. Cumple. Decantas, descargas la fase acuosa mirando la mirilla, etiquetas el bidón de residuo y avisas al laboratorio para el control en proceso de la fase orgánica.
 `,

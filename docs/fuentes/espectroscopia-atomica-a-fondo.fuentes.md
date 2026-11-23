@@ -61,7 +61,7 @@ Documentos leídos (descargados con curl y pdftotext en `scratchpad/lecciones/tm
 | Diluir si el patrón interno difiere > 40 % del blanco de calibración | EAM 3.6.4.1 | Leído |
 | Dos isótopos; diferencia > 20 % RPD indica interferencia | EAM 4.7.6 | Leído |
 | Ejercicio 5: 55000/100000; 4,0 y 5,2 µg/L; 26 % | Valores de ejemplo declarados; cálculo | Recalculado (26,1 %) |
-| Tabla de límites del Pb: llama 1,0 mg/L; horno 2,7 µg/L; ICP-OES detección 0,17 mg/L; ICP-MS 0,11 µg/kg | EAM 4.1, 4.3, 4.4 (ASDL), 4.7 tabla 1a (ASQL) | Leído |
+| Tabla de límites del Pb: llama 1,0 mg/L; horno 2,7 µg/L; ICP-OES detección 0,17 mg/L; ICP-MS 0,11 µg/kg de disolución analítica (el método prepara las disoluciones por peso; unos 0,11 µg/L) | EAM 4.1, 4.3, 4.4 (ASDL), 4.7 tabla 1a (ASQL) | Leído |
 | Ejercicio 6: 0,500 g × 10 µg/g en 50 mL = 100 µg/L | Valor de ejemplo declarado; cálculo | Recalculado |
 | Fluorescencia: absorbe onda corta (UV) y emite onda larga | ORA IV-01 (microscopía de fluorescencia) y Kuphaldt | Leído |
 | Quinina de la tónica fluoresce bajo luz negra | Kuphaldt | Leído |

@@ -63,13 +63,13 @@ La botella de CO₂ de «Los gases a fondo», a 20 °C, tiene líquido porque es
 ### Sublimación y liofilización
 Si la presión está por debajo de la del punto triple (6,1 mbar en el agua), el mapa no tiene zona de líquido: el hielo que se calienta pasa a vapor sin fundir. Es la base de la **liofilización** (*freeze-drying, lyophilization*).
 
-La guía de la FDA para inspeccionar la liofilización de inyectables (*Guide to Inspections of Lyophilization of Parenterals*, 1993) la define como quitar el agua de un producto congelado y puesto a vacío, de modo que el hielo pase de sólido a vapor sin pasar por líquido. Tiene tres etapas:
+La guía de la FDA (*Food and Drug Administration*, la agencia del medicamento de Estados Unidos) para inspeccionar la liofilización de inyectables (*Guide to Inspections of Lyophilization of Parenterals*, 1993) la define como quitar el agua de un producto congelado y puesto a vacío, de modo que el hielo pase de sólido a vapor sin pasar por líquido. Tiene tres etapas:
 
 1. **Congelación** (*freezing*): el producto se congela por debajo de su punto eutéctico (lo verás más abajo).
 2. **Secado primario** (*primary drying*): sublimación del hielo a vacío. La guía pide mantener la temperatura del producto al menos 4 o 5 grados por debajo del punto eutéctico.
 3. **Secado secundario** (*secondary drying*): se quita, por **desorción** (*desorption*), el agua que queda pegada al sólido.
 
-Si el producto se calienta de más en el secado primario, aparece el **colapso por fusión** (*meltback*): parte del hielo funde en vez de sublimar. La guía lo relaciona con humedad atrapada y con cambios en la forma física del principio activo. En una planta de API es rara; se usa en inyectables. La idea es la del mapa: por debajo del punto triple, secar es sublimar.
+Si el producto se calienta de más en el secado primario, aparece el **colapso por fusión** (*meltback*): parte del hielo funde en vez de sublimar. La guía lo relaciona con humedad atrapada y con cambios en la forma física del principio activo. En una planta de principio activo (API, *Active Pharmaceutical Ingredient*) es rara; se usa en inyectables. La idea es la del mapa: por debajo del punto triple, secar es sublimar.
 
 ### La curva de presión de vapor y la ecuación de Antoine
 La línea líquido-vapor del diagrama es la **curva de presión de vapor** (*vapour pressure curve*). El NIST la da con la ecuación de Antoine en esta forma, con P en bar y T en kelvin:
@@ -121,7 +121,7 @@ Si se dibuja a presión fija la temperatura frente a la composición, salen dos 
 ### Azeótropos: cuando la destilación se atasca
 Cuando las moléculas de los dos líquidos se atraen mucho menos o mucho más que entre iguales, la mezcla se aparta tanto de Raoult que la lente se deforma y las dos curvas se tocan en un punto. Ahí el vapor tiene **la misma composición que el líquido**: es un **azeótropo** (*azeotrope*). Destilando nunca se pasa de él.
 
-- **De mínimo punto de ebullición**: la mezcla hierve por debajo de los dos puros. Es el caso de etanol y agua citado en «Destilación y concentración».
+- **De mínimo punto de ebullición**: la mezcla hierve por debajo de los dos puros. Es el caso de etanol y agua, que verás en «Destilación y concentración».
 - **De máximo punto de ebullición**: hierve por encima de los dos.
 - **Heterogéneo**: dos líquidos que casi no se mezclan, como tolueno y agua, hierven juntos por debajo de los dos. La cuenta, que verás en «Destilación a fondo», da 84,4 °C a 1013 mbar y es la base del secado azeotrópico.
 
@@ -189,11 +189,11 @@ con c en mol/L, R = 0,083145 L·bar/(mol·K) y T en kelvin.
 Estas cuentas sirven para entender lo que ves, no para cambiar consignas. En planta manda siempre el procedimiento vigente (SOP) y la hoja de producción de tu lote.
 `,
   plant: `
-Turno de noche en la planta ficticia. En el reactor R-207 hay que concentrar una disolución del intermedio ficticio TQ-58 en tolueno y después cambiar a heptano. La hoja dice: *«Concentrar a 300 mbar abs con la masa ≤ 75 °C. Añadir heptano y destilar a 300 mbar hasta temperatura de vapor ≤ 63 °C. IPC: tolueno por cromatografía de gases ≤ 5 %.»* (Valores de ejemplo.)
+Turno de noche en la planta ficticia. En el reactor R-207 hay que concentrar una disolución del intermedio ficticio TQ-58 en tolueno y después cambiar a heptano. La hoja dice: *«Concentrar a 300 mbar abs con la masa ≤ 75 °C. Añadir heptano y destilar a 300 mbar hasta temperatura de vapor ≤ 63 °C. IPC: tolueno por cromatografía de gases ≤ 5 %.»* (Valores de ejemplo; IPC es el control en proceso, *in-process control*.)
 
 Antes de empezar haces la cuenta con Antoine: a 300 mbar el tolueno puro hierve a unos 72,7 °C. Bajas el vacío por escalones y la masa empieza a hervir a unos 74 °C: algo más arriba que el tolueno puro, porque el TQ-58 disuelto baja la presión de vapor del disolvente. Cuadra.
 
-Al añadir heptano, la temperatura de vapor baja: el heptano es más volátil y a 300 mbar hierve a unos 61,8 °C. Con la cuenta de Raoult, una mezcla con un 20 % en moles de tolueno herviría a unos 63,7 °C y con un 5 %, a unos 62,2 °C. Ves en el historiador cómo la temperatura de vapor baja despacio mientras se va el tolueno. Al llegar a 62,8 °C pides la muestra: el laboratorio da un 3,8 % de tolueno. Cumple.
+Al añadir heptano, la temperatura de vapor baja: el heptano es más volátil y a 300 mbar hierve a unos 61,8 °C. Con la cuenta de Raoult, una mezcla con un 20 % en moles de tolueno herviría a unos 63,7 °C y con un 5 %, a unos 62,2 °C. Ves en el historiador cómo la temperatura de vapor baja despacio mientras se va el tolueno. Al llegar a 62,1 °C pides la muestra: el laboratorio da un 3,8 % de tolueno. Cumple.
 
 Al final del lote, el laboratorio llama por el producto seco del lote anterior: funde de 146 a 149 °C cuando la especificación pide un intervalo de 148 a 150 °C. Recuerdas el diagrama eutéctico: el inicio bajo y el intervalo ancho apuntan a algo más en el sólido, impureza o disolvente. No tocas nada: lo anotas, avisas al jefe de turno y das tus datos del secado.
 `,
