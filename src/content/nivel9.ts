@@ -3,6 +3,7 @@ import { salasAFondo } from "./nivel9-salas";
 import { vestimentaAFondo } from "./nivel9-vestimenta";
 import { microAFondo } from "./nivel9-micro";
 import { ensayosMicroAFondo } from "./nivel9-ensayos";
+import { tecnicasMicrobiologicasAFondo } from "./nivel9-tecnicas";
 
 const micro: Lesson[] = [
   {
@@ -315,4 +316,4 @@ A veces se registra la entrada a la sala o la comprobación de vestimenta.
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel9-tema.ts.
-export const nivel9: Lesson[] = [...micro, salasAFondo, vestimentaAFondo, microAFondo, ensayosMicroAFondo];
+export const nivel9: Lesson[] = [...micro, salasAFondo, vestimentaAFondo, microAFondo, ensayosMicroAFondo, tecnicasMicrobiologicasAFondo];
