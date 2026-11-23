@@ -5,6 +5,7 @@ import { fluidosAFondo } from "./nivel11-fluidos";
 import { vaporYCalderasAFondo } from "./nivel11-vapor";
 import { solidosAFondo } from "./nivel11-solidos";
 import { tuberiasYValvulasAFondo } from "./nivel11-tuberias";
+import { materialesYCorrosionAFondo } from "./nivel11-materiales";
 
 const fluidos: Lesson[] = [
   {
@@ -500,4 +501,4 @@ Se cargan 120 kg de materia prima, 400 kg de disolvente y 30 kg de reactivo (550
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel11-tema.ts.
-export const nivel11: Lesson[] = [...fluidos, calorYFrioAFondo, bombasAFondo, fluidosAFondo, vaporYCalderasAFondo, solidosAFondo, tuberiasYValvulasAFondo];
+export const nivel11: Lesson[] = [...fluidos, calorYFrioAFondo, bombasAFondo, fluidosAFondo, vaporYCalderasAFondo, solidosAFondo, tuberiasYValvulasAFondo, materialesYCorrosionAFondo];
