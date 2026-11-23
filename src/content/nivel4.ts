@@ -33,7 +33,7 @@ const laboratorio: Lesson[] = [
 | Vial | *Vial* | Contener muestras pequeñas |
 
 ### Normas de seguridad
-- **EPI** siempre: bata, gafas de seguridad y guantes adecuados al producto.
+- **EPI** (equipos de protección individual) siempre: bata, gafas de seguridad y guantes adecuados al producto.
 - **Campana** para disolventes volátiles, ácidos concentrados y productos tóxicos. El cristal frontal, lo más bajo posible.
 - **Nunca pipetear con la boca**: se usan peras o pipeteadores.
 - **Ácido sobre agua**, nunca al revés.
@@ -46,7 +46,7 @@ const laboratorio: Lesson[] = [
 Llevas una muestra de producto húmedo al laboratorio. Te piden dejarla en la campana porque contiene diclorometano. Aunque sea poca cantidad, el vapor es nocivo: la campana lo extrae.
 `,
     batchRecord: `
-En el laboratorio no se usa la hoja de producción, sino **cuadernos de laboratorio**, hojas de trabajo analíticas o el LIMS, con las mismas reglas ALCOA+.
+En el laboratorio no se usa la hoja de producción, sino **cuadernos de laboratorio**, hojas de trabajo analíticas o el LIMS (sistema de gestión de la información del laboratorio, *Laboratory Information Management System*), con las mismas reglas ALCOA+ (atribuible, legible, contemporáneo, original y exacto, más completo, coherente, duradero y disponible).
 `,
     terms: [
       { es: "Matraz aforado", en: "Volumetric flask", def: "Matraz con una marca que indica un volumen exacto." },
@@ -104,7 +104,7 @@ En el laboratorio no se usa la hoja de producción, sino **cuadernos de laborato
 1. Comprobar que está **nivelada** (burbuja centrada).
 2. Comprobar que la **calibración** está en vigor (etiqueta).
 3. Hacer la **verificación** del día con **pesas patrón** (*check weights*) si el procedimiento lo pide, y registrarla.
-4. Respetar el **peso mínimo** (*minimum weight*): por debajo, el error relativo es demasiado grande. En farmacia se suele determinar según la USP general chapter 41 (precisión: dos veces la desviación estándar entre la masa pesada ≤ 0,10 %).
+4. Respetar el **peso mínimo** (*minimum weight*): por debajo, el error relativo es demasiado grande. En farmacia se suele determinar según el capítulo general 41 de la Farmacopea de Estados Unidos (USP, *general chapter* ‹41›) (precisión: dos veces la desviación estándar entre la masa pesada ≤ 0,10 %).
 
 ### Técnica
 - **Tarar** (*tare*) el recipiente vacío (poner a cero).
@@ -249,7 +249,7 @@ En el laboratorio de planta preparas NaOH 1 M en un matraz aforado de 1 L. La di
 - **Exactitud** (*accuracy*): cuánto se acerca la medida al **valor verdadero**.
 - **Precisión** (*precision*): cuánto se parecen **entre sí** varias medidas repetidas.
 
-Piensa en una diana: dardos muy juntos pero lejos del centro = precisos pero no exactos. Dardos repartidos alrededor del centro = exactos de media pero poco precisos.
+Piensa en una diana: dardos muy juntos pero lejos del centro = precisos pero no exactos. Dardos repartidos alrededor del centro = buena media (veracidad) pero poco precisos.
 
 ### Errores
 - **Sistemático** (*systematic error*): siempre en el mismo sentido (balanza que marca 0,5 g de más). Afecta a la exactitud. La calibración lo **descubre y lo mide**; después se corrige **ajustando** el instrumento o aplicando la corrección que indica el certificado.
@@ -324,12 +324,12 @@ La sonda de temperatura del reactor R-101 se calibra cada 6 meses. En la calibra
     body: `
 ### Calidades de reactivo (*reagent grade*)
 - **Técnico** (*technical grade*): para usos generales.
-- **Para análisis** (PA, *analytical reagent, ACS*): pureza alta y certificada.
+- **Para análisis** (PA, *analytical reagent*; o *ACS*, si cumple las especificaciones de la Sociedad Química Estadounidense, *American Chemical Society*): pureza alta y certificada.
 - **Para HPLC / GC**: disolventes con muy pocas impurezas que interfieran en el análisis.
-- **Calidad farmacopea** (Ph. Eur., USP): cumple la monografía de la farmacopea.
+- **Calidad farmacopea** (Farmacopea Europea, Ph. Eur., o de Estados Unidos, USP): cumple la monografía de la farmacopea.
 
 ### Patrones (*standards*)
-- **Patrón de referencia primario** (*primary reference standard*): material de pureza muy alta y conocida, por ejemplo de la Farmacopea Europea (EDQM) o de la USP.
+- **Patrón de referencia primario** (*primary reference standard*): material de pureza muy alta y conocida, por ejemplo de la Farmacopea Europea (los distribuye la Dirección Europea de la Calidad del Medicamento y la Asistencia Sanitaria, EDQM) o de la USP.
 - **Patrón secundario o de trabajo** (*working standard*): se calibra frente al primario y se usa en el día a día.
 
 En HPLC, el resultado de la muestra se calcula comparándola con el patrón: si el patrón no es correcto, todos los resultados están mal.
@@ -348,7 +348,7 @@ Nombre y concentración · factor (si aplica) · fecha de preparación · **cadu
 Reactivos, patrones y soluciones tienen fecha de caducidad o de **re-análisis** (*retest date*). Un reactivo caducado no se usa para análisis GMP.
 `,
     plant: `
-En el laboratorio de planta, la solución de HCl 1 M para ajustar pH en IPC tiene etiqueta con caducidad del 15/11/2026. Hoy es 18/11. No se usa: se prepara una nueva siguiendo el procedimiento.
+En el laboratorio de planta, la solución de HCl 1 M para ajustar pH en el control en proceso (IPC) tiene etiqueta con caducidad del 15/11/2026. Hoy es 18/11. No se usa: se prepara una nueva siguiendo el procedimiento.
 `,
     batchRecord: `
 - Lote y caducidad de reactivos y patrones en los registros analíticos.
@@ -407,7 +407,7 @@ En el laboratorio de planta, la solución de HCl 1 M para ajustar pH en IPC tien
     summary: "Cómo se trabaja en un laboratorio GMP: registros, revisión, idoneidad del sistema y resultados anómalos.",
     body: `
 ### GMP en el laboratorio (ICH Q7, capítulo 11)
-El laboratorio de **control de calidad** (*Quality Control, QC*) analiza materias primas, productos intermedios, IPC, API final y estabilidades siguiendo **métodos aprobados** y **especificaciones**.
+El laboratorio de **control de calidad** (*Quality Control, QC*) analiza materias primas, productos intermedios, controles en proceso (IPC), principio activo (API) final y estabilidades siguiendo **métodos aprobados** y **especificaciones**.
 
 No hay que confundirlo con las **BPL** (*GLP, Good Laboratory Practice* de la OCDE), que se aplican a estudios no clínicos de seguridad, no a la fabricación.
 

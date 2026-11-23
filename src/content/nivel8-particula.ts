@@ -80,7 +80,7 @@ Es uno de los métodos más antiguos y el más fácil de imaginar: una torre de 
 
 Según el anexo 12 de ICH Q4B, los textos de las farmacopeas europea (2.9.38), japonesa (3.04) y estadounidense (capítulo 786) son intercambiables. Lo que sigue sale del texto que reproduce ese anexo en la versión publicada por la EMA:
 
-- **Para qué tamaños.** Está pensado para cuando al menos el 80 % de las partículas pasa de 75 µm. Más finas pesan tan poco que se pegan entre sí y a la malla.
+- **Para qué tamaños.** Está pensado para cuando al menos el 80 % de las partículas son mayores de 75 µm. Más finas pesan tan poco que se pegan entre sí y a la malla.
 - **Qué mide.** El lado del agujero cuadrado más pequeño por el que pasa la partícula: una aguja larga puede pasar de punta.
 - **Cuánta muestra.** Si no se indica otra cosa, de 25 a 100 g con tamices de 200 mm.
 - **Cuándo se acaba.** Se agita 5 minutos, se pesa cada tamiz y se repite hasta que ninguno cambie más del 5 % o de 0,1 g (hasta un 20 % si el tamiz tiene menos del 5 % del total).

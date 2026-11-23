@@ -59,7 +59,7 @@ Documentos descargados y leídos (copias en `scratchpad/src_balanza/dl/`):
 | Equipo defectuoso o fuera de límites: retirarlo, etiquetarlo, no usarlo hasta reparar y recualificar | OMS TRS 1052, 5.40 (y TRS 957) | Leído |
 | Cuentas de la comprobación: +0,0003 g, 0,0003 %, 0,2 %, criterio ±0,5 mg cumple, ±20 g no cumple | Valores de ejemplo + cálculo | Recalculado |
 | Repetibilidad del ejemplo: 20,000 / 20,020 / 20,000 kg, diferencia 20 g ≤ 40 g | Valores de ejemplo + Orden | Recalculado |
-| Regla de peso mínimo usada: 3 × s (de al menos 10 pesadas) / cantidad pesada ≤ 0,001 | FDA ORA Lab Manual IV-01, anexo A, pregunta 2 (la FDA la presenta como definición de la USP de «accurately weighed»; es una versión antigua) | Leído en la FDA; en la lección se dice que la regla vigente de las farmacopeas es de pago y puede ser distinta |
+| Regla de peso mínimo usada: 3 × s (de al menos 10 pesadas) / cantidad pesada ≤ 0,001 | FDA ORA Lab Manual IV-01, anexo A, pregunta 2 (la FDA la presenta como definición de la USP de «accurately weighed»; es una versión antigua) | Leído en la FDA. Tras la revisión cruzada de noviembre de 2026, la lección la presenta como «regla anterior» y da como vigente la de la USP ‹41› (2 × s / cantidad pesada ≤ 0,10 %), igual que la lección corta «Balanzas y cómo pesar bien»; el texto de la USP ‹41› es de pago y no se ha leído en esta sesión |
 | Peso mínimo = 3000 × s: 0,08 mg da 240 mg; 0,005 g da 15 g; 10 g da 30 kg; 0,06 mg da 180 mg (quiz) | Cálculo con valores de ejemplo | Recalculado |
 | Error relativo al pesar 20 mg con s = 0,08 mg: 1,2 % | Cálculo | Recalculado |
 | Tara: 52,3318 + 0,5012 = 52,8330 g; 2,35 + 25,00 = 27,35 kg | Cálculo | Recalculado |

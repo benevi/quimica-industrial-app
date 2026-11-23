@@ -174,7 +174,7 @@ Quieres 250 mL de ácido clorhídrico 0,1 mol/L a partir de uno de 1 mol/L (valo
 
 **3. El caudal de la vitrina.** Velocidad media medida 0,5 m/s en una abertura de 1,2 m × 0,4 m (valores de ejemplo). Superficie: 0,48 m². Caudal: 0,5 × 0,48 = 0,24 m³/s, es decir, 864 m³/h.
 
-**4. Tiempo de exposición.** Un analista prepara muestras con tolueno fuera de la vitrina durante 1,5 horas a 60 mg/m³ (valor de ejemplo) y el resto del turno no está expuesto. Exposición diaria: 60 × 1,5 / 8 = 11,25 mg/m³, un 5,9 % del VLA-ED del tolueno, 192 mg/m³ (lo viste en «Exposición a productos químicos a fondo»).
+**4. Tiempo de exposición.** Un analista prepara muestras con tolueno fuera de la vitrina durante 1,5 horas a 60 mg/m³ (valor de ejemplo) y el resto del turno no está expuesto. Exposición diaria: 60 × 1,5 / 8 = 11,25 mg/m³, un 5,9 % del valor límite ambiental de exposición diaria (VLA-ED) del tolueno, 192 mg/m³ (lo viste en «Exposición a productos químicos a fondo»).
 
 En el laboratorio manda siempre el procedimiento vigente (SOP): la vitrina, la velocidad, el contenedor y la etiqueta son los que diga el tuyo.
 `,

@@ -159,7 +159,7 @@ La misma idea, «pesar lo que queda», sirve para más cosas:
 - **Gravimetría por volatilización**: se mide lo que se pierde al calentar. La pérdida por secado es de este tipo; la ves en la lección de Karl Fischer a fondo.
 
 ### Equipos y seguridad
-**La mufla.** Trabaja a cientos de grados. La NTP 433 del INSST recuerda que los dispositivos de calefacción del laboratorio tienen como riesgo principal las **quemaduras térmicas**, y la NTP 672 indica que los humos y gases calientes de las muflas pueden retirarse con una pequeña campana sobre ellas. En la práctica: crisoles siempre con **pinzas** largas, **guantes de protección térmica**, abrir la puerta despacio apartando la cara y dejar el crisol sobre una placa resistente al calor antes del desecador. Manda el manual del fabricante y el procedimiento.
+**La mufla.** Trabaja a cientos de grados. La NTP 433 del INSST recuerda que los dispositivos de calefacción del laboratorio tienen como riesgo principal las **quemaduras térmicas**, y la nota técnica de prevención (NTP) 672 del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) indica que los humos y gases calientes de las muflas pueden retirarse con una pequeña campana sobre ellas. En la práctica: crisoles siempre con **pinzas** largas, **guantes de protección térmica**, abrir la puerta despacio apartando la cara y dejar el crisol sobre una placa resistente al calor antes del desecador. Manda el manual del fabricante y el procedimiento.
 
 **Los crisoles.** Los de **porcelana** son baratos y resisten el calor, pero son frágiles ante los cambios bruscos de temperatura. Los de **platino** son caros y casi no reaccionan con nada. Cada crisol se identifica para no confundir taras.
 

@@ -201,7 +201,7 @@ Tomas una muestra de cada bidón con un tomamuestras limpio, en un frasco etique
 
 En el laboratorio, la analista mide cada muestra en el FTIR con ATR, IR-02, y superpone cada espectro con el del patrón de RX-22. Cinco coinciden. El del bidón 4 tiene todas las bandas del patrón y una de más, ancha y redondeada, entre 3200 y 3600 cm⁻¹: la zona del O–H. Puede indicar agua o un alcohol que no debería estar ahí.
 
-El resultado es «no conforme». Calidad abre una investigación y el bidón 4 pasa a la zona de rechazados, separado y con su etiqueta. Los otros cinco se liberan. A ti te llega el aviso: para el lote KT-40 hay 5 bidones, no 6. El jefe de turno revisa con planificación si la carga cuadra o si hay que esperar otra entrega. Tú no tocas el bidón 4 ni le cambias la etiqueta.
+El resultado es «no conforme». Calidad abre una investigación. El bidón 4 queda bloqueado, separado y con su etiqueta, mientras se investiga; si se confirma el resultado, se rechaza. Calidad decide también si los otros cinco, del mismo lote del proveedor, se liberan o esperan al final de la investigación. Esta vez los libera. A ti te llega el aviso: para el lote KT-40 hay 5 bidones, no 6. El jefe de turno revisa con planificación si la carga cuadra o si hay que esperar otra entrega. Tú no tocas el bidón 4 ni le cambias la etiqueta.
 
 A la mañana siguiente, al cargar, anotas en la hoja los números de los cinco bidones, cada uno con su estado «liberado» comprobado en el sistema.
 `,

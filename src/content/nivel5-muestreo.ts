@@ -71,7 +71,7 @@ ICH Q7 relaciona los controles con el tiempo (8.20): cuando se trabaja hasta un 
 
 - **Rompe la inertización.** Entra aire, y el oxígeno que se midió antes ya no vale («Inertización a fondo»).
 - **Te expone.** Salen vapores a tu cara justo donde estás asomado.
-- **Puede dar una chispa.** La NTP 225 del INSST explica que, tras un trasvase, el líquido queda cargado de electricidad estática hasta que pasa su tiempo de relajación, y que puede saltar una chispa entre el líquido y un elemento metálico, como un muestreador introducido por la boca, justo donde suele estar la atmósfera inflamable. Las NTP 225 y 768 piden esperar ese tiempo antes de abrir tapas o tomar muestras: según la NTP 768, al menos 30 segundos para líquidos conductores y un minuto para los no conductores.
+- **Puede dar una chispa.** La NTP 225 del INSST explica que, tras un trasvase, el líquido queda cargado de electricidad estática hasta que pasa su tiempo de relajación, y que puede saltar una chispa entre el líquido y un elemento metálico, como un muestreador introducido por la boca, justo donde suele estar la atmósfera inflamable. Las notas técnicas de prevención (NTP) 225 y 768 piden esperar ese tiempo antes de abrir tapas o tomar muestras: según la NTP 768, al menos 30 segundos para líquidos conductores y un minuto para los no conductores.
 
 **El tramo muerto.** Entre el reactor y la salida de la válvula hay tubería donde el líquido no se mueve: el **tramo muerto** (*dead leg*). Lo que hay ahí puede ser de hace horas o estar más frío. Por eso, antes de llenar el frasco, se **purga**: se deja salir un volumen que arrastra lo estancado. Cuánto, lo fija tu procedimiento; la cuenta está más abajo.
 

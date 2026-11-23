@@ -246,7 +246,7 @@ En la hoja de producción (*batch record*) verás instrucciones como «medir pH 
       answer: 62.15,
       tolerance: 0.01,
       unit: "mV/pH",
-      explain: "2,303 × 8,3145 × 313,15 / 96485 = 0,06215 V, es decir, 62,15 mV por unidad de pH.",
+      explain: "2,303 × 8,3145 × 313,15 / 96485 = 0,06215 V, es decir, 62,15 mV por unidad de pH. Con más decimales en las constantes sale 62,14, el valor de la tabla.",
     },
     {
       kind: "number",

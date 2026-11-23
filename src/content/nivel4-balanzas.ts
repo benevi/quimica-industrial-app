@@ -134,9 +134,9 @@ Si pesas diez veces lo mismo, no salen diez números iguales. Esa dispersión, l
 
 El **peso mínimo** (*minimum weight*) es la menor cantidad que se puede pesar cumpliendo un error relativo máximo. No es el Min legal de la placa: el Min de la analítica del ejemplo (clase I, con d en lugar de e) sería 100 d = 10 mg, mientras que su peso mínimo, como verás, sale de 240 mg.
 
-Las farmacopeas tienen su regla en textos de pago. Aquí usamos la que reproduce el manual de laboratorio de la FDA en un ejercicio de formación: tres veces la desviación estándar de al menos diez pesadas, dividido por lo pesado, no debe pasar de 0,001 (0,1 %). Despejando: peso mínimo = 3 × s / 0,001 = 3000 × s. Tu laboratorio usa la regla de su SOP, que puede ser distinta.
+La regla vigente es la del capítulo general ‹41› de la Farmacopea de Estados Unidos (USP), la que viste en «Balanzas y cómo pesar bien»: dos veces la desviación estándar, dividido por lo pesado, no debe pasar del 0,10 % (2 × s / lo pesado ≤ 0,001). Su texto es de pago. Para practicar el cálculo usamos aquí la **regla anterior**, la que todavía reproduce el manual de laboratorio de la FDA en un ejercicio de formación: tres veces la desviación estándar de al menos diez pesadas, dividido por lo pesado, no debe pasar de 0,001 (0,1 %). Despejando: peso mínimo = 3 × s / 0,001 = 3000 × s. Ojo: es una regla antigua; con la vigente (2 × s) los pesos mínimos salen un tercio menores. Tu laboratorio usa la regla de su SOP.
 
-1. **Analítica con s = 0,08 mg** (valor de ejemplo): 3000 × 0,08 = **240 mg**. Si pesas 20 mg en ella, el error relativo es 3 × 0,08 / 20 × 100 = **1,2 %**: doce veces el límite.
+1. **Analítica con s = 0,08 mg** (valor de ejemplo): 3000 × 0,08 = **240 mg** (con la regla vigente, 2000 × 0,08 = 160 mg). Si pesas 20 mg en ella, el error relativo es 3 × 0,08 / 20 × 100 = **1,2 %**: doce veces el límite.
 2. **Granatario con s = 0,005 g** (valor de ejemplo): 3000 × 0,005 = **15 g**. Para pesar 2 g de un reactivo no sirve.
 
 En planta, una báscula de suelo con s = 10 g (valor de ejemplo) tendría un peso mínimo de 30 kg. Por eso 800 g de catalizador no se pesan en la báscula de los bidones.
@@ -229,11 +229,11 @@ Por la tarde el laboratorio te pide una muestra del producto seco en un frasco b
     },
     {
       kind: "number",
-      q: "Una balanza analítica tiene una desviación estándar de 0,06 mg (valor de ejemplo). Con la regla de ejemplo «3 × s dividido por lo pesado no pasa de 0,001», ¿cuál es su peso mínimo en miligramos?",
+      q: "Una balanza analítica tiene una desviación estándar de 0,06 mg (valor de ejemplo). Con la regla anterior de la lección, «3 × s dividido por lo pesado no pasa de 0,001», ¿cuál es su peso mínimo en miligramos?",
       answer: 180,
       tolerance: 0.01,
       unit: "mg",
-      explain: "Peso mínimo = 3 × s / 0,001 = 3000 × 0,06 = 180 mg. Por debajo, el error relativo pasa del 0,1 %.",
+      explain: "Peso mínimo = 3 × s / 0,001 = 3000 × 0,06 = 180 mg. Por debajo, el error relativo pasa del 0,1 %. Con la regla vigente de la USP (2 × s) saldrían 120 mg.",
     },
     {
       kind: "number",
