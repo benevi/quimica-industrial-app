@@ -1115,6 +1115,9 @@ export const phetSims = [
 
 /** Simulaciones PhET por lección. Se suman a lo que la lección tenga en lessonMedia. */
 export const lessonSims: Record<string, Sim[]> = {
+  "acido-base-avanzado-a-fondo": [
+    { sim: "acid-base-solutions", title: "Soluciones ácido-base", why: "Compara un ácido fuerte con uno débil a la misma concentración: mira cuántas moléculas se disocian y cómo cambia el pH." },
+  ],
   "estadistica-laboratorio-a-fondo": [
     { sim: "plinko-probability", title: "Probabilidad Plinko", why: "Deja caer cientos de bolas y mira cómo se forma la campana de Gauss: así se reparten los resultados de un análisis repetido." },
   ],
