@@ -5,6 +5,7 @@ import { valoracionesAFondo } from "./nivel6-valoraciones";
 import { volumetriasEspecialesAFondo } from "./nivel6-especiales";
 import { calculoDeResultadosAFondo } from "./nivel6-calculo";
 import { estadisticaLaboratorioAFondo } from "./nivel6-estadistica";
+import { identificacionQuimicaAFondo } from "./nivel6-identificacion";
 
 const clasico: Lesson[] = [
   {
@@ -372,4 +373,4 @@ Resultados en el CoA con los decimales de la especificación y la palabra "cumpl
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel6-tema.ts.
-export const nivel6: Lesson[] = [...clasico, karlFischerAFondo, gravimetriaAFondo, valoracionesAFondo, volumetriasEspecialesAFondo, calculoDeResultadosAFondo, estadisticaLaboratorioAFondo];
+export const nivel6: Lesson[] = [...clasico, karlFischerAFondo, gravimetriaAFondo, valoracionesAFondo, volumetriasEspecialesAFondo, calculoDeResultadosAFondo, estadisticaLaboratorioAFondo, identificacionQuimicaAFondo];
