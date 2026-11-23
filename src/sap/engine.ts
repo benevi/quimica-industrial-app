@@ -53,6 +53,8 @@ export type InspectionLot = {
   /** Posición del lote (0 = primero): decide qué resultados da el laboratorio */
   seq: number;
   results: Record<string, number>;
+  /** Resultados del laboratorio cuando vienen del simulador de planta (lote FX-101) */
+  lab?: Record<string, number>;
   ud?: "A" | "R";
   status: "REL" | "RREC" | "UD";
 };
@@ -68,7 +70,35 @@ export type ErpState = {
   counters: { order: number; doc: number; lot: number; batch: number };
   /** Transacciones consultadas, para comprobar misiones de búsqueda */
   viewed: string[];
+  /** Lote FX-101 terminado en el simulador de planta, pendiente de registrar en el ERP */
+  fx?: FxHandoff;
 };
+
+/** Lo que el simulador de planta pasa al ERP al cerrar un lote FX-101. */
+export type FxHandoff = {
+  lote: string;
+  netKg: number;
+  lotes: Record<string, string>; // material del ERP -> lote usado en la pesada
+  lab: { AF: number; LOD: number };
+  qa: "Liberable" | "Pendiente de desviaciones" | "Rechazado / en investigación";
+  at: string;
+};
+
+export const FX_KEY = "quimica-app:erp-fx101";
+
+/** Lotes de materia prima de FX-101 (los mismos que ofrece la pesada del simulador). */
+const fxBatches = (): Batch[] => [
+  { id: "AF-24115", material: "RM-4001", qty: 120, stock: "libre", expiry: "2027-05-31", origin: "Recepción proveedor" },
+  { id: "AF-24131", material: "RM-4001", qty: 150, stock: "calidad", expiry: "2028-01-31", origin: "Recepción proveedor (pendiente de análisis)" },
+  { id: "AA-0877", material: "RM-4002", qty: 110, stock: "bloqueado", expiry: "2026-10-31", origin: "Recepción proveedor (caducado)" },
+  { id: "AA-0921", material: "RM-4002", qty: 200, stock: "libre", expiry: "2027-03-31", origin: "Recepción proveedor" },
+  { id: "SE-0098", material: "RM-4003", qty: 2, stock: "libre", expiry: "2027-12-31", origin: "Lote de semilla, forma cristalina I" },
+];
+
+/** Añade los datos de FX-101 a un estado guardado antes de que existieran. */
+export function migrateErp(s: ErpState): ErpState {
+  return s.batches.some((b) => b.material === "RM-4001") ? s : { ...s, batches: [...s.batches, ...fxBatches()] };
+}
 
 export const USER = "ALUMNO";
 export const TODAY = "2026-11-18";
@@ -78,7 +108,15 @@ export const materials: Material[] = [
   { id: "RM-2001", name: "Tolueno", nameEn: "Toluene", kind: "Disolvente", unit: "kg", inspectionOnReceipt: false },
   { id: "RM-3001", name: "Hidróxido de sodio al 50 %", nameEn: "Sodium hydroxide 50 %", kind: "Materia prima", unit: "kg", inspectionOnReceipt: false },
   { id: "FG-5001", name: "API-X (principio activo ficticio)", nameEn: "API-X drug substance", kind: "Producto terminado", unit: "kg", inspectionOnReceipt: true },
+  // El lote FX-101 del simulador de planta: mismos materiales y lotes que en la pesada del simulador
+  { id: "RM-4001", name: "4-aminofenol", nameEn: "4-aminophenol", kind: "Materia prima", unit: "kg", inspectionOnReceipt: false },
+  { id: "RM-4002", name: "Anhídrido acético", nameEn: "Acetic anhydride", kind: "Materia prima", unit: "kg", inspectionOnReceipt: false },
+  { id: "RM-4003", name: "Semilla FX-101", nameEn: "FX-101 seed", kind: "Materia prima", unit: "kg", inspectionOnReceipt: false },
+  { id: "FG-6001", name: "FX-101 (principio activo ficticio del simulador de planta)", nameEn: "FX-101 drug substance", kind: "Producto terminado", unit: "kg", inspectionOnReceipt: true },
 ];
+
+/** Rendimiento teórico de un lote FX-101 (100 kg de 4-aminofenol), en kg. */
+export const FX_TEORICO = 138.5;
 
 export const recipes: Recipe[] = [
   {
@@ -97,6 +135,22 @@ export const recipes: Recipe[] = [
       { id: "0040", text: "Secado y descarga", textEn: "Drying and discharge" },
     ],
   },
+  {
+    id: "50000002",
+    material: "FG-6001",
+    baseQty: FX_TEORICO,
+    components: [
+      { material: "RM-4001", qtyPer100: 100 },
+      { material: "RM-4002", qtyPer100: 102.9 },
+      { material: "RM-4003", qtyPer100: 0.5 },
+    ],
+    phases: [
+      { id: "0010", text: "Pesada, carga e inertización", textEn: "Dispensing, charging and inerting" },
+      { id: "0020", text: "Reacción e IPC", textEn: "Reaction and IPC" },
+      { id: "0030", text: "Filtración, cristalización y centrifugación", textEn: "Filtration, crystallization and centrifugation" },
+      { id: "0040", text: "Secado y envasado", textEn: "Drying and packaging" },
+    ],
+  },
 ];
 
 export const characteristics: Characteristic[] = [
@@ -105,6 +159,14 @@ export const characteristics: Characteristic[] = [
   { id: "IMP", text: "Impureza individual no especificada", textEn: "Any unspecified impurity", unit: "%", max: 0.1 },
 ];
 
+/** Características del lote FX-101: los resultados salen del lote que hiciste en el simulador de planta. */
+export const fxCharacteristics: Characteristic[] = [
+  { id: "AF", text: "4-aminofenol residual (último IPC de la reacción)", textEn: "Residual 4-aminophenol (last reaction IPC)", unit: "% área", max: 0.5 },
+  { id: "LOD", text: "Pérdida por secado (último control del secado)", textEn: "Loss on drying (last drying IPC)", unit: "%", max: 0.5 },
+];
+
+export const characteristicsFor = (material: string) => (material === "FG-6001" ? fxCharacteristics : characteristics);
+
 /** Resultados del laboratorio (ficticios) para el 1.er, 2.º… lote de inspección */
 export const labResults: Record<string, number>[] = [
   { ASSAY: 99.6, WATER: 0.21, IMP: 0.06 },
@@ -112,8 +174,8 @@ export const labResults: Record<string, number>[] = [
   { ASSAY: 100.2, WATER: 0.3, IMP: 0.05 },
 ];
 
-export function labFor(lot: Pick<InspectionLot, "seq">) {
-  return labResults[lot.seq % labResults.length];
+export function labFor(lot: Pick<InspectionLot, "seq"> & { lab?: Record<string, number> }) {
+  return lot.lab ?? labResults[lot.seq % labResults.length];
 }
 
 export function initialState(): ErpState {
@@ -127,6 +189,7 @@ export function initialState(): ErpState {
       { id: "T2001A", material: "RM-2001", qty: 2500, stock: "libre", expiry: "2028-12-31", origin: "Cisterna" },
       { id: "N3001A", material: "RM-3001", qty: 90, stock: "bloqueado", expiry: "2027-06-30", origin: "Recepción proveedor (rechazado por Calidad)" },
       { id: "N3001B", material: "RM-3001", qty: 200, stock: "libre", expiry: "2027-08-31", origin: "Recepción proveedor" },
+      ...fxBatches(),
     ],
     orders: [],
     lots: [],
@@ -289,6 +352,10 @@ export function goodsReceipt(s: ErpState, orderId: string, qty: number): Result 
   if (o.status !== "CNF") return err(s, "Notifica todas las fases antes de dar entrada al producto.", "En esta planta ficticia el producto entra en almacén solo cuando el lote está terminado y registrado.");
   const declared = o.confirmed["0040"]?.yield ?? 0;
   if (!(qty > 0)) return err(s, "Indica una cantidad mayor que cero.");
+  if (o.material === "FG-6001") {
+    if (!s.fx) return err(s, "No hay ningún lote FX-101 terminado en el simulador de planta.", "Termina el lote en el simulador (Simulador de planta, Lote completo) y pulsa «Pasar el lote al ERP» en el informe de QA.");
+    if (Math.abs(qty - s.fx.netKg) > 0.05) return err(s, `La cantidad (${fmtQty(qty)} kg) no coincide con el peso neto envasado en planta (${fmtQty(s.fx.netKg)} kg).`, "El ERP debe reflejar lo que pasó en planta: el peso neto sale de la báscula del envasado (ALCOA+: exacto).");
+  }
   if (Math.abs(qty - declared) > 0.001) return err(s, `La cantidad (${fmtQty(qty)} kg) no coincide con la notificada en la fase 0040 (${fmtQty(declared)} kg).`, "Los datos de un mismo lote deben ser coherentes en todos los registros (ALCOA+: exacto).");
   const mat = getMaterial(o.material)!;
   const batchId = `API${String(s.counters.batch).padStart(4, "0")}`;
@@ -304,7 +371,8 @@ export function goodsReceipt(s: ErpState, orderId: string, qty: number): Result 
   let lotText = "";
   if (mat.inspectionOnReceipt) {
     const lotId = String(next.counters.lot);
-    const lot: InspectionLot = { id: lotId, order: o.id, material: o.material, batch: batchId, qty, seq: next.lots.length, results: {}, status: "REL" };
+    const seq = next.lots.filter((l) => l.material === o.material).length;
+    const lot: InspectionLot = { id: lotId, order: o.id, material: o.material, batch: batchId, qty, seq, results: {}, status: "REL", ...(o.material === "FG-6001" && s.fx ? { lab: { ...s.fx.lab } } : {}) };
     next = { ...next, lots: [...next.lots, lot], counters: { ...next.counters, lot: next.counters.lot + 1 } };
     lotText = ` Se ha creado el lote de inspección ${lotId}: el producto queda en stock de calidad hasta la decisión de empleo.`;
   }
@@ -321,15 +389,16 @@ export function recordResults(s: ErpState, lotId: string, values: Record<string,
   const lot = s.lots.find((l) => l.id === lotId.trim());
   if (!lot) return err(s, `El lote de inspección ${lotId || "(vacío)"} no existe.`);
   if (lot.status === "UD") return err(s, "El lote ya tiene decisión de empleo: los resultados no se pueden cambiar.", "Cambiar datos después de cerrar un lote sin justificación ni audit trail es una falta grave de integridad de datos.");
-  for (const c of characteristics) {
+  const chars = characteristicsFor(lot.material);
+  for (const c of chars) {
     if (!Number.isFinite(values[c.id])) return err(s, `Falta el resultado de "${c.text}".`);
   }
   const lab = labFor(lot);
-  const wrong = characteristics.filter((c) => Math.abs(values[c.id] - lab[c.id]) > 1e-9);
+  const wrong = chars.filter((c) => Math.abs(values[c.id] - lab[c.id]) > 1e-9);
   if (wrong.length)
     return err(s, `No coincide con el informe del laboratorio: ${wrong.map((c) => c.text).join(", ")}.`, "Los resultados se transcriben exactamente como están en el registro original (ALCOA+: original y exacto).");
   let next: ErpState = { ...s, lots: s.lots.map((l) => (l.id === lot.id ? { ...l, results: { ...values }, status: "RREC" as const } : l)) };
-  const bad = characteristics.filter((c) => !evaluate(c, values[c.id]));
+  const bad = chars.filter((c) => !evaluate(c, values[c.id]));
   [next] = addLog(next, "QE51N", `Resultados registrados en el lote de inspección ${lot.id}${bad.length ? ` (${bad.length} fuera de especificación)` : ""}`);
   if (bad.length)
     return {
@@ -346,7 +415,9 @@ export function usageDecision(s: ErpState, lotId: string, ud: "A" | "R"): Result
   if (!lot) return err(s, `El lote de inspección ${lotId || "(vacío)"} no existe.`);
   if (lot.status === "UD") return err(s, "Este lote ya tiene decisión de empleo.");
   if (lot.status !== "RREC") return err(s, "Primero registra los resultados (QE51N).", "No se puede decidir sobre un lote sin resultados completos.");
-  const bad = characteristics.filter((c) => !evaluate(c, lot.results[c.id]));
+  const bad = characteristicsFor(lot.material).filter((c) => !evaluate(c, lot.results[c.id]));
+  if (ud === "A" && lot.material === "FG-6001" && s.fx && s.fx.qa !== "Liberable")
+    return err(s, `El informe de calidad del lote ${s.fx.lote} dice «${s.fx.qa}»: no se puede aceptar.`, "La decisión de empleo la toma calidad con todos los datos: además de los análisis, el informe del registro del lote (hallazgos y desviaciones).");
   if (ud === "A" && bad.length) return err(s, "No se puede aceptar un lote con resultados fuera de especificación.", "Liberar un lote OOS sería un fallo grave de GMP. La decisión correcta es rechazar (o mantener bloqueado mientras se investiga).");
   const stock: StockType = ud === "A" ? "libre" : "bloqueado";
   let next: ErpState = {
@@ -389,41 +460,55 @@ export const missions: Mission[] = [
     title: "Libera la orden",
     taskEn: "Release the process order.",
     hint: "Transacción COR2 con el número de orden.",
-    done: (s) => s.orders.some((o) => o.status !== "CRTD"),
+    done: (s) => s.orders.some((o) => o.material === "FG-5001" && o.status !== "CRTD"),
   },
   {
     id: "m5-consumos",
     title: "Da salida a todos los componentes con lotes válidos",
     taskEn: "Post the goods issue (movement type 261) for all components using valid batches.",
     hint: "MIGO, movimiento 261. Mira en MMBE qué lotes están en libre utilización y no caducados.",
-    done: (s) => s.orders.some((o) => o.components.every((c) => c.issued >= c.required * 0.98)),
+    done: (s) => s.orders.some((o) => o.material === "FG-5001" && o.components.every((c) => c.issued >= c.required * 0.98)),
   },
   {
     id: "m6-notificar",
     title: "Notifica las 4 fases de la orden (rendimiento en la última)",
     taskEn: "Confirm all phases of the process order, entering the yield in the final phase.",
     hint: "COR6N, fases 0010 a 0040 en orden.",
-    done: (s) => s.orders.some((o) => o.status === "CNF" || o.status === "DLV"),
+    done: (s) => s.orders.some((o) => o.material === "FG-5001" && (o.status === "CNF" || o.status === "DLV")),
   },
   {
     id: "m7-entrada",
     title: "Da entrada al producto terminado",
     taskEn: "Post the goods receipt (movement type 101) for the process order.",
     hint: "MIGO, movimiento 101, con la misma cantidad notificada.",
-    done: (s) => s.orders.some((o) => o.status === "DLV"),
+    done: (s) => s.orders.some((o) => o.material === "FG-5001" && o.status === "DLV"),
   },
   {
     id: "m8-liberar-lote",
     title: "Registra los resultados del laboratorio y toma la decisión de empleo correcta",
     taskEn: "Record the inspection results and make the usage decision for the inspection lot.",
     hint: "QE51N con los resultados del laboratorio y después QA11.",
-    done: (s) => s.lots.some((l) => l.seq === 0 && l.ud === "A"),
+    done: (s) => s.lots.some((l) => l.material === "FG-5001" && l.seq === 0 && l.ud === "A"),
   },
   {
     id: "m9-oos",
     title: "Fabrica un segundo lote y gestiona su resultado fuera de especificación",
     taskEn: "Produce a second batch and handle its out-of-specification result correctly.",
     hint: "Repite el flujo. El laboratorio dará una impureza fuera de límite: el lote debe acabar rechazado.",
-    done: (s) => s.lots.some((l) => l.seq === 1 && l.ud === "R"),
+    done: (s) => s.lots.some((l) => l.material === "FG-5001" && l.seq === 1 && l.ud === "R"),
+  },
+  {
+    id: "m10-fx101",
+    title: "Registra en el ERP el lote FX-101 que fabricaste en el simulador de planta",
+    taskEn: "Record in the ERP the FX-101 batch you produced in the plant simulator, from process order to usage decision.",
+    hint: `Termina el lote en el simulador y pásalo al ERP. Después: COR1 de ${String(FX_TEORICO).replace(".", ",")} kg de FG-6001, COR2, MIGO 261 con los lotes que usaste en la pesada, COR6N con el peso neto envasado, MIGO 101, QE51N con los resultados de tu lote y QA11 según el informe de QA.`,
+    done: (s) => {
+      if (!s.fx) return false;
+      const lot = s.lots.find((l) => l.material === "FG-6001" && l.status === "UD");
+      if (!lot) return false;
+      const o = s.orders.find((x) => x.id === lot.order);
+      const mismosLotes = !!o && Object.entries(s.fx.lotes).every(([m, b]) => o.components.find((c) => c.material === m)?.batches.includes(b));
+      return mismosLotes && (s.fx.qa === "Liberable" ? lot.ud === "A" : lot.ud === "R");
+    },
   },
 ];

@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { fmtTime, type Sim } from "@/sim/engine";
+import { useState } from "react";
+import { erpHandoff, fmtTime, type Sim } from "@/sim/engine";
+import { FX_KEY } from "@/sap/engine";
 import { reviewBatch } from "@/sim/review";
 import { Badge, Card } from "./ui";
 
@@ -29,6 +31,7 @@ export function QAReport({ s }: { s: Sim }) {
             );
           })}
         </div>
+        <ErpLink s={s} qa={r.decision} />
       </Card>
 
       <Card title="Resultados analíticos del producto (laboratorio de QC)">
@@ -94,6 +97,39 @@ export function QAReport({ s }: { s: Sim }) {
           </ul>
         )}
       </Card>
+    </div>
+  );
+}
+
+/** Pasa el lote cerrado al simulador de ERP para registrarlo allí (misión 10). */
+function ErpLink({ s, qa }: { s: Sim; qa: ReturnType<typeof reviewBatch>["decision"] }) {
+  const [sent, setSent] = useState(false);
+  if (!s.pack?.done) return null;
+  return (
+    <div className="mt-4 border-t border-line pt-3 text-sm">
+      {sent ? (
+        <p>
+          Lote enviado al ERP. Abre el <Link className="underline underline-offset-2 hover:decoration-2" href="/sap">simulador de ERP</Link> y haz la misión 10: orden, consumos con los lotes que usaste, notificaciones, entrada del producto, resultados y decisión de empleo.
+        </p>
+      ) : (
+        <>
+          <p className="text-muted">En planta, lo que pasa en el lote también se registra en el ERP. Puedes practicarlo con este mismo lote.</p>
+          <button
+            type="button"
+            className="mt-2 rounded-md border border-line-strong px-3 py-1.5 font-medium hover:border-accent hover:text-accent"
+            onClick={() => {
+              try {
+                localStorage.setItem(FX_KEY, JSON.stringify(erpHandoff(s, qa)));
+                setSent(true);
+              } catch {
+                /* sin almacenamiento no se puede pasar el lote */
+              }
+            }}
+          >
+            Pasar el lote al ERP
+          </button>
+        </>
+      )}
     </div>
   );
 }

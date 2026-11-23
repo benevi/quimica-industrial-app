@@ -35,6 +35,7 @@ const L = {
   envas: { slug: "envasado-y-etiquetado", title: "Envasado y etiquetado" },
   oos: { slug: "oos-y-oot", title: "OOS y OOT" },
   valvulas: { slug: "tuberias-y-valvulas", title: "Tuberías y válvulas" },
+  limpieza: { slug: "limpieza-de-equipos", title: "Limpieza de equipos" },
 };
 
 function hasDeviation(s: Sim, ...words: string[]) {
@@ -150,6 +151,14 @@ export function reviewBatch(s: Sim): Review {
       F.push({ sev: "mayor", area: "Documentación (ALCOA+)", title: `Valor fuera de especificación sin desviación: ${f.label}`, detail: `Registro: ${v(f.id)}${f.unit ? " " + f.unit : ""} · especificación: ${f.spec}. Un dato fuera de rango se registra tal cual y se comunica: Calidad decide con una desviación.`, lesson: L.desv });
     }
   }
+
+  // --- Limpieza al terminar: los equipos vaciados se identifican como sucios y se pide su limpieza
+  for (const [id, eq] of [["estado_r101_fin", "el R-101"], ["estado_c201_fin", "la centrífuga C-201"]] as const) {
+    if (v(id) && v(id) !== "Sucio")
+      F.push({ sev: "mayor", area: "Calidad del producto", title: `Equipo vaciado identificado como «${v(id)}»: ${eq}`, detail: "Un equipo vaciado no está limpio. La etiqueta «Sucio» evita que otro turno lo use sin limpiar y arrastre restos de este producto al siguiente.", lesson: L.limpieza });
+  }
+  if (v("limpieza_pedida") === "No")
+    F.push({ sev: "menor", area: "Proceso", title: "No se pidió la limpieza de los equipos", detail: "Al terminar se pide la limpieza: el tiempo que un equipo puede estar sucio antes de limpiarlo también está limitado.", lesson: L.limpieza });
 
   // --- Verificaciones previas
   if (v("r101_estado") && v("r101_estado") !== "Limpio y dentro de tiempo") {

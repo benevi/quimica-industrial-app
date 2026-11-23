@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  characteristics,
+  characteristicsFor,
+  FX_KEY,
+  FX_TEORICO,
+  type FxHandoff,
+  migrateErp,
   confirmPhase,
   createOrder,
   evaluate,
@@ -54,10 +58,22 @@ function load(): ErpState {
     const raw = window.localStorage.getItem(KEY);
     if (raw) {
       const s = JSON.parse(raw) as ErpState;
-      if (s.version === 1) return s;
+      if (s.version === 1) return withFx(migrateErp(s));
     }
   } catch {}
-  return initialState();
+  return withFx(initialState());
+}
+
+/** Recoge el lote FX-101 que el simulador de planta dejó preparado para el ERP. */
+function withFx(s: ErpState): ErpState {
+  try {
+    const raw = window.localStorage.getItem(FX_KEY);
+    if (!raw) return s;
+    const fx = JSON.parse(raw) as FxHandoff;
+    return fx?.lote && fx.at !== s.fx?.at ? { ...s, fx } : s;
+  } catch {
+    return s;
+  }
 }
 
 const input = "w-full rounded-md border border-line-strong bg-surface px-2.5 py-1.5 text-sm tabular-nums focus:border-accent";
@@ -241,6 +257,16 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
         </div>
       </div>
 
+      {!exam && state.fx && (
+        <Card className="p-4 text-sm">
+          <p className="font-medium">Lote FX-101 {state.fx.lote} recibido del simulador de planta</p>
+          <p className="mt-1 text-muted">
+            Peso neto envasado {fmtQty(state.fx.netKg)} kg · lotes usados en la pesada: {Object.values(state.fx.lotes).join(", ")} · informe de QA: «{state.fx.qa}». Regístralo en el ERP con
+            la misión 10: orden de {fmtQty(FX_TEORICO)} kg de FG-6001, consumos con esos lotes, notificaciones, entrada, resultados y decisión de empleo.
+          </p>
+        </Card>
+      )}
+
       {/* misiones */}
       {!exam && (
         <section aria-labelledby="mis-h">
@@ -306,10 +332,10 @@ export function Simulator({ mode = "practice", initial, onState }: { mode?: "pra
         ) : (
           <Card className="p-2">
           <Table
-            head={["Lote de inspección", "Lote", ...characteristics.map((c) => `${c.text} (${c.unit})`)]}
+            head={["Lote de inspección", "Lote", "Resultados"]}
             rows={state.lots.map((l) => {
               const lab = labFor(l);
-              return [l.id, l.batch, ...characteristics.map((c) => fmtQty(lab[c.id]))];
+              return [l.id, l.batch, characteristicsFor(l.material).map((c) => `${c.text}: ${fmtQty(lab[c.id])} ${c.unit}`).join(" · ")];
             })}
           />
           </Card>
@@ -597,21 +623,22 @@ function Screen({
         />
       );
 
-    case "QE51N":
+    case "QE51N": {
+      const lotChars = characteristicsFor(s.lots.find((l) => l.id === (a || openLot).trim())?.material ?? "FG-5001");
       return (
         <form
           className="grid max-w-lg gap-3"
           onSubmit={(e) => {
             e.preventDefault();
             const v: Record<string, number> = {};
-            for (const ch of characteristics) v[ch.id] = vals[ch.id] === undefined || vals[ch.id] === "" ? NaN : num(vals[ch.id]);
+            for (const ch of lotChars) v[ch.id] = vals[ch.id] === undefined || vals[ch.id] === "" ? NaN : num(vals[ch.id]);
             apply(recordResults(s, a || openLot, v));
           }}
         >
           <Field label="Lote de inspección" en="Inspection lot">
             <input className={input} value={a} onChange={(e) => setA(e.target.value)} placeholder={openLot || "Nº de lote de inspección"} />
           </Field>
-          {characteristics.map((ch) => (
+          {lotChars.map((ch) => (
             <Field
               key={ch.id}
               label={`${ch.text} (${ch.unit}) · especificación ${ch.min !== undefined ? `${fmtQty(ch.min)}–${fmtQty(ch.max!)}` : `≤ ${fmtQty(ch.max!)}`}`}
@@ -628,6 +655,7 @@ function Screen({
           <div><button className={btn}>Grabar resultados</button></div>
         </form>
       );
+    }
 
     case "QA11":
       return (
