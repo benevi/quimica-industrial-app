@@ -1115,6 +1115,9 @@ export const phetSims = [
 
 /** Simulaciones PhET por lección. Se suman a lo que la lección tenga en lessonMedia. */
 export const lessonSims: Record<string, Sim[]> = {
+  "diagramas-de-fases-a-fondo": [
+    { sim: "states-of-matter", title: "Estados de la materia", why: "En la pantalla «Cambios de fase» calienta, enfría o comprime la sustancia y sigue su punto en el diagrama de fases." },
+  ],
   "gases-a-fondo": [
     { sim: "gases-intro", title: "Gases: introducción", why: "Fija la temperatura, el volumen o la presión y comprueba con números las leyes de Boyle, Charles y Gay-Lussac." },
     { sim: "gas-properties", title: "Propiedades de los gases", why: "Bombea partículas pesadas y ligeras, calienta o comprime la caja y mira cómo responde la presión: P·V = n·R·T en movimiento." },
