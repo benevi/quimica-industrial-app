@@ -14,7 +14,7 @@ import { Bar, Card, Disclosure, SectionTitle, Status, btn } from "@/components/u
 
 /** Unos 20 segundos por tarjeta: 15 tarjetas ≈ 5 minutos */
 const SESSION = 15;
-const VOCAB: Deck = { id: "vocab", title: "Vocabulario de tus lecciones", titleEn: "Your lessons' glossary", icon: "🔤" };
+const VOCAB: Deck = { id: "vocab", title: "Vocabulario de tus lecciones", titleEn: "Your lessons' glossary" };
 
 export function Flashcards() {
   const { state, loaded, answerCard } = useCertState();

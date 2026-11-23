@@ -19,8 +19,8 @@ En planta casi todas las cuentas se reducen a **cuatro herramientas**.
 ### 1. Regla de tres (*rule of three*)
 Si 10 kg de producto necesitan 50 L de disolvente, ¿cuántos litros necesitan 14 kg?
 
-> 10 kg → 50 L
-> 14 kg → x L
+> 10 kg ocupan 50 L
+> 14 kg ocupan x L
 >
 > x = 14 × 50 / 10 = **70 L**
 
@@ -118,7 +118,7 @@ Escribe siempre la unidad junto al número y comprueba que "se cancela": 3,5 m³
     plant: `
 La hoja indica: *"Concentrar a vacío (P ≤ 150 mbar) con T camisa ≤ 50 °C"*.
 
-En el panel ves 0,12 bar absolutos. 0,12 bar = 120 mbar → **cumple** (120 ≤ 150).
+En el panel ves 0,12 bar absolutos. 0,12 bar = 120 mbar: **cumple** (120 ≤ 150).
 `,
     batchRecord: `
 - Presión de reactor (barg) y presión de vacío (mbar).

@@ -236,7 +236,7 @@ Cada disolvente tiene una **PDE** (*Permitted Daily Exposure*, exposición diari
 
 **Límite (ppm) = 1000 × PDE (mg/día) / dosis (g/día)**
 
-Metanol: PDE 30 mg/día → 1000 × 30 / 10 = **3000 ppm**.
+Metanol: PDE 30 mg/día: 1000 × 30 / 10 = **3000 ppm**.
 
 ### Cómo se mide
 Por **cromatografía de gases con espacio de cabeza** (*headspace GC*, Ph. Eur. 2.4.24; la técnica se explica en el nivel 7). Como control rápido en planta se usa la **pérdida por desecación** (LOD): si el LOD está bajo, el disolvente total también.
@@ -390,7 +390,7 @@ El API no es solo "la molécula": también importa **cómo se ordenan** las mol�
 ### Polimorfismo (*polymorphism*)
 Una misma molécula puede formar **varias redes cristalinas** distintas: forma I, forma II, etc. Cada polimorfo tiene distinto:
 - Punto de fusión.
-- **Solubilidad y velocidad de disolución** → afecta a cuánto fármaco llega a la sangre (*biodisponibilidad*).
+- **Solubilidad y velocidad de disolución**: afecta a cuánto fármaco llega a la sangre (*biodisponibilidad*).
 - Estabilidad, fluidez del polvo y comportamiento al comprimir.
 
 Caso real conocido: el **ritonavir** (1998). Apareció un polimorfo nuevo, más estable y mucho menos soluble, y las cápsulas dejaron de disolverse bien. Hubo que retirar el producto y reformularlo.
@@ -501,11 +501,11 @@ Metales que pueden venir de **catalizadores** (paladio, platino, níquel), de lo
 Algunas impurezas pueden dañar el ADN (*mutagenic*), como ciertos agentes alquilantes o **nitrosaminas**. Se controlan a niveles muchísimo más bajos: para un tratamiento de por vida, el umbral general (*TTC, Threshold of Toxicological Concern*) es **1,5 µg/día**, y algunas nitrosaminas tienen límites aún más bajos.
 
 ### De dónde salen en planta y cómo las evitas
-- Temperatura demasiado alta → subproductos y degradación.
-- Adición rápida o en orden incorrecto → reacciones secundarias.
-- Equipo mal limpiado → **contaminación cruzada** con otro producto.
-- Agua o aire donde no deben → hidrólisis u oxidación.
-- Lavado insuficiente de la torta → aguas madre (con impurezas) retenidas.
+- Temperatura demasiado alta: subproductos y degradación.
+- Adición rápida o en orden incorrecto: reacciones secundarias.
+- Equipo mal limpiado: **contaminación cruzada** con otro producto.
+- Agua o aire donde no deben: hidrólisis u oxidación.
+- Lavado insuficiente de la torta: aguas madre (con impurezas) retenidas.
 
 Seguir las instrucciones de la hoja (temperaturas, tiempos, orden y velocidad de adición) es **la principal herramienta** para controlar impurezas.
 `,

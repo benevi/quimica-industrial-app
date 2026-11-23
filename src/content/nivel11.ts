@@ -69,7 +69,7 @@ const fluidos: Lesson[] = [
 Transferencia del reactor R-101 al R-102. El operador revisa en el panel de conexión que el codo une la salida de R-101 con la entrada de R-102, comprueba que la válvula hacia el tanque de residuos está cerrada y lo marca en la hoja. Un segundo operador lo verifica (*second-person verification*) antes de arrancar la bomba.
 `,
     batchRecord: `
-- "Verificar ruta de transferencia R-101 → R-102: realizado por / verificado por".
+- "Verificar ruta de transferencia de R-101 a R-102: realizado por / verificado por".
 - Identificación de mangueras o codos usados.
 - Comprobaciones de estanqueidad (prueba de fugas con N₂).
 `,

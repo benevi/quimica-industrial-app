@@ -18,7 +18,7 @@ const instrumental: Lesson[] = [
 Muchas moléculas **absorben luz** de ciertas longitudes de onda, en el **ultravioleta** (UV, 190–400 nm) o en el **visible** (400–800 nm). Cuanto más concentrada está la disolución, más luz absorbe.
 
 ### El equipo: espectrofotómetro (*spectrophotometer*)
-Lámpara → selector de longitud de onda → **cubeta** (*cuvette*) con la muestra → detector. Las cubetas para UV son de **cuarzo** (el vidrio normal absorbe el UV). El camino óptico habitual es **1 cm**.
+La luz sale de la lámpara, pasa por el selector de longitud de onda, atraviesa la **cubeta** (*cuvette*) con la muestra y llega al detector. Las cubetas para UV son de **cuarzo** (el vidrio normal absorbe el UV). El camino óptico habitual es **1 cm**.
 
 ### Absorbancia y ley de Lambert-Beer
 > **A = ε × b × c**
@@ -268,12 +268,12 @@ Resultados IPC expresados en "% área" del material de partida o de impurezas.
 Cada impureza se compara con sus límites (ICH Q3A: por encima de ciertos umbrales hay que **informar**, **identificar** y **cualificar** la impureza).
 
 ### Secuencia típica
-Blanco → idoneidad del sistema (inyecciones repetidas del patrón: RSD, resolución, cola) → patrones → muestras → patrón de control al final.
+Por este orden: blanco, idoneidad del sistema (inyecciones repetidas del patrón: RSD, resolución, cola), patrones, muestras y un patrón de control al final.
 `,
     plant: `
 Contenido del API: área patrón 1 520 300, área muestra 1 517 200, ambos a 0,1000 mg/mL, pureza del patrón 99,8 %.
 
-% = 1 517 200 / 1 520 300 × 99,8 = **99,6 %**. Especificación 98,0–102,0 % → cumple.
+% = 1 517 200 / 1 520 300 × 99,8 = **99,6 %**. Especificación 98,0–102,0 %: cumple.
 `,
     batchRecord: `
 IPC de reacción y de pureza; en el CoA final: contenido, impurezas individuales, impurezas totales.

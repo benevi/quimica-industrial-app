@@ -3,7 +3,7 @@
  * Delante, la pregunta; detrás, la respuesta corta. Cada tarjeta apunta a la lección donde se explica.
  * Las ids son estables: el progreso (cajas Leitner) se guarda por id. No cambies una id ya publicada.
  */
-export type Deck = { id: string; title: string; titleEn: string; icon: string };
+export type Deck = { id: string; title: string; titleEn: string };
 
 export type Card = {
   id: string;
@@ -15,14 +15,14 @@ export type Card = {
 };
 
 export const decks: Deck[] = [
-  { id: "formulas", title: "Fórmulas de la hoja", titleEn: "Shop-floor formulas", icon: "🧮" },
-  { id: "unidades", title: "Unidades y conversiones", titleEn: "Units and conversions", icon: "📏" },
-  { id: "quimica", title: "Química básica", titleEn: "Chemistry basics", icon: "⚛️" },
-  { id: "equipos", title: "Equipos y operaciones", titleEn: "Equipment and unit operations", icon: "🏭" },
-  { id: "seguridad", title: "Seguridad", titleEn: "Safety", icon: "🦺" },
-  { id: "gmp", title: "GMP y documentación", titleEn: "GMP and documentation", icon: "📋" },
-  { id: "control", title: "Instrumentación y control", titleEn: "Instrumentation and control", icon: "🎛️" },
-  { id: "lab", title: "Laboratorio y calidad", titleEn: "Lab and QC", icon: "🔬" },
+  { id: "formulas", title: "Fórmulas de la hoja", titleEn: "Shop-floor formulas" },
+  { id: "unidades", title: "Unidades y conversiones", titleEn: "Units and conversions" },
+  { id: "quimica", title: "Química básica", titleEn: "Chemistry basics" },
+  { id: "equipos", title: "Equipos y operaciones", titleEn: "Equipment and unit operations" },
+  { id: "seguridad", title: "Seguridad", titleEn: "Safety" },
+  { id: "gmp", title: "GMP y documentación", titleEn: "GMP and documentation" },
+  { id: "control", title: "Instrumentación y control", titleEn: "Instrumentation and control" },
+  { id: "lab", title: "Laboratorio y calidad", titleEn: "Lab and QC" },
 ];
 
 export const cards: Card[] = [
@@ -40,7 +40,7 @@ export const cards: Card[] = [
   { id: "f-calor-sensible", deck: "formulas", front: "Calor para calentar una masa sin cambio de estado", back: "**Q = m · cp · ΔT**\n\ncp del agua ≈ 4,18 kJ/(kg·K).\n\nEj.: 1000 kg de agua de 20 a 30 °C ≈ 41 800 kJ.", lesson: "calor-vapor-intercambiadores" },
   { id: "f-gases", deck: "formulas", front: "Ley de los gases ideales", back: "**P · V = n · R · T**\n\nT siempre en kelvin. R = 0,082 atm·L/(mol·K) = 8,314 J/(mol·K).", lesson: "unidades-y-conversiones" },
   { id: "f-balance", deck: "formulas", front: "Balance de materia en un equipo (sin reacción)", back: "**Entra = Sale + Se acumula**\n\nEn continuo y estable: lo que entra = lo que sale.", lesson: "rendimiento-y-balance" },
-  { id: "f-lod", deck: "formulas", front: "¿Cómo se calcula la pérdida por desecación (LOD)?", back: "**LOD (%) = (masa inicial − masa final) ÷ masa inicial × 100**\n\nEj.: 5,000 g → 4,850 g: LOD = 3,0 %.", lesson: "secaderos" },
+  { id: "f-lod", deck: "formulas", front: "¿Cómo se calcula la pérdida por desecación (LOD)?", back: "**LOD (%) = (masa inicial − masa final) ÷ masa inicial × 100**\n\nEj.: de 5,000 g a 4,850 g: LOD = 3,0 %.", lesson: "secaderos" },
   { id: "f-ph", deck: "formulas", front: "Definición de pH", back: "**pH = −log [H⁺]**\n\nCada unidad de pH es un factor 10 de acidez. pH 7 neutro (25 °C), < 7 ácido, > 7 básico.", lesson: "acidos-bases-ph" },
   { id: "f-rsd", deck: "formulas", front: "¿Qué es el RSD (CV) y cómo se calcula?", back: "Desviación estándar relativa: **RSD (%) = s ÷ media × 100**.\n\nMide la repetibilidad: cuanto más bajo, mejor.", lesson: "calculo-y-expresion-de-resultados" },
 
@@ -139,4 +139,3 @@ export const cards: Card[] = [
   { id: "l-muestra", deck: "lab", front: "Tres reglas de la toma de muestras", back: "Muestra **representativa**, **identificada** (material, lote, punto, fecha, quién) y con el **envase y EPI** del procedimiento.", lesson: "toma-de-muestras" },
 ];
 
-export const getDeck = (id: string) => decks.find((d) => d.id === id);

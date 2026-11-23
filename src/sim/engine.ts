@@ -118,14 +118,14 @@ export type Deviation = { id: string; time: number; section: SectionId; what: st
 
 /** Válvulas manuales todo/nada (on-off) que el operador abre y cierra en cada operación. */
 export const VALVES = {
-  "XV-101": { name: "Agua purificada → R-101", section: "carga" },
-  "XV-102": { name: "Nitrógeno → R-101", section: "carga" },
+  "XV-101": { name: "Agua purificada al R-101", section: "carga" },
+  "XV-102": { name: "Nitrógeno al R-101", section: "carga" },
   "XV-103": { name: "Vacío del R-101, por el condensador", section: "carga" },
   "XV-104": { name: "Salida del depósito D-101 (anhídrido)", section: "reaccion" },
   "XV-105": { name: "Válvula de fondo del R-101", section: "filtracion" },
   "XV-106": { name: "Entrada al cristalizador R-102", section: "filtracion" },
-  "XV-201": { name: "Fondo del R-102 → centrífuga", section: "centrifugacion" },
-  "XV-202": { name: "Agua de lavado → centrífuga", section: "centrifugacion" },
+  "XV-201": { name: "Del fondo del R-102 a la centrífuga", section: "centrifugacion" },
+  "XV-202": { name: "Agua de lavado a la centrífuga", section: "centrifugacion" },
   "XV-301": { name: "Vacío del secadero SD-301", section: "secado" },
 } as const satisfies Record<string, { name: string; section: SectionId }>;
 export type ValveId = keyof typeof VALVES;
@@ -386,7 +386,7 @@ export function correct(s: Sim, fieldId: string, value: string, reason: string) 
   const f = FIELDS.find((x) => x.id === fieldId);
   if (!e || !f) return;
   e.history.push({ value: e.value, time: e.time, reason });
-  log(s, `Corrige «${f.label}»: ${e.value} → ${value}. Motivo: ${reason}`);
+  log(s, `Corrige «${f.label}»: de ${e.value} a ${value}. Motivo: ${reason}`);
   e.value = value;
   e.time = s.clock;
 }

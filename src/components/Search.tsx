@@ -12,7 +12,8 @@ export type SearchIndex = {
   terms: { es: string; en: string; def: string; lesson: string; lessonTitle: string }[];
 };
 
-export const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+export { norm } from "@/lib/text";
+import { norm } from "@/lib/text";
 
 type Hit = { kind: "lesson" | "term" | "page"; icon?: IconName; href: string; title: string; sub: string; detail: string; score: number };
 

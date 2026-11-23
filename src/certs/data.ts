@@ -122,10 +122,6 @@ export const certifications: Certification[] = [
   },
 ];
 
-export function getCertification(id: string) {
-  return certifications.find((c) => c.id === id);
-}
-
 export function getModule(moduleId: string) {
   for (const c of certifications) {
     const m = c.modules.find((x) => x.id === moduleId);

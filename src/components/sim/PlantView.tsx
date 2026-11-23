@@ -297,12 +297,12 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
         {/* panel de servicios */}
         <text x="78" y="40" textAnchor="middle" fontSize={11.5} fill="#475569" fontWeight={600}>Servicios</text>
         {[
-          ["AIRE", "#60a5fa"],
+          ["Aire", "#60a5fa"],
           ["N₂", "#d4a017"],
-          ["AGUA", "#16a34a"],
-          ["A. CAL.", "#16a34a"],
-          ["VAPOR", "#dc2626"],
-          ["GLICOL", "#0891b2"],
+          ["Agua", "#16a34a"],
+          ["Agua cal.", "#16a34a"],
+          ["Vapor", "#dc2626"],
+          ["Glicol", "#0891b2"],
         ].map(([n, c], i) => {
           const x = 24 + i * 20;
           return (
@@ -334,8 +334,8 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
 
         {/* vacío y lavador de gases (PP) */}
         {[
-          [1000, "VACÍO"],
-          [1024, "LAVADOR GASES"],
+          [1000, "Vacío"],
+          [1024, "Lavador de gases"],
         ].map(([x, t]) => (
           <g key={t as string}>
             <rect x={(x as number) - 8} y={36} width={16} height={520} fill="url(#pv-pp)" />
@@ -486,7 +486,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
               }}
               style={{ cursor: can ? "pointer" : "default" }}
             >
-              <title>{`${v} · ${E.VALVES[v].name}\n${open ? "ABIERTA" : "CERRADA"}${can ? "\nClic: " + (open ? "cerrar" : "abrir") : ""}`}</title>
+              <title>{`${v} · ${E.VALVES[v].name}\n${open ? "abierta" : "cerrada"}${can ? "\nClic: " + (open ? "cerrar" : "abrir") : ""}`}</title>
               {isTarget && (
                 <circle r={17} fill="#fdf3dc" stroke={SIGNAL} strokeWidth={2.5}>
                   {!reduced && <animate attributeName="r" values="14;19;14" dur="1.2s" repeatCount="indefinite" />}
@@ -508,7 +508,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
             <Chip x={440} y={170} label="TI-101 masa" value={`${E.fmtNum(r.T, 1)} °C`} tone={cur === "reaccion" && r.addEnd == null && r.T > 40 ? "bad" : "hot"} />
             <Chip x={440} y={214} label="Agitador" value={r.agit ? "Marcha" : "Paro"} tone={r.agit ? "ok" : "dark"} />
             {cur === "carga" && <Chip x={440} y={258} label="AI-101 O₂" value={`${E.fmtNum(s.o2, 1)} %`} tone={s.o2 > 2 ? "bad" : "ok"} />}
-            {cur === "reaccion" && <Chip x={440} y={258} label="Adición" value={r.interlock ? "BLOQUEADA" : `${r.rate} L/min`} tone={r.interlock ? "bad" : "dark"} />}
+            {cur === "reaccion" && <Chip x={440} y={258} label="Adición" value={r.interlock ? "Bloqueada" : `${r.rate} L/min`} tone={r.interlock ? "bad" : "dark"} />}
           </g>
         )}
         {cur === "filtracion" && <Chip x={530} y={470} label="PDI-301 ΔP" value={`${E.fmtNum(s.filter.dp, 1)} bar`} tone={s.filter.dp > 1.5 ? "bad" : "dark"} />}
@@ -549,7 +549,7 @@ export function PlantView({ s, onSelect, onValve }: { s: Sim; onSelect: (section
                     </path>
                   ))}
                   <rect x={300} y={62} width={104} height={20} rx={4} fill="#b91c1c" />
-                  <text x={352} y={76} textAnchor="middle" fontSize={12} fontWeight={800} fill="#fff">PSE-101 ROTO</text>
+                  <text x={352} y={76} textAnchor="middle" fontSize={12} fontWeight={800} fill="#fff">PSE-101 roto</text>
                 </g>
               )}
               {inc.kind === "choque_termico_r102" && <path d="M560 260 l18 22 l-10 14 l22 26 l-8 18" stroke="#111" strokeWidth={2.5} fill="none" />}

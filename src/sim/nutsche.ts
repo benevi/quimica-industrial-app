@@ -10,10 +10,10 @@ import type { TrendPt } from "./engine";
 export type NValve = "XV-401" | "XV-402" | "XV-403" | "XV-404" | "XV-405" | "XV-406";
 
 export const N_VALVES: Record<NValve, string> = {
-  "XV-401": "Fondo del R-201 → FD-401 (suspensión)",
-  "XV-402": "Nitrógeno a presión → FD-401",
-  "XV-403": "Salida de filtrado → tanque de aguas madres",
-  "XV-404": "Etanol frío de lavado → FD-401",
+  "XV-401": "Del fondo del R-201 al FD-401 (suspensión)",
+  "XV-402": "Nitrógeno a presión al FD-401",
+  "XV-403": "Salida de filtrado al tanque de aguas madres",
+  "XV-404": "Etanol frío de lavado al FD-401",
   "XV-405": "Vacío del FD-401 (por el condensador)",
   "XV-406": "Válvula de descarga lateral",
 };

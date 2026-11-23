@@ -41,7 +41,7 @@ const control: Lesson[] = [
 
 ### Señal 4–20 mA
 Muchos transmisores envían una corriente de 4 mA (cero de escala) a 20 mA (fondo de escala). Si la señal baja de 4 mA, el instrumento está **averiado o desconectado**: por eso no se usa 0 mA como cero.
-Ejemplo: transmisor de 0–10 bar que envía 12 mA → (12 − 4) / 16 × 10 = 5 bar.
+Ejemplo: transmisor de 0–10 bar que envía 12 mA: (12 − 4) / 16 × 10 = 5 bar.
 
 ### Calibración (*calibration*)
 Comparar el instrumento con un **patrón trazable** (*traceable standard*) y comprobar que el error está dentro de la **tolerancia**. Los instrumentos **críticos para GMP** (los que deciden la calidad: temperatura de reacción, báscula de carga) tienen un plan de calibración. Antes de usarlos se mira la **etiqueta de calibración**: si está caducada, no se usa y se avisa.

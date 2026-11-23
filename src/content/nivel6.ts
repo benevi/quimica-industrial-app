@@ -188,7 +188,7 @@ Se hace precipitar la sustancia como un compuesto insoluble, se filtra, se seca 
     plant: `
 LOD de un producto húmedo: crisol + muestra antes = 25,4310 g; crisol vacío = 23,4310 g (muestra = 2,0000 g). Después de secar: 25,4150 g.
 
-Pérdida = 25,4310 − 25,4150 = 0,0160 g → LOD = 0,0160 / 2,0000 × 100 = **0,80 %**.
+Pérdida = 25,4310 − 25,4150 = 0,0160 g; LOD = 0,0160 / 2,0000 × 100 = **0,80 %**.
 `,
     batchRecord: `
 LOD como IPC de fin de secado; residuo de calcinación en el análisis final del API.
@@ -260,9 +260,9 @@ Se valora una cantidad conocida de agua (o un patrón como el **tartrato sódico
 - Algunas sustancias interfieren (aldehídos, cetonas, oxidantes): hay reactivos especiales o se usa un **horno** para evaporar el agua de la muestra.
 `,
     plant: `
-IPC de agua de un disolvente recuperado antes de reutilizarlo: límite ≤ 0,10 %. Se usa KF culombimétrico. Resultado 0,04 % → cumple.
+IPC de agua de un disolvente recuperado antes de reutilizarlo: límite ≤ 0,10 %. Se usa KF culombimétrico. Resultado 0,04 %: cumple.
 
-Otro ejemplo, volumétrico: título 5,02 mg/mL, gasto 1,25 mL, muestra 500,0 mg → 1,25 × 5,02 / 500,0 × 100 = **1,255 %** de agua.
+Otro ejemplo, volumétrico: título 5,02 mg/mL, gasto 1,25 mL, muestra 500,0 mg: 1,25 × 5,02 / 500,0 × 100 = **1,255 %** de agua.
 `,
     batchRecord: `
 KF como IPC (agua en disolventes, en el producto antes de una reacción sensible al agua, al final del secado) y en el análisis final del API.
@@ -314,14 +314,14 @@ Con varias réplicas de un análisis:
 - **Desviación estándar** (*standard deviation, SD*): cuánto se separan los valores de la media.
 - **Desviación estándar relativa** (*RSD*, a veces CV): SD / media × 100. Permite comparar precisiones. Se usa mucho en la **idoneidad del sistema** (por ejemplo, RSD de 5 inyecciones del patrón ≤ 2,0 %).
 
-Ejemplo: 99,2 · 99,6 · 99,4 % → media 99,4 %, SD 0,20, RSD ≈ **0,20 %**.
+Ejemplo: 99,2 · 99,6 · 99,4 %: media 99,4 %, SD 0,20, RSD ≈ **0,20 %**.
 
 ### Redondeo (*rounding*)
 - Se calcula con todos los decimales y se **redondea solo el resultado final**.
 - Se redondea al **mismo número de decimales que la especificación**. Si el límite es "≤ 0,5 %", el resultado se expresa con un decimal.
 - Regla habitual: si la cifra siguiente es 5 o mayor, se sube.
 
-Ejemplo: especificación ≤ 0,5 %, resultado calculado 0,54 % → se expresa **0,5 %** → **cumple**. Resultado 0,55 % → **0,6 %** → no cumple.
+Ejemplo: especificación ≤ 0,5 %, resultado calculado 0,54 %, que se expresa **0,5 %**: **cumple**. Resultado 0,55 %, que se expresa **0,6 %**: no cumple.
 
 ### Unidades habituales
 - **%** (p/p): partes por cien.
@@ -329,7 +329,7 @@ Ejemplo: especificación ≤ 0,5 %, resultado calculado 0,54 % → se expresa **
 - **% área** en cromatografía: proporción de cada pico respecto al total.
 `,
     plant: `
-Disolvente residual metanol: límite ICH Q3C 3000 ppm. Resultado 2450 ppm = 0,245 % → cumple.
+Disolvente residual metanol: límite ICH Q3C 3000 ppm. Resultado 2450 ppm = 0,245 %: cumple.
 `,
     batchRecord: `
 Resultados en el CoA con los decimales de la especificación y la palabra "cumple" o "no cumple".
