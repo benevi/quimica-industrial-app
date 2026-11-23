@@ -782,6 +782,20 @@ export function aaTotalL(s: Sim) {
   return s.dosed.aa / AA_DENSITY;
 }
 
+/**
+ * Solubilidad del FX-101 en las aguas madres (g/L), curva de ejemplo de la lección «Cristalización a fondo»:
+ * 5 + 0,5·T hasta 20 °C y, por encima, interpolación lineal entre los puntos de su tabla.
+ */
+export function solubilidadFX(T: number) {
+  const pts: [number, number][] = [[0, 5], [20, 15], [30, 30], [40, 60], [50, 115], [60, 220], [70, 430]];
+  const x = Math.max(0, T);
+  if (x >= 70) return 430;
+  const i = pts.findIndex(([t]) => t > x);
+  const [t0, s0] = pts[i - 1];
+  const [t1, s1] = pts[i];
+  return s0 + ((s1 - s0) * (x - t0)) / (t1 - t0);
+}
+
 /** Avanza el reactor un minuto simulado. */
 export function reactorTick(s: Sim) {
   if (s.halt) return;
@@ -1049,7 +1063,7 @@ export function runCrystallization(s: Sim, seedT: number, seeded: boolean, ramp:
 export function productDryKg(s: Sim) {
   const r = s.reactor;
   const conv = Math.min(1, r.consumed) - r.slow;
-  const solubility = 5 + 0.5 * Math.max(0, s.cryst.finalT); // g/L, simplificado
+  const solubility = solubilidadFX(s.cryst.finalT); // g/L
   const motherLoss = (420 * solubility) / 1000;
   const holdBonus = s.cryst.hold >= 60 ? 0 : 1.5;
   const dry = (THEORETICAL_KG * conv * 0.93 - motherLoss - holdBonus) * (1 - Math.min(100, s.lossPct ?? 0) / 100);
@@ -1076,7 +1090,7 @@ export function centriAction(s: Sim, a: "cargar" | "centrifugar" | "lavar" | "de
   if (a === "cargar") { pt(0, 0); c.loaded = true; s.clock += 30; pt(400); log(s, "Carga la suspensión de R-102 en la centrífuga C-201"); }
   if (a === "centrifugar" && vibrationTrip(s)) return;
   if (a === "centrifugar" && s.cryst.finalT > 10) {
-    const kg = (420 * (5 + 0.5 * s.cryst.finalT)) / 1000;
+    const kg = (420 * solubilidadFX(s.cryst.finalT)) / 1000;
     raise(s, "aguas_madres_caliente", { what: `La cristalización terminó a ${s.cryst.finalT} °C. A esa temperatura queda mucho producto disuelto: unos ${fmtNum(kg)} kg se van con las aguas madres al tanque de residuos (a 3 °C serían ${fmtNum((420 * 6.5) / 1000)} kg).` });
   }
   if (a === "centrifugar") { pt(1200); c.spun = true; s.clock += s.cryst.quality === "finos" ? 50 : 25; pt(1200, 420); log(s, "Centrifuga y escurre las aguas madre"); }
