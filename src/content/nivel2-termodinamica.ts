@@ -40,7 +40,7 @@ Criterio de signos de esta lección: q y w son **positivos si entran** en el sis
 
 R es la **constante de los gases** (*gas constant*). Sale de multiplicar dos constantes que el Real Decreto 493/2020 fija como exactas, la de Avogadro (6,022 140 76 × 10²³ por mol) y la de Boltzmann (1,380 649 × 10⁻²³ J/K): R = 8,314 J/(mol·K).
 
-**Ejemplo resuelto 1. La desprotección de «Reacciones en la fabricación de API a fondo».** Allí salían 1,6 kmol de gas (CO₂ e isobuteno), que a 25 °C y presión atmosférica ocupan 39,2 m³.
+**Ejemplo resuelto 1. Una desprotección que suelta gas.** En «Reacciones en la fabricación de API a fondo» (nivel 3) verás una desprotección que suelta 1,6 kmol de gas (CO₂ e isobuteno), que a 25 °C y presión atmosférica ocupan 39,2 m³.
 
 - Con volumen: 101,325 kPa × 39,2 m³ = **3972 kJ**.
 - Con moles: 1600 mol × 8,314 × 298,15 K = 3 966 000 J = **3966 kJ**.
@@ -96,11 +96,11 @@ Cada valor se multiplica por su coeficiente en la ecuación ajustada.
 
 En «Calor de reacción a fondo», con energías de enlace, salía −183 kJ. Casi igual: lo verás más abajo.
 
-**Ejemplo resuelto 3. Hidrogenar un doble enlace.** La reacción de «Hidrogenación a fondo»: CH₂=CH₂ + H₂ da CH₃–CH₃, todo en gas.
+**Ejemplo resuelto 3. Hidrogenar un doble enlace.** Una reacción que verás en planta en «Hidrogenación a fondo»: CH₂=CH₂ + H₂ da CH₃–CH₃, todo en gas.
 
 - ΔH° = (−84,0) − (52,4 + 0) = **−136,4 kJ/mol**.
 
-**Ejemplo resuelto 4. Reducir un nitro a amina.** También de «Hidrogenación a fondo»: C₆H₅NO₂ + 3 H₂ da C₆H₅NH₂ + 2 H₂O, con nitrobenceno, anilina y agua líquidos.
+**Ejemplo resuelto 4. Reducir un nitro a amina.** Otra de «Hidrogenación a fondo» (nivel 12): C₆H₅NO₂ + 3 H₂ da C₆H₅NH₂ + 2 H₂O, con nitrobenceno, anilina y agua líquidos.
 
 - Productos: 31,3 + 2 × (−285,83) = −540,36 kJ.
 - Reactivos: 12,5 + 3 × 0 = 12,5 kJ.
@@ -109,7 +109,7 @@ En «Calor de reacción a fondo», con energías de enlace, salía −183 kJ. Ca
 Cuatro veces más que el doble enlace. Pásalo a cifras de planta:
 
 - **Por kilo de nitrobenceno.** Masa molar 123,11 g/mol: 552,86 / 123,11 = 4,491 kJ/g, es decir, **4491 kJ por kg**.
-- **Por mol de hidrógeno.** 552,86 / 3 = **184,3 kJ** por mol de H₂. Con 2,016 g/mol, 1 kg de H₂ son 496 mol y dan 91 400 kJ. Si entra **1 kg de H₂ por hora**, la reacción da 91 400 / 3600 = **25,4 kW**. Es la cuenta que hay detrás de la frase de «Hidrogenación a fondo»: el caudal de hidrógeno es tu indicador del calor.
+- **Por mol de hidrógeno.** 552,86 / 3 = **184,3 kJ** por mol de H₂. Con 2,016 g/mol, 1 kg de H₂ son 496 mol y dan 91 400 kJ. Si entra **1 kg de H₂ por hora**, la reacción da 91 400 / 3600 = **25,4 kW**. Es la cuenta que hay detrás de una idea que verás en «Hidrogenación a fondo»: el caudal de hidrógeno es tu indicador del calor.
 - **Aumento adiabático.** Se hidrogenan 100 kg de nitrobenceno en una masa total de 1500 kg con cp = 2,5 kJ/(kg·K) (valores de ejemplo). Moles: 100 / 123,11 = 0,8123 kmol. Calor: 0,8123 × 552 860 = 449 100 kJ. ΔTad = 449 100 / (1500 × 2,5) = **119,8 °C**. Por eso la hoja limita el hidrógeno y no deja que se acumule nitro sin reaccionar.
 - **Energía interna.** Desaparecen 3 mol de gas (Δn = −3): ΔU = −552,86 + 3 × 2,479 = **−545,4 kJ/mol**. Diferencia pequeña.
 

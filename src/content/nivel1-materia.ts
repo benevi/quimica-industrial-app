@@ -212,7 +212,7 @@ Tres cuentas, con valores de ejemplo:
 Los límites de cada impureza los verás en «Impurezas en el API».
 
 ### La masa se conserva
-Es la ley más útil para un operador: **en un sistema cerrado la masa total no cambia**, ni en un cambio físico ni en uno químico. Las partículas se reparten o se recombinan, pero no se crean ni se destruyen: es la **conservación de la masa** (*conservation of mass*). En una reacción los átomos solo cambian de pareja. Con las masas molares de «El mol»:
+Es la ley más útil para un operador: **en un sistema cerrado la masa total no cambia**, ni en un cambio físico ni en uno químico. Las partículas se reparten o se recombinan, pero no se crean ni se destruyen: es la **conservación de la masa** (*conservation of mass*). En una reacción los átomos solo cambian de pareja. Con las masas molares (lo que pesa un mol de cada sustancia; lo verás en «El mol: contar moléculas pesando»):
 
 > ácido clorhídrico + hidróxido de sodio da cloruro de sodio + agua
 > 36,46 g + 40,00 g = 76,46 g     y     58,44 g + 18,02 g = 76,46 g

@@ -56,7 +56,7 @@ El manual de la FDA añade: si el filtrado empieza a hervir dentro del Kitasato,
 
 **Cuenta 1. Lo que aprieta el aire.** Büchner de 12 cm de diámetro, vacío a 200 mbar abs y atmósfera a 1013 mbar. Diferencia: 813 mbar = 81300 Pa. Superficie: π × 0,06 × 0,06 = 0,0113 m². Fuerza: 81300 × 0,0113 = **919 N**, como si apoyaras 94 kg encima del papel. Esa misma fuerza aprieta sobre todo el vidrio del Kitasato: por eso se usa vidrio de pared gruesa y se protege.
 
-**Cuenta 2. Del banco a la planta.** En el banco se filtran 50 g en ese Büchner: 0,050 / 0,0113 = 4,4 kg/m². En el filtro ficticio FD-402, de 2,0 m², 200 kg: 100 kg/m² (valores de ejemplo). La torta de planta será unas 23 veces más gruesa y, como viste en «Filtros a fondo», frenará mucho más el líquido.
+**Cuenta 2. Del banco a la planta.** En el banco se filtran 50 g en ese Büchner: 0,050 / 0,0113 = 4,4 kg/m². En el filtro ficticio FD-402, de 2,0 m², 200 kg: 100 kg/m² (valores de ejemplo). La torta de planta será unas 23 veces más gruesa y, como verás en «Filtros a fondo», frenará mucho más el líquido.
 
 **Cuenta 3. El tope de la trompa.** Una trompa no baja de la presión de vapor del agua que la mueve, porque esa agua herviría. Con la ecuación de Antoine y las constantes del agua del instituto de metrología de Estados Unidos (NIST), a 20 °C son 23 mbar; para más vacío se usa una bomba.
 
@@ -77,7 +77,7 @@ La NTP 464 advierte que el momento de aliviar la presión es el de más riesgo: 
 
 **Emulsiones.** El manual de la FDA agita con cuidado para no provocarlas, añade disolución saturada de cloruro sódico y deja reposar al menos 30 minutos; si no se rompe, la centrifuga 5 minutos a 1500 rpm. En planta manda la hoja; en el banco, el método.
 
-**Cuenta 4. Tres veces mejor que una.** 100 mL de fase acuosa, coeficiente de reparto K = 4 (valor de ejemplo) y 60 mL de disolvente. Con la fórmula de «Extracción líquido-líquido a fondo»:
+**Cuenta 4. Tres veces mejor que una.** 100 mL de fase acuosa, coeficiente de reparto K = 4 (valor de ejemplo) y 60 mL de disolvente. Con la fórmula del reparto (se explica en «Extracción líquido-líquido a fondo», nivel 12):
 
 - Una vez 60 mL: queda en el agua 1 / (1 + 4 × 60 / 100) = 1 / 3,4 = **29,4 %**.
 - Tres veces 20 mL: (1 / (1 + 4 × 20 / 100))³ = (1 / 1,8)³ = **17,1 %**.
@@ -162,7 +162,7 @@ El método de humedad del BOE de 1987 enseña a secar bien:
 **Cuenta 9. La capa fina.** Para 5 g de muestra con 0,3 g/cm² como máximo: 5 / 0,3 = **16,7 cm²** de fondo, como mínimo. Es la idea del agitador del secadero: más superficie por la que sale el vapor. Qué mide la pérdida por secado lo tienes en «El agua en la muestra a fondo: Karl Fischer y pérdida por secado».
 
 ### Centrifugar en el laboratorio
-La centrífuga de tubos usa la misma fórmula de «La centrífuga a fondo»: fuerza G = 0,00001118 × radio (cm) × rpm². Por eso los métodos bien escritos dan la fuerza en g y no solo las rpm: con otro rotor, las mismas rpm dan otra fuerza.
+La centrífuga de tubos usa la misma fórmula que la de planta («La centrífuga a fondo», nivel 12): fuerza G = 0,00001118 × radio (cm) × rpm². Por eso los métodos bien escritos dan la fuerza en g y no solo las rpm: con otro rotor, las mismas rpm dan otra fuerza.
 
 **Cuenta 10. Pequeña pero fuerte.** Rotor de 10 cm de radio a 4000 rpm: 0,00001118 × 10 × 4000² = **1789 g**. La cesta de planta de 1 m de diámetro a 1200 rpm da 805 g. Y los 1500 rpm del manual de la FDA, con un rotor de 15 cm (valor de ejemplo), serían 377 g.
 

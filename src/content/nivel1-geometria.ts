@@ -60,7 +60,7 @@ Al añadir ácido clorhídrico para hacer el **clorhidrato** (*hydrochloride*), 
 ### Resonancia: cuando un solo dibujo no basta
 El ion **acetato** (*acetate*), CH₃COO⁻, sale del ácido acético al neutralizarlo. Tiene 24 electrones de valencia (8 de los dos carbonos, 3 de los hidrógenos, 12 de los dos oxígenos y 1 más por la carga). Al dibujarlo, un oxígeno queda con enlace doble (carga formal 6 − 4 − 2 = 0) y el otro con enlace simple y tres pares solitarios (6 − 6 − 1 = −1). Pero ¿cuál de los dos lleva el doble? Los dos dibujos valen igual.
 
-La realidad no salta de uno a otro: es una mezcla fija de ambos, con la carga negativa repartida entre los dos oxígenos. Es la **resonancia** (*resonance*), y los dibujos son **formas resonantes** (*resonance structures*). Una mula no es medio tiempo caballo y medio tiempo burro: es siempre una mezcla. Repartir la carga estabiliza el ion, igual que en el anillo de benceno de «Química orgánica a fondo: leer una fórmula y entender su nombre».
+La realidad no salta de uno a otro: es una mezcla fija de ambos, con la carga negativa repartida entre los dos oxígenos. Es la **resonancia** (*resonance*), y los dibujos son **formas resonantes** (*resonance structures*). Una mula no es medio tiempo caballo y medio tiempo burro: es siempre una mezcla. Repartir la carga estabiliza el ion, igual que en el anillo de benceno que verás en «Química orgánica a fondo: leer una fórmula y entender su nombre».
 
 **Excepciones al octeto.** En el trifluoruro de boro, BF₃ (3 + 3 × 7 = 24 electrones), el boro forma tres enlaces simples y se queda con 6 electrones, todos con carga formal 0. El azufre y el fósforo pueden rodearse de más de ocho, como en el ácido sulfúrico.
 
@@ -120,7 +120,7 @@ Hay dos maneras de solapar orbitales:
 - **De frente**, a lo largo de la línea entre los dos núcleos: es un **enlace sigma** (*sigma bond*, σ). Todo enlace simple es un σ.
 - **De lado**, con los dos orbitales p que quedaron sin mezclar, paralelos entre sí, por encima y por debajo de la línea: es un **enlace pi** (*pi bond*, π).
 
-Un enlace doble es un σ más un π; un triple, un σ más dos π. El enlace π solo existe si los dos orbitales p siguen paralelos. Si intentas girar un extremo, se dejan de solapar y el π se rompe. Por eso el doble enlace es rígido, como dos tablas unidas con dos clavos, y por eso existen los isómeros cis y trans de «Isómeros y quiralidad a fondo: moléculas gemelas que no hacen lo mismo».
+Un enlace doble es un σ más un π; un triple, un σ más dos π. El enlace π solo existe si los dos orbitales p siguen paralelos. Si intentas girar un extremo, se dejan de solapar y el π se rompe. Por eso el doble enlace es rígido, como dos tablas unidas con dos clavos, y por eso existen los isómeros cis y trans, que verás en «Isómeros y quiralidad a fondo: moléculas gemelas que no hacen lo mismo».
 
 **Ejercicio resuelto 4. La acetona, CH₃–CO–CH₃.**
 

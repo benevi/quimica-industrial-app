@@ -33,7 +33,7 @@ Un porcentaje es "partes de cada 100".
 
 ### 3. Notación científica (*scientific notation*)
 Sirve para números muy grandes o muy pequeños:
-- 0,0005 = 5 × 10⁻⁴
+- 0,0005 = 5 × 10⁻⁴ (el exponente dice cuántos puestos se mueve la coma: positivo, a la derecha, para números grandes; negativo, a la izquierda, para números pequeños)
 - 6 000 000 = 6 × 10⁶
 
 La verás en analíticas: "impureza 3 × 10⁻² %" significa 0,03 %.
@@ -103,9 +103,10 @@ Un reactor de "4 m³" (o 4000 L) es un reactor de **4000 litros** de capacidad t
 
 ### Temperatura (*temperature*)
 - Grados Celsius (°C): la que usarás casi siempre.
-- Kelvin (K): K = °C + 273,15. Aparece en fórmulas.
+- Kelvin (K): K = °C + 273,15. Empieza a contar en el cero absoluto (−273,15 °C), la temperatura más baja posible, así que no tiene números negativos. Aparece en fórmulas.
 
 ### Presión (*pressure*)
+- La **presión** es la fuerza con que algo empuja sobre cada trozo de superficie: el aire sobre nosotros, el gas sobre las paredes del reactor o el líquido dentro de una tubería.
 - 1 bar ≈ 1 atm ≈ la presión del aire a nivel del mar.
 - 1 bar = 1000 mbar = 100 kPa.
 - **Presión relativa (barg)**: lo que marca un manómetro normal; 0 barg = presión del ambiente.

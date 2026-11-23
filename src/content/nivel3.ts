@@ -497,7 +497,7 @@ Para dosis mayores de 2 g/día los umbrales bajan a 0,03 %, 0,05 % y 0,05 %.
 Una impureza **especificada** tiene su propio límite en la especificación; las demás entran como "impureza no especificada, cada una ≤ 0,10 %" y en "impurezas totales".
 
 ### Impurezas elementales (ICH Q3D)
-Metales que pueden venir de **catalizadores** (paladio, platino, níquel), de los reactivos o de los equipos. Se clasifican por toxicidad (clase 1: Cd, Pb, As, Hg) y tienen PDE en µg/día. Ejemplo: paladio por vía oral, 100 µg/día. Se analizan por **ICP-MS** (plasma acoplado inductivamente con espectrometría de masas).
+Metales que pueden venir de **catalizadores** (paladio, platino, níquel), de los reactivos o de los equipos. Se clasifican por toxicidad (clase 1: Cd, Pb, As, Hg) y tienen una exposición diaria permitida (PDE, *Permitted Daily Exposure*) en µg/día. Ejemplo: paladio por vía oral, 100 µg/día. Se analizan por **ICP-MS** (plasma acoplado inductivamente con espectrometría de masas).
 
 ### Impurezas mutagénicas (ICH M7)
 Algunas impurezas pueden dañar el ADN (*mutagenic*), como ciertos agentes alquilantes o **nitrosaminas**. Se controlan a niveles muchísimo más bajos: para un tratamiento de por vida, el umbral general (*TTC, Threshold of Toxicological Concern*) es **1,5 µg/día**, y algunas nitrosaminas tienen límites aún más bajos.

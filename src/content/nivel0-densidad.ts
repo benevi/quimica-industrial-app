@@ -164,7 +164,7 @@ Si te piden medir con un areómetro, lo general es:
 **El hielo, la excepción.** Casi todo es más denso en sólido que en líquido; el agua no. Con la formulación de la IAPWS (*International Association for the Properties of Water and Steam*, la asociación internacional que fija las propiedades del agua y del vapor) para el hielo, el hielo a 0 °C tiene 916,7 kg/m³, frente a 999,8 kg/m³ del agua líquida a esa temperatura: al congelarse, el agua ocupa un 9 % más. Por eso el hielo flota y por eso una tubería de agua que se congela puede reventar.
 
 ### Densidad de los gases
-Un gas tiene una densidad unas mil veces menor y muy sensible a presión y temperatura. De la ecuación de los gases ideales de «El mol a fondo» se despeja:
+Un gas tiene una densidad unas mil veces menor y muy sensible a presión y temperatura. Esta parte usa la masa molar y la constante de los gases, que todavía no has visto. Si te pierdes, quédate con la conclusión de cada ejemplo (qué gas pesa más que el aire y por qué importa) y vuelve aquí después de «El mol a fondo: contar moléculas pesando, paso a paso», donde sale la ecuación de los gases ideales. De esa ecuación se despeja:
 
 > ρ = P × M / (R × T)
 

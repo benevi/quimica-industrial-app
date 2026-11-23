@@ -27,7 +27,7 @@ export const navGroups: NavGroup[] = [
     id: "aprender",
     label: "Aprender",
     items: [
-      { href: "/operador", label: "Ruta del operador", en: "Operator track", icon: "shield", hint: "28 lecciones imprescindibles para tu turno." },
+      { href: "/operador", label: "Ruta del operador", en: "Operator track", icon: "shield", hint: "31 lecciones imprescindibles para tu turno." },
       {
         href: "/temario",
         label: "Temario completo",

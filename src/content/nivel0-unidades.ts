@@ -44,7 +44,7 @@ El artículo único del real decreto dice que el sistema legal de unidades oblig
 - **El metro** se fija con la velocidad de la luz en el vacío: 299 792 458 m/s.
 - **El kilogramo** se fija con la constante de Planck: 6,626 070 15 × 10⁻³⁴ J·s.
 - **El kelvin** se fija con la constante de Boltzmann: 1,380 649 × 10⁻²³ J/K.
-- **El mol** contiene exactamente 6,022 140 76 × 10²³ entidades elementales (átomos, moléculas, iones…).
+- **El mol** contiene exactamente 6,022 140 76 × 10²³ entidades elementales (átomos, moléculas, iones…). Es la unidad con la que los químicos cuentan partículas; se explica desde cero en «El mol: contar moléculas pesando».
 
 En planta no cambia nada: un kilo sigue siendo un kilo.
 
@@ -163,7 +163,7 @@ El truco: si 1 m³ = 1000 L, la fracción (1000 L / 1 m³) vale exactamente 1. M
 ### Análisis dimensional: la fórmula se comprueba sola
 Pon cada dato con su unidad y tacha: lo que queda tiene que ser la unidad buscada. Si no, hay un dato mal metido.
 
-**Calor: Q = m × cp × ΔT.** Calentar 600 kg de agua (cp = 4,18 kJ/(kg·K), valor que ya usa la lección del calor) 15 K: kg × kJ/(kg·K) × K. Se tachan kg y K, queda kJ. Q = 600 × 4,18 × 15 = **37 620 kJ**. Con la masa en gramos, la unidad no se tacharía.
+**Calor: Q = m × cp × ΔT.** Calentar 600 kg de agua (cp = 4,18 kJ/(kg·K): es el calor específico, la energía para subir un grado un kilo de agua, el mismo valor de «Las cuentas de planta a fondo») 15 K: kg × kJ/(kg·K) × K. Se tachan kg y K, queda kJ. Q = 600 × 4,18 × 15 = **37 620 kJ**. Con la masa en gramos, la unidad no se tacharía.
 
 **Presión de una columna de líquido: P = ρ × g × h.** Metanol (790 kg/m³), g = 9,81 m/s², altura 2,0 m. Unidades: kg/m³ × m/s² × m = kg/(m·s²). Es justo la expresión del pascal en la tabla 3 (m⁻¹·kg·s⁻²). P = 790 × 9,81 × 2,0 = 15 500 Pa, unos **155 mbar**.
 

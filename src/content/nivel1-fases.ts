@@ -10,7 +10,7 @@ export const diagramasDeFasesAFondo: Lesson = {
   summary:
     "El mapa presión-temperatura del agua y del CO₂ con su punto triple y su punto crítico, la regla de las fases, la sublimación y la liofilización, la ecuación de Antoine con las constantes del NIST, la ley de Raoult y los diagramas de dos líquidos, los azeótropos, el eutéctico y la pureza por punto de fusión, y la crioscopia, la ebulloscopia y la ósmosis con cuentas.",
   body: `
-En «La materia a fondo: estados, cambios de estado y mezclas» viste que un líquido hierve cuando su presión de vapor iguala a la presión de encima. En «Los gases a fondo» apareció la temperatura crítica, y en «Destilación a fondo» la ecuación de Antoine con el tolueno del R-204. Aquí juntas todo en una sola herramienta: el **diagrama de fases** (*phase diagram*), un mapa que dice en qué estado está una sustancia, o una mezcla, para cada presión y temperatura.
+En «La materia a fondo: estados, cambios de estado y mezclas» viste que un líquido hierve cuando su presión de vapor iguala a la presión de encima, y en «Los gases a fondo» apareció la temperatura crítica. Aquí juntas todo en una sola herramienta, y verás la ecuación de Antoine, que volverá con el tolueno del R-204 en «Destilación a fondo»: el **diagrama de fases** (*phase diagram*), un mapa que dice en qué estado está una sustancia, o una mezcla, para cada presión y temperatura.
 
 Los datos de sustancias son del NIST Chemistry WebBook, la base de datos del instituto de metrología de Estados Unidos. Lo marcado como «valor de ejemplo» es inventado.
 
@@ -136,7 +136,7 @@ Mezcla dos sólidos que fundidos se disuelven entre sí pero que cristalizan por
 
 **Ejercicio resuelto 4** (valores de ejemplo). El producto A funde a 150 °C con un calor de fusión de 30 kJ/mol y la impureza B a 120 °C con 25 kJ/mol. Con la ecuación de una mezcla ideal, el eutéctico sale a **100,8 °C**, con un 32,5 % en moles de A. Y el producto con solo un 1 % en moles de B termina de fundir a 149,5 °C: medio grado menos, y empieza a fundir mucho antes, en el eutéctico.
 
-Esa es la explicación con mapa de lo que viste en «Punto de fusión y análisis térmico a fondo»: la impureza hace que el inicio baje mucho, el final baje poco y el intervalo se ensanche.
+Esa es la explicación con mapa de lo que el laboratorio mide en «Punto de fusión y análisis térmico a fondo»: la impureza hace que el inicio baje mucho, el final baje poco y el intervalo se ensanche.
 
 **La cuenta de pureza.** Para poca impureza, el descenso del final de la fusión es aproximadamente:
 

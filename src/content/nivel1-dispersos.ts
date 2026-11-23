@@ -37,7 +37,7 @@ Las gotas de una emulsión o las burbujas de una espuma pueden pasar de 1000 nm;
 ### Efecto Tyndall: la prueba de la linterna
 Una disolución deja pasar la luz sin desviarla. Las partículas de un coloide, en cambio, desvían parte de la luz hacia los lados, y el haz se ve dentro del líquido, como el rayo de sol en una habitación con polvo. Es el **efecto Tyndall** (*Tyndall effect*). El temario de seguridad del Instituto Nacional de Seguridad y Salud en el Trabajo (INSST) lo cita en los detectores ópticos de humo: detectan el humo por la difusión de luz (efecto Tyndall).
 
-Cuando la hoja pide «disolución completa, transparente», mira con la luz de la mirilla: si el haz se marca o hay un brillo lechoso, queda algo muy fino sin disolver. Se anota tal cual. El laboratorio mide esa desviación de luz con un nefelómetro, como viste en «Refractometría, polarimetría y turbidez a fondo».
+Cuando la hoja pide «disolución completa, transparente», mira con la luz de la mirilla: si el haz se marca o hay un brillo lechoso, queda algo muy fino sin disolver. Se anota tal cual. El laboratorio mide esa desviación de luz con un nefelómetro, como verás en «Refractometría, polarimetría y turbidez a fondo».
 
 ### Por qué una gota pequeña no se separa: la ley de Stokes
 Una gota de tolueno en agua sube porque pesa menos que el agua que desplaza; el agua la frena, como el aire frena un paracaídas. Cuando empuje y freno se igualan, la gota sube a velocidad constante. Esa velocidad la da la **ley de Stokes** (*Stokes' law*), la misma que usa el método oficial del Boletín Oficial del Estado (BOE) de 1976 para medir el tamaño de partícula de un suelo por sedimentación:

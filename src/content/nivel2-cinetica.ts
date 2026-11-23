@@ -73,6 +73,8 @@ La **ecuación de Arrhenius** (*Arrhenius equation*) se escribe así:
 
 > k = A × e^(−Ea / (R × T))
 
+(e es un número fijo, 2,718…, que sale en todo lo que crece o decrece en proporción a lo que hay; en la calculadora es la tecla eˣ. Lo viste en «Logaritmos y exponenciales: las cuentas del pH, la presión de vapor y la velocidad».)
+
 Dicha en palabras: la **constante de velocidad** k (*rate constant*), que mide lo rápida que es la reacción, es igual a un número propio de cada reacción (A, que tiene que ver con cuántos choques hay y con qué orientación) multiplicado por la **fracción de choques que superan la colina**. Esa fracción es la parte e^(−Ea/(R×T)): crece mucho con la temperatura y es más pequeña cuanto más alta es la colina. R es la constante de los gases, 8,314 J/(mol·K), y T es la temperatura absoluta en kelvin, que es la temperatura Celsius más 273,15 (así lo define el Real Decreto 2032/2009 de unidades legales de medida).
 
 Al pasar de 20 a 30 °C, la velocidad media de las moléculas solo sube un 1,7 %; lo que se multiplica es la fracción que supera la colina.
@@ -153,7 +155,7 @@ En el **paladio sobre carbón**, el metal está repartido en granitos finísimos
 
 El **envenenamiento del catalizador** (*catalyst poisoning*): algunas sustancias se pegan a la superficie activa y la tapan; un ejemplo clásico de libro de texto son los compuestos de azufre sobre los metales. El síntoma en planta es una reacción que va más lenta de lo normal o que no arranca. Por eso importan la limpieza del equipo y la calidad de cada materia prima.
 
-**Seguridad:** algunos catalizadores metálicos, como el Pd/C usado con hidrógeno, son **pirofóricos** (*pyrophoric*): pueden inflamarse solos al contacto con el aire, sobre todo secos y con restos de disolvente. Lo tienes en «Tipos de reacción habituales en API»: se manejan siempre como indique la hoja de cada etapa. Y la NTP 527 recuerda que cambiar un catalizador puede aumentar mucho la velocidad de reacción, y que trazas de hierro disueltas de un acero distinto pueden provocar una descomposición violenta: un catalizador que nadie había invitado.
+**Seguridad:** algunos catalizadores metálicos, como el Pd/C usado con hidrógeno, son **pirofóricos** (*pyrophoric*): pueden inflamarse solos al contacto con el aire, sobre todo secos y con restos de disolvente. Lo verás en «Oxidación y reducción»: se manejan siempre como indique la hoja de cada etapa. Y la NTP 527 recuerda que cambiar un catalizador puede aumentar mucho la velocidad de reacción, y que trazas de hierro disueltas de un acero distinto pueden provocar una descomposición violenta: un catalizador que nadie había invitado.
 
 Las **enzimas** (*enzymes*) son catalizadores biológicos; se usan en algunas síntesis, pero no se tratan en este temario.
 

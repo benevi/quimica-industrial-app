@@ -10,7 +10,7 @@ export const gasesAFondo: Lesson = {
   summary:
     "El valor exacto de la constante R, las leyes de Boyle, Charles y Gay-Lussac con cuentas de reactor, P·V = n·R·T con bar y litros, los gases reales y el factor Z, las mezclas y las presiones parciales de Dalton (oxígeno tras los ciclos de nitrógeno y vapor de tolueno en el espacio de cabeza), Kp y su relación con Kc, la temperatura crítica, los gases licuados (propano, amoniaco, cloro, CO₂) con su presión de vapor y lo que eso cambia en la seguridad de las botellas.",
   body: `
-Ya tienes piezas sueltas: P · V = n · R · T en «El mol a fondo», la ley de Boyle y las botellas en «Nitrógeno, aire comprimido y vacío a fondo», los ciclos en «Inertización a fondo» y K con Le Châtelier en «Equilibrio químico a fondo». Aquí se juntan y se añade lo que falta: las demás leyes, las mezclas, los equilibrios entre gases y los gases licuados.
+Ya tienes dos piezas: P · V = n · R · T en «El mol a fondo» y K con Le Châtelier en «Equilibrio químico a fondo». Aquí se juntan y se añade lo que falta: las demás leyes, las mezclas, los equilibrios entre gases y los gases licuados. En planta lo volverás a usar en los ciclos de «Inertización a fondo» y con las botellas y la ley de Boyle de «Nitrógeno, aire comprimido y vacío a fondo».
 
 ### Qué es la presión de un gas
 Un gas son moléculas muy separadas que vuelan y golpean las paredes. Millones de millones de golpes por segundo, repartidos sobre la pared, son la **presión** (*pressure*). Más moléculas, menos sitio o más temperatura (moléculas más rápidas) dan más golpes y más presión.
@@ -96,7 +96,7 @@ donde x es la **fracción molar** (*mole fraction*): los moles de ese gas entre 
 
 En el aire, a 1013 mbar, el oxígeno tiene 0,21 × 1013 = 213 mbar.
 
-**Ejercicio resuelto 5. Los ciclos de inertización, vistos con Dalton.** Los de «Inertización a fondo» y del simulador: vacío a 200 mbar abs y nitrógeno puro hasta 1000 mbar abs.
+**Ejercicio resuelto 5. Los ciclos de inertización, vistos con Dalton.** Los del simulador, que verás también en «Inertización a fondo»: vacío a 200 mbar abs y nitrógeno puro hasta 1000 mbar abs.
 
 | Momento | Presión total | % de O₂ (fracción) | Presión parcial de O₂ |
 |---|---|---|---|

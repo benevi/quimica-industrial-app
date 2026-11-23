@@ -44,7 +44,7 @@ export const operatorStages: OperatorStage[] = [
     titleEn: "Shop-floor math",
     icon: "calc",
     why: "Pesadas, litros a kilos, equivalentes y rendimientos: los cálculos que vas a hacer y comprobar en cada lote.",
-    lessons: ["unidades-y-conversiones", "densidad", "el-mol", "rendimiento-y-balance"],
+    lessons: ["matematicas-utiles", "unidades-y-conversiones", "densidad", "atomos-y-tabla-periodica", "el-mol", "ecuaciones-y-estequiometria", "rendimiento-y-balance"],
     practice: [{ href: "/calculadoras", label: "Calculadoras", text: "Repite las cuentas de la hoja con números distintos." }],
   },
   {

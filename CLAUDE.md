@@ -102,7 +102,7 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   1 MB): usan `catalog.ts` (título, nivel, minutos, resumen) y `terms.ts`, generados en `*.generated.json` por
   `scripts/gen-catalog.mjs`. Las certificaciones usan `certs/summary.ts` para contar preguntas sin cargarlas. El contenido de `src/content` manda sobre `docs/temario.md`
   si no coinciden.
-  - `operador.ts`: ruta corta del operador (28 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
+  - `operador.ts`: ruta corta del operador (31 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
   - `tarjetas.ts`: tarjetas de repaso (ids estables, no renombrar; añadir con id nueva).
   - `fds.ts`: fichas de datos de seguridad ficticias; frases H/P con el texto oficial CLP.
   - `siglas.ts`: significado de las siglas, en el glosario y el buscador. Una sigla nueva en una lección se explica la
