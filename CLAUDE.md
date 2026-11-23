@@ -91,7 +91,7 @@ Sin ellas la app funciona igual y guarda el progreso en el navegador.
 Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido como datos TS, sin backend propio.
 
 - `src/app/`: páginas. Rutas principales: `/` (Hoy), `/operador`, `/temario`, `/nivel/[n]`, `/leccion/[slug]`, `/mapa`,
-  `/glosario`, `/simulador` (+ `/auditoria`, `/nutsche`), `/sap`, `/calculadoras`, `/tarjetas`, `/repaso`, `/fds`,
+  `/glosario`, `/simulador` (+ `/reactor`, `/auditoria`, `/nutsche`), `/sap`, `/calculadoras`, `/tarjetas`, `/repaso`, `/fds`,
   `/certificaciones`, `/examen`, `/simulacro`, `/supuesto`, `/autoevaluacion`, `/progreso`, `/creditos`.
 - `src/content/`: lecciones, un archivo por nivel (`nivelN.ts`; las lecciones largas «a fondo» van en `nivelN-tema.ts`; 211 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
   bloques de la ruta en `blocks.ts`, índice en `index.ts`. El contenido de `src/content` manda sobre `docs/temario.md`
@@ -102,7 +102,11 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   - `media.ts`: imágenes (`public/media`), señales ISO 7010, vídeos por lección (`lessonMedia`).
 - `src/sim/`: motor del simulador. `engine.ts` (lote FX-101, incidentes en `INCIDENTS` + `raise()`), `nutsche.ts`
   (filtro-secador FD-401, modo relevo de turno), `audit.ts` (hojas con errores para auditar, `AUDIT_CASES`), `review.ts`.
-- `src/components/sim/`: vista de planta, paneles SCADA de equipos (`Equipment.tsx`), pestañas entre modos (`SimModes.tsx`).
+  `reactor/model.ts` y `reactor/hoja.ts`: reactor R-204 con modelo físico segundo a segundo (camisa Q = U·A·ΔT, cascada de
+  temperatura, reacción con acumulación, presión con N₂, vacío y vapor, interlocks, alarmas por prioridad, averías) y
+  hoja con revisión de calidad. Parámetros y coherencia con las lecciones en `docs/simulador-reactor.md`.
+- `src/components/sim/`: vista de planta, paneles SCADA de equipos (`Equipment.tsx`), pestañas entre modos (`SimModes.tsx`),
+  pantalla del reactor en `reactor/`.
 - `src/certs/`: certificaciones. `prep.ts` (temario oficial), `bancos/*` y `casos.ts` (**añadir solo al final**: el índice
   es el id del repaso), `data.ts`, `autoevaluacion.ts`, `useCertState.ts` (Leitner compartido con las tarjetas).
 - `src/sap/`: simulador ERP (`engine.ts`) y su examen (`exam.ts`).

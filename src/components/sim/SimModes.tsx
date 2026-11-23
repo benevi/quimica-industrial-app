@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/ui";
 
 const MODES = [
   { href: "/simulador", label: "Lote completo", hint: "Reactor, filtro, centrífuga y secadero" },
+  { href: "/simulador/reactor", label: "Reactor", hint: "Reactor R-204 con modelo físico, cascada de temperatura, interlocks y averías" },
   { href: "/simulador/nutsche", label: "Nutsche", hint: "Filtro-secador del proceso 2 y relevo de turno" },
   { href: "/simulador/auditoria", label: "Auditoría", hint: "Encuentra los errores de una hoja como QA" },
 ];
