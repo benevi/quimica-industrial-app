@@ -2,7 +2,7 @@ import type { Lesson } from "./types";
 export const estructuraElectronicaAFondo: Lesson = {
   slug: "estructura-electronica-a-fondo",
   level: 1,
-  order: 4.5,
+  order: 12.5,
   title: "Electrones, orbitales y tabla periódica a fondo: por qué cada elemento reacciona como reacciona",
   titleEn: "Electronic structure and the periodic table in depth",
   minutes: 40,

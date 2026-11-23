@@ -2,8 +2,8 @@ import type { Lesson } from "./types";
 
 export const operacionesLaboratorioAFondo: Lesson = {
   slug: "operaciones-laboratorio-a-fondo",
-  level: 4,
-  order: 2.5,
+  level: 5,
+  order: 8.5,
   title: "Separar y purificar en el banco del laboratorio a fondo",
   titleEn: "Separating and purifying at the laboratory bench in depth",
   minutes: 40,

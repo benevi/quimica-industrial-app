@@ -3,7 +3,7 @@ import type { Lesson } from "./types";
 export const capaFinaAFondo: Lesson = {
   slug: "capa-fina-a-fondo",
   level: 7,
-  order: 6.5,
+  order: 10.5,
   title: "Cromatografía en capa fina a fondo",
   titleEn: "Thin-layer chromatography in depth",
   minutes: 38,

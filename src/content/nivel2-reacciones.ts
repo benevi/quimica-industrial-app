@@ -2,8 +2,8 @@ import type { Lesson } from "./types";
 
 export const reaccionesEnApiAFondo: Lesson = {
   slug: "reacciones-en-api-a-fondo",
-  level: 2,
-  order: 14.5,
+  level: 3,
+  order: 4.3,
   title: "Reacciones en la fabricación de API a fondo: tipos, etapas y seguridad de reacción",
   titleEn: "Reactions in API manufacturing in depth",
   minutes: 40,

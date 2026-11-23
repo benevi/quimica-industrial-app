@@ -2,8 +2,8 @@ import type { Lesson } from "./types";
 
 export const diagramasDeFasesAFondo: Lesson = {
   slug: "diagramas-de-fases-a-fondo",
-  level: 1,
-  order: 10.5,
+  level: 2,
+  order: 11.3,
   title: "Diagramas de fases a fondo: cuándo algo es sólido, líquido o gas",
   titleEn: "Phase diagrams in depth",
   minutes: 40,

@@ -2,8 +2,8 @@ import type { Lesson } from "./types";
 
 export const formulacionInorganicaAFondo: Lesson = {
   slug: "formulacion-inorganica-a-fondo",
-  level: 1,
-  order: 6.7,
+  level: 2,
+  order: 13.2,
   title: "Nombrar y escribir compuestos inorgánicos a fondo: de la etiqueta a la fórmula",
   titleEn: "Inorganic nomenclature in depth",
   minutes: 38,

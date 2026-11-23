@@ -3,7 +3,7 @@ import type { Lesson } from "./types";
 export const geometriaMolecularAFondo: Lesson = {
   slug: "geometria-molecular-a-fondo",
   level: 1,
-  order: 6.5,
+  order: 12.7,
   title: "La forma de las moléculas a fondo: Lewis, RPECV e hibridación",
   titleEn: "Molecular geometry in depth",
   minutes: 40,

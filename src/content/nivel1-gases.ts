@@ -2,8 +2,8 @@ import type { Lesson } from "./types";
 
 export const gasesAFondo: Lesson = {
   slug: "gases-a-fondo",
-  level: 1,
-  order: 2.5,
+  level: 2,
+  order: 11.2,
   title: "Los gases a fondo: presión, mezclas y gases licuados",
   titleEn: "Gases in depth",
   minutes: 38,

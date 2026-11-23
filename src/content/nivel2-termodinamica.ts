@@ -3,7 +3,7 @@ import type { Lesson } from "./types";
 export const termodinamicaAFondo: Lesson = {
   slug: "termodinamica-a-fondo",
   level: 2,
-  order: 7.5,
+  order: 11.4,
   title: "Por qué ocurren las reacciones a fondo: energía, entropía y Gibbs",
   titleEn: "Chemical thermodynamics in depth",
   minutes: 40,
