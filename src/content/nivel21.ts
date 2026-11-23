@@ -1,7 +1,10 @@
 import type { Lesson } from "./types";
+import { cicloAFondo } from "./nivel21-ciclo";
+import { csvAFondo } from "./nivel21-csv";
+import { operacionAFondo } from "./nivel21-operacion";
 
 /** Nivel 21. Validación de sistemas informatizados: ciclo de vida completo. */
-export const nivel21: Lesson[] = [
+const validacion: Lesson[] = [
   {
     slug: "validacion-de-sistemas",
     level: 21,
@@ -81,7 +84,7 @@ Un compañero ha hecho una hoja de Excel para calcular las cargas "porque es má
   {
     slug: "ciclo-de-vida-validacion",
     level: 21,
-    order: 2,
+    order: 3,
     title: "Validar un sistema paso a paso: del URS al informe",
     titleEn: "Computerized system validation in practice: from URS to report",
     minutes: 20,
@@ -130,7 +133,7 @@ Si una prueba **falla**, se registra una **incidencia de prueba** (*test inciden
 ### Más pruebas donde hay más riesgo
 GAMP 5 (2.ª edición) insiste en el **pensamiento crítico** (*critical thinking*): el esfuerzo se concentra en las funciones de **alto riesgo** (cálculos de cargas, estados de lote, firmas, audit trail) y se aligera en las de bajo riesgo (un informe de consulta). También admite métodos **ágiles** y pruebas **automatizadas**, siempre que la herramienta sea adecuada y la evidencia se conserve.
 
-La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*) y en **febrero de 2026** la sustituyó por una versión revisada (*Computer Software Assurance for Production and Quality Management System Software*). Está pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos, pero su idea se ha extendido: para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
+La FDA publicó en **septiembre de 2025** su guía final **CSA** (*Computer Software Assurance*) y en **febrero de 2026** la sustituyó por una versión revisada (*Computer Software Assurance for Production and Quality Management System Software*). Está pensada para software de producción y del sistema de calidad de **productos sanitarios**. No es obligatoria para medicamentos ni para principios activos; su idea central es que, para funciones de bajo riesgo bastan pruebas **no guionizadas** (exploratorias o *ad hoc*) bien documentadas; las pruebas **guionizadas** se reservan para lo de alto riesgo.
 
 ### Para un desarrollador web
 Lo reconocerás: requisitos → historias de usuario, OQ → pruebas funcionales y de integración, PQ → pruebas de aceptación, RTM → cobertura de requisitos, control de cambios → *pull requests* revisados, entornos de **desarrollo**, **pruebas/validación** y **producción** separados. La diferencia es que en GMP **todo deja evidencia firmada** y QA lo aprueba.
@@ -199,7 +202,7 @@ Tu planta va a implantar un MES nuevo. Te eligen como **usuario clave** para la 
   {
     slug: "sistemas-en-operacion",
     level: 21,
-    order: 3,
+    order: 5,
     title: "Mantener un sistema validado: cambios, incidencias y revisión periódica",
     titleEn: "Keeping systems validated: change control, incidents and periodic review",
     minutes: 18,
@@ -221,7 +224,7 @@ Los **parches de seguridad** del sistema operativo también pasan por aquí, a m
 Si el sistema falla (se cuelga, calcula mal, pierde una conexión), la incidencia se **registra**, se evalúa si afecta a algún lote o dato, se investiga la **causa raíz** y, si procede, se abre una **desviación** y una **CAPA**.
 
 ### Evaluación periódica (apartado 11)
-Cada cierto tiempo (por ejemplo, cada 1–3 años según el riesgo) se revisa el sistema: cambios acumulados, incidencias, desviaciones, accesos, copias de seguridad probadas, rendimiento y si la documentación sigue al día. La conclusión puede ser "sigue validado" o "hay que revalidar".
+Cada cierto tiempo, con la frecuencia que fija la empresa según el riesgo, se revisa el sistema: cambios acumulados, incidencias, desviaciones, accesos, copias de seguridad probadas, rendimiento y si la documentación sigue al día. La conclusión puede ser "sigue validado" o "hay que revalidar".
 
 ### Proveedores y nube (apartado 3)
 Cada vez más sistemas son **SaaS** (*Software as a Service*) en la nube. La empresa **sigue siendo responsable** de sus datos GMP. Hace falta un **acuerdo formal** con el proveedor (calidad, seguridad, copias, dónde están los datos, cómo se devuelven si se termina el contrato) y evaluarlo según el riesgo, a veces con auditoría.
@@ -301,3 +304,6 @@ Informática anuncia un parche urgente de Windows para las estaciones del SCADA.
     ],
   },
 ];
+
+// Las lecciones «a fondo» van cada una en su archivo nivel21-tema.ts.
+export const nivel21: Lesson[] = [...validacion, cicloAFondo, csvAFondo, operacionAFondo];

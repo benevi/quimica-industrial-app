@@ -93,7 +93,7 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
 - `src/app/`: páginas. Rutas principales: `/` (Hoy), `/operador`, `/temario`, `/nivel/[n]`, `/leccion/[slug]`, `/mapa`,
   `/glosario`, `/simulador` (+ `/auditoria`, `/nutsche`), `/sap`, `/calculadoras`, `/tarjetas`, `/repaso`, `/fds`,
   `/certificaciones`, `/examen`, `/simulacro`, `/supuesto`, `/autoevaluacion`, `/progreso`, `/creditos`.
-- `src/content/`: lecciones, un archivo por nivel (`nivelN.ts`; las lecciones largas «a fondo» van en `nivelN-tema.ts`; 208 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
+- `src/content/`: lecciones, un archivo por nivel (`nivelN.ts`; las lecciones largas «a fondo» van en `nivelN-tema.ts`; 211 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
   bloques de la ruta en `blocks.ts`, índice en `index.ts`. El contenido de `src/content` manda sobre `docs/temario.md`
   si no coinciden.
   - `operador.ts`: ruta corta del operador (28 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
@@ -137,5 +137,6 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   paneles de filtro/centrífuga/secadero, Nutsche con relevo de turno, auditoría de hojas), certificaciones y simulador
   ERP, tarjetas y FDS, imágenes y vídeos con licencia, rediseño de la interfaz, progreso en la nube con Supabase.
 - Pendiente: fases A–F de `docs/plan/simulador-lotes-gmp.md`; biotecnología (módulos FP 1390/1393) queda fuera del
-  temario; revisar si se adoptan los borradores 2025 del Anexo 11 y Anexo 22 de EU GMP y actualizar las lecciones
-  `part-11-y-anexo-11` y `sistemas-en-operacion`; publicación en Vercel en curso (requiere pasos de Victor).
+  temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP
+  (a 21/11/2026 siguen siendo borradores) y actualizar entonces `part-11-y-anexo-11`, `normas-integridad-a-fondo`,
+  `sistemas-en-operacion` y `sistemas-en-operacion-a-fondo`; publicación en Vercel en curso (requiere pasos de Victor).
