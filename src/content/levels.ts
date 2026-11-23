@@ -5,7 +5,7 @@ export const levels: Level[] = [
   { number: 0, title: "Arranque", titleEn: "Getting started", description: "Matemáticas, unidades y cómo es una planta de API." },
   { number: 1, title: "Fundamentos de química", titleEn: "Chemistry fundamentals", description: "Materia, átomos, enlaces, el mol, disoluciones y pH." },
   { number: 2, title: "Reacciones químicas", titleEn: "Chemical reactions", description: "Estequiometría, rendimiento, calor, velocidad, equilibrio y redox." },
-  { number: 3, title: "Química orgánica", titleEn: "Organic chemistry", description: "Fórmulas, grupos funcionales, disolventes, quiralidad, polimorfismo e impurezas." },
+  { number: 3, title: "Química orgánica", titleEn: "Organic chemistry", description: "Fórmulas, grupos funcionales, tipos de reacción en API, disolventes, quiralidad, polimorfismo e impurezas." },
   { number: 4, title: "El laboratorio", titleEn: "The laboratory", description: "Material, pesada, metrología, reactivos y buenas prácticas de laboratorio." },
   { number: 5, title: "Muestreo y preparación de muestras", titleEn: "Sampling and sample preparation", description: "Planes de muestreo, toma de muestras y cadena de custodia." },
   { number: 6, title: "Análisis químico clásico", titleEn: "Wet chemistry", description: "Volumetrías, gravimetría, Karl Fischer y cálculo de resultados." },

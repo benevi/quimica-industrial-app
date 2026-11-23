@@ -97,12 +97,12 @@ Stack: Next.js 15 (App Router) + React 19 + Tailwind 4 + TypeScript. Contenido c
   `/repaso`, `/fds` (+ `/fds/[id]`), `/certificaciones` (+ `/certificaciones/[id]`), `/examen/[modulo]`, `/simulacro/[mock]`,
   `/supuesto/[caso]`, `/autoevaluacion/[uc]`, `/progreso`, `/creditos`.
 - `src/content/`: lecciones, en `nivelN.ts` (más `nivel12-separacion.ts` y `nivel20-alcoa.ts`, que son lecciones cortas en archivo
-  aparte); las lecciones largas «a fondo» van cada una en `nivelN-tema.ts`; 249 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
+  aparte); las lecciones largas «a fondo» van cada una en `nivelN-tema.ts`; 252 lecciones en 22 niveles, 0–21), tipos en `types.ts`,
   bloques de la ruta en `blocks.ts`, índice en `index.ts`. Las páginas del navegador no importan `@/content` (pesa más de
   1 MB): usan `catalog.ts` (título, nivel, minutos, resumen) y `terms.ts`, generados en `*.generated.json` por
   `scripts/gen-catalog.mjs`. Las certificaciones usan `certs/summary.ts` para contar preguntas sin cargarlas. El contenido de `src/content` manda sobre `docs/temario.md`
   si no coinciden.
-  - `operador.ts`: ruta corta del operador (28 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
+  - `operador.ts`: ruta corta del operador (32 lecciones en 7 etapas). Al añadir lecciones clave para el turno, valora sumarlas.
   - `tarjetas.ts`: tarjetas de repaso (ids estables, no renombrar; añadir con id nueva).
   - `fds.ts`: fichas de datos de seguridad ficticias; frases H/P con el texto oficial CLP.
   - `siglas.ts`: significado de las siglas, en el glosario y el buscador. Una sigla nueva en una lección se explica la
@@ -148,7 +148,7 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
 
 ## Estado y pendientes (noviembre de 2026)
 
-- Hecho: Aula con 228 lecciones (todos los niveles tienen lecciones «a fondo» con su tabla de fuentes, y cada lección corta tiene ya su versión «a fondo»; `reactivo-limitante` se trata a fondo dentro de `estequiometria-a-fondo`; temas nuevos sin lección corta: materiales y corrosión, hidrogenación, turno y factor humano), ruta del operador,
+- Hecho: Aula con 252 lecciones (todos los niveles tienen lecciones «a fondo» con su tabla de fuentes, y cada lección corta tiene ya su versión «a fondo»; `reactivo-limitante` se trata a fondo dentro de `estequiometria-a-fondo`; temas nuevos sin lección corta: materiales y corrosión, hidrogenación, turno y factor humano), ruta del operador,
   simulador (lote FX-101 con válvulas manuales, incidentes, paneles de filtro/centrífuga/secadero, Nutsche con relevo de
   turno, auditoría de hojas y reactor R-204 con modelo físico, 13 averías, turno real, pistas y guía), certificaciones y
   simulador ERP, tarjetas y FDS, imágenes y vídeos con licencia, rediseño de la interfaz, progreso en la nube con Supabase,

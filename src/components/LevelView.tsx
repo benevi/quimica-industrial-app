@@ -21,6 +21,9 @@ const practice: Record<number, { href: string; label: string; text: string }[]> 
   20: [{ href: "/simulador", label: "Simulador de planta", text: "Registra datos ALCOA+ en la hoja y pasa la revisión de QA." }],
 };
 
+/** Lección de ampliación «a fondo» (frente a la lección corta del mismo tema) */
+const isDeep = (l: { slug: string; title: string }) => l.slug.endsWith("-a-fondo") || / a fondo\b/.test(l.title);
+
 export function LevelView({ level }: { level: number }) {
   const { progress, loaded } = useProgress();
   const lv = levelInfo(level);
@@ -33,6 +36,7 @@ export function LevelView({ level }: { level: number }) {
   const i = levels.findIndex((x) => x.number === level);
   const prev = levels[i - 1];
   const nextLv = levels[i + 1];
+  const hasDeep = ls.some(isDeep) && ls.some((l) => !isDeep(l));
 
   return (
     <div>
@@ -52,6 +56,13 @@ export function LevelView({ level }: { level: number }) {
         lead={
           <>
             {lv.description} {ls.length} lecciones, unos {Math.round(minutesOfLevel(level) / 5) * 5} minutos en total.
+            {hasDeep && (
+              <>
+                {" "}
+                Cada tema tiene una lección corta y su versión «a fondo»; si un tema se te atraganta, haz primero las cortas
+                del nivel y vuelve después a las «a fondo».
+              </>
+            )}
           </>
         }
         actions={
@@ -98,6 +109,9 @@ export function LevelView({ level }: { level: number }) {
                     <span className="min-w-0 flex-1">
                       <span className="flex flex-wrap items-baseline gap-x-2">
                         <span className="font-medium group-hover:text-accent">{l.title}</span>
+                        {isDeep(l) && (
+                          <span className="rounded border border-line px-1.5 text-xs text-muted">a fondo</span>
+                        )}
                         <span lang="en" className="text-sm text-muted">
                           {l.titleEn}
                         </span>

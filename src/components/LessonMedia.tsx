@@ -200,7 +200,9 @@ function VideoCard({ v }: { v: Video }) {
                 </svg>
               </span>
             </span>
-            <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 text-xs font-medium text-white tabular-nums">{v.duration}</span>
+            {v.duration && (
+              <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 text-xs font-medium text-white tabular-nums">{v.duration}</span>
+            )}
           </button>
         )}
       </div>

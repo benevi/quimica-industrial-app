@@ -10,7 +10,7 @@ export const leyDeVelocidadAFondo: Lesson = {
   summary:
     "La velocidad instantánea como pendiente, la ley diferencial de velocidad y sus órdenes, cómo sacar los órdenes de una tabla de velocidades iniciales, el seudoorden cuando un reactivo va en exceso, las ecuaciones integradas de orden 0, 1 y 2 con su vida media, cómo saber el orden con los datos del IPC, y los catalizadores a fondo: dónde entran en la ley de velocidad, cuánto metal se carga, vida útil, venenos, regeneración y recuperación del paladio.",
   body: `
-En «Velocidad de reacción a fondo: por qué unas reacciones tardan horas y otras segundos» viste la teoría de choques, Arrhenius, la idea práctica del orden, la vida media del primer orden y la acumulación. En «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión», cómo se maneja el paladio sobre carbón y su límite en el producto. Aquí no se repite: se construye la parte de números que piden la Química de 2.º de Bachillerato (Real Decreto 243/2022: «ley diferencial de la velocidad de una reacción química y los órdenes de reacción a partir de datos experimentales») y el módulo 0189 «Reactores químicos» del título de Química Industrial (Real Decreto 175/2008), que pide describir los tipos de catalizador, determinar su vida útil y describir las técnicas de recuperación y regeneración.
+En «Velocidad de reacción a fondo: por qué unas reacciones tardan horas y otras segundos» viste la teoría de choques, Arrhenius, la idea práctica del orden, la vida media del primer orden y la acumulación. Cómo se maneja en planta el paladio sobre carbón, y su límite en el producto, lo verás en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión». Aquí no se repite: se construye la parte de números que piden la Química de 2.º de Bachillerato (Real Decreto 243/2022: «ley diferencial de la velocidad de una reacción química y los órdenes de reacción a partir de datos experimentales») y el módulo 0189 «Reactores químicos» del título de Química Industrial (Real Decreto 175/2008), que pide describir los tipos de catalizador, determinar su vida útil y describir las técnicas de recuperación y regeneración.
 
 ### Velocidad media y velocidad instantánea
 El libro gratuito de instrumentación de Tony Kuphaldt explica la derivada con un ejemplo que te sirve tal cual: una bombona de propano sobre una báscula. Si pesas cada cierto tiempo, el caudal medio de cada tramo es la caída de masa dividida entre el tiempo, que en la gráfica es la **pendiente** (*slope*) del segmento que une dos puntos. Si los puntos se acercan sin límite, el segmento se convierte en la tangente a la curva y su pendiente es el caudal **en ese instante**: la **derivada** (*derivative*), que se escribe dm/dt.
@@ -31,7 +31,7 @@ La **ley de velocidad** (*rate law*) dice cómo depende la velocidad instantáne
 - **m** y **n** son los **órdenes parciales** (*partial orders*) respecto a A y a B; su suma es el **orden global** (*overall order*).
 - Los órdenes **se miden**. No se leen en los números de la ecuación ajustada.
 
-Dos ejemplos de «Cómo reaccionan las moléculas orgánicas a fondo»: en la **SN2** el paso lento es el choque de sustrato y nucleófilo, v = k × [sustrato] × [nucleófilo], orden global 2; en la **SN1** solo interviene el sustrato, v = k × [sustrato], y más nucleófilo no la acelera.
+Dos ejemplos que verás en «Cómo reaccionan las moléculas orgánicas a fondo» (nivel 3), donde un reactivo rico en electrones, el **nucleófilo** (*nucleophile*), sustituye a un átomo de la molécula de partida, el **sustrato** (*substrate*): en la **SN2** el paso lento es el choque de sustrato y nucleófilo, v = k × [sustrato] × [nucleófilo], orden global 2; en la **SN1** solo interviene el sustrato, v = k × [sustrato], y más nucleófilo no la acelera.
 
 **Las unidades de k delatan el orden.** Como v va siempre en mol/(L·s), k tiene que tener las unidades que hagan cuadrar la cuenta (cálculo de unidades):
 
@@ -81,7 +81,7 @@ Para planificar un lote interesa **cuánto queda a las t horas**. Se obtiene sum
 | 1 | ln [A] = ln [A]₀ − k × t | ln [A] frente a t | −k | ln 2 / k = 0,693 / k |
 | 2 | 1/[A] = 1/[A]₀ + k × t | 1/[A] frente a t | +k | 1 / (k × [A]₀) |
 
-[A]₀ es la concentración al empezar; ln es el logaritmo neperiano, la tecla «ln» de la calculadora. La de orden 2 vale para un solo reactivo o para dos que empiezan con la misma concentración y se gastan uno a uno.
+[A]₀ es la concentración al empezar; ln es el logaritmo neperiano, la tecla «ln» de la calculadora (qué significa, y el número e que lleva detrás, lo viste en «Logaritmos y exponenciales: las cuentas del pH, la presión de vapor y la velocidad»). La de orden 2 vale para un solo reactivo o para dos que empiezan con la misma concentración y se gastan uno a uno.
 
 **Tres analogías para recordarlas:**
 
@@ -130,7 +130,7 @@ Lo básico está en la lección de velocidad. Aquí, lo que cambia en los númer
 | Ejemplos | Un ácido como el sulfúrico en una esterificación («Equilibrio químico a fondo») o cualquier compuesto que actúe disuelto en la mezcla | Paladio o platino sobre carbón; níquel en forma de aleación de níquel y aluminio, que ICH Q3D cita como catalizador de hidrogenación |
 | En la ley de velocidad | Su concentración aparece con su orden, como en el ejemplo 2 | Cuenta la superficie activa, la cantidad cargada y cómo llegan los reactivos hasta ella (agitación, presión) |
 
-**Cuánto catalizador es «poco».** Se suele expresar en porcentaje molar: moles de metal por cada 100 moles de sustrato. Con el ejemplo de «Hidrogenación a fondo» (0,4 kg de paladio para 200 kg de un intermedio de 160 g/mol), y la masa molar del paladio, 106,42 g/mol según el NIST:
+**Cuánto catalizador es «poco».** Se suele expresar en porcentaje molar: moles de metal por cada 100 moles de sustrato. Con un ejemplo que volverá en «Hidrogenación a fondo» (0,4 kg de paladio para 200 kg de un intermedio de 160 g/mol), y la masa molar del paladio, 106,42 g/mol según el NIST:
 
 1. Moles de sustrato: 200000 / 160 = **1250 mol**.
 2. Moles de paladio: 400 / 106,42 = **3,76 mol**.
@@ -161,7 +161,7 @@ La MTD 43 cita el **coque** como «tanto un veneno del catalizador como un resid
 La tendencia es la señal de la vida útil: cada uso necesita más tiempo para llegar al mismo IPC. Cuántas veces se reutiliza y con qué criterio lo fija el proceso validado, no el turno. Si el catalizador se reutiliza en la planta, la guía ICH Q7 no lo nombra, pero sus apartados 14.40 a 14.43, sobre materiales recuperados, piden procedimientos aprobados, que el material recuperado cumpla una especificación adecuada a su uso y que su uso quede documentado.
 
 ### Regenerar o recuperar
-**Regenerar** es devolverle actividad al catalizador. Las mismas conclusiones europeas (MTD 17, técnica d) recogen la regeneración de catalizadores y adsorbentes «por ejemplo por tratamiento térmico o químico», y la MTD 25 pide enviar el gas de la regeneración del catalizador de hidrogenación a un sistema de tratamiento. En esta app, el Pd/C gastado sigue el camino de «Hidrogenación a fondo»: se guarda húmedo y se envía a recuperar el metal.
+**Regenerar** es devolverle actividad al catalizador. Las mismas conclusiones europeas (MTD 17, técnica d) recogen la regeneración de catalizadores y adsorbentes «por ejemplo por tratamiento térmico o químico», y la MTD 25 pide enviar el gas de la regeneración del catalizador de hidrogenación a un sistema de tratamiento. En esta app, el Pd/C gastado sigue el camino que verás en «Hidrogenación a fondo»: se guarda húmedo y se envía a recuperar el metal.
 
 **Recuperar** es sacar el metal del catalizador gastado. Tres razones:
 

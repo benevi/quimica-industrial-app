@@ -141,7 +141,7 @@ Un **ácido poliprótico** (*polyprotic acid*) tiene más de un protón que cede
 | 8 (= pKa2) | 0 % | 50 % | 50 % |
 | 10 | 0 % | 1,0 % | 99,0 % |
 
-La regla de la tabla: **en cada pKa, mitad y mitad; dos unidades más allá, un 99 % de una forma**. Es la regla de dos unidades de «Extracción líquido-líquido a fondo», aplicada a cada escalón.
+La regla de la tabla: **en cada pKa, mitad y mitad; dos unidades más allá, un 99 % de una forma**. Es la misma regla de dos unidades que usarás en la extracción («Extracción líquido-líquido a fondo», nivel 12), aplicada a cada escalón.
 
 ### Anfóteros: los que hacen de ácido y de base
 Una sustancia **anfótera** (*amphoteric*, también *amphiprotic*) puede dar un protón o aceptarlo. La más común es el agua. El HX⁻ de la tabla también: puede perder su segundo protón o recuperar el primero. Igual el bicarbonato, HCO₃⁻, y el dihidrogenofosfato, H₂PO₄⁻.

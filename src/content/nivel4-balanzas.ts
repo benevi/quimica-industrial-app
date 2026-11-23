@@ -78,7 +78,7 @@ El vocabulario internacional de metrología (VIM, entrada 4.26) avisa de que el 
 Solo el principio:
 
 - **Compensación electromagnética** (*electromagnetic force compensation*), propia de las balanzas más exactas, como las analíticas. El platillo va unido a una bobina metida en un imán. Al poner la carga, el platillo intenta bajar; un sensor lo nota y la electrónica manda corriente por la bobina hasta devolverlo a su sitio. La corriente necesaria crece con la fuerza, y de ahí sale la masa. Es como sujetar una bandeja para que no baje.
-- **Célula de carga** (*load cell*), propia de balanzas sencillas y de básculas grandes. Una pieza de metal se dobla un poquito con la carga. Pegadas a ella van **galgas extensométricas** (*strain gauges*), hilos que cambian su resistencia eléctrica al estirarse. Es la misma célula de los reactores pesados de «Instrumentos de medida a fondo».
+- **Célula de carga** (*load cell*), propia de balanzas sencillas y de básculas grandes. Una pieza de metal se dobla un poquito con la carga. Pegadas a ella van **galgas extensométricas** (*strain gauges*), hilos que cambian su resistencia eléctrica al estirarse. Es la misma célula de los reactores pesados que verás en «Instrumentos de medida a fondo».
 
 ### Las fuentes de error, una a una
 El manual de laboratorio de la FDA enumera como errores típicos la balanza sin nivelar, las puertas abiertas, las manos húmedas, la muestra sin enfriar, la carga estática, las vibraciones y corrientes de aire y la muestra que gana o pierde humedad en el platillo. Uno a uno:
@@ -98,7 +98,7 @@ El manual de laboratorio de la FDA enumera como errores típicos la balanza sin 
 **La flotabilidad, como idea.** El aire empuja hacia arriba con una fuerza igual a lo que pesa el aire desplazado, y un objeto voluminoso desplaza más aire que una pesa pequeña y densa de la misma masa. La norma española de pesas de 1974, ya derogada, tomaba como referencia aire de 1,2 kg/m³ y pesas de 8000 kg/m³. Con física de libro de texto, al pesar agua (1000 kg/m³) la diferencia relativa es 1,2 × (1/1000 − 1/8000) = 0,00105, unos 0,1 g por cada 100 g. En el trabajo diario no se corrige; si un método muy exacto lo necesita, lo dice.
 
 ### Calibración, ajuste y verificación de la balanza
-Las tres palabras las viste en «Metrología: calibración, exactitud y precisión». Un matiz para balanzas: el VIM (entrada 2.39) advierte que el ajuste se llama a menudo, por error, «autocalibración». La pesa interna que muchas analíticas mueven solas hace un ajuste.
+Las tres palabras se explican despacio en «Metrología: calibración, exactitud y precisión», más adelante en este nivel. En corto: **calibrar** es comparar la balanza con pesas patrón y anotar cuánto se equivoca, sin tocarla; **ajustar** es actuar sobre ella para que marque bien, y **verificar** es la comprobación rápida de que sigue dentro de tolerancia. Un matiz para balanzas: el VIM (entrada 2.39) advierte que el ajuste se llama a menudo, por error, «autocalibración». La pesa interna que muchas analíticas mueven solas hace un ajuste.
 
 **Pesas patrón y sus clases.** Las pesas se ordenan en clases según lo bien ajustadas que están. La norma española de 1974, derogada en 2015, usaba las clases E1, E2, F1, F2 y M1, de más a menos exacta, con errores tolerados para una pesa de 1 kg de 1,5 mg en E2, 5 mg en F1 y 50 mg en M1. Hoy el valor y la clase de tu pesa los da su certificado, pero la idea sigue: una analítica pide una pesa fina y una báscula de suelo se conforma con una más basta.
 

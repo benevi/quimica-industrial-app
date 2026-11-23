@@ -3,7 +3,7 @@ import type { Lesson } from "./types";
 export const espectroscopiaAtomicaAFondo: Lesson = {
   slug: "espectroscopia-atomica-a-fondo",
   level: 7,
-  order: 4.5,
+  order: 13.6,
   title: "Espectroscopia atómica y fluorescencia a fondo",
   titleEn: "Atomic spectroscopy and fluorescence in depth",
   minutes: 40,

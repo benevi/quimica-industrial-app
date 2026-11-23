@@ -1135,8 +1135,8 @@ export interface Video {
   title: string;
   channel: string;
   lang: "es" | "en";
-  /** Duración, mm:ss. */
-  duration: string;
+  /** Duración, mm:ss. Opcional: desde la sesión de trabajo solo se puede comprobar que el vídeo existe, su título y su canal. */
+  duration?: string;
   /** Por qué verlo y en qué fijarse. */
   why: string;
 }
@@ -1675,6 +1675,168 @@ export const phetSims = [
   "molecules-and-light", "plinko-probability", "curve-fitting", "least-squares-regression", "energy-forms-and-changes",
   "unit-rates", "graphing-lines",
 ] as const;
+
+/**
+ * Vídeos añadidos en noviembre de 2026. Cada uno se comprobó con oEmbed de YouTube (existe, título y canal); desde la
+ * sesión de trabajo no se puede leer la duración, así que no la llevan. Se suman a los de lessonMedia.
+ */
+const videosComprobados: Record<string, Video[]> = {
+  "matematicas-utiles": [
+    { id: "YxCsdv1Pnlk", title: "Notación científica 1", channel: "KhanAcademyEspañol", lang: "es", why: "Khan Academy en español explica cómo escribir números muy grandes o muy pequeños con potencias de diez. Fíjate en cómo se mueve la coma: es lo que verás en concentraciones y en resultados del laboratorio." },
+  ],
+  "el-mol": [
+    { id: "JtJvaxM589Y", title: "Concepto de Mol", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Clase corta de la UPV sobre el concepto de mol, la unidad con la que se mide la cantidad de sustancia. Complementa al otro vídeo: fíjate en cómo se pasa de gramos a moles." },
+  ],
+  "mol-a-fondo": [
+    { id: "gZ2vIMDLCLY", title: "Concepto de Mol. (Ejercicios Prácticos)", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Continuación del vídeo de la UPV sobre el mol, dedicada a resolver ejercicios. Úsalo para practicar los cálculos de esta lección paso a paso." },
+  ],
+  "reactivo-limitante": [
+    { id: "lrw8i0swD58", title: "Ejemplo de problema de reactivo limitante 1", channel: "KhanAcademyEspañol", lang: "es", why: "Ejemplo resuelto de Khan Academy en español de un problema de reactivo limitante. Fíjate en cómo se decide qué reactivo se acaba primero antes de calcular el producto." },
+  ],
+  "volumetrias-acido-base": [
+    { id: "-PxmvoZmrmU", title: "Volumetría de ácido base", channel: "Audiovisuales UNED", lang: "es", why: "Práctica de laboratorio de una universidad pública: se determina el ácido acético de un vinagre comercial con una volumetría ácido-base. Fíjate en el manejo de la bureta y en el viraje del indicador." },
+    { id: "2IG-9TsG0ng", title: "Lección 5. Curvas de valoración.", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Lección de la UPV sobre las curvas de valoración ácido-base. Fíjate en el salto de pH cerca del punto de equivalencia: es lo que localiza el indicador o el electrodo." },
+  ],
+  "valoraciones-a-fondo": [
+    { id: "yahSm3eTKR8", title: "Lección 4. Indicadores ácido base.", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Lección de la UPV sobre los indicadores ácido-base, dentro de su serie de equilibrios ácido-base. Fíjate en por qué cada indicador sirve para un intervalo de pH distinto." },
+  ],
+  "potenciometria-conductimetria": [
+    { id: "8qp__xBiu5I", title: "Potenciometría. Titulación por valoración volumétrica de tipo ácido - base", channel: "RUA UNAM - Oficial", lang: "es", why: "Vídeo de la UNAM sobre una valoración ácido-base seguida con el pHmetro (valoración potenciométrica). Fíjate en cómo se monta el electrodo y cómo se registra el pH al añadir valorante." },
+  ],
+  "espectroscopia-uv-vis": [
+    { id: "xJZIOOkvTOo", title: "Aplicación de la ley de Lambert-Beer en espectroscopía UV-visible", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "La UPV explica cómo se aplica la ley de Lambert-Beer en la espectroscopía de absorción UV-visible, una de las técnicas analíticas principales. Fíjate en la relación entre absorbancia y concentración." },
+  ],
+  "cromatografia-de-gases": [
+    { id: "OTc31pCjtjM", title: "Cromatografía: Cromatografía de gases", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "La UPV introduce la cromatografía como técnica analítica y después se centra en la de gases. Buen resumen antes de entrar en los disolventes residuales." },
+  ],
+  "gc-a-fondo": [
+    { id: "ljOctkdC1Dc", title: "Vídeo divulgativo sobre cromatografía de gases con detección de ionización por llama (GC-FID)", channel: "Daura Vega-Moreno ULPGC", lang: "es", why: "Vídeo divulgativo docente de la ULPGC sobre la cromatografía de gases con detector de ionización de llama (GC-FID), el detector habitual para disolventes residuales." },
+  ],
+  "oxidacion-reduccion": [
+    { id: "AfatsvxAE64", title: "Concepto de oxidación y de reducción. Origen y evolución", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Primer vídeo de contenido del curso de la UPV sobre reacciones redox: qué significa oxidarse y reducirse y cómo ha cambiado el concepto. Fíjate en la definición por ganancia y pérdida de electrones." },
+    { id: "axlYMFpWj_4", title: "Concepto de Número de oxidación.", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "La UPV explica los fundamentos del número de oxidación y para qué sirve. Es la herramienta para saber quién se oxida y quién se reduce en una reacción." },
+  ],
+  "redox-a-fondo": [
+    { id: "-d5X5oYFKts", title: "Concepto de Número de oxidación. Ejercicios prácticos", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Ejercicios prácticos de la UPV para determinar números de oxidación. Úsalo para practicar antes de ajustar reacciones redox." },
+  ],
+  "volumetrias-redox-complexometria": [
+    { id: "tbsJlG-iw2o", title: "Volumetrías de Oxidación Reducción I", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Primera parte de la explicación de la UPV sobre las volumetrías de oxidación-reducción, pensada para alumnos. Fíjate en qué cambia respecto a una valoración ácido-base." },
+  ],
+  "enlaces-y-polaridad": [
+    { id: "h9or0FUMyHA", title: "El enlace iónico", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "La UPV explica el enlace iónico dentro de su curso de introducción a la química. Fíjate en cómo se forma a partir de iones de carga opuesta." },
+    { id: "YMLVfFjrAis", title: "Enlace covalente polar y polaridad de las moléculas", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "La UPV explica el enlace covalente polar y la polaridad de las moléculas. Fíjate en el papel de la electronegatividad: decide si una molécula es polar o no." },
+  ],
+  "grupos-funcionales": [
+    { id: "-KczWfFRjCo", title: "Clasificación de los compuestos orgánicos. Grupos funcionales", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Vídeo del curso de introducción a la química de la UPV que clasifica los compuestos orgánicos por grupos funcionales. Fíjate en cómo reconocer cada grupo en una fórmula." },
+  ],
+  "grupos-funcionales-a-fondo": [
+    { id: "YGXgd-ubgOE", title: "Clasificación de los compuestos orgánicos. Grupos funcionales. (Ejercicio práctico-so", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Ejercicio práctico con soluciones de la UPV para clasificar compuestos orgánicos por su grupo funcional. Úsalo para comprobar que reconoces las familias." },
+  ],
+  "velocidad-y-catalisis": [
+    { id: "sbkw8cgyzqc", title: "Velocidad de una reacción química: Efecto de la temperatura de reacción", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Experimento de la UPV que muestra cómo la temperatura cambia la velocidad de una reacción. Fíjate en la diferencia de tiempos: es la razón de que en planta se controle tanto la temperatura." },
+    { id: "zf6mHX6429I", title: "Velocidad de una reacción química: Efecto de la presencia de un catalizador", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Experimento de la UPV que muestra el efecto de un catalizador sobre la velocidad de reacción. Fíjate en que el catalizador acelera la reacción sin gastarse." },
+  ],
+  "cinetica-a-fondo": [
+    { id: "_q_aKZvP3HQ", title: "Velocidad de una reacción química: Efecto de la concentración de un reactivo", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Experimento de la UPV sobre el efecto de la concentración de un reactivo en la velocidad de reacción. Complementa los de temperatura y catalizador." },
+  ],
+  "equilibrio-quimico": [
+    { id: "mCoxO9trPxI", title: "Equilibrio de formación del complejo [Fe(SCN)(H2O)5]2+. Principio de le chatelier", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Práctica de la UPV con el equilibrio de formación del complejo de hierro y tiocianato para ver el principio de Le Chatelier. Fíjate en cómo cambia el color al perturbar el equilibrio." },
+    { id: "-6Cynda2ZQU", title: "Reacciones reversibles y equilibrio químico", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Vídeo de la UPV sobre las reacciones reversibles y el equilibrio químico. Fíjate en la idea de que la reacción ocurre en los dos sentidos a la vez." },
+  ],
+  "capa-fina-a-fondo": [
+    { id: "Z9yDU3AgHmY", title: "Técnicas básicas en un laboratorio de química orgánica. Cromatografía en capa fina.", channel: "SAVUNISEVILLA", lang: "es", why: "Vídeo de la Universidad de Sevilla sobre la cromatografía en capa fina como técnica básica del laboratorio de orgánica, útil para juzgar la pureza de una muestra. Fíjate en cómo se aplica la muestra y se revela la placa." },
+    { id: "lj5OWzhZSac", title: "Thin layer chromatography (TLC)", channel: "Royal Society of Chemistry", lang: "en", why: "La Royal Society of Chemistry muestra cómo usar la capa fina para identificar los productos de una reacción. Fíjate en el frente del disolvente y en cómo se comparan las manchas." },
+  ],
+  "extraccion-liquido-liquido": [
+    { id: "GD2NnJ0ps0o", title: "Técnicas básicas en un laboratorio de química orgánica. Separación por extracción.", channel: "SAVUNISEVILLA", lang: "es", why: "Técnica básica de la Universidad de Sevilla: separación por extracción con embudo de decantación. Es lo mismo que haces en el reactor al separar fases, a escala de laboratorio." },
+    { id: "Q3QxStCFDUo", title: "Prácticas de Química Orgánica I: Extracción", channel: "Universidad Complutense de Madrid", lang: "es", why: "Práctica de la Universidad Complutense de Madrid, en varios cortos, sobre las operaciones básicas de una extracción. Fíjate en cómo se reconoce cada fase y se separa sin perder producto." },
+  ],
+  "cristalizacion": [
+    { id: "fWvX3_YOHLs", title: "Técnicas básicas en un laboratorio de química orgánica. Recristalización.", channel: "SAVUNISEVILLA", lang: "es", why: "Técnica básica de la Universidad de Sevilla: la recristalización como método para purificar sólidos. Fíjate en el paso de disolver en caliente y enfriar despacio." },
+    { id: "P_v7aYwwATs", title: "Prácticas de Química Orgánica I: Recristalización", channel: "Universidad Complutense de Madrid", lang: "es", why: "Práctica de la Universidad Complutense de Madrid sobre la recristalización, en varios cortos. Úsalo para ver la operación entera, de la disolución al filtrado de los cristales." },
+  ],
+  "destilacion": [
+    { id: "qUbM1rtmEyk", title: "Técnicas básicas en un laboratorio de química orgánica. Destilación simple.", channel: "SAVUNISEVILLA", lang: "es", why: "Técnica básica de la Universidad de Sevilla: la destilación simple y los casos en que es útil. Es la misma idea que la destilación en el reactor, a escala de laboratorio." },
+  ],
+  "filtros": [
+    { id: "zbS6bX-T3dw", title: "COMBER Pressofiltro® Agitated Nutsche filter and filter-dryer", channel: "HEINKEL Group |Part of De Dietrich Process Systems", lang: "en", why: "El fabricante HEINKEL (grupo De Dietrich) muestra paso a paso cómo funciona un filtro Nutsche y un filtro-secador agitado. Fíjate en el orden filtrar, lavar, secar y descargar." },
+  ],
+  "recuento-microbiano-endotoxinas": [
+    { id: "rUwSmytEpiU", title: "Siembra en placa por extensión o en superficie.", channel: "Udearroba", lang: "es", why: "Videotutorial de la Universidad de Antioquia con el procedimiento de siembra en placa por extensión o en superficie, la base del recuento microbiano." },
+  ],
+  "tecnicas-microbiologicas-a-fondo": [
+    { id: "oDeVPidJZ1k", title: "Siembra en placa vertida o en profundidad", channel: "Udearroba", lang: "es", why: "Videotutorial de la Universidad de Antioquia con la siembra en placa vertida o en profundidad. Compáralo con la siembra en superficie." },
+  ],
+  "salas-limpias": [
+    { id: "AjJNXQ8XZGM", title: "¿Qué es una sala limpia ISO 7? Guía para biotecnología y sector farmacéutico - TECNIC", channel: "TECNIC Bioprocess Solutions", lang: "es", why: "Un fabricante de equipos de bioproceso explica qué es una sala limpia ISO 7 según la ISO 14644-1 y por qué se limita la concentración de partículas. Fíjate en la relación entre clase y partículas." },
+    { id: "luKkdsa-hH8", title: "Intro to ISO 14644-1 Room Classifications NEW (2019)", channel: "Lighthouse Worldwide Solutions", lang: "en", why: "Breve introducción de un fabricante de contadores de partículas a las clases de sala de la ISO 14644-1. Fíjate en que cada clase se define por cuántas partículas se admiten por metro cúbico." },
+  ],
+  "calor-de-reaccion": [
+    { id: "sRuz9bzBrtY", title: "CSB Safety Video: Reactive Hazards", channel: "USCSB", lang: "en", why: "Vídeo de seguridad del CSB sobre los peligros de las reacciones químicas descontroladas (reactive hazards). Complementa el caso T2: fíjate en las lecciones generales que saca para cualquier planta." },
+  ],
+  "espectroscopia-infrarrojo": [
+    { id: "kSG17jtWKpQ", title: "Fundamentos de la espectroscopia NIR", channel: "MetrohmTV", lang: "es", why: "Metrohm, fabricante de equipos, explica cómo funciona la espectroscopía de infrarrojo cercano (NIR). Fíjate en que no necesita preparar la muestra y mide en menos de un minuto: por eso se usa para identificar materias primas." },
+    { id: "Mw-i9WyjFsU", title: "What are the major differences between infrared and near infrared spectroscopy?", channel: "MetrohmTV", lang: "en", why: "Metrohm compara el infrarrojo medio (IR) con el cercano (NIR): tamaño de muestra, penetración de la luz e información del espectro. Ayuda a no confundir las dos técnicas." },
+  ],
+  "karl-fischer-a-fondo": [
+    { id: "vY3YqZseblU", title: "Karl Fischer Titration - How to carry out the titer determination using water (volume addition)?", channel: "MetrohmTV", lang: "en", why: "Metrohm muestra cómo se determina el título del reactivo Karl Fischer volumétrico añadiendo agua pura. Es el paso que hace fiable el resultado de agua de tu lote." },
+  ],
+  "gravimetria": [
+    { id: "i0IeUD7guxk", title: "DETERMINACIÓN GRAVIMÉTRICA DE HIERRO III COMO ÓXIDO FÉRRICO, PARTE I PRECIPITACIÓN", channel: "UVa_Online", lang: "es", why: "Práctica de química analítica de la Universidad de Valladolid: determinación gravimétrica de hierro(III) como óxido férrico, primera parte (la precipitación). Fíjate en cómo se forma el precipitado que luego se pesa." },
+  ],
+  "molienda-y-tamizado": [
+    { id: "wl3cq0k0T7M", title: "Hosokawa Alpine Spiral Jet Mill - Principle of Operation", channel: "HOSOKAWA ALPINE", lang: "en", why: "Hosokawa Alpine explica el principio de funcionamiento de su molino de chorro en espiral (spiral jet mill), el equipo típico de micronización. Fíjate en las toberas alrededor de la cámara de molienda." },
+  ],
+  "agitacion-a-fondo": [
+    { id: "YNwiSWl9HPo", title: "EKATO PARAVISC - Impeller for highly viscous mixing (in comparison to Anchor)", channel: "EKATO GROUP", lang: "en", why: "El fabricante EKATO compara su rodete para productos muy viscosos con un agitador de ancla. Fíjate en cómo cambia la mezcla según el tipo de rodete." },
+  ],
+  "carga-e-inertizacion": [
+    { id: "v58eju9uWSw", title: "The process of inertisation and blanketing - briefly explained ZUERCHER TECHNIK AG", channel: "Zuercher Technik AG", lang: "en", why: "Explicación breve de un fabricante de equipos para tanques sobre la inertización y el colchón de nitrógeno (blanketing). Fíjate en para qué sirve mantener el gas inerte sobre el líquido." },
+  ],
+  "ecuaciones-y-estequiometria": [
+    { id: "w7xKFA3kFb0", title: "Ecuaciones químicas y reacciones químicas", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Vídeo del curso de introducción a la química de la UPV sobre ecuaciones y reacciones químicas. Fíjate en qué representa cada parte de una ecuación: reactivos, productos y coeficientes." },
+    { id: "WUydXHlNNXo", title: "Ajuste de ecuaciones químicas", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Continuación del curso de la UPV: cómo se ajustan las ecuaciones químicas. Es el paso previo a cualquier cálculo de cantidades." },
+  ],
+  "disoluciones": [
+    { id: "kolWsU_-UxM", title: "Disoluciones", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Vídeo sobre disoluciones del curso de introducción a la química de la UPV. Úsalo como repaso de la lección." },
+  ],
+  "balanzas-y-pesada": [
+    { id: "5IJyF_JLVnY", title: "Video Tutorial: Uso de la balanza analítica", channel: "Departamento Química Básica FIUSAC", lang: "es", why: "Videotutorial del laboratorio de química general de la Universidad de San Carlos de Guatemala sobre el uso correcto de la balanza analítica." },
+  ],
+  "material-volumetrico": [
+    { id: "-89lAl4HSSE", title: "Material volumétrico básico de laboratorio", channel: "Laboratorio Química General", lang: "es", why: "Vídeo del Laboratorio de Química General de la Universitat de València sobre el material volumétrico básico. Úsalo para reconocer cada pieza de vidrio." },
+    { id: "PgEo5TAk9x0", title: "Video tutorial: Uso de la pipeta", channel: "Departamento Química Básica FIUSAC", lang: "es", why: "Videotutorial de la Universidad de San Carlos de Guatemala sobre el uso correcto de la pipeta volumétrica y la serológica. Fíjate en la diferencia entre las dos." },
+  ],
+  "material-y-seguridad-laboratorio": [
+    { id: "eR5dnFhs5Ag", title: "SEGURIDAD QUIMICA EN EL LABORATORIO UNIVERSITARIO I", channel: "SAVUNISEVILLA", lang: "es", why: "Primer vídeo de una colección de la Universidad de Sevilla sobre seguridad química y biológica en los laboratorios universitarios." },
+    { id: "sUoVny9CoV4", title: "Prácticas de Química Orgánica I: Normas de seguridad en el laboratorio", channel: "Universidad Complutense de Madrid", lang: "es", why: "Vídeo del Departamento de Química Orgánica I de la Universidad Complutense de Madrid sobre las normas de seguridad en el laboratorio." },
+  ],
+  "cromatografia-principios": [
+    { id: "2OE91GORIro", title: "La cromatografía (I): cromatografía en capa fina", channel: "Universitat Politècnica de Catalunya - UPC", lang: "es", why: "La UPC explica la cromatografía como técnica para separar los componentes de una mezcla al pasar por una fase estacionaria arrastrados por una fase móvil, y lo muestra con la capa fina." },
+  ],
+  "acidos-bases-ph": [
+    { id: "oda2K4IFBaE", title: "Introduction to pH", channel: "Khan Academy", lang: "en", why: "Khan Academy presenta el pH y su escala, que es logarítmica: cada unidad de pH supone multiplicar o dividir por diez la concentración. Fíjate en esa idea, es la que más cuesta al principio." },
+  ],
+  "unidades-a-fondo": [
+    { id: "OwJVQNkQvY4", title: "El \"nuevo\" Sistema Internacional de Unidades (Nuevo SIv2).", channel: "CENAM", lang: "es", why: "Charla del CENAM, el centro nacional de metrología de México, sobre el «nuevo» Sistema Internacional de Unidades. Para quien quiera saber de dónde salen el kilo y el resto de unidades." },
+  ],
+  "atomos-y-tabla-periodica": [
+    { id: "jtdOiFpDDaE", title: "Estructura atómica", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Vídeo docente de la UPV sobre la estructura atómica. Úsalo como repaso de protones, neutrones y electrones." },
+  ],
+  "carbono-y-formulas": [
+    { id: "06yCrgp9TNI", title: "Hidrocarburos. Alcanos", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "Vídeo del curso de introducción a la química de la UPV sobre los hidrocarburos más sencillos, los alcanos. Es el punto de partida para leer fórmulas orgánicas." },
+  ],
+  "isomeros-y-quiralidad": [
+    { id: "rx8aidtWI_I", title: "Tipos de Isomería. Isomería estructural", channel: "Universitat Politècnica de València - UPV", lang: "es", why: "La UPV clasifica los tipos de isomería y se centra en la isomería estructural. Fíjate en que la misma fórmula molecular puede dar compuestos distintos." },
+  ],
+  "la-materia": [
+    { id: "pKvo0XWZtjo", title: "States of matter", channel: "Khan Academy", lang: "en", why: "Khan Academy introduce los estados o fases de la materia: sólido, líquido y gas. Úsalo como repaso visual de la lección." },
+  ],
+};
+for (const [slug, vs] of Object.entries(videosComprobados)) {
+  const m = (lessonMedia[slug] ??= {});
+  m.videos = [...(m.videos ?? []), ...vs];
+}
 
 /** Simulaciones PhET por lección. Se suman a lo que la lección tenga en lessonMedia. */
 export const lessonSims: Record<string, Sim[]> = {

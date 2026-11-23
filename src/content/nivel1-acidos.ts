@@ -65,6 +65,8 @@ Los corchetes significan «concentración en mol/L». En agua pura hay tantos H�
 Kw cambia con la temperatura: en caliente el agua se rompe algo más y el agua neutra ya no da exactamente pH 7. Por eso aquí todo es a 25 °C.
 
 ### Qué es un logaritmo, sin miedo
+Este apartado es un repaso para el pH: lo tienes con más detalle en «Logaritmos y exponenciales: las cuentas del pH, la presión de vapor y la velocidad».
+
 Las concentraciones de H⁺ van de 1 mol/L a 0,00000000000001 mol/L. Para no escribir tantos ceros se cuentan. Primero, las **potencias de diez**: 10² = 100, 10³ = 1000, y con signo menos se divide: 10⁻¹ = 0,1; 10⁻³ = 0,001. El número de arriba dice cuántos lugares se mueve la coma.
 
 El **logaritmo en base 10** (*base-10 logarithm*), log, hace el camino inverso: te dice a qué potencia hay que elevar 10 para obtener un número.

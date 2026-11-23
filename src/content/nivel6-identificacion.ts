@@ -2,8 +2,8 @@ import type { Lesson } from "./types";
 
 export const identificacionQuimicaAFondo: Lesson = {
   slug: "identificacion-quimica-a-fondo",
-  level: 6,
-  order: 0.5,
+  level: 8,
+  order: 2.5,
   title: "Identificar sustancias por sus reacciones a fondo",
   titleEn: "Identifying substances by their reactions in depth",
   minutes: 38,

@@ -99,7 +99,7 @@ Cuando la centrífuga o el filtro terminan, el disolvente está en tres sitios:
 
 1. **Mojando la torta**, entre los cristales. Es el que se va en el secadero.
 2. **Atrapado dentro del cristal**. Un cristal que crece deprisa puede encerrar gotitas de aguas madres, como una burbuja dentro de un cubito de hielo.
-3. **Formando parte del cristal**, en un **solvato** (*solvate*). Lo tienes explicado en «Enlaces y fuerzas entre moléculas a fondo» y en «Polimorfismo, sales y solvatos». La guía ICH Q3C aclara que no trata los solvatos, aunque su contenido de disolvente hay que evaluarlo y justificarlo.
+3. **Formando parte del cristal**, en un **solvato** (*solvate*). Lo tienes explicado en «Enlaces y fuerzas entre moléculas a fondo», y lo verás en «Polimorfismo, sales y solvatos». La guía ICH Q3C aclara que no trata los solvatos, aunque su contenido de disolvente hay que evaluarlo y justificarlo.
 
 Por eso el secado tiene un límite: el disolvente de fuera se va con calor y vacío, el de dentro tiene que atravesar el sólido y el de un solvato no sale sin cambiar el cristal. Más horas de secadero no siempre arreglan un resultado alto.
 
@@ -163,7 +163,7 @@ La industria publica guías de selección de disolventes; no las hemos podido le
 **Al recoger residuos:**
 - **Halogenados aparte.** La NTP 480 del INSST llama disolvente halogenado al líquido orgánico con más de un 2 % de algún halógeno, y mete en ese grupo también las mezclas con no halogenados que pasen de ese 2 %. Un chorro de diclorometano convierte un bidón entero en residuo halogenado.
 - **No mezcles disolventes en un mismo bidón sin instrucción.** La misma NTP pide no mezclar disolventes inmiscibles porque las dos fases dificultan el tratamiento. Y un disolvente sin mezclar se puede recuperar.
-- Etiqueta el bidón y anota destino y cantidad, como en «Almacenamiento, emergencias y residuos a fondo».
+- Etiqueta el bidón y anota destino y cantidad, como verás en «Almacenamiento, emergencias y residuos a fondo».
 
 En planta manda siempre el procedimiento vigente (SOP): qué disolvente se carga, de dónde sale, cuánto puede quedar en el producto y adónde va cada residuo lo fijan la hoja y la especificación de tu producto.
 `,

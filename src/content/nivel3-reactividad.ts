@@ -27,7 +27,7 @@ Dos piezas más que verás en toda la lección:
 - **Grupo saliente** (*leaving group*): el trozo que se va llevándose el par de electrones de su enlace, como el Br⁻ o el Cl⁻.
 - **Carbocatión** (*carbocation*): un carbono que se ha quedado con solo tres enlaces y carga positiva. Es muy inestable y dura un instante. Cuantos más grupos de carbono lleva alrededor, más estable es: **terciario** (unido a tres carbonos) más que **secundario** (dos) más que **primario** (uno).
 
-**El ADN también es un nucleófilo.** El addendum de la guía ICH M7 describe el acetaldehído como «un electrófilo fuerte, capaz de reaccionar con nucleófilos fuertes, por ejemplo las bases del ADN», y dice que el sulfato de dimetilo forma bases del ADN **alquiladas**. Un **agente alquilante** (*alkylating agent*) es un electrófilo que pega un grupo de carbono a un nucleófilo; si ese nucleófilo es el ADN, hay daño genético. Por eso ICH M7 vigila tanto a los reactivos electrófilos, como viste en «Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador».
+**El ADN también es un nucleófilo.** El addendum de la guía ICH M7 describe el acetaldehído como «un electrófilo fuerte, capaz de reaccionar con nucleófilos fuertes, por ejemplo las bases del ADN», y dice que el sulfato de dimetilo forma bases del ADN **alquiladas**. Un **agente alquilante** (*alkylating agent*) es un electrófilo que pega un grupo de carbono a un nucleófilo; si ese nucleófilo es el ADN, hay daño genético. Por eso ICH M7 vigila tanto a los reactivos electrófilos, como verás en «Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador».
 
 ### Los tipos de reacción, contados con piezas
 | Tipo | Qué pasa | Cuentas de moléculas |
@@ -109,7 +109,7 @@ Si el alqueno no es simétrico, ¿a qué carbono va el H? La **regla de Markovni
 
 > CH₂=CHCH₃ + HBr da CH₃CHBrCH₃
 
-El propeno y el bromuro de hidrógeno dan sobre todo **2-bromopropano**; el 1-bromopropano sale poco. La hidrogenación de «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión» también es una adición (H₂ sobre el doble enlace), pero sobre un catalizador y sin carbocatión.
+El propeno y el bromuro de hidrógeno dan sobre todo **2-bromopropano**; el 1-bromopropano sale poco. La hidrogenación, que verás en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión», también es una adición (H₂ sobre el doble enlace), pero sobre un catalizador y sin carbocatión.
 
 **Ejercicio resuelto 3. El gas de una desprotección.** En «Reacciones en la fabricación de API a fondo» viste que quitar un grupo Boc con ácido suelta **isobuteno**, (CH₃)₂C=CH₂. ¿Qué se forma si se encuentra con HCl?
 1. El H⁺ va al CH₂, el carbono con más hidrógenos.

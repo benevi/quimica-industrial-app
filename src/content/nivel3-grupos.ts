@@ -53,7 +53,7 @@ Tres ideas que ya tienes:
 
 **En planta.** Muy volátiles. El éter dietílico es H224: por definición del CLP, empieza a hervir a 35 °C o menos. El THF hierve a 66 °C y se mezcla con el agua.
 
-**Reaccionan** con poco: sin O–H no dan protones, y por eso sirven de disolvente para reactivos muy básicos, como los de Grignard («Tipos de reacción habituales en API»). Su punto débil es el oxígeno del aire: forman **peróxidos** al guardarse; la frase EUH019 y el ensayo con yoduro están en «Oxidación y reducción a fondo». La NTP 479 añade que el estabilizante puede haberse perdido si el disolvente se ha destilado o extraído, y que un recipiente cerrado mucho tiempo sin usarse se abre con precaución.
+**Reaccionan** con poco: sin O–H no dan protones, y por eso sirven de disolvente para reactivos muy básicos, como los de Grignard (los verás en la lección siguiente, «Tipos de reacción habituales en API»). Su punto débil es el oxígeno del aire: forman **peróxidos** al guardarse; la frase EUH019 y el ensayo con yoduro están en «Oxidación y reducción a fondo». La NTP 479 añade que el estabilizante puede haberse perdido si el disolvente se ha destilado o extraído, y que un recipiente cerrado mucho tiempo sin usarse se abre con precaución.
 
 **Peligros.** THF: H225, H319, H335 («Puede irritar las vías respiratorias») y EUH019. Éter dietílico: H224, H302, H336, EUH019 y EUH066. MTBE: H225 y H315, sin EUH019 en la tabla de 2008. En ICH Q3C, THF clase 2 (720 ppm); MTBE y éter dietílico, clase 3.
 

@@ -177,6 +177,8 @@ El limitante es el **anhídrido**: quedará aminofenol sin reaccionar, que es un
 ### Rendimiento (*yield*)
 > **Rendimiento (%) = producto obtenido / producto teórico × 100**
 
+El **producto teórico** (*theoretical yield*) es lo máximo que podría salir según la ecuación química si todo el material de partida se convirtiera en producto. Se calcula con moles, como en «Ecuaciones químicas y estequiometría».
+
 Nunca es del 100 %: hay pérdidas en las aguas madres, en los lavados, en los equipos y por reacciones secundarias.
 
 ### Rendimiento corregido por pureza
@@ -196,7 +198,7 @@ Cada hoja tiene un **rango esperado** (p. ej. 80–90 %). Un rendimiento fuera d
 - **Alto**: el producto puede estar **húmedo** o con impurezas. ¡Un rendimiento "demasiado bueno" también es sospechoso!
 `,
     plant: `
-Teórico: 69,26 kg. Obtenido: 58,9 kg de producto seco.
+Teórico: 69,26 kg (lo máximo que pueden dar 50,0 kg de 4-aminofenol, calculado en «Ecuaciones químicas y estequiometría»). Obtenido: 58,9 kg de producto seco.
 
 Rendimiento = 58,9 / 69,26 × 100 = **85,0 %**. Rango de la hoja: 80–90 %: cumple.
 `,
@@ -272,6 +274,8 @@ Situaciones peligrosas:
 Cuánto subiría la temperatura si **no se retirara nada de calor**:
 
 > ΔT adiabático = calor de reacción (kJ por kg de **masa total** de reacción) / calor específico (kJ/kg·K)
+
+El **calor específico** (*specific heat capacity*, cp) es la energía necesaria para subir 1 °C un kilo de sustancia: 4,18 kJ/(kg·K) el agua y unos 1,7 kJ/(kg·K) el tolueno. Cuanto más pequeño es, más se calienta la masa con el mismo calor.
 
 El calor va referido a toda la masa que hay en el reactor (reactivos y disolvente), no solo al reactivo. Si el dato viene en kJ por mol o por kg de reactivo, primero hay que repartirlo entre toda la masa.
 
@@ -556,8 +560,8 @@ Fin de una hidrogenación: *"Despresurizar, purgar 3 veces con N₂, filtrar el 
   },
   {
     slug: "reacciones-en-api",
-    level: 2,
-    order: 14,
+    level: 3,
+    order: 4.2,
     title: "Tipos de reacción habituales en API",
     titleEn: "Common reaction types in API manufacturing",
     minutes: 15,
@@ -570,8 +574,8 @@ No necesitas saber el mecanismo de cada reacción, pero sí **qué hace** y **qu
 | **Formación de sal** (*salt formation*) | Une el API con un ácido (HCl, ácido maleico…) o una base para mejorar solubilidad o estabilidad | pH, temperatura, cristalización |
 | **Hidrólisis** (*hydrolysis*) | Rompe un enlace usando agua (con ácido o base) | Exotermia al neutralizar, pH final |
 | **Esterificación / amidación** | Une un ácido con un alcohol (éster) o con una amina (amida) | Retirar agua, equivalentes |
-| **Acilación** (*acylation*) | Añade un grupo acilo (por ejemplo, con anhídrido acético) | Exotermia, adición lenta |
-| **Alquilación** (*alkylation*) | Añade un grupo alquilo (por ejemplo, metilo) | Reactivos tóxicos (algunos agentes alquilantes son mutagénicos) |
+| **Acilación** (*acylation*) | Añade un grupo acilo, R–C(=O)–: el trozo de un ácido carboxílico sin su OH (por ejemplo, con anhídrido acético) | Exotermia, adición lenta |
+| **Alquilación** (*alkylation*) | Añade un grupo alquilo: una cadena de carbonos e hidrógenos, como el metilo, CH₃– | Reactivos tóxicos (algunos agentes alquilantes son mutagénicos) |
 | **Hidrogenación** | Añade H₂ con catalizador | Presión, H₂ inflamable, catalizador pirofórico |
 | **Reacción de Grignard** | Forma enlaces carbono-carbono con un compuesto de magnesio | **Nada de agua**: reacciona violentamente |
 | **Acoplamientos con paladio** (*Suzuki*, *Buchwald*) | Une dos fragmentos de molécula | Inertización (el catalizador no tolera O₂), metal residual |

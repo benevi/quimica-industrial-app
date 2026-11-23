@@ -32,7 +32,7 @@ Si sigues echando sal, llega un momento en que se queda en el fondo por mucho qu
 Se expresa de dos formas habituales:
 
 - **g de soluto por 100 g de disolvente**. Es la que usaremos aquí, porque con kilos las cuentas salen directas: 22 g por 100 g de etanol son 22 kg por cada 100 kg de etanol.
-- **g/L**: gramos por litro de disolución, como en «Cristalización».
+- **g/L**: gramos por litro de disolución, como verás en «Cristalización».
 
 Mira siempre la base del dato: «por 100 g de **disolvente**» no es lo mismo que por 100 g de disolución.
 

@@ -11,6 +11,8 @@ import { gasesAFondo } from "./nivel1-gases";
 import { estructuraElectronicaAFondo } from "./nivel1-estructura";
 import { diagramasDeFasesAFondo } from "./nivel1-fases";
 import { sistemasDispersosAFondo } from "./nivel1-dispersos";
+import { logaritmosYExponenciales } from "./nivel1-logaritmos";
+import { energiaYCalor } from "./nivel1-energia";
 
 const bases: Lesson[] = [
   {
@@ -113,7 +115,7 @@ La pieza más pequeña de un elemento. Tiene:
 ### Elemento (*element*)
 Tipo de átomo definido por su número de protones (**número atómico**, Z). Hay 118; en farmacia se usan pocos:
 
-| Símbolo | Elemento | Z | Masa atómica (u) = masa de un mol (g/mol) |
+| Símbolo | Elemento | Z | Masa atómica (u) |
 |---|---|---|---|
 | H | Hidrógeno (*hydrogen*) | 1 | 1,008 |
 | C | Carbono (*carbon*) | 6 | 12,011 |
@@ -125,7 +127,7 @@ Tipo de átomo definido por su número de protones (**número atómico**, Z). Ha
 | K | Potasio (*potassium*) | 19 | 39,098 |
 | Pd | Paladio (*palladium*) | 46 | 106,42 |
 
-El paladio aparece como **catalizador** (Pd/C) en hidrogenaciones.
+El paladio aparece como **catalizador** (*catalyst*: una sustancia que acelera una reacción sin gastarse) en las hidrogenaciones, reacciones que añaden hidrógeno a una molécula. La masa atómica, en gramos, es también lo que pesa un mol de átomos: lo verás en «El mol: contar moléculas pesando».
 
 ### La tabla periódica (*periodic table*)
 - **Filas** (periodos) y **columnas** (grupos). Los de una misma columna se comportan parecido.
@@ -429,7 +431,7 @@ Normalmente de 0 a 14 (con ácidos o bases muy concentrados puede salirse de ese
 - Cada unidad es un factor **10**: pH 3 es diez veces más ácido que pH 4.
 
 ### Neutralización (*neutralization*)
-Ácido + base → sal + agua. Ejemplo: HCl + NaOH → NaCl + H₂O.
+Ácido + base → sal + agua. Ejemplo: HCl + NaOH → NaCl + H₂O. La flecha se lee «da»: a la izquierda lo que reacciona y a la derecha lo que sale. Las ecuaciones químicas se explican en «Ecuaciones químicas y estequiometría».
 Es **exotérmica** (desprende calor): por eso se añade despacio y con refrigeración.
 
 ### ¿Por qué se ajusta el pH en planta?
@@ -493,4 +495,4 @@ Añades la sosa poco a poco vigilando la temperatura. Cerca del objetivo el pH c
 ];
 
 // Las lecciones «a fondo» van cada una en su archivo nivel1-tema.ts.
-export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo, atomosAFondo, materiaAFondo, acidosBasesAFondo, enlacesAFondo, formulacionInorganicaAFondo, geometriaMolecularAFondo, gasesAFondo, estructuraElectronicaAFondo, diagramasDeFasesAFondo, sistemasDispersosAFondo];
+export const nivel1: Lesson[] = [...bases, disolucionesAFondo, molAFondo, atomosAFondo, materiaAFondo, acidosBasesAFondo, enlacesAFondo, formulacionInorganicaAFondo, geometriaMolecularAFondo, gasesAFondo, estructuraElectronicaAFondo, diagramasDeFasesAFondo, sistemasDispersosAFondo, logaritmosYExponenciales, energiaYCalor];

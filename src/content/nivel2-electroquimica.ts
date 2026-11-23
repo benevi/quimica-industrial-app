@@ -52,7 +52,7 @@ Cuando hay iones con oxígeno (permanganato, dicromato, sulfito) en agua, el aju
 
 **Comprobación**: 2 Cr, 6 Fe, 7 O y 14 H a cada lado; carga −2 + 12 + 14 = **+24** a la izquierda y 6 + 18 = **+24** a la derecha. Si la carga no cuadra, la ecuación está mal aunque cuadren los átomos.
 
-Así sale también la del permanganato con hierro(II) de «Valoraciones redox, complexométricas y de precipitación a fondo»: MnO₄⁻ + 8 H⁺ + 5 e⁻ da Mn²⁺ + 4 H₂O, y la del hierro por 5.
+Así sale también la del permanganato con hierro(II) que verás en «Valoraciones redox, complexométricas y de precipitación a fondo»: MnO₄⁻ + 8 H⁺ + 5 e⁻ da Mn²⁺ + 4 H₂O, y la del hierro por 5.
 
 ### El método en medio básico
 En **medio básico** (*basic medium*) no hay H⁺ libres que añadir: abunda el OH⁻. El truco más seguro:
@@ -140,7 +140,7 @@ Q es el **cociente de reacción** de «Equilibrio químico a fondo»: productos 
 
 > E = E° − (0,05916 / n) × log Q
 
-Ese **0,05916 V** es la pendiente de 59,16 mV por unidad de pH de «pH y conductividad a fondo». Kuphaldt explica que toda medida potenciométrica se basa en Nernst: el electrodo de pH es una **pila de concentración**, igual a los dos lados del vidrio salvo en la concentración de H⁺, así que su E° es cero y solo queda el logaritmo.
+Ese **0,05916 V** es la pendiente de 59,16 mV por unidad de pH que verás en «pH y conductividad a fondo». Kuphaldt explica que toda medida potenciométrica se basa en Nernst: el electrodo de pH es una **pila de concentración**, igual a los dos lados del vidrio salvo en la concentración de H⁺, así que su E° es cero y solo queda el logaritmo.
 
 **Ejemplo resuelto 5. El oxígeno y el hidrógeno dependen del pH.** En la semirreacción O₂ + 4 H⁺ + 4 e⁻ da 2 H₂O, con O₂ a 1 bar, Q = 1/[H⁺]⁴. Como log(1/[H⁺]⁴) = 4 × pH:
 
@@ -199,7 +199,7 @@ Si en el cátodo se reduce un ion metálico, el metal se deposita en capa sobre 
 Las reacciones secundarias se comen el resto de la corriente.
 
 ### El Karl Fischer culombimétrico es una electrólisis
-El culombimétrico de «El agua en la muestra a fondo» genera yodo con corriente: 2 I⁻ da I₂ + 2 e⁻, una **oxidación**, que ocurre en el **ánodo** del electrodo generador. Sus 93,36 µg de agua por culombio son Faraday puro: 18,015 / (2 × 96485).
+El Karl Fischer culombimétrico, que verás en «El agua en la muestra a fondo», genera yodo con corriente: 2 I⁻ da I₂ + 2 e⁻, una **oxidación**, que ocurre en el **ánodo** del electrodo generador. Sus 93,36 µg de agua por culombio son Faraday puro: 18,015 / (2 × 96485).
 
 **Ejemplo resuelto 8.** ¿Cuánto tarda en valorar 1 mg de agua a 100 mA? Carga: 1000 / 93,36 = 10,71 C. Tiempo: 10,71 / 0,100 = **107 s**. Con 10 mg serían casi 18 minutos: el culombimétrico es para trazas.
 

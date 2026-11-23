@@ -111,7 +111,7 @@ Cinco conversiones:
 ### Despejar una incógnita
 **Despejar** (*to solve for*) es dejar sola la letra que no conoces. Una fórmula es una balanza en equilibrio: lo que hagas a un lado, hazlo al otro. Lo que **multiplica** pasa al otro lado **dividiendo**, lo que **divide** pasa **multiplicando** y lo que **suma** pasa **restando**.
 
-**Ejemplo 1. Q = m × cp × ΔT, despejar m.** («Intercambio de calor y frío a fondo»). ¿Cuánta agua (cp = 4,18 kJ/(kg·K)) calientas 25 °C con 50 000 kJ? Partes de m × 4,18 × 25 = 50 000. El 4,18 y el 25 pasan dividiendo: m = 50 000 / 104,5 = 478,47… = **478,5 kg**.
+**Ejemplo 1. Q = m × cp × ΔT, despejar m.** Q es el calor que se da o se quita (en kJ); m, la masa; ΔT, cuántos grados sube o baja, y cp, el **calor específico** (*specific heat capacity*): la energía que hace falta para subir un grado un kilo de esa sustancia. Lo verás explicado despacio en «Energía, calor y temperatura: julios, kilovatios y calor específico», y la fórmula vuelve en «Calor de reacción y reacciones descontroladas» y en «Intercambio de calor y frío a fondo». ¿Cuánta agua (cp = 4,18 kJ/(kg·K)) calientas 25 °C con 50 000 kJ? Partes de m × 4,18 × 25 = 50 000. El 4,18 y el 25 pasan dividiendo: m = 50 000 / 104,5 = 478,47… = **478,5 kg**.
 
 **Ejemplo 2. Despejar cp.** Con 30 000 kJ, 600 kg de un líquido suben 20 °C (valores de ejemplo): cp = Q / (m × ΔT) = 30 000 / 12 000 = **2,5 kJ/(kg·K)**.
 

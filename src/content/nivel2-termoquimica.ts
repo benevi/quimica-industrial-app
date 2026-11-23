@@ -65,7 +65,7 @@ En planta se cargan kilos. Por «El mol a fondo» sabes que **kilos entre masa m
 ### El aumento adiabático de temperatura, desde cero
 La pregunta clave: **¿cuánto subiría la temperatura si todo ese calor se quedara en la masa?** Sin camisa, sin pérdidas, sin que nadie actúe. Eso se llama **adiabática** (*adiabatic*): sin intercambio de calor con el exterior. La NTP 527 del INSST la señala como el caso límite que hay que estudiar cuando se analiza la seguridad en las peores condiciones posibles.
 
-Usamos la fórmula que ya conoces de «Intercambio de calor y frío a fondo», Q = m × cp × ΔT, despejando la temperatura:
+Usamos la fórmula del calor, Q = m × cp × ΔT (calor = masa × calor específico × subida de temperatura), que despejaste en «Las cuentas de planta a fondo» y que vuelve en «Intercambio de calor y frío a fondo». Despejando la temperatura:
 
 > ΔTad = Q / (m × cp)
 
@@ -77,7 +77,7 @@ La misma cerilla calienta poco un cubo de agua y mucho una cucharada: cuanta má
 
 **Ejemplo A: las aguas ácidas.** 114 000 kJ en unos 2160 kg (el agua más 160 kg de sosa al 50 %). Como es casi todo agua, tomamos cp = 4,18. ΔTad = 114 000 / (2160 × 4,18) = **12,6 °C**.
 
-**Ejemplo B: la etapa del intermedio AX-22 de «El reactor a fondo».** Allí se añadían 600 kg de reactivo B sobre 2610 kg de tolueno, con 150 kJ por kilo de B y cp = 1,7. Calor: 600 × 150 = 90 000 kJ. Masa total: 3210 kg. ΔTad = 90 000 / (3210 × 1,7) = **16,5 °C**.
+**Ejemplo B: la etapa del intermedio AX-22**, que volverás a ver en «El reactor a fondo». Se añaden 600 kg de reactivo B sobre 2610 kg de tolueno, con 150 kJ por kilo de B y cp = 1,7. Calor: 600 × 150 = 90 000 kJ. Masa total: 3210 kg. ΔTad = 90 000 / (3210 × 1,7) = **16,5 °C**.
 
 **Ejemplo C: el reactivo C en el mismo reactor R-204.** 750 000 kJ sobre 2610 kg de tolueno más 500 kg de C: 3110 kg con cp = 1,7. ΔTad = 750 000 / (3110 × 1,7) = **141,9 °C**.
 
@@ -91,7 +91,7 @@ La misma cerilla calienta poco un cubo de agua y mucho una cucharada: cuanta má
 Ojo: según la NTP 527, una reacción débilmente exotérmica también es peligrosa si su calentamiento arranca otra fuertemente exotérmica, como una descomposición.
 
 ### La temperatura máxima con reactivo acumulado
-En una adición dosificada el reactivo entra poco a poco y, si todo va bien, reacciona según entra. Lo que ha entrado y **aún no ha reaccionado** es la **acumulación** (*accumulation*) de «El reactor a fondo».
+En una adición dosificada el reactivo entra poco a poco y, si todo va bien, reacciona según entra. Lo que ha entrado y **aún no ha reaccionado** es la **acumulación** (*accumulation*) que ya salió en «Calor de reacción y reacciones descontroladas».
 
 Si en el peor momento falla el frío, solo puede liberar calor el reactivo que está dentro sin reaccionar. Por eso:
 
@@ -152,7 +152,7 @@ La NTP 529 analizó accidentes de la base de datos europea de accidentes graves 
 Una masa caliente puede llegar a ellas, aunque la reacción principal haya terminado, si se queda sin agitar o sin frío. La NTP 529 describe el accidente de Seveso, en Italia: al terminar un lote se paró el agitador sin esperar a que la masa se enfriara, no se refrigeró el reactor y se desconectó el registro de temperatura cuando marcaba 158 °C. Seis horas y media después se produjo una reacción exotérmica cuya sobrepresión rompió el disco de ruptura y liberó dioxina al exterior. La NTP 527 recoge la misma idea como **tiempo de seguridad**: para cada etapa hay que saber cuánto tiempo puede estar la masa a temperatura elevada sin que algo inestable se descomponga.
 
 ### El reflujo como freno
-Una masa que hierve no sube de temperatura mientras haya disolvente: el calor se gasta en evaporarlo. Es el **calor latente** (*latent heat*) de «Vapor y calderas a fondo». La NTP 528 lo describe así: el calor de la reacción se elimina con la entalpía de vaporización del disolvente y la temperatura se mantiene aproximadamente constante, siempre que haya capacidad de condensación y disolvente suficientes.
+Una masa que hierve no sube de temperatura mientras haya disolvente: el calor se gasta en evaporarlo. Es el **calor latente** (*latent heat*) de «La materia a fondo: estados, cambios de estado y mezclas»; sus números están en «Vapor y calderas a fondo». La NTP 528 lo describe así: el calor de la reacción se elimina con la entalpía de vaporización del disolvente y la temperatura se mantiene aproximadamente constante, siempre que haya capacidad de condensación y disolvente suficientes.
 
 > Potencia retirada (kW) = (kg evaporados por hora / 3600) × calor latente (kJ/kg)
 

@@ -3,7 +3,7 @@ import type { Lesson } from "./types";
 export const capaFinaAFondo: Lesson = {
   slug: "capa-fina-a-fondo",
   level: 7,
-  order: 6.5,
+  order: 10.5,
   title: "Cromatografía en capa fina a fondo",
   titleEn: "Thin-layer chromatography in depth",
   minutes: 38,
@@ -127,7 +127,7 @@ El manual de la FDA propone sembrar la misma disolución de 1 a 500 µL y buscar
 **Separar para analizar.** En el método de esteroles y en otro del BOE de grasas se raspa la banda que interesa, se extrae del polvo y se analiza por cromatografía de gases.
 
 ### Identificación, impurezas y limpieza
-**Identificación de farmacopea.** En los ejercicios de formación de la FDA, el paracetamol de la farmacopea estadounidense se identifica con tres ensayos: infrarrojo, ultravioleta y capa fina (capítulo 201); y la solución oral de paracetamol, con HPLC y capa fina. Igual que con el tiempo de retención, un Rf solo no basta como identidad específica: ICH Q6A pide ensayos que distingan compuestos parecidos (lo tienes en «Identificar sustancias por sus reacciones a fondo»). La guía de la EMA sobre especificaciones de plantas medicinales acepta una combinación, por ejemplo HPLC y capa fina con densitómetro.
+**Identificación de farmacopea.** En los ejercicios de formación de la FDA, el paracetamol de la farmacopea estadounidense se identifica con tres ensayos: infrarrojo, ultravioleta y capa fina (capítulo 201); y la solución oral de paracetamol, con HPLC y capa fina. Igual que con el tiempo de retención, un Rf solo no basta como identidad específica: ICH Q6A pide ensayos que distingan compuestos parecidos (lo verás en «Identificar sustancias por sus reacciones a fondo»). La guía de la EMA sobre especificaciones de plantas medicinales acepta una combinación, por ejemplo HPLC y capa fina con densitómetro.
 
 **Impurezas.** La guía ICH Q3A dice que técnicas de menor precisión, «por ejemplo, la cromatografía en capa fina», pueden ser aceptables si se justifican y se validan. Su sitio natural son los ensayos límite; las impurezas con cifra las has visto medir por HPLC en «HPLC a fondo».
 

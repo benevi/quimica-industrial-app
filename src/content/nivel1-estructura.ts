@@ -2,7 +2,7 @@ import type { Lesson } from "./types";
 export const estructuraElectronicaAFondo: Lesson = {
   slug: "estructura-electronica-a-fondo",
   level: 1,
-  order: 4.5,
+  order: 12.5,
   title: "Electrones, orbitales y tabla periódica a fondo: por qué cada elemento reacciona como reacciona",
   titleEn: "Electronic structure and the periodic table in depth",
   minutes: 40,
@@ -16,7 +16,7 @@ Un vapor de un elemento muy caliente, o con una descarga eléctrica, brilla, per
 
 Si haces pasar luz blanca por ese vapor, a la salida faltan colores: rayas negras. Es el **espectro de absorción** (*absorption spectrum*), y las rayas que faltan están en las mismas longitudes de onda que las que el elemento emite, como un negativo fotográfico de la misma huella.
 
-En «Espectroscopia a fondo: lo que la luz cuenta de una molécula (UV-Vis e infrarrojo)» viste que cada fotón lleva una energía fija, E = h · c / λ. Si un átomo solo emite y absorbe ciertos colores, es que **sus electrones solo pueden tener ciertas energías**: saltan entre escalones fijos, y cada salto deja o toma un fotón con la energía justa. Es la **cuantización de la energía** (*energy quantization*).
+La luz viaja en paquetes de energía llamados **fotones** (*photons*). Cada fotón lleva una energía fija que depende de su color, es decir, de su **longitud de onda** (*wavelength*, λ: la distancia entre dos crestas de la onda, que en la luz visible se mide en nanómetros): E = h · c / λ, donde h es la constante de Planck y c la velocidad de la luz. Cuanto más corta es la onda, más energía lleva el fotón. Lo verás aplicado en el laboratorio en «Espectroscopia a fondo: lo que la luz cuenta de una molécula (UV-Vis e infrarrojo)». Si un átomo solo emite y absorbe ciertos colores, es que **sus electrones solo pueden tener ciertas energías**: saltan entre escalones fijos, y cada salto deja o toma un fotón con la energía justa. Es la **cuantización de la energía** (*energy quantization*).
 
 **El electronvoltio** (*electronvolt*, eV) es la energía que gana un electrón al pasar por una diferencia de potencial de un voltio; el Real Decreto 2032/2009 de unidades legales acepta su uso con el Sistema Internacional. Con las constantes exactas de ese decreto (h, c, la carga elemental y el número de Avogadro) salen dos atajos:
 
@@ -164,7 +164,7 @@ Los halógenos, a un electrón de completar el subnivel p, liberan mucho; el clo
 
 - **El sodio** tiene un electrón solitario en 3s, lejos y apantallado: lo suelta con poca energía. Por eso en planta lo verás casi siempre como Na⁺, en la sosa o en las sales de las aguas madres.
 - **El cloro** está a un electrón de completar el 3p: perder uno cuesta mucho y ganar uno libera energía. Lo verás como cloruro, Cl⁻.
-- **El paladio** retiene sus electrones bastante más que el sodio (8,34 eV frente a 5,14 eV). Por eso el Pd/C se maneja mojado con agua, como viste en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión», algo impensable con sodio metálico. Aun así puede dejar trazas en el producto: se filtra y se analiza («Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador»).
+- **El paladio** retiene sus electrones bastante más que el sodio (8,34 eV frente a 5,14 eV). Por eso el Pd/C se maneja mojado con agua, como verás en «Hidrogenación a fondo: hidrógeno, catalizadores y reactores a presión», algo impensable con sodio metálico. Aun así puede dejar trazas en el producto: se filtra y se analiza («Impurezas a fondo: de dónde vienen, cuánto se permite y cómo las evita el operador»).
 
 **Ejercicio resuelto 5. ¿Se pasan el electrón el Na y el Cl sueltos, en fase gas?** Arrancarlo al sodio cuesta 5,14 eV; dárselo al cloro devuelve 3,61 eV. Balance: 5,14 − 3,61 = 1,53 eV de coste por pareja; por mol, 1,53 × 96,49 = 148 kJ/mol. Lo que paga la cuenta en la sal es la atracción entre Na⁺ y Cl⁻ al formar el cristal; ese balance, el ciclo de Born-Haber, queda para otra lección.
 
@@ -175,7 +175,7 @@ Los halógenos, a un electrón de completar el subnivel p, liberan mucho; el clo
 
 **Absorción atómica** (*atomic absorption spectrometry*, AAS). Usa el «negativo» del espectro. La disolución se aspira a una llama que deja el elemento en forma de átomos, y la atraviesa la luz de una **lámpara de cátodo hueco** (*hollow cathode lamp*) del mismo elemento que se busca: emite justo sus rayas, y los átomos las absorben. Cuanta más luz desaparece (más absorbancia), más elemento hay. El método 4.1 de la FDA para plomo y cadmio usa llama de aire y acetileno, lámparas específicas de cada elemento, 283,3 o 217,0 nm para el plomo y 228,8 nm para el cadmio, y dice que con estas lámparas las interferencias por rayas superpuestas son extremadamente raras.
 
-**Plasma acoplado inductivamente (ICP).** En el ICP-OES los átomos excitados en un plasma de argón emiten sus rayas; en el ICP-MS se cuentan como iones. Es la técnica del análisis de paladio de «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP».
+**Plasma acoplado inductivamente (ICP).** En el ICP-OES los átomos excitados en un plasma de argón emiten sus rayas; en el ICP-MS se cuentan como iones. Es la técnica del análisis de paladio que verás en «Otras técnicas a fondo: difracción de rayos X, RMN, espectrometría de masas e ICP».
 
 **Lo que te toca a ti.** Tu muestra decide el resultado: un recipiente de metal o una espátula oxidada pueden añadir justo el elemento que se mide. Usa el envase y el utensilio que indique el procedimiento.
 
