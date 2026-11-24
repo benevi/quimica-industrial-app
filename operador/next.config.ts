@@ -29,6 +29,9 @@ const nextConfig: NextConfig = {
   // Las lecciones y los componentes viven fuera de esta carpeta, en ../src
   experimental: { externalDir: true },
   outputFileTracingRoot: join(__dirname, ".."),
+  // Las fotos se sirven tal cual desde /media (ya están reescaladas, unos 95 KB de media), como los pictogramas,
+  // sin pasar por el optimizador de imágenes de Vercel: en la primera publicación no se veían a través de él.
+  images: { unoptimized: true },
   async headers() {
     return [
       {
