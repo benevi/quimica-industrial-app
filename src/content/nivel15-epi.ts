@@ -6,7 +6,7 @@ export const epiAFondo: Lesson = {
   order: 3,
   title: "Los equipos de protección individual a fondo: elegir, ponerse, usar y quitarse",
   titleEn: "Personal protective equipment in depth: selecting, donning, using and doffing",
-  minutes: 38,
+  minutes: 42,
   summary:
     "Por qué el EPI es la última barrera, qué obliga la ley a la empresa y a ti, cómo se lee el marcado, cómo se pasa de la ficha de datos de seguridad al guante o al filtro concreto, y cómo se pone, se cuida y se quita cada equipo sin contaminarte.",
   body: `
@@ -122,7 +122,25 @@ Los filtros A, B, E y K llevan además una clase, 1, 2 o 3: capacidad baja, medi
 
 Las mascarillas FFP1, FFP2 y FFP3 (de *filtering facepiece*, pieza facial filtrante) son medias máscaras filtrantes: la propia mascarilla es el filtro de partículas, de clase 1, 2 o 3. Solo paran partículas. No paran vapores de disolvente. Si llevan las letras NR, son para un solo turno.
 
-**El ajuste a la cara.** Una máscara funciona si todo el aire entra por el filtro. Si entra por el borde, entra sucio. El INSST advierte de que el vello facial, las cicatrices o un pañuelo pueden romper la hermeticidad. Por eso con barba una máscara ajustada no sirve: se usa otro tipo de equipo, que decide la empresa. Hay dos comprobaciones distintas. La **prueba de ajuste** (*fit test*) la hace personal formado para saber si ese modelo y esa talla sellan en tu cara. La **comprobación de ajuste** (*seal check*) la haces tú cada vez que te la pones, como indique el fabricante.
+**El ajuste a la cara.** Una máscara funciona si todo el aire entra por el filtro. Si entra por el borde, entra sucio. El INSST advierte de que el vello facial, las cicatrices o un pañuelo pueden romper la hermeticidad. Por eso con barba una máscara ajustada no sirve: se usa otro tipo de equipo, que decide la empresa, como el capuz motorizado que se explica después. Hay dos comprobaciones distintas. La **prueba de ajuste** (*fit test*) la hace personal formado para saber si ese modelo y esa talla sellan en tu cara. La **comprobación de ajuste** (*seal check*) la haces tú cada vez que te la pones, como indique el fabricante.
+
+**Máscara completa.** La máscara completa (*full-face mask*, norma UNE-EN 136) cubre toda la cara con un visor y cierra desde encima de los ojos hasta debajo de la barbilla. Lleva los mismos filtros que la media máscara y se marca con su clase, CL1, CL2 o CL3, detrás del número de la norma (por ejemplo, «EN 136:1998 CL3»). Su ventaja es el cierre: hay más superficie de contacto y la fuga es menor. El INSST da estos **factores de protección nominales** (*nominal protection factors*), que salen de la fuga máxima que permiten las normas. Son valores teóricos que se toman con precaución:
+
+| Equipo | Factor nominal |
+|---|---|
+| Mascarilla FFP3 | 50 |
+| Media máscara con filtro P3 | 50 |
+| Máscara completa con filtro P3 | 1000 |
+| Media máscara con filtro de gases de clase 2 o 3 | 50 |
+| Máscara completa con filtro de gases de clase 2 o 3 | 2000 |
+
+El factor dice cuántas veces más contaminación aguanta el equipo que el valor límite de exposición: concentración máxima = factor × valor límite. Lo usa quien hace la evaluación de riesgos, no el operador en planta. Los problemas de ajuste son los mismos que los de la media máscara: la ficha del INSST advierte de que la barba y las gafas rompen el cierre.
+
+**Equipos motorizados con capuz.** En un equipo filtrante de ventilación asistida (*powered air-purifying respirator*, PAPR), un ventilador con batería hace pasar el aire por los filtros y lo sopla dentro de la pieza que cubre la cabeza. Hay dos normas: la UNE-EN 12942, para los que llevan máscara o media máscara, y la UNE-EN 12941, para los que llevan **casco o capuz** (*hood*). Estos últimos se clasifican en TH1, TH2 y TH3, y la clase la elige la evaluación de riesgos. El capuz es una **cobertura suelta**: no cierra contra la cara. La Enciclopedia de la OIT, publicada por el INSST, explica que estas coberturas solo funcionan con un caudal de aire mayor que el que necesitas para respirar, para que el contaminante no entre. Por eso el INSST propone el capuz motorizado (TH2 o TH3) cuando una mascarilla o una máscara no consiguen un buen ajuste. De ahí salen tres reglas de uso:
+
+- Antes de entrar se hacen las **comprobaciones** que indique el fabricante: batería cargada, filtros correctos y dentro de fecha, y caudal suficiente.
+- Si el ventilador se para, se agota la batería o notas que baja el aire, **sales de la zona**. Sin caudal, el capuz no protege.
+- Un capuz también puede recibir aire de una **línea de aire comprimido de flujo continuo** (UNE-EN 14594). Ese es un equipo aislante. El motorizado con filtros sigue siendo filtrante: no sirve si falta oxígeno.
 
 **Caducidad y saturación.** El filtro lleva impresos el año y el mes de caducidad; pasado ese mes, no se usa aunque esté sin abrir. Una vez en uso, el carbón del filtro se va llenando. El INSST dice que el tiempo de uso y el cambio los fija la empresa, y que nunca se usa el olor como aviso de que el filtro se ha agotado. En máscaras de dos filtros se cambian los dos a la vez.
 
@@ -214,6 +232,9 @@ Al terminar, Lucía se quita primero los guantes, del revés. Luego enrolla el b
     { es: "Equipo aislante", en: "Breathing apparatus", def: "Protección respiratoria que da aire de una fuente independiente: aire fresco, línea de aire comprimido o botella." },
     { es: "Media máscara filtrante", en: "Filtering facepiece (FFP)", def: "Mascarilla en la que el propio cuerpo es el filtro de partículas. Clases FFP1, FFP2 y FFP3." },
     { es: "Prueba de ajuste", en: "Fit test", def: "Ensayo que comprueba si un modelo y una talla de máscara sellan bien en la cara de una persona concreta." },
+    { es: "Máscara completa", en: "Full-face mask", def: "Pieza facial con visor que cubre toda la cara y cierra desde encima de los ojos hasta debajo de la barbilla (UNE-EN 136)." },
+    { es: "Equipo motorizado con capuz", en: "Powered air hood (PAPR hood)", def: "Equipo filtrante de ventilación asistida con casco o capuz; protege por el caudal de aire, no por un cierre contra la cara (UNE-EN 12941)." },
+    { es: "Factor de protección nominal", en: "Nominal protection factor", def: "Número teórico, sacado de la fuga máxima que permite la norma, que multiplicado por el valor límite da la concentración máxima frente a la que protege un equipo." },
     { es: "Comprobación de ajuste", en: "Seal check", def: "Comprobación rápida que hace el usuario cada vez que se pone la máscara, siguiendo las instrucciones del fabricante." },
   ],
   quiz: [
@@ -328,6 +349,26 @@ Al terminar, Lucía se quita primero los guantes, del revés. Luego enrolla el b
       tolerance: 0.03,
       unit: "%",
       explain: "Fracción de aire = 19,5 / 21 = 0,929; el resto, 1 − 0,929 = 0,071, es nitrógeno añadido: un 7,1 %.",
+    },
+    {
+      kind: "number",
+      q: "Un polvo tiene un valor límite de exposición de 0,01 mg/m³. Según los factores nominales del INSST, ¿hasta qué concentración en el aire protegería, en teoría, una máscara completa con filtro P3 (factor 1000)?",
+      answer: 10,
+      tolerance: 0.01,
+      unit: "mg/m³",
+      explain: "Concentración máxima = factor × valor límite = 1000 × 0,01 = 10 mg/m³. Es un valor teórico: la elección real la hace la evaluación de riesgos.",
+    },
+    {
+      kind: "choice",
+      q: "¿Por qué un equipo motorizado con capuz protege aunque el capuz no cierre contra la cara?",
+      options: [
+        "Porque el capuz es de un material que filtra",
+        "Porque el ventilador mete más aire del que respiras y ese exceso impide que entre el aire de fuera",
+        "Porque la batería crea un campo que repele el polvo",
+        "No protege: solo sirve contra salpicaduras",
+      ],
+      answer: 1,
+      explain: "Es una cobertura suelta: solo funciona mientras el caudal supera lo que respiras. Si el ventilador se para, hay que salir de la zona.",
     },
   ],
 };

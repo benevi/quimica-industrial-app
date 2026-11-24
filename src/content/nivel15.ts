@@ -100,7 +100,7 @@ Vas a cargar hidróxido sódico al 50 %. La etiqueta lleva el pictograma de corr
     order: 2,
     title: "Equipos de protección individual",
     titleEn: "Personal protective equipment (PPE)",
-    minutes: 15,
+    minutes: 18,
     summary: "Qué EPI existen, cómo se eligen y por qué son la última barrera, no la primera.",
     body: `
 ### Jerarquía de control (*hierarchy of controls*)
@@ -116,13 +116,20 @@ Antes de pensar en EPI, se intenta en este orden:
 |---|---|---|
 | Ojos y cara | Gafas de seguridad, gafas de montura integral (*goggles*), pantalla facial | Las de montura integral protegen de salpicaduras; la pantalla se pone encima |
 | Manos | Guantes químicos (norma EN ISO 374) | Cada material resiste unos químicos: nitrilo, neopreno, butilo, fluoroelastómero (FKM)… Mira el tiempo de paso (*breakthrough time*) |
-| Vías respiratorias | Mascarillas FFP2/FFP3 (polvo), máscaras con filtro, equipos de aire | Filtros por colores (EN 14387): **A marrón** (vapores orgánicos), **B gris** (inorgánicos), **E amarillo** (ácidos), **K verde** (amoniaco), **P blanco** (partículas) |
+| Vías respiratorias | Mascarillas FFP2/FFP3 (polvo), media máscara o máscara completa con filtro, equipo motorizado con capuz, equipos de aire | Filtros por colores (EN 14387): **A marrón** (vapores orgánicos), **B gris** (inorgánicos), **E amarillo** (ácidos), **K verde** (amoniaco), **P blanco** (partículas) |
 | Cuerpo | Bata, buzo desechable (tipo 5/6), traje químico | Según el riesgo de salpicadura o polvo |
 | Pies | Calzado de seguridad, antiestático | En zonas ATEX, antiestático |
 | Oídos | Tapones, orejeras | En zonas de ruido |
 
+### Máscara completa y capuz motorizado
+Son dos equipos habituales cuando se manipula producto en polvo o hay vapores.
+
+- **Máscara completa** (*full-face mask*, norma UNE-EN 136): cubre toda la cara con un visor y cierra contra la piel desde la frente hasta debajo de la barbilla. Lleva los mismos filtros que la media máscara. Como cierra más superficie, protege más: el INSST da, como valores teóricos, un factor de protección de 1000 con filtro P3, frente a 50 de la media máscara con el mismo filtro. Igual que la media máscara, necesita un cierre perfecto: con barba no sella, y el INSST advierte de que las gafas también pueden romper el cierre.
+- **Equipo motorizado con capuz** (*powered air hood*, norma UNE-EN 12941, clases TH1, TH2 y TH3): un ventilador con batería aspira el aire a través de los filtros y lo sopla dentro de un capuz que cubre la cabeza. El capuz no cierra contra la cara: protege porque el ventilador mete más aire del que respiras, y ese exceso que sale por los bordes impide que entre el aire de fuera. Por eso el INSST lo propone cuando una máscara no consigue un buen ajuste, por ejemplo con barba. Pero **solo protege mientras sopla**: si el ventilador se para, se agota la batería o baja el caudal, sales de la zona.
+- Un capuz puede recibir el aire de un ventilador con filtros o de una **línea de aire comprimido** (norma UNE-EN 14594). Con filtros sigue siendo un equipo filtrante: no sirve si falta oxígeno. Fíjate en cuál es el tuyo.
+
 ### Reglas de uso
-- **Comprobar** el EPI antes de usarlo: guantes sin agujeros, filtros dentro de fecha, ajuste de la máscara.
+- **Comprobar** el EPI antes de usarlo: guantes sin agujeros, filtros dentro de fecha, ajuste de la máscara. En el capuz motorizado, la batería cargada y el caudal, como diga el fabricante.
 - **Ajuste** de las máscaras: con barba no sellan bien.
 - Los filtros de máscara **no protegen** si falta oxígeno: en atmósferas pobres en O₂ (nitrógeno) se necesita **equipo autónomo o con línea de aire**.
 - **Quitarse** el EPI en el orden correcto para no contaminarse (guantes al final o con técnica de retirada segura) y desechar el de un solo uso.
@@ -141,6 +148,8 @@ Para tomar una muestra de heptano con riesgo de vapores, el procedimiento indica
       { es: "Tiempo de paso", en: "Breakthrough time", def: "Tiempo que tarda un químico en atravesar el material del guante." },
       { es: "Filtro A", en: "Type A filter", def: "Filtro marrón para vapores orgánicos con punto de ebullición > 65 °C." },
       { es: "Equipo de respiración autónomo", en: "Self-contained breathing apparatus (SCBA)", def: "Equipo con su propia botella de aire." },
+      { es: "Máscara completa", en: "Full-face mask", def: "Pieza facial con visor que cubre toda la cara y cierra desde la frente hasta debajo de la barbilla (UNE-EN 136)." },
+      { es: "Equipo motorizado con capuz", en: "Powered air hood (PAPR hood)", def: "Equipo en el que un ventilador con batería sopla aire filtrado dentro de un capuz; no cierra contra la cara (UNE-EN 12941)." },
     ],
     quiz: [
       {
@@ -168,6 +177,30 @@ Para tomar una muestra de heptano con riesgo de vapores, el procedimiento indica
         options: ["Blanco", "Marrón", "Verde", "Amarillo"],
         answer: 1,
         explain: "Tipo A, marrón (EN 14387).",
+      },
+      {
+        kind: "choice",
+        q: "Un compañero con barba de varios días tiene que entrar donde hay polvo de producto. ¿Qué equipo puede protegerle?",
+        options: [
+          "Una media máscara FFP3 bien apretada",
+          "Una máscara completa, porque cubre más cara",
+          "Un equipo motorizado con capuz, que no necesita cerrar contra la cara",
+          "Ninguno: no puede entrar nunca",
+        ],
+        answer: 2,
+        explain: "Las máscaras, medias o completas, necesitan cerrar contra la piel y la barba lo impide. El capuz motorizado protege porque sopla más aire del que respiras.",
+      },
+      {
+        kind: "choice",
+        q: "Llevas un capuz motorizado y notas que deja de entrar aire. ¿Qué haces?",
+        options: [
+          "Sigues: el capuz te sigue tapando la cabeza",
+          "Sales de la zona: el capuz solo protege mientras el ventilador sopla",
+          "Te aprietas el capuz al cuello",
+          "Cambias los filtros allí mismo",
+        ],
+        answer: 1,
+        explain: "El capuz no cierra contra la cara; sin caudal, el aire contaminado entra.",
       },
     ],
   },

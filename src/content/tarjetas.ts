@@ -137,5 +137,7 @@ export const cards: Card[] = [
   { id: "l-gc", deck: "lab", front: "¿Qué se mide típicamente por cromatografía de gases (GC)?", back: "**Disolventes residuales** (ICH Q3C) y sustancias volátiles.", lesson: "cromatografia-de-gases" },
   { id: "l-coa", deck: "lab", front: "¿Qué es el certificado de análisis (CoA)?", back: "Documento con los ensayos, especificaciones y resultados de un lote, firmado por calidad.", lesson: "certificado-de-analisis" },
   { id: "l-muestra", deck: "lab", front: "Tres reglas de la toma de muestras", back: "Muestra **representativa**, **identificada** (material, lote, punto, fecha, quién) y con el **envase y EPI** del procedimiento.", lesson: "toma-de-muestras" },
+  { id: "s-capuz-motorizado", deck: "seguridad", front: "¿Por qué protege un capuz motorizado si no cierra contra la cara? ¿Qué haces si deja de soplar?", back: "El ventilador mete **más aire del que respiras** y ese exceso impide que entre el de fuera. Por eso sirve aunque una máscara no selle (por ejemplo, con barba).\n\nSi se para, se agota la batería o baja el caudal: **sales de la zona**.", lesson: "epi" },
+  { id: "s-mascara-completa", deck: "seguridad", front: "¿Qué ventaja tiene la máscara completa sobre la media máscara?", back: "Cubre toda la cara con un visor y cierra mejor: con filtro P3, el INSST da un factor de protección nominal de **1000**, frente a **50** de la media máscara.\n\nComo cualquier máscara, **con barba o con gafas no sella**.", lesson: "epi" },
 ];
 
