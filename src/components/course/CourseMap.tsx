@@ -76,19 +76,19 @@ export function CourseMap() {
                   aria-controls={`bloque-${b.id}`}
                   className="flex w-full items-center gap-4 px-5 py-4 text-left hover:bg-soft/60"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md" style={{ background: c.soft, color: c.fg }}>
+                  <span aria-hidden className="bubble h-10 w-10 text-ink" style={{ borderColor: c.fg }}>
                     <Icon name={blockIcon[b.id]} className="h-5 w-5" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm text-muted">Bloque {b.n}</span>
-                    <span className="t-h3 block">{b.title}</span>
+                    <span className="t-card block text-ink">{b.title}</span>
                     <span className="block text-sm text-muted">{b.question}</span>
                   </span>
                   <span className="hidden w-40 shrink-0 sm:block">
                     <span className="block text-right text-sm tabular-nums text-muted">
                       {d} de {ls.length}
                     </span>
-                    <Bar pct={pct} color={c.fg} className="mt-1.5" label={`${b.title}: ${pct} %`} />
+                    <Bar pct={pct} className="mt-1.5" label={`${b.title}: ${pct} %`} />
                   </span>
                   <Icon name="chevron" className={`h-5 w-5 shrink-0 text-muted transition-transform ${isOpen ? "rotate-90" : ""}`} />
                 </button>
@@ -105,21 +105,25 @@ export function CourseMap() {
                       const kind = ld === lls.length && ld > 0 ? "done" : ld > 0 || here ? "doing" : "todo";
                       return (
                         <li key={n}>
-                          <Link href={`/nivel/${n}`} className="group flex items-center gap-4 px-5 py-3.5 hover:bg-soft/60">
+                          <Link
+                            href={`/nivel/${n}`}
+                            aria-current={here ? "step" : undefined}
+                            className="group relative flex items-center gap-4 px-5 py-3.5 hover:bg-soft/60"
+                          >
+                            {here && <span aria-hidden className="absolute inset-y-0 left-0 w-0.5 bg-accent" />}
                             <span
-                              className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-semibold tabular-nums"
-                              style={
-                                kind === "done"
-                                  ? { background: "var(--ok)", color: "var(--on-ok)" }
-                                  : here
-                                    ? { background: "var(--signal)", color: "#1b1405" }
-                                    : { background: "var(--soft)", color: "var(--muted)" }
-                              }
+                              aria-hidden
+                              className={`bubble h-8 w-8 text-sm font-semibold tabular-nums ${
+                                kind === "done" ? "bubble-done" : here ? "bubble-current" : "text-muted"
+                              }`}
                             >
-                              {kind === "done" ? "✓" : n}
+                              {kind === "done" ? <Icon name="tick" className="h-5 w-5" /> : n}
                             </span>
                             <span className="min-w-0 flex-1">
-                              <span className="block font-medium group-hover:text-accent">{lv.title}</span>
+                              <span className="t-card block text-ink group-hover:text-accent">
+                                <span className="sr-only">Nivel {n}. </span>
+                                {lv.title}
+                              </span>
                               <span className="block truncate text-sm text-muted">{lv.description}</span>
                             </span>
                             <span className="hidden shrink-0 text-right text-sm text-muted md:block">
@@ -135,9 +139,7 @@ export function CourseMap() {
                                 <Status kind="doing">
                                   {ld} de {lls.length}
                                 </Status>
-                              ) : (
-                                <Status kind="todo">Pendiente</Status>
-                              )}
+                              ) : null}
                             </span>
                           </Link>
                         </li>

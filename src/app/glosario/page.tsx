@@ -96,25 +96,24 @@ export default function Glosario() {
           ))}
         </div>
         <nav aria-label="Índice alfabético" className="flex flex-wrap gap-0.5 text-sm">
-          {letters.map((L) =>
-            present.has(L) ? (
+          {letters
+            .filter((L) => present.has(L))
+            .map((L) => (
               <a key={L} href={`#letra-${L}`} className="grid h-7 w-7 place-items-center rounded-md font-medium text-ink hover:bg-accent-soft hover:text-accent">
                 {L}
               </a>
-            ) : (
-              <span key={L} aria-hidden className="grid h-7 w-7 place-items-center text-line-strong">
-                {L}
-              </span>
-            ),
-          )}
+            ))}
         </nav>
       </div>
 
       {siglasVisibles.length > 0 && (
-        <details className="mt-6 rounded-[var(--radius)] border border-line bg-surface" open={q.trim().length > 0}>
-          <summary className="cursor-pointer px-5 py-3 font-medium">
-            Siglas ({siglasVisibles.length}){" "}
-            <span className="text-sm font-normal text-muted">qué significa cada una, aunque la lección que lees la use sin explicarla</span>
+        <details className="group mt-6 rounded-[var(--radius)] border border-line bg-surface" open={q.trim().length > 0}>
+          <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-3 [&::-webkit-details-marker]:hidden">
+            <Icon name="chevron" className="h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-90" />
+            <span className="min-w-0 flex-1">
+              <span className="t-card text-ink">Siglas ({siglasVisibles.length})</span>{" "}
+              <span className="text-sm text-muted">qué significa cada una, aunque la lección que lees la use sin explicarla</span>
+            </span>
           </summary>
           <dl className="grid gap-x-6 gap-y-2 border-t border-line px-5 py-4 text-sm sm:grid-cols-[minmax(0,9rem)_1fr]">
             {siglasVisibles.map((x) => (
@@ -137,7 +136,10 @@ export default function Glosario() {
       <div className="mt-8 space-y-8">
         {groups.map(([L, ts]) => (
           <section key={L} id={`letra-${L}`} className="scroll-mt-40" aria-labelledby={`letra-${L}-h`}>
-            <h2 id={`letra-${L}-h`} className="t-h2 mb-2 text-muted">
+            <h2
+              id={`letra-${L}-h`}
+              className="mb-3 border-b border-line pb-1 text-[1.75rem] font-semibold leading-none text-ink"
+            >
               {L}
             </h2>
             <Card as="div">
@@ -145,7 +147,7 @@ export default function Glosario() {
                 {ts.map((t) => (
                   <li key={`${t.es}-${t.lesson}`} className="grid gap-1 px-5 py-3.5 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-6">
                     <div>
-                      <p className="font-medium">{t.es}</p>
+                      <p className="t-card text-ink">{t.es}</p>
                       <p lang="en" className="text-sm text-muted">
                         {t.en}
                       </p>
