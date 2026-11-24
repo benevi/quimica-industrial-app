@@ -1,5 +1,5 @@
 import { getLesson } from "@/content";
-import { lessonMedia, type LessonMedia } from "@/content/media";
+import { lessonMedia, type LessonMedia, type Video } from "@/content/media";
 import { aplicarAjustes } from "./ajustes";
 import { etapas, todasLasLecciones } from "./edicion";
 
@@ -21,6 +21,14 @@ export function mediaDe(slug: string): LessonMedia | undefined {
   if (!m) return undefined;
   const out: LessonMedia = { images: m.images, ghs: m.ghs, signs: m.signs };
   return out.images?.length || out.ghs || out.signs?.length ? out : undefined;
+}
+
+/**
+ * Vídeos de una lección: solo como enlace a YouTube, nunca insertados en la página. Tienen la licencia estándar de
+ * YouTube, no una libre; enlazar no es reutilizar la obra (decisión de Victor del 24/11/2026).
+ */
+export function videosDe(slug: string): Video[] {
+  return lessonMedia[slug]?.videos ?? [];
 }
 
 /** Imágenes que usa la edición (etapas y lecciones), para copiarlas y para los créditos. */

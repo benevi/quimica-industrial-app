@@ -9,10 +9,12 @@ empresa de Victor y, si les gusta, para las nuevas incorporaciones. Empezó el 2
   los equipos (unas 2,7 horas), una página por etapa (dónde encaja en el proceso, qué haces tú, qué registras en la hoja,
   fotos y lecciones), glosario, tarjetas de repaso, fichas de seguridad de práctica y calculadoras.
 - **No lleva**: simuladores (lote, reactor, Nutsche, auditoría), simulador ERP tipo SAP, certificaciones, banco de problemas,
-  buscador ni nube. El progreso se guarda solo en el navegador y se puede descargar y cargar en un archivo (`/progreso`).
+  buscador, nube ni vídeos insertados. El progreso se guarda solo en el navegador y se puede descargar y cargar en un archivo (`/progreso`).
 - **Imágenes**: solo fotos y esquemas de Wikimedia Commons (dominio público o Creative Commons sin restricción comercial),
   pictogramas GHS de la CEPE/ONU y señales ISO 7010, con sus créditos en `/creditos`.
-- **Sin vídeos**: los de la edición completa son de YouTube con su licencia estándar, no libre.
+- **Vídeos, solo enlazados**: los de la edición completa son de YouTube con su licencia estándar, no libre. Por eso no
+  se insertan ni se copia su miniatura: cada lección muestra el título, el canal, por qué verlo y un enlace «Ver en
+  YouTube» que se abre en otra pestaña (decisión de Victor del 24/11/2026). Enlazar no es reutilizar la obra.
 - **Sin simulaciones PhET**: el propio archivo de cada simulación dice «CC BY-NC 4.0» y «COMMERCIAL USE REQUIRES A COMMERCIAL
   LICENSE AGREEMENT FROM THE UNIVERSITY OF COLORADO BOULDER» (leído en `density_es.html` el 23/11/2026). No está claro si la
   formación interna de una empresa cuenta como uso comercial, así que no se incluyen.
@@ -54,10 +56,10 @@ Para compartir sin arrastrar lo demás, varios componentes se separaron en una p
 - Cada lección del índice existe y no se repite. Cada etapa tiene imagen.
 - Cada ajuste encuentra su frase una sola vez.
 - En las lecciones ya ajustadas y en sus tarjetas no queda nada de simuladores, SAP, certificaciones, PhET, vídeos,
-  niveles del temario ni nombres personales. Los enlaces y las lecciones citadas por su título están dentro de la edición.
+  niveles del temario ni nombres personales. Los vídeos tienen un id de YouTube válido. Los enlaces y las lecciones citadas por su título están dentro de la edición.
 - Las imágenes existen y su licencia está entre las libres.
 - El código de `operador/`, también a través de `src/`, no llega a simuladores, SAP, certificaciones, banco de problemas,
-  nube, buscador ni vídeos.
+  nube, buscador ni el reproductor de vídeos insertados.
 
 Además, `npm run build:operador` va en el CI.
 

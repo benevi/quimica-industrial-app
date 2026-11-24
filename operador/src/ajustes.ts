@@ -29,7 +29,10 @@ Cada etapa tiene una página que te dice dónde encaja en el proceso, qué haces
 
 Casi todas las lecciones son **cortas**, de 10 a 20 minutos. Dos son más largas, de unos 35 a 40 minutos, porque su tema lo pide: la hoja de producción y el turno. En las etapas de los equipos hay además lecciones de **ampliación** («a fondo»), de unos 30 a 40 minutos, para cuando quieras entenderlo con más detalle. No hacen falta para terminar la formación.`,
     },
-    { buscar: "- **Imágenes y vídeos**: solo en las lecciones que los tienen.", poner: "- **Imágenes**: solo en las lecciones que las tienen." },
+    {
+      buscar: "- **Imágenes y vídeos**: solo en las lecciones que los tienen.",
+      poner: "- **Imágenes y vídeos**: solo en las lecciones que los tienen. Los vídeos se abren en YouTube, en otra pestaña.",
+    },
     { buscar: "Algunas lecciones tienen también un apartado **«Practícalo en el simulador»**.\n\n", poner: "" },
     {
       buscar: "- **Buscador**: se abre con Ctrl K o con la tecla «/» y encuentra lecciones, términos y secciones.\n",

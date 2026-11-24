@@ -7,9 +7,10 @@ import { stepsFor, type lessonSteps } from "@/components/lessonSteps";
 import { Icon } from "@/components/icons";
 import { Breadcrumbs, btn } from "@/components/ui";
 import { etapaDe, recorrido, todasLasLecciones } from "@op/edicion";
-import { getLeccion, mediaDe } from "@op/lecciones";
+import { getLeccion, mediaDe, videosDe } from "@op/lecciones";
 import { breve } from "@op/datos";
 import { AsideEtapa } from "@op/components/AsideEtapa";
+import { EnlacesVideo } from "@op/components/EnlacesVideo";
 
 export function generateStaticParams() {
   return todasLasLecciones.map((slug) => ({ slug }));
@@ -35,7 +36,9 @@ export default async function LeccionPage({ params }: { params: Promise<{ slug: 
   const lista = ampliacion ? etapa.ampliacion! : etapa.lecciones;
   const { prev, next } = vecinas(slug, ampliacion ? lista : recorrido);
   const media = mediaDe(slug);
-  const steps = stepsFor(!!media).map((s) => (s.id === "ver" ? { ...s, label: "Imágenes", icon: "map" as const } : s));
+  const videos = videosDe(slug);
+  const verTitulo = media && videos.length ? "Imágenes y vídeos" : videos.length ? "Vídeos" : "Imágenes";
+  const steps = stepsFor(!!media || videos.length > 0).map((s) => (s.id === "ver" ? { ...s, label: verTitulo } : s));
   const step = (id: string) => ({ n: steps.findIndex((s) => s.id === id), s: steps.find((s) => s.id === id)! });
   const etapaHref = `/etapa/${etapa.id}`;
 
@@ -85,10 +88,11 @@ export default async function LeccionPage({ params }: { params: Promise<{ slug: 
           </p>
         </Section>
 
-        {media && (
-          <Section id="ver" {...step("ver")} title="Imágenes" en="See it">
+        {(media || videos.length > 0) && (
+          <Section id="ver" {...step("ver")} title={verTitulo} en="See it">
             <div className="space-y-6">
-              <LessonImages media={media} />
+              {videos.length > 0 && <EnlacesVideo videos={videos} />}
+              {media && <LessonImages media={media} />}
             </div>
           </Section>
         )}

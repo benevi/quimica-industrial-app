@@ -1,8 +1,8 @@
 // Comprueba la edición de operador (carpeta operador/). Uso: npm run check:operador
 //  1. Índice: cada lección existe, no se repite y cada etapa tiene imágenes con licencia libre.
 //  2. Ajustes de texto: cada frase a cambiar aparece una sola vez en su lección (si cambia el original, avisa).
-//  3. Textos de las lecciones ya ajustadas y de las tarjetas: nada de niveles del temario, simuladores, SAP, certificaciones,
-//     PhET ni vídeos; los enlaces y las lecciones citadas por su título están dentro de la edición.
+//  3. Textos de las lecciones ya ajustadas y de las tarjetas: nada de niveles del temario, simuladores, SAP, certificaciones
+//     ni PhET; los vídeos de YouTube solo como enlace (nunca insertados); los enlaces y las lecciones citadas por su título están dentro de la edición.
 //  4. Código: lo que importa operador/ (también a través de src/) no llega a simuladores, SAP, certificaciones,
 //     banco de problemas ni nube.
 import { createJiti } from "jiti";
@@ -63,7 +63,6 @@ const prohibido = [
   [/\bSAP\b/, "SAP"],
   [/certificaci[oó]n|certificad[oa]s? (oficial|de profesionalidad)/i, "certificaciones"],
   [/phet/i, "PhET"],
-  [/youtube|v[ií]deo/i, "vídeos"],
   [/\bnivel(?:es)? \d/i, "niveles del temario"],
   [/temario completo|ruta del operador/i, "estructura de la edición completa"],
   [/\bVictor\b/, "nombre personal"],
@@ -88,12 +87,17 @@ function revisa(origen, texto) {
   }
 }
 
+let nVideos = 0;
 for (const slug of edicion) {
   const l = L.getLeccion(slug);
   if (!l) continue;
   revisa(slug, textos(l).join("\n"));
   const m = L.mediaDe(slug);
-  if (m && ("videos" in m || "sims" in m)) err(`${slug}: la edición no lleva vídeos ni simulaciones`);
+  if (m && ("videos" in m || "sims" in m)) err(`${slug}: las imágenes de la edición no llevan vídeos insertados ni simulaciones`);
+  for (const v of L.videosDe(slug)) {
+    if (!/^[\w-]{11}$/.test(v.id)) err(`${slug}: id de vídeo no válido ${v.id}`);
+    nVideos++;
+  }
   for (const id of m?.images ?? []) if (!M.images[id]) err(`${slug}: imagen ${id} no existe`);
 }
 
@@ -170,7 +174,7 @@ const minutos = (ls) => ls.reduce((m, s) => m + (bySlug[s]?.minutes ?? 0), 0);
 console.log(
   `Edición de operador: ${E.etapas.length} etapas, ${E.recorrido.length} lecciones básicas (${Math.round(minutos(E.recorrido) / 6) / 10} h) y ` +
     `${edicion.size - E.recorrido.length} de ampliación (${Math.round(minutos([...edicion].filter((s) => !E.recorrido.includes(s))) / 6) / 10} h); ` +
-    `${L.imagenesUsadas().length} imágenes, ${tarjetas.length} tarjetas, ${alcanzados.size} archivos de código.`,
+    `${L.imagenesUsadas().length} imágenes, ${nVideos} vídeos enlazados, ${tarjetas.length} tarjetas, ${alcanzados.size} archivos de código.`,
 );
 if (errors) {
   console.error(`\n${errors} error(es) en la edición de operador.`);

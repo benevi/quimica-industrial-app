@@ -36,8 +36,8 @@ Tiene tres partes:
   2. **Edición de operador** (empezada el 23/11/2026 con el ok de Victor): una versión aparte con solo lo imprescindible
      para trabajar como operador de planta, pensada para presentarla a la empresa de Victor y, si les gusta, que la
      usen las nuevas incorporaciones. Vive en `operador/` (ver `docs/edicion-operador.md`): 12 etapas del proceso,
-     las lecciones del temario con ajustes de texto, sin simuladores, SAP, certificaciones, vídeos de YouTube ni
-     simulaciones PhET (licencia no comercial), y sin nube. Sigue valiendo la regla de confidencialidad: nada de datos,
+     las lecciones del temario con ajustes de texto, sin simuladores, SAP, certificaciones ni
+     simulaciones PhET (licencia no comercial), y sin nube. Los vídeos de YouTube solo se enlazan, no se insertan. Sigue valiendo la regla de confidencialidad: nada de datos,
      documentos ni procedimientos reales de la empresa salvo que la empresa los aporte y lo autorice por escrito.
      Tampoco sale el nombre de Victor.
 - **Simulador del reactor, lo más realista posible** (petición de Victor, noviembre de 2026): cuando se trabaje en el

@@ -4,9 +4,9 @@ import { pictograms, type GhsCode } from "@/content/fds";
 import { Disclosure, PageHeader } from "@/components/ui";
 import { commonsUrl, images, licenses, signCredit, signs, type SignId } from "@/content/media";
 import { etapas, todasLasLecciones } from "@op/edicion";
-import { getLeccion, imagenesUsadas, mediaDe, senalesUsadas } from "@op/lecciones";
+import { getLeccion, imagenesUsadas, mediaDe, senalesUsadas, videosDe } from "@op/lecciones";
 
-export const metadata = { title: "Créditos de imágenes" };
+export const metadata = { title: "Créditos de imágenes y vídeos" };
 
 function LicenseLink({ k }: { k: keyof typeof licenses }) {
   const l = licenses[k];
@@ -22,6 +22,7 @@ function LicenseLink({ k }: { k: keyof typeof licenses }) {
 export default function CreditosPage() {
   const ids = imagenesUsadas();
   const senales = senalesUsadas() as SignId[];
+  const videos = [...new Map(todasLasLecciones.flatMap((slug) => videosDe(slug).map((v) => ({ ...v, slug }))).map((v) => [v.id, v])).values()];
   const dondeSale = (id: string) => [
     ...etapas.filter((e) => (e.images as string[]).includes(id)).map((e) => ({ href: `/etapa/${e.id}`, title: e.title })),
     ...todasLasLecciones
@@ -38,10 +39,10 @@ export default function CreditosPage() {
     <div className="max-w-4xl">
       <PageHeader
         crumbs={[{ href: "/", label: "Hoy" }, { label: "Créditos" }]}
-        title="Créditos de imágenes"
+        title="Créditos de imágenes y vídeos"
         en="Credits and licences"
         icon="doc"
-        lead="Todas las fotos, esquemas, señales y pictogramas proceden de Wikimedia Commons o de la CEPE/ONU y tienen licencia libre (dominio público o Creative Commons sin restricción de uso comercial). Esta formación no incluye vídeos ni simulaciones de terceros."
+        lead="Todas las fotos, esquemas, señales y pictogramas proceden de Wikimedia Commons o de la CEPE/ONU y tienen licencia libre (dominio público o Creative Commons sin restricción de uso comercial). Los vídeos no se copian ni se insertan: cada lección enlaza a YouTube y pertenecen a sus autores. No hay simulaciones de terceros."
       />
 
       <div className="space-y-2">
@@ -91,6 +92,27 @@ export default function CreditosPage() {
                 </li>
               );
             })}
+          </ul>
+        </Disclosure>
+
+        <Disclosure summary={sum("Vídeos enlazados", videos.length)}>
+          <p className="mb-3 max-w-[68ch] text-sm text-muted">
+            Solo se enlazan: se abren en YouTube, en otra pestaña, y pertenecen a sus autores. La formación no copia ni inserta ningún vídeo.
+          </p>
+          <ul className="space-y-1.5 text-sm">
+            {videos.map((v) => (
+              <li key={v.id}>
+                <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noreferrer" className="font-medium hover:text-accent hover:underline">
+                  {v.title}
+                </a>{" "}
+                <span className="text-muted">
+                  · {v.channel} · en{" "}
+                  <Link href={`/leccion/${v.slug}#ver`} className="hover:text-accent hover:underline">
+                    {getLeccion(v.slug)!.title}
+                  </Link>
+                </span>
+              </li>
+            ))}
           </ul>
         </Disclosure>
 
