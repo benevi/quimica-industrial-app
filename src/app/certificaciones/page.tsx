@@ -121,8 +121,8 @@ export default function CertificacionesPage() {
           {summaries.map(({ p, summary }) => (
             <li key={p.certId}>
               <Link href={`/certificaciones/${p.certId}`} className="group flex h-full flex-col rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent">
-                <span className="font-medium group-hover:text-accent">{p.title}</span>
-                <div className="mt-3">
+                <h3 className="t-card group-hover:text-accent">{p.title}</h3>
+                <div className="mt-auto pt-4">
                   <Readiness summary={summary} compact />
                 </div>
               </Link>

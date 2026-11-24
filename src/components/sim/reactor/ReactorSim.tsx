@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Badge, Btn, Card } from "@/components/sim/ui";
 import { type Fault, type State, FAULTS, avisar, fmt, fmtHora, newState, pedirPista, proximaReparacion, step, tomarMuestra } from "@/sim/reactor/model";
 import { GUIA } from "@/sim/reactor/guia";
+import { Icon } from "@/components/icons";
+import { btn } from "@/components/ui";
 import { type Hoja, newHoja } from "@/sim/reactor/hoja";
 import { AlarmList, Faceplates, Readouts, Synoptic, Trends } from "./Panels";
 import { HojaPanel, Review } from "./HojaPanel";
@@ -129,34 +131,71 @@ export function ReactorSim() {
 
   if (!started) {
     return (
-      <Card title="Empezar un lote">
-        <div className="max-w-[68ch] space-y-3 text-sm">
-          <p>
-            Vas a llevar tú solo la etapa 1 del intermedio ficticio AX-22 en el reactor vitrificado R-204 de 6000 L: comprobaciones, inertización, carga, calentamiento, adición
-            dosificada, reflujo, muestra, enfriamiento y descarga. El tiempo es real: calentar lleva más de una hora. Puedes acelerarlo hasta 300 veces y pausarlo.
-          </p>
-          <p>
-            Con averías, nadie te dirá qué pasa: tendrás que verlo en las lecturas, las alarmas y las tendencias, decidir qué hacer y avisar. Si te atascas, pide una pista. Al terminar, la
-            revisión te explica cada avería: qué síntomas tenías que ver, qué había que hacer y por qué.
-          </p>
-          <label className="flex flex-wrap items-center gap-2">
-            <span className="text-muted">Averías</span>
-            <select className="w-full max-w-full rounded border border-line-strong bg-surface px-2 py-1 sm:w-auto" value={scenario} onChange={(e) => setScenario(e.target.value)}>
-              <option value="ninguna">Sin averías</option>
-              <option value="turno">Turno real: dos o tres averías sorpresa en distintos momentos</option>
-              <option value="sorpresa">Una avería sorpresa</option>
-              {FAULTS.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {f.title} ({f.when})
-                </option>
+      <section aria-labelledby="r204-start" className="rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
+        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem]">
+          <div className="max-w-[60ch] space-y-4">
+            <h2 id="r204-start" className="t-h2">
+              Empezar un lote
+            </h2>
+            <p className="leading-relaxed">
+              Vas a llevar tú solo la etapa 1 del intermedio ficticio <span className="font-mono">AX-22</span> en el reactor vitrificado{" "}
+              <span className="font-mono">R-204</span> de <span className="font-mono">6000 L</span>: comprobaciones, inertización, carga, calentamiento,
+              adición dosificada, reflujo, muestra, enfriamiento y descarga. El tiempo es real: calentar lleva más de una hora. Puedes acelerarlo hasta{" "}
+              <span className="font-mono">300</span> veces y pausarlo.
+            </p>
+            <p className="leading-relaxed text-muted">
+              Con averías, nadie te dirá qué pasa: tendrás que verlo en las lecturas, las alarmas y las tendencias, decidir qué hacer y avisar. Si te
+              atascas, pide una pista. Al terminar, la revisión te explica cada avería: qué síntomas tenías que ver, qué había que hacer y por qué.
+            </p>
+            <div className="space-y-1.5 pt-2">
+              <label htmlFor="r204-averias" className="block text-sm font-medium">
+                Averías
+              </label>
+              <div className="relative">
+                <select
+                  id="r204-averias"
+                  className="w-full appearance-none rounded-[var(--radius)] border border-line-strong bg-surface py-2.5 pl-3 pr-10 text-ink hover:border-accent focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  value={scenario}
+                  onChange={(e) => setScenario(e.target.value)}
+                >
+                  <option value="ninguna">Sin averías</option>
+                  <option value="turno">Turno real: dos o tres averías sorpresa en distintos momentos</option>
+                  <option value="sorpresa">Una avería sorpresa</option>
+                  {FAULTS.map((f) => (
+                    <option key={f.id} value={f.id}>
+                      {f.title} ({f.when})
+                    </option>
+                  ))}
+                </select>
+                <Icon name="chevron" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-muted" />
+              </div>
+            </div>
+            <div className="pt-2">
+              <button type="button" onClick={start} className={btn.primary}>
+                Empezar el lote
+              </button>
+            </div>
+          </div>
+          <aside aria-label="Placa del equipo" className="h-fit rounded-[var(--radius)] border border-line-strong bg-soft p-4 font-mono text-sm">
+            <p className="border-b border-line pb-2 text-lg font-semibold text-ink">R-204</p>
+            <dl className="mt-2 divide-y divide-line">
+              {[
+                ["Tipo", "Reactor vitrificado"],
+                ["Volumen", "6000 L"],
+                ["Servicios", "Camisa y condensador"],
+                ["Atmósfera", "N₂ y vacío"],
+                ["Producto", "AX-22 · etapa 1"],
+                ["Tiempo", "Real · hasta ×300"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex flex-col py-1.5">
+                  <dt className="text-xs text-muted">{k}</dt>
+                  <dd className="text-ink">{v}</dd>
+                </div>
               ))}
-            </select>
-          </label>
-          <Btn tone="primary" onClick={start}>
-            Empezar el lote
-          </Btn>
+            </dl>
+          </aside>
         </div>
-      </Card>
+      </section>
     );
   }
 

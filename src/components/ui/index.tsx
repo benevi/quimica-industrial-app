@@ -29,7 +29,7 @@ export function PageHeader({
       {crumbs && crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
       <div className="relative min-w-0">
         {icon && (
-          <span aria-hidden className="bubble absolute -left-[4.25rem] top-0 hidden h-12 w-12 text-accent xl:inline-grid">
+          <span aria-hidden className="bubble absolute -left-[4.25rem] top-0 hidden h-12 w-12 text-accent xl:inline-grid [[data-ancho]_&]:hidden">
             <Icon name={icon} className="h-[22px] w-[22px]" />
           </span>
         )}

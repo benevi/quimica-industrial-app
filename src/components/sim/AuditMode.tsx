@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AUDIT_CASES, AUDIT_CATEGORIES, gradeAudit, type AuditCase, type AuditCategory, type AuditLine, type AuditMark, type AuditResult } from "@/sim/audit";
 import { Icon } from "@/components/icons";
-import { Disclosure, btn } from "@/components/ui";
+import { Disclosure, Status, btn } from "@/components/ui";
 import { Badge, Btn } from "./ui";
 import { misionesAuditoria } from "@/sim/misiones";
 import { MisionesAviso } from "@/components/certs/MisionesAviso";
@@ -47,17 +47,15 @@ export function AuditMode() {
             return (
               <li key={x.id} className="flex flex-wrap items-center gap-x-6 gap-y-3 rounded-[var(--radius)] border border-line bg-surface p-5">
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm text-muted">
-                    Nivel {x.level.toLowerCase()} ·{" "}
-                    {b ? (
-                      <span className="text-ink">
-                        mejor nota {b.score} de {b.max}
-                      </span>
-                    ) : (
-                      "sin hacer"
+                  <p className="flex flex-wrap items-center gap-2 text-sm">
+                    <span className="tag">Nivel {x.level.toLowerCase()}</span>
+                    {b && (
+                      <Status kind="done">
+                        Mejor nota {b.score} de {b.max}
+                      </Status>
                     )}
                   </p>
-                  <h2 className="t-h3 mt-0.5">
+                  <h2 className="t-card mt-1.5">
                     <span className="font-mono">FX-101</span> · {x.title}
                   </h2>
                   <p className="mt-1 max-w-[68ch] text-sm leading-relaxed text-muted">{x.intro}</p>

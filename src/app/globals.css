@@ -122,6 +122,8 @@ h1, h2, h3, h4, .t-display, .t-h1, .t-h2, .t-h3 {
 .t-h3 { font-size: 1.12rem; line-height: 1.3; font-weight: 650; }
 .t-tag { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0; }
 p, li { text-wrap: pretty; }
+/* Un código de equipo o un valor (R-204, 6000 L) no se parte entre dos líneas */
+p .font-mono, li .font-mono, td .font-mono { white-space: nowrap; }
 
 @layer components {
 /*

@@ -244,7 +244,7 @@ export function FlashcardsBase({
             ).map(([k, v]) => (
               <div key={k} className="px-5 py-4">
                 <dt className="text-sm text-muted">{k}</dt>
-                <dd className="mt-1 text-2xl font-semibold tabular-nums">{v}</dd>
+                <dd className="t-h2 mt-1 tabular-nums">{v}</dd>
               </div>
             ))}
           </dl>
@@ -278,18 +278,25 @@ export function FlashcardsBase({
                 type="button"
                 aria-pressed={on}
                 onClick={() => setChosen((x) => (on ? x.filter((y) => y !== d.id) : [...x, d.id]))}
-                className={`rounded-[var(--radius)] border p-4 text-left ${on ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"}`}
+                className={`flex h-full flex-col rounded-[var(--radius)] border p-4 text-left ${on ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"}`}
               >
                 <span className="flex items-start justify-between gap-2">
-                  <span className="font-medium">{d.title}</span>
+                  <span className="t-card">{d.title}</span>
                   {on && <Icon name="check" className="h-5 w-5 shrink-0 text-accent" />}
                 </span>
-                <span lang="en" className="block text-xs text-muted">
+                <span lang="en" className="mt-0.5 block text-xs text-muted">
                   {d.titleEn}
                 </span>
-                <Bar pct={list.length ? Math.round((ok / list.length) * 100) : 0} color="var(--ok)" className="mt-3" label={`${d.title}: ${ok} sabidas`} />
-                <span className="mt-1.5 block text-xs text-muted">
-                  {list.length} tarjetas · {seen} vistas · {ok} sabidas{dueN ? ` · ${dueN} para hoy` : ""}
+                <span className="mt-auto block pt-4">
+                  {dueN > 0 && (
+                    <span className="mb-2 block">
+                      <Status kind="doing">{dueN} para hoy</Status>
+                    </span>
+                  )}
+                  <Bar pct={list.length ? Math.round((ok / list.length) * 100) : 0} color="var(--ok)" label={`${d.title}: ${ok} sabidas`} />
+                  <span className="mt-1.5 block text-xs tabular-nums text-muted">
+                    {list.length} tarjetas · {seen} vistas · {ok} sabidas
+                  </span>
                 </span>
               </button>
             );
