@@ -30,7 +30,6 @@ export function Glosario({ terms, siglas }: { terms: Termino[]; siglas: Sigla[] 
     const n = norm(q);
     return siglas.filter((x) => !n || norm(`${x.sigla} ${x.es} ${x.en ?? ""}`).includes(n));
   }, [q, siglas]);
-  const present = new Set(groups.map(([L]) => L));
 
   return (
     <>
@@ -52,22 +51,17 @@ export function Glosario({ terms, siglas }: { terms: Termino[]; siglas: Sigla[] 
       </div>
 
       <nav aria-label="Índice alfabético" className="mt-4 flex flex-wrap gap-0.5 text-sm">
-        {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((L) =>
-          present.has(L) ? (
-            <a key={L} href={`#letra-${L}`} className="grid h-7 w-7 place-items-center rounded-md font-medium text-ink hover:bg-accent-soft hover:text-accent">
-              {L}
-            </a>
-          ) : (
-            <span key={L} aria-hidden className="grid h-7 w-7 place-items-center text-line-strong">
-              {L}
-            </span>
-          ),
-        )}
+        {groups.map(([L]) => (
+          <a key={L} href={`#letra-${L}`} className="grid h-8 w-8 place-items-center rounded-[var(--radius)] font-semibold text-ink hover:bg-accent-soft hover:text-accent">
+            {L}
+          </a>
+        ))}
       </nav>
 
       {siglasVisibles.length > 0 && (
-        <details className="mt-6 rounded-[var(--radius)] border border-line bg-surface" open={q.trim().length > 0}>
-          <summary className="cursor-pointer px-5 py-3 font-medium">
+        <details className="group mt-6 rounded-[var(--radius)] border border-line bg-surface" open={q.trim().length > 0}>
+          <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-3 font-semibold [&::-webkit-details-marker]:hidden">
+            <Icon name="chevron" className="h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-90" />
             Siglas ({siglasVisibles.length}) <span className="text-sm font-normal text-muted">qué significa cada una</span>
           </summary>
           <dl className="grid gap-x-6 gap-y-2 border-t border-line px-5 py-4 text-sm sm:grid-cols-[minmax(0,9rem)_1fr]">
@@ -91,7 +85,7 @@ export function Glosario({ terms, siglas }: { terms: Termino[]; siglas: Sigla[] 
       <div className="mt-8 space-y-8">
         {groups.map(([L, ts]) => (
           <section key={L} id={`letra-${L}`} className="scroll-mt-40" aria-labelledby={`letra-${L}-h`}>
-            <h2 id={`letra-${L}-h`} className="t-h2 mb-2 text-muted">
+            <h2 id={`letra-${L}-h`} className="mb-3 border-b border-line pb-1 text-[1.75rem] font-bold leading-none text-ink">
               {L}
             </h2>
             <Card as="div">

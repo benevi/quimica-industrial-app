@@ -50,7 +50,7 @@ export function Inicio({ etapas }: { etapas: EtapaBreve[] }) {
                     {hechas === 0 ? "Empieza por aquí" : "Tu siguiente lección"} · etapa {actual + 1}, {etapas[actual].corto.toLowerCase()} ·{" "}
                     {siguiente.minutes} min
                   </p>
-                  <h2 id="siguiente-h" className="t-h2 mt-1">
+                  <h2 id="siguiente-h" className="t-h1 mt-1">
                     {siguiente.title}
                   </h2>
                   <p className="mt-2 max-w-[60ch] text-sm leading-relaxed text-muted">{siguiente.summary}</p>
@@ -88,7 +88,7 @@ export function Inicio({ etapas }: { etapas: EtapaBreve[] }) {
                 <Link
                   href={`/etapa/${e.id}`}
                   className={`group relative flex h-full gap-4 overflow-hidden rounded-[var(--radius)] border bg-surface p-5 hover:border-accent ${
-                    loaded && i === actual ? "border-signal" : "border-line"
+                    loaded && i === actual ? "border-accent ring-1 ring-accent" : "border-line"
                   }`}
                 >
                   <span aria-hidden className="bubble h-11 w-11 text-accent">
@@ -96,7 +96,7 @@ export function Inicio({ etapas }: { etapas: EtapaBreve[] }) {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm text-muted">Etapa {i + 1}</span>
-                    <span className="block font-medium group-hover:text-accent">{e.title}</span>
+                    <span className="t-card mt-0.5 block group-hover:text-accent">{e.title}</span>
                     <span className="mt-1 block text-sm leading-snug text-muted">{e.resumen}</span>
                     <span className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
                       <span>

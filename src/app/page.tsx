@@ -60,7 +60,7 @@ export default function Home() {
                     </>
                   )}
                 </p>
-                <h2 className="mt-2 text-2xl font-semibold leading-tight tracking-tight sm:text-[1.75rem]">{next.title}</h2>
+                <h2 className="t-h1 mt-2">{next.title}</h2>
                 <p lang="en" className="text-muted">
                   {next.titleEn}
                 </p>
@@ -131,7 +131,7 @@ export default function Home() {
                   <Icon name={p.icon} className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-medium group-hover:text-accent">{p.title}</span>
+                  <span className="t-card block group-hover:text-accent">{p.title}</span>
                   <span className="mt-0.5 block text-sm text-muted">{p.text}</span>
                 </span>
               </Link>
@@ -166,7 +166,7 @@ function ProgressCard({
       <Link href={href} className="group block p-5">
         <div className="flex items-center gap-3">
           <Icon name={icon} className="h-5 w-5 text-muted" />
-          <span className="flex-1 font-medium group-hover:text-accent">{title}</span>
+          <span className="t-card flex-1 group-hover:text-accent">{title}</span>
           <span className="text-sm tabular-nums text-muted">
             <span className="font-semibold text-ink">{loaded ? done : "–"}</span> de {total} lecciones
           </span>

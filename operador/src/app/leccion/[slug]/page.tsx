@@ -57,17 +57,17 @@ export default async function LeccionPage({ params }: { params: Promise<{ slug: 
           </p>
         </header>
 
-        <section className="rounded-[var(--radius)] bg-soft px-5 py-4">
-          <p className="text-sm font-medium text-muted">En 30 segundos</p>
+        <section className="rounded-[var(--radius)] border border-line border-t-4 border-t-ink bg-surface px-5 py-4 sm:px-7">
+          <p className="text-sm font-semibold text-muted">En 30 segundos</p>
           <p className="mt-1 text-lg leading-snug">{lesson.summary}</p>
           {lesson.terms.length > 0 && (
-            <p className="mt-3 flex flex-wrap items-center gap-1.5 text-sm">
+            <p className="mt-4 flex flex-wrap items-center gap-1.5 text-sm">
               <span className="mr-1 text-muted">Palabras clave:</span>
               {lesson.terms.map((t) => (
                 <a
                   key={t.es}
                   href="#vocabulario"
-                  className="rounded-full border border-line bg-surface px-2.5 py-0.5 hover:border-accent"
+                  className="tag"
                   title={`${t.en}: ${t.def}`}
                 >
                   {t.es}

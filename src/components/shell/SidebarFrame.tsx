@@ -63,7 +63,7 @@ export function SidebarFrame({
 
   const brand = (
     <Link href="/" className="flex items-center gap-2.5 rounded-md px-2 py-1 text-[var(--sidebar-ink)]">
-      <span aria-hidden className="bubble h-9 w-9 border-signal text-signal">
+      <span aria-hidden className="bubble h-9 w-9 bg-transparent text-[var(--sidebar-ink)]">
         <Icon name={b.icon} className="h-[18px] w-[18px]" />
       </span>
       <span className="leading-tight">
@@ -90,10 +90,10 @@ export function SidebarFrame({
                       on ? "bg-[var(--sidebar-hover)] font-medium text-white" : "text-[var(--sidebar-ink)] hover:bg-[var(--sidebar-hover)]"
                     }`}
                   >
-                    {on && <span aria-hidden className="absolute -left-3 top-1.5 bottom-1.5 w-[3px] rounded-r bg-signal" />}
+                    {on && <span aria-hidden className="absolute -left-3 top-1.5 bottom-1.5 w-[3px] rounded-r bg-[var(--sidebar-ink)]" />}
                     <Icon
                       name={it.icon}
-                      className={`h-[18px] w-[18px] shrink-0 ${on ? "text-signal" : "text-[var(--sidebar-muted)] group-hover:text-[var(--sidebar-ink)]"}`}
+                      className={`h-[18px] w-[18px] shrink-0 ${on ? "text-white" : "text-[var(--sidebar-muted)] group-hover:text-[var(--sidebar-ink)]"}`}
                     />
                     {it.label}
                   </Link>
@@ -139,7 +139,7 @@ export function SidebarFrame({
   return (
     <>
       {/* escritorio */}
-      <aside data-sidebar className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col bg-[var(--sidebar)] lg:flex">
+      <aside data-sidebar className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-white/10 bg-[var(--sidebar)] lg:flex">
         <div className="px-3 pb-5 pt-4">{brand}</div>
         {nav}
         {foot}

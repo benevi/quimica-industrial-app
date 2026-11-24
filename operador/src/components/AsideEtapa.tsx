@@ -23,7 +23,7 @@ export function AsideEtapa({ slug, etapa, href, lecciones }: { slug: string; eta
                 href={`/leccion/${l.slug}`}
                 aria-current={actual ? "page" : undefined}
                 className={`-ml-px flex items-start gap-1.5 border-l-2 py-1 pl-3 leading-snug ${
-                  actual ? "border-signal font-medium text-ink" : "border-transparent text-muted hover:text-ink"
+                  actual ? "border-accent font-semibold text-ink" : "border-transparent text-muted hover:text-ink"
                 }`}
               >
                 <span className="flex-1">{l.title}</span>

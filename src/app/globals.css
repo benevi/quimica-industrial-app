@@ -32,6 +32,7 @@
   --sidebar-ink: #e6ecf2;
   --sidebar-muted: #93a3b3;
   --sidebar-hover: #1f2f41;
+  --track: #c3ccd5; /* fondo de las barras de progreso: 3:1 sobre blanco */
   --radius: 6px;
 }
 
@@ -62,6 +63,7 @@
     --sidebar-ink: #e6ecf2;
     --sidebar-muted: #8b9bab;
     --sidebar-hover: #16222e;
+    --track: #3d4e60;
   }
 }
 
@@ -84,6 +86,7 @@
   --color-signal: var(--signal);
   --color-signal-soft: var(--signal-soft);
   --color-on-signal: var(--on-signal);
+  --color-track: var(--track);
   --font-sans: var(--font-body), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
   --font-display: var(--font-display), var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -143,14 +146,46 @@ p, li { text-wrap: pretty; }
 }
 .next-step :focus-visible { outline-color: #15212d; }
 
-/* Burbuja de instrumento (como en un P&ID): círculo de trazo fino para iconos y números de paso */
+/*
+ * Burbuja de instrumento (como en un P&ID): círculo de trazo fino para iconos y números de paso.
+ * Estados: normal (trazo del color del texto), actual (anillo azul de 2 px) y hecho (relleno azul petróleo con check).
+ */
 .bubble {
   display: inline-grid;
   place-items: center;
   flex-shrink: 0;
   border-radius: 9999px;
   border: 1.5px solid currentColor;
+  background: var(--surface);
 }
+.bubble-current { border: 2px solid var(--accent); color: var(--accent); font-weight: 700; }
+.bubble-done { border-color: var(--ok); background: var(--ok); color: var(--on-ok); }
+
+/* Títulos de tarjetas y de elementos de lista: la misma familia que los títulos, a tamaño de tarjeta */
+.t-card {
+  font-family: var(--font-display);
+  font-stretch: 87.5%;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.003em;
+}
+
+/* Etiqueta única (palabras clave, «a fondo», tipo de examen…): rectangular como una etiqueta de equipo */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--surface);
+  padding: 0.05rem 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ink);
+}
+a.tag:hover { border-color: var(--accent); color: var(--accent); }
 }
 
 .prose-app { line-height: 1.65; }

@@ -17,7 +17,7 @@ export function ListaLecciones({ lecciones, numeradas = true }: { lecciones: Lec
         const esSiguiente = numeradas && l.slug === siguiente;
         return (
           <li key={l.slug} className="relative">
-            {esSiguiente && <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-signal" />}
+            {esSiguiente && <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-accent" />}
             <Link href={`/leccion/${l.slug}`} className="group flex gap-4 px-5 py-4 hover:bg-soft/60">
               {numeradas && (
                 <span aria-hidden className="mt-0.5 w-5 shrink-0 text-sm tabular-nums text-muted">
@@ -25,7 +25,7 @@ export function ListaLecciones({ lecciones, numeradas = true }: { lecciones: Lec
                 </span>
               )}
               <span className="min-w-0 flex-1">
-                <span className="block font-medium group-hover:text-accent">{l.title}</span>
+                <span className="t-card block group-hover:text-accent">{l.title}</span>
                 <span className="mt-0.5 block text-sm leading-snug text-muted">{l.summary}</span>
                 <span className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted">
                   <span>{l.minutes} min</span>

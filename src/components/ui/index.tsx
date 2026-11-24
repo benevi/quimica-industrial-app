@@ -27,9 +27,9 @@ export function PageHeader({
   return (
     <header className="mb-10 space-y-4 border-b border-line pb-7">
       {crumbs && crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
-      <div className="flex min-w-0 gap-4 sm:gap-5">
+      <div className="relative min-w-0">
         {icon && (
-          <span aria-hidden className="bubble mt-1 hidden h-12 w-12 text-accent sm:inline-grid">
+          <span aria-hidden className="bubble absolute -left-[4.25rem] top-0 hidden h-12 w-12 text-accent xl:inline-grid">
             <Icon name={icon} className="h-[22px] w-[22px]" />
           </span>
         )}
@@ -50,20 +50,30 @@ export function PageHeader({
 }
 
 export function Breadcrumbs({ items }: { items: { href?: string; label: string }[] }) {
+  // En pantallas estrechas, una sola línea: «volver» al nivel de arriba
+  const parent = [...items].reverse().find((c) => c.href);
   return (
-    <nav aria-label="Estás en" className="flex flex-wrap items-center gap-1 text-sm text-muted">
-      {items.map((c, i) => (
-        <span key={i} className="inline-flex items-center gap-1">
-          {i > 0 && <Icon name="chevron" className="h-3.5 w-3.5 opacity-60" />}
-          {c.href ? (
-            <Link href={c.href} className="hover:text-ink hover:underline">
-              {c.label}
-            </Link>
-          ) : (
-            <span className="text-ink">{c.label}</span>
-          )}
-        </span>
-      ))}
+    <nav aria-label="Estás en" className="text-sm text-muted">
+      {parent && (
+        <Link href={parent.href!} className="inline-flex items-center gap-1 hover:text-ink hover:underline sm:hidden">
+          <Icon name="back" className="h-3.5 w-3.5" />
+          {parent.label}
+        </Link>
+      )}
+      <span className={`flex-wrap items-center gap-1 ${parent ? "hidden sm:flex" : "flex"}`}>
+        {items.map((c, i) => (
+          <span key={i} className="inline-flex items-center gap-1">
+            {i > 0 && <Icon name="chevron" className="h-3.5 w-3.5 opacity-60" />}
+            {c.href ? (
+              <Link href={c.href} className="hover:text-ink hover:underline">
+                {c.label}
+              </Link>
+            ) : (
+              <span className="text-ink">{c.label}</span>
+            )}
+          </span>
+        ))}
+      </span>
     </nav>
   );
 }
@@ -102,7 +112,7 @@ export const btn = {
 export function Bar({ pct, color = "var(--accent)", label, className = "" }: { pct: number; color?: string; label?: string; className?: string }) {
   return (
     <div
-      className={`h-2 overflow-hidden rounded-[2px] bg-soft ${className}`}
+      className={`h-2 overflow-hidden rounded-[2px] bg-track ${className}`}
       role="progressbar"
       aria-valuenow={pct}
       aria-valuemin={0}
@@ -131,11 +141,11 @@ export function Disclosure({ summary, children, defaultOpen = false, className =
 export function Status({ kind, children }: { kind: "done" | "doing" | "todo" | "bad"; children: React.ReactNode }) {
   const cls =
     kind === "bad"
-      ? "border-bad/40 bg-bad-soft text-bad"
+      ? "border-bad/50 bg-bad-soft text-bad"
       : kind === "done"
-        ? "border-ok/40 bg-ok-soft text-ok"
+        ? "border-ok/50 bg-ok-soft text-ok"
         : kind === "doing"
-          ? "border-signal bg-signal-soft text-ink"
-          : "border-line bg-soft text-muted";
-  return <span className={`inline-flex items-center gap-1 rounded-[3px] border px-2 py-0.5 text-xs font-semibold ${cls}`}>{children}</span>;
+          ? "border-accent bg-surface text-ink"
+          : "border-line-strong bg-surface text-muted";
+  return <span className={`inline-flex items-center gap-1 rounded-[2px] border px-1.5 py-0.5 text-xs font-semibold ${cls}`}>{children}</span>;
 }

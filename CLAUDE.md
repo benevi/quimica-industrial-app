@@ -149,8 +149,11 @@ Convenciones:
 - Accesibilidad: todo lo que se pulsa se usa también con teclado y muestra el foco; el estado nunca va solo por color
   (texto, forma o icono además); contraste AA en claro y oscuro (comprobado con axe-core en noviembre de 2026).
 - Cabeceras de seguridad en `next.config.ts` (CSP): si se añade un servicio externo, hay que permitirlo allí.
-- Toda página nueva empieza con `PageHeader` y sigue `docs/diseno.md`: papel cálido y tinta azul, un solo color de señal
-  (ámbar) para el siguiente paso, sin etiquetas en mayúsculas ni flechas «→» en los textos. Victor rechazó el verde.
+- Toda página nueva empieza con `PageHeader` y sigue `docs/diseno.md`: el mundo visual de la planta (rediseño de
+  noviembre de 2026): papel de plano gris frío, tinta de dibujo, azul de obligación para las acciones, amarillo de seguridad
+  solo para «tu siguiente paso» (`.next-step`), burbuja de instrumento P&ID (`.bubble`) para iconos y pasos, títulos en
+  Archivo semiestrecha y texto en Atkinson Hyperlegible. Sin etiquetas en mayúsculas ni flechas «→» en los textos.
+  Victor rechazó el verde: lo hecho va en azul petróleo.
 - Códigos de equipo y productos siempre inventados.
 
 ## Documentos de referencia
