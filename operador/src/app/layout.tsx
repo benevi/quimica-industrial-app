@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { fontVariables } from "@/lib/fonts";
 import { TermEscape } from "@/components/TermEscape";
 import { Menu } from "@op/components/Menu";
 import { NOMBRE, NOMBRE_CORTO } from "@op/edicion";
 
-const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-plex", display: "swap" });
-const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: NOMBRE, template: `%s · ${NOMBRE_CORTO}` },
@@ -16,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${plex.variable} ${plexMono.variable}`}>
+    <html lang="es" className={fontVariables}>
       <body className="min-h-screen antialiased">
         <a href="#contenido" className="skip-link">
           Saltar al contenido

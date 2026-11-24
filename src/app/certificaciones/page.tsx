@@ -64,9 +64,8 @@ export default function CertificacionesPage() {
 
       {/* tu siguiente paso */}
       <section aria-labelledby="sig-h">
-        <div className="relative overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-          <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
-          <div className="grid gap-5 p-6 pl-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div className="next-step overflow-hidden">
+          <div className="grid gap-5 p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-end">
             <div className="min-w-0">
               <p id="sig-h" className="text-sm text-muted">
                 Tu siguiente paso

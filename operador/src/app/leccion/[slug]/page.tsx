@@ -158,7 +158,6 @@ export default async function LeccionPage({ params }: { params: Promise<{ slug: 
 function Section({
   id,
   n,
-  s,
   title,
   en,
   sheet,
@@ -166,7 +165,7 @@ function Section({
 }: {
   id: string;
   n: number;
-  s: (typeof lessonSteps)[number];
+  s?: (typeof lessonSteps)[number];
   title: string;
   en: string;
   sheet?: boolean;
@@ -174,11 +173,10 @@ function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-20 overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-      <h2 className={`flex flex-wrap items-center gap-x-2.5 gap-y-1 px-5 pt-5 sm:px-6 ${sheet ? "border-b border-dashed border-line-strong pb-4" : ""}`}>
-        <span className="grid h-7 w-7 place-items-center rounded-md bg-accent-soft text-accent">
-          <Icon name={s.icon} className="h-4 w-4" />
+      <h2 className={`flex flex-wrap items-center gap-x-3 gap-y-1 px-5 pt-5 sm:px-7 ${sheet ? "border-b border-dashed border-line-strong pb-4" : ""}`}>
+        <span aria-hidden className="bubble h-8 w-8 font-mono text-[0.85rem] font-bold tabular-nums text-accent">
+          {n + 1}
         </span>
-        <span className="text-sm tabular-nums text-muted">{n + 1}</span>
         <span className="t-h2">{title}</span>
         <span lang="en" className="text-sm text-muted">
           {en}

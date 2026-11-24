@@ -61,7 +61,7 @@ export default async function EtapaPage({ params }: { params: Promise<{ id: stri
       <div className="grid gap-4 md:grid-cols-2">
         <Card as="section" className="px-5 py-5 sm:px-6">
           <h2 className="mb-3 flex flex-wrap items-center gap-2.5">
-            <span className="grid h-7 w-7 place-items-center rounded-md bg-accent-soft text-accent">
+            <span className="bubble h-8 w-8 text-accent">
               <Icon name="wrench" className="h-4 w-4" />
             </span>
             <span className="t-h3">Qué haces tú</span>
@@ -75,7 +75,7 @@ export default async function EtapaPage({ params }: { params: Promise<{ id: stri
         </Card>
         <Card as="section" className="px-5 py-5 sm:px-6">
           <h2 className="mb-3 flex flex-wrap items-center gap-2.5 border-b border-dashed border-line-strong pb-3">
-            <span className="grid h-7 w-7 place-items-center rounded-md bg-accent-soft text-accent">
+            <span className="bubble h-8 w-8 text-accent">
               <Icon name="sheet" className="h-4 w-4" />
             </span>
             <span className="t-h3">Qué registras en la hoja</span>

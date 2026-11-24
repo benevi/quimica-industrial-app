@@ -46,9 +46,8 @@ export default function Home() {
         </p>
 
         {next ? (
-          <div className="relative mt-6 overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-            <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
-            <div className="grid gap-6 p-6 pl-8 sm:p-8 sm:pl-10 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="next-step mt-6 overflow-hidden">
+            <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-end">
               <div className="min-w-0">
                 <p className="text-sm text-muted">
                   {stage ? (
@@ -128,7 +127,7 @@ export default function Home() {
                 href={p.href}
                 className="group flex h-full gap-3 rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent"
               >
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-accent-soft text-accent">
+                <span className="bubble h-10 w-10 text-accent">
                   <Icon name={p.icon} className="h-5 w-5" />
                 </span>
                 <span>

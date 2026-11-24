@@ -63,11 +63,11 @@ export function SidebarFrame({
 
   const brand = (
     <Link href="/" className="flex items-center gap-2.5 rounded-md px-2 py-1 text-[var(--sidebar-ink)]">
-      <span aria-hidden className="grid h-8 w-8 place-items-center rounded-md bg-accent text-[var(--on-accent)]">
+      <span aria-hidden className="bubble h-9 w-9 border-signal text-signal">
         <Icon name={b.icon} className="h-[18px] w-[18px]" />
       </span>
       <span className="leading-tight">
-        <span className="block text-[15px] font-semibold">{b.title}</span>
+        <span className="block font-[family-name:var(--font-display)] text-[1.05rem] font-bold [font-stretch:87.5%]">{b.title}</span>
         <span className="block text-xs text-[var(--sidebar-muted)]">{b.subtitle}</span>
       </span>
     </Link>
@@ -77,8 +77,8 @@ export function SidebarFrame({
     <nav aria-label="Principal" className="flex-1 space-y-5 overflow-y-auto px-3 pb-4">
       {groups.map((g) => (
         <div key={g.id}>
-          {g.label && <p className="px-2 pb-1.5 text-xs font-medium text-[var(--sidebar-muted)]">{g.label}</p>}
-          <ul className="space-y-0.5">
+          {g.label && <p className="border-b border-white/10 px-2 pb-1.5 text-[0.8rem] font-semibold text-[var(--sidebar-muted)]">{g.label}</p>}
+          <ul className="mt-1.5 space-y-0.5">
             {g.items.map((it) => {
               const on = isActive(it, path);
               return (
@@ -86,7 +86,7 @@ export function SidebarFrame({
                   <Link
                     href={it.href}
                     aria-current={on ? "page" : undefined}
-                    className={`group relative flex items-center gap-3 rounded-md px-2 py-2 text-[14px] ${
+                    className={`group relative flex items-center gap-3 rounded-[var(--radius)] px-2 py-2 text-[0.94rem] ${
                       on ? "bg-[var(--sidebar-hover)] font-medium text-white" : "text-[var(--sidebar-ink)] hover:bg-[var(--sidebar-hover)]"
                     }`}
                   >

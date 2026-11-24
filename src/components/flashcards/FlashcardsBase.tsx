@@ -202,9 +202,8 @@ export function FlashcardsBase({
   return (
     <div className="space-y-10">
       <section aria-labelledby="hoy-h" className="space-y-3">
-        <div className="relative overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-          <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
-          <div className="grid gap-5 p-6 pl-8 sm:p-7 sm:pl-10 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="next-step overflow-hidden">
+          <div className="grid gap-5 p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
               <h2 id="hoy-h" className="t-h2">
                 {due.length > 0 ? `${due.length} tarjeta${due.length === 1 ? "" : "s"} para repasar hoy` : "Nada pendiente hoy: toca aprender tarjetas nuevas"}

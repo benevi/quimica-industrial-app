@@ -41,9 +41,8 @@ export function Inicio({ etapas }: { etapas: EtapaBreve[] }) {
       </PageHeader>
 
       {loaded && (
-        <section aria-labelledby="siguiente-h" className="relative mb-10 overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-          <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
-          <div className="grid gap-5 p-6 pl-8 sm:p-7 sm:pl-10 md:grid-cols-[1fr_auto] md:items-center">
+        <section aria-labelledby="siguiente-h" className="next-step mb-10 overflow-hidden">
+          <div className="grid gap-5 p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center">
             {siguiente ? (
               <>
                 <div className="min-w-0">
@@ -92,7 +91,7 @@ export function Inicio({ etapas }: { etapas: EtapaBreve[] }) {
                     loaded && i === actual ? "border-signal" : "border-line"
                   }`}
                 >
-                  <span aria-hidden className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+                  <span aria-hidden className="bubble h-11 w-11 text-accent">
                     <Icon name={e.icon} className="h-5 w-5" />
                   </span>
                   <span className="min-w-0 flex-1">
