@@ -48,7 +48,7 @@ export function parseBackup(text: string): Backup {
     throw new Error("El archivo no es un JSON válido.");
   }
   const b = obj as Partial<Backup>;
-  if (!b || typeof b !== "object" || b.format !== FORMAT) throw new Error("Este archivo no es una copia de progreso del Aula de Química.");
+  if (!b || typeof b !== "object" || b.format !== FORMAT) throw new Error("Este archivo no es una copia de progreso de esta app.");
   if (b.version !== 1) throw new Error(`Versión de copia no compatible (${String(b.version)}).`);
   if (!b.data || typeof b.data !== "object" || Array.isArray(b.data)) throw new Error("La copia no contiene datos.");
   const keys = Object.keys(b.data);

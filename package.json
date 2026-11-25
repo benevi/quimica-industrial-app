@@ -7,6 +7,10 @@
     "dev": "next dev",
     "prebuild": "node scripts/gen-catalog.mjs",
     "build": "next build",
+    "dev:operador": "node scripts/gen-catalog.mjs && node scripts/operador-media.mjs && next dev operador -p 3001",
+    "build:operador": "node scripts/gen-catalog.mjs && node scripts/operador-media.mjs && next build operador",
+    "export:operador": "EXPORTAR=1 npm run build:operador && node scripts/operador-netlify.mjs",
+    "start:operador": "next start operador -p 3001",
     "start": "next start",
     "lint": "eslint",
     "check": "node scripts/gen-catalog.mjs --check && node scripts/check-quiz.mjs",
@@ -16,6 +20,7 @@
     "check:cloud": "node scripts/check-cloud.mjs",
     "check:sim": "node scripts/check-sim.mjs",
     "check:problemas": "node scripts/check-problemas.mjs",
+    "check:operador": "node scripts/check-operador.mjs",
     "gen:catalog": "node scripts/gen-catalog.mjs"
   },
   "dependencies": {

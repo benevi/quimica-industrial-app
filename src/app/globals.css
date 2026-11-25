@@ -1,59 +1,69 @@
 @import "tailwindcss";
 
+/*
+ * Sistema visual (docs/diseno.md): una planta de principios activos.
+ * Papel de plano gris frío, hojas blancas, tinta de dibujo, azul de las señales de obligación (ISO 7010)
+ * para las acciones y amarillo de seguridad solo para «tu siguiente paso». Sin verde: lo hecho va en azul petróleo
+ * y siempre con su icono.
+ */
 :root {
-  /* Papel cálido y tinta azul: cómodo para leer mucho rato */
-  --bg: #f7f5f1;
-  --surface: #fffefc;
-  --soft: #efece6;
-  --line: #e2ddd4;
-  --line-strong: #8d867a; /* 3,6:1 sobre la superficie: bordes de campos visibles */
-  --ink: #1f2430;
-  --muted: #5d6170;
-  --accent: #3b5bcc;
-  --accent-ink: #2f49a8;
-  --accent-soft: #e7ecfb;
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --soft: #e5eaef;
+  --line: #d3dae1;
+  --line-strong: #7a8794; /* 3,6:1 sobre blanco: bordes de campos visibles */
+  --ink: #15212d;
+  --muted: #4f5d6b;
+  --accent: #1d4f91;
+  --accent-ink: #143a6c;
+  --accent-soft: #e2eaf5;
   --on-accent: #ffffff;
-  /* Ámbar de señal: solo para «tu siguiente paso» */
-  --signal: #e8a317;
-  --signal-soft: #fdf3dc;
-  --ok: #2b7a4b;
+  /* Amarillo de seguridad: solo para «tu siguiente paso» */
+  --signal: #f5b400;
+  --signal-soft: #fff3c7;
+  --on-signal: #15212d;
+  --ok: #1c6680;
   --on-ok: #ffffff;
-  --ok-soft: #e5f2ea;
+  --ok-soft: #dff0f5;
   --bad: #b42318;
   --bad-soft: #fdecea;
-  --warn-soft: #fbf3df;
-  --sidebar: #252a3a;
-  --sidebar-ink: #e4e7ef;
-  --sidebar-muted: #9ca3b6;
-  --sidebar-hover: #313749;
-  --radius: 10px;
+  --warn-soft: #fff3c7;
+  --sidebar: #13202e;
+  --sidebar-ink: #e6ecf2;
+  --sidebar-muted: #93a3b3;
+  --sidebar-hover: #1f2f41;
+  --track: #c3ccd5; /* fondo de las barras de progreso: 3:1 sobre blanco */
+  --radius: 6px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #16181f;
-    --surface: #1d2029;
-    --soft: #262a35;
-    --line: #313646;
-    --line-strong: #6e7589; /* 3,5:1 sobre la superficie oscura */
-    --ink: #e7e9ef;
-    --muted: #a5aabb;
-    --accent: #8fa6ff;
-    --accent-ink: #b4c3ff;
-    --accent-soft: #232c4d;
-    --on-accent: #111633;
-    --signal: #f0b43c;
-    --signal-soft: #352a12;
-    --ok: #5fd08f;
-    --on-ok: #0f1a14;
-    --ok-soft: #16301f;
-    --bad: #f87171;
+    /* Sala de control de noche */
+    --bg: #0d141b;
+    --surface: #141e28;
+    --soft: #1b2733;
+    --line: #2a3846;
+    --line-strong: #657688; /* 3,5:1 sobre la superficie oscura */
+    --ink: #e6ecf2;
+    --muted: #a6b3c0;
+    --accent: #80b4ef;
+    --accent-ink: #acd0f7;
+    --accent-soft: #15304d;
+    --on-accent: #0b1520;
+    --signal: #f7c02e;
+    --signal-soft: #3a2e08;
+    --on-signal: #15212d;
+    --ok: #6cc3dd;
+    --on-ok: #08171d;
+    --ok-soft: #10303a;
+    --bad: #f48a82;
     --bad-soft: #3a1a18;
-    --warn-soft: #33290f;
-    --sidebar: #101219;
-    --sidebar-ink: #e4e7ef;
-    --sidebar-muted: #8f96a8;
-    --sidebar-hover: #1e2230;
+    --warn-soft: #33290a;
+    --sidebar: #091017;
+    --sidebar-ink: #e6ecf2;
+    --sidebar-muted: #8b9bab;
+    --sidebar-hover: #16222e;
+    --track: #3d4e60;
   }
 }
 
@@ -75,15 +85,18 @@
   --color-accent-ink: var(--accent-ink);
   --color-signal: var(--signal);
   --color-signal-soft: var(--signal-soft);
-  --font-sans: var(--font-plex), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-on-signal: var(--on-signal);
+  --color-track: var(--track);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-display), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss02";
+  font-size: 1.0625rem; /* 17 px: Atkinson es ancha y se lee mejor un punto más grande */
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -96,16 +109,90 @@ svg [role="button"]:focus-visible { outline: 3px solid var(--accent); outline-of
 .skip-link:focus { top: 0.5rem; }
 ::selection { background: var(--accent-soft); }
 
-/* Escala tipográfica (razón 1.2) */
-.t-display { font-size: 2rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; }
-.t-h1 { font-size: 1.75rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
-.t-h2 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
-.t-h3 { font-size: 1.05rem; line-height: 1.35; font-weight: 600; }
-.t-tag { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.01em; }
+/* Escala tipográfica (cuarta, razón 1.25). Los títulos en Archivo semiestrecha, como una placa de equipo. */
+h1, h2, h3, h4, .t-display, .t-h1, .t-h2, .t-h3 {
+  font-family: var(--font-display);
+  font-stretch: 87.5%;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.t-display { font-size: clamp(2rem, 1.4rem + 2.2vw, 2.75rem); line-height: 1.05; font-weight: 700; letter-spacing: -0.015em; }
+.t-h1 { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.15rem); line-height: 1.1; font-weight: 700; letter-spacing: -0.01em; }
+.t-h2 { font-size: 1.4rem; line-height: 1.2; font-weight: 650; }
+.t-h3 { font-size: 1.12rem; line-height: 1.3; font-weight: 650; }
+.t-tag { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0; }
+p, li { text-wrap: pretty; }
+/* Un código de equipo o un valor (R-204, 6000 L) no se parte entre dos líneas */
+p .font-mono, li .font-mono, td .font-mono { white-space: nowrap; }
+
+@layer components {
+/*
+ * Tu siguiente paso: una sola por pantalla, en amarillo de seguridad como una señal de planta.
+ * Dentro, los colores se recalculan para que el texto, los secundarios y los botones contrasten sobre el amarillo.
+ */
+.next-step {
+  position: relative;
+  background: var(--signal);
+  color: var(--on-signal);
+  border-radius: var(--radius);
+  --ink: #15212d;
+  --muted: #3d3410;
+  --line: rgb(21 33 45 / 0.28);
+  --line-strong: rgb(21 33 45 / 0.6);
+  --surface: #fff8dc;
+  --soft: #ffe48a;
+  --accent: #15212d;
+  --accent-ink: #000000;
+  --accent-soft: rgb(21 33 45 / 0.08);
+  --on-accent: #ffffff;
+}
+.next-step :focus-visible { outline-color: #15212d; }
+
+/*
+ * Burbuja de instrumento (como en un P&ID): círculo de trazo fino para iconos y números de paso.
+ * Estados: normal (trazo del color del texto), actual (anillo azul de 2 px) y hecho (relleno azul petróleo con check).
+ */
+.bubble {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1.5px solid currentColor;
+  background: var(--surface);
+}
+.bubble-current { border: 2px solid var(--accent); color: var(--accent); font-weight: 700; }
+.bubble-done { border-color: var(--ok); background: var(--ok); color: var(--on-ok); }
+
+/* Títulos de tarjetas y de elementos de lista: la misma familia que los títulos, a tamaño de tarjeta */
+.t-card {
+  font-family: var(--font-display);
+  font-stretch: 87.5%;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.003em;
+}
+
+/* Etiqueta única (palabras clave, «a fondo», tipo de examen…): rectangular como una etiqueta de equipo */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--surface);
+  padding: 0.05rem 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ink);
+}
+a.tag:hover { border-color: var(--accent); color: var(--accent); }
+}
 
 .prose-app { line-height: 1.65; }
 .prose-app > * + * { margin-top: 0.85em; }
-.prose-app h3 { font-weight: 650; font-size: 1.05rem; margin-top: 1.4em; }
+.prose-app h3 { font-weight: 650; font-size: 1.15rem; margin-top: 1.5em; }
 .prose-app ul { list-style: disc; padding-left: 1.3em; }
 .prose-app ol { list-style: decimal; padding-left: 1.3em; }
 .prose-app li + li { margin-top: 0.25em; }
@@ -115,16 +202,17 @@ svg [role="button"]:focus-visible { outline: 3px solid var(--accent); outline-of
   border-left: 3px solid var(--accent);
   background: var(--soft);
   padding: 0.6em 1em;
-  border-radius: 0 8px 8px 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-family: var(--font-mono);
   font-size: 0.92em;
 }
 .prose-app blockquote em { color: inherit; }
 .prose-app table { width: 100%; border-collapse: collapse; font-size: 0.92em; display: block; overflow-x: auto; }
 .prose-app th, .prose-app td { border-bottom: 1px solid var(--line); padding: 0.45em 0.6em; text-align: left; }
-.prose-app th { font-weight: 600; background: var(--soft); }
-.prose-app pre { background: var(--soft); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.75em 1em; overflow-x: auto; font-size: 0.88em; line-height: 1.5; }
-.prose-app code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.prose-app th { font-weight: 700; background: var(--soft); font-size: 0.95em; }
+.prose-app tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--soft) 45%, transparent); }
+.prose-app pre { background: var(--soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.75em 1em; overflow-x: auto; font-size: 0.88em; line-height: 1.5; }
+.prose-app code { font-family: var(--font-mono); }
 .prose-app :not(pre) > code { background: var(--soft); border-radius: 0.25rem; padding: 0.05em 0.3em; font-size: 0.9em; }
 
 /* Colores de los bloques del temario */
@@ -132,7 +220,7 @@ svg [role="button"]:focus-visible { outline: 3px solid var(--accent); outline-of
   --b-bases: #3b5f9e; --b-bases-soft: #edf1f8;
   --b-lab: #6a54a3; --b-lab-soft: #f1eef8;
   --b-planta: #a2531f; --b-planta-soft: #f8efe7;
-  --b-calidad: #2f7a55; --b-calidad-soft: #ebf4ee;
+  --b-calidad: #a03a5e; --b-calidad-soft: #f8ecf1;
   --b-sis: #2f6f80; --b-sis-soft: #eaf3f5;
 }
 @media (prefers-color-scheme: dark) {
@@ -140,7 +228,7 @@ svg [role="button"]:focus-visible { outline: 3px solid var(--accent); outline-of
     --b-bases: #7aa2ff; --b-bases-soft: #1a2540;
     --b-lab: #b69cff; --b-lab-soft: #261d3d;
     --b-planta: #fb9a63; --b-planta-soft: #3a2316;
-    --b-calidad: #4fd1a0; --b-calidad-soft: #13302a;
+    --b-calidad: #f08fb2; --b-calidad-soft: #3a1a27;
     --b-sis: #5ccfe6; --b-sis-soft: #12303a;
   }
 }
@@ -164,15 +252,15 @@ html { scroll-behavior: smooth; }
   width: max-content;
   max-width: 20rem;
   padding: 0.55em 0.75em;
-  border-radius: 10px;
-  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
   background: var(--surface);
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 0.82rem;
   font-weight: 400;
   line-height: 1.45;
-  box-shadow: 0 10px 30px rgb(0 0 0 / 0.15);
+  box-shadow: 0 8px 24px rgb(13 20 27 / 0.18);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-3px);

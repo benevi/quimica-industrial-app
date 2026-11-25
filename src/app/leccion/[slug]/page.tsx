@@ -12,7 +12,6 @@ import { LessonMedia } from "@/components/LessonMedia";
 import { practicas } from "@/content/practica";
 import { GENERADORES } from "@/problemas/generadores";
 import { mediaFor } from "@/content/media";
-import { Icon } from "@/components/icons";
 
 export function generateStaticParams() {
   return lessons.map((l) => ({ slug: l.slug }));
@@ -52,17 +51,17 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           </p>
         </header>
 
-        <section className="rounded-[var(--radius)] bg-soft px-5 py-4">
-          <p className="text-sm font-medium text-muted">En 30 segundos</p>
+        <section className="rounded-[var(--radius)] border border-line border-t-4 border-t-ink bg-surface px-5 py-4 sm:px-7">
+          <p className="text-sm font-semibold text-muted">En 30 segundos</p>
           <p className="mt-1 text-lg leading-snug">{lesson.summary}</p>
           {lesson.terms.length > 0 && (
-            <p className="mt-3 flex flex-wrap items-center gap-1.5 text-sm">
+            <p className="mt-4 flex flex-wrap items-center gap-1.5 text-sm">
               <span className="mr-1 text-muted">Palabras clave:</span>
               {lesson.terms.map((t) => (
                 <a
                   key={t.es}
                   href="#vocabulario"
-                  className="rounded-full border border-line bg-surface px-2.5 py-0.5 hover:border-accent"
+                  className="tag"
                   title={`${t.en}: ${t.def}`}
                 >
                   {t.es}
@@ -178,7 +177,6 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
 function Section({
   id,
   n,
-  s,
   title,
   en,
   sheet,
@@ -186,7 +184,7 @@ function Section({
 }: {
   id: string;
   n: number;
-  s: (typeof lessonSteps)[number];
+  s?: (typeof lessonSteps)[number];
   title: string;
   en: string;
   sheet?: boolean;
@@ -194,11 +192,10 @@ function Section({
 }) {
   return (
     <section id={id} className="overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-      <h2 className={`flex flex-wrap items-center gap-x-2.5 gap-y-1 px-5 pt-5 sm:px-6 ${sheet ? "border-b border-dashed border-line-strong pb-4" : ""}`}>
-        <span className="grid h-7 w-7 place-items-center rounded-md bg-accent-soft text-accent">
-          <Icon name={s.icon} className="h-4 w-4" />
+      <h2 className={`flex flex-wrap items-center gap-x-3 gap-y-1 px-5 pt-5 sm:px-7 ${sheet ? "border-b border-dashed border-line-strong pb-4" : ""}`}>
+        <span aria-hidden className="bubble h-8 w-8 font-mono text-[0.85rem] font-bold tabular-nums text-accent">
+          {n + 1}
         </span>
-        <span className="text-sm tabular-nums text-muted">{n + 1}</span>
         <span className="t-h2">{title}</span>
         <span lang="en" className="text-sm text-muted">
           {en}

@@ -44,5 +44,9 @@ jobs:
         run: npm run check:sim
       - name: Banco de problemas
         run: npm run check:problemas
+      - name: Edición de operador
+        run: npm run check:operador
       - name: Build de producción
         run: npm run build
+      - name: Build de la edición de operador
+        run: npm run build:operador

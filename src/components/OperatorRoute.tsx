@@ -69,28 +69,28 @@ export function OperatorRoute() {
           return (
             <li key={s.id}>
               <details open={isCurrent} className="group relative overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-                {isCurrent && <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-signal" />}
+                {isCurrent && <span aria-hidden className="absolute inset-y-0 left-0 w-0.5 bg-accent" />}
                 <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-4 hover:bg-soft/60 [&::-webkit-details-marker]:hidden">
-                  <span
-                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-semibold"
-                    style={
-                      complete
-                        ? { background: "var(--ok)", color: "var(--on-ok)" }
-                        : isCurrent
-                          ? { background: "var(--signal)", color: "#1b1405" }
-                          : { background: "var(--soft)", color: "var(--muted)" }
-                    }
-                  >
-                    {complete ? "✓" : i + 1}
+                  <span aria-hidden className={`bubble h-9 w-9 text-sm font-semibold ${complete ? "bubble-done" : isCurrent ? "bubble-current" : "text-muted"}`}>
+                    {complete ? <Icon name="tick" className="h-5 w-5" /> : i + 1}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-medium">{s.title}</span>
+                    <span className="t-card block text-ink">
+                      <span className="sr-only">Etapa {i + 1}{complete ? ", hecha" : ""}: </span>
+                      {s.title}
+                    </span>
                     <span lang="en" className="block text-sm text-muted">
                       {s.titleEn}
                     </span>
                   </span>
                   <span className="shrink-0 text-sm tabular-nums text-muted">
-                    {isCurrent ? <Status kind="doing">Etapa actual</Status> : `${loaded ? d : 0} de ${ls.length}`}
+                    {isCurrent ? (
+                      <Status kind="doing">Etapa actual</Status>
+                    ) : complete ? (
+                      <Status kind="done">Hecha</Status>
+                    ) : (
+                      `${loaded ? d : 0} de ${ls.length}`
+                    )}
                   </span>
                   <Icon name="chevron" className="h-5 w-5 shrink-0 text-muted transition-transform group-open:rotate-90" />
                 </summary>
@@ -102,15 +102,22 @@ export function OperatorRoute() {
                       const isNext = l.slug === nextSlug;
                       return (
                         <li key={l.slug}>
-                          <Link href={`/leccion/${l.slug}?ruta=operador`} className="group/l flex items-center gap-3 px-3 py-2.5 hover:bg-soft/60">
+                          <Link
+                            href={`/leccion/${l.slug}?ruta=operador`}
+                            aria-current={isNext ? "step" : undefined}
+                            className="group/l flex items-center gap-3 px-3 py-2.5 hover:bg-soft/60"
+                          >
                             <span
-                              className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-[11px]"
-                              style={{ background: ok ? "var(--ok)" : isNext ? "var(--signal)" : "var(--line-strong)", color: ok ? "var(--on-ok)" : "#fff" }}
-                              aria-label={ok ? "Completada" : "Pendiente"}
+                              aria-hidden
+                              className={`bubble h-6 w-6 text-xs ${ok ? "bubble-done" : isNext ? "bubble-current" : "text-line-strong"}`}
                             >
-                              {ok ? "✓" : ""}
+                              {ok && <Icon name="tick" className="h-4 w-4" />}
                             </span>
-                            <span className="min-w-0 flex-1 font-medium group-hover/l:text-accent">{l.title}</span>
+                            <span className="min-w-0 flex-1 font-medium text-ink group-hover/l:text-accent">
+                              {ok && <span className="sr-only">Hecha: </span>}
+                              {l.title}
+                            </span>
+                            {isNext && <Status kind="doing">Te toca</Status>}
                             <span className="shrink-0 text-xs text-muted">
                               {ok && progress[l.slug]?.total ? `test ${progress[l.slug].score}/${progress[l.slug].total}` : `${l.minutes} min`}
                             </span>

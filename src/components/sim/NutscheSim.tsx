@@ -138,24 +138,44 @@ export function NutscheSim() {
 
 function Start({ onStart }: { onStart: (m: NState["mode"]) => void }) {
   return (
-    <section aria-labelledby="nu-start" className="max-w-3xl rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
-      <h2 id="nu-start" className="t-h2">
-        Aísla un lote nuevo de principio a fin
-      </h2>
-      <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-        La suspensión ya cristalizada está en el R-201. Cárgala en el FD-401, fíltrala con nitrógeno, lava la torta, sóplala, sécala a vacío y
-        descárgala. La hoja de producción marca en ámbar el paso que te toca.
-      </p>
-      <button type="button" onClick={() => onStart("normal")} className={`${btn.primary} mt-5 px-5 py-3 text-[15px]`}>
-        Empezar el lote
-        <Icon name="arrow" className="h-4 w-4" />
-      </button>
-      <div className="mt-8 border-t border-line pt-5 text-sm">
+    <section aria-labelledby="nu-start" className="rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
+      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem]">
+        <div className="max-w-[60ch]">
+          <h2 id="nu-start" className="t-h2">
+            Aísla un lote nuevo de principio a fin
+          </h2>
+          <p className="mt-2 leading-relaxed text-muted">
+            La suspensión ya cristalizada está en el <span className="font-mono">R-201</span>. Cárgala en el <span className="font-mono">FD-401</span>,
+            fíltrala con nitrógeno, lava la torta, sóplala, sécala a vacío y descárgala. La hoja de producción marca en ámbar el paso que te toca.
+          </p>
+          <button type="button" onClick={() => onStart("normal")} className={`${btn.primary} mt-5`}>
+            Empezar el lote
+            <Icon name="arrow" className="h-4 w-4" />
+          </button>
+        </div>
+        <aside aria-label="Placa del equipo" className="h-fit rounded-[var(--radius)] border border-line-strong bg-soft p-4 font-mono text-sm">
+          <p className="border-b border-line pb-2 text-lg font-semibold text-ink">FD-401</p>
+          <dl className="mt-2 divide-y divide-line">
+            {[
+              ["Tipo", "Filtro-secador Nutsche"],
+              ["Viene de", "R-201"],
+              ["Operaciones", "Filtrar, lavar, soplar, secar a vacío"],
+              ["Producto", "FX-202"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex flex-col py-1.5">
+                <dt className="text-xs text-muted">{k}</dt>
+                <dd className="text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+      </div>
+      <div className="mt-8 border-t border-line pt-6 text-sm">
         <p className="max-w-[60ch] leading-relaxed">
           <span className="font-medium">¿Quieres un reto?</span>{" "}
           <span className="text-muted">
-            A las 14:00 el turno de mañana te deja el FD-401 a medias con una nota. Antes de tocar nada, comprueba si la nota cuadra con el
-            registro y con el panel.
+            A las <span className="font-mono">14:00</span> el turno de mañana te deja el <span className="font-mono">FD-401</span> a medias con una
+            nota. Antes de tocar nada, comprueba si la nota cuadra con el registro y con el panel.
           </span>
         </p>
         <button type="button" onClick={() => onStart("relevo")} className={`${btn.secondary} mt-3`}>

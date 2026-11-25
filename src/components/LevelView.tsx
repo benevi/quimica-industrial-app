@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { levels, lessonsOfLevel } from "@/content/catalog";
-import { blockColor, blockOfLevel, levelInfo, minutesOfLevel } from "@/content/blocks";
+import { blockOfLevel, levelInfo, minutesOfLevel } from "@/content/blocks";
 import { Icon, levelIcon } from "@/components/icons";
 import { Bar, Card, PageHeader, SectionTitle, Status, btn } from "@/components/ui";
 import { useProgress } from "@/lib/progress";
@@ -28,7 +28,6 @@ export function LevelView({ level }: { level: number }) {
   const { progress, loaded } = useProgress();
   const lv = levelInfo(level);
   const b = blockOfLevel(level);
-  const c = blockColor[b.id];
   const ls = lessonsOfLevel(level);
   const done = ls.filter((l) => progress[l.slug]?.done).length;
   const pct = loaded && ls.length ? Math.round((done / ls.length) * 100) : 0;
@@ -75,7 +74,7 @@ export function LevelView({ level }: { level: number }) {
         }
       >
         <div className="flex max-w-md items-center gap-3 pt-1">
-          <Bar pct={pct} color={c.fg} className="flex-1" label={`Nivel ${level}: ${pct} %`} />
+          <Bar pct={pct} className="flex-1" label={`Nivel ${level}: ${pct} %`} />
           <span className="text-sm tabular-nums text-muted">
             {done} de {ls.length} hechas
           </span>
@@ -91,32 +90,32 @@ export function LevelView({ level }: { level: number }) {
               const isNext = l.slug === next?.slug && !p?.done;
               return (
                 <li key={l.slug} className="relative">
-                  {isNext && <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-signal" />}
-                  <Link href={`/leccion/${l.slug}`} className="group flex gap-4 px-5 py-4 hover:bg-soft/60">
+                  {isNext && <span aria-hidden className="absolute inset-y-0 left-0 w-0.5 bg-accent" />}
+                  <Link
+                    href={`/leccion/${l.slug}`}
+                    aria-current={isNext ? "step" : undefined}
+                    className="group flex gap-4 px-5 py-4 hover:bg-soft/60"
+                  >
                     <span
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-semibold tabular-nums"
-                      style={
-                        p?.done
-                          ? { background: "var(--ok)", color: "var(--on-ok)" }
-                          : isNext
-                            ? { background: "var(--signal)", color: "#1b1405" }
-                            : { background: "var(--soft)", color: "var(--muted)" }
-                      }
-                      aria-label={p?.done ? "Completada" : `Lección ${k + 1}`}
+                      aria-hidden
+                      className={`bubble h-8 w-8 text-sm font-semibold tabular-nums ${
+                        p?.done ? "bubble-done" : isNext ? "bubble-current" : "text-muted"
+                      }`}
                     >
-                      {p?.done ? "✓" : k + 1}
+                      {p?.done ? <Icon name="tick" className="h-5 w-5" /> : k + 1}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="flex flex-wrap items-baseline gap-x-2">
-                        <span className="font-medium group-hover:text-accent">{l.title}</span>
-                        {isDeep(l) && (
-                          <span className="rounded border border-line px-1.5 text-xs text-muted">a fondo</span>
-                        )}
-                        <span lang="en" className="text-sm text-muted">
-                          {l.titleEn}
+                      <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <span className="t-card text-ink group-hover:text-accent">
+                          <span className="sr-only">{p?.done ? "Hecha: " : `Lección ${k + 1}: `}</span>
+                          {l.title}
                         </span>
+                        {isDeep(l) && <span className="tag">a fondo</span>}
                       </span>
-                      <span className="mt-0.5 block text-sm text-muted">{l.summary}</span>
+                      <span lang="en" className="block font-sans text-sm text-muted">
+                        {l.titleEn}
+                      </span>
+                      <span className="mt-1 block text-sm text-muted">{l.summary}</span>
                     </span>
                     <span className="hidden shrink-0 text-right text-sm text-muted sm:block">
                       {l.minutes} min
@@ -137,7 +136,7 @@ export function LevelView({ level }: { level: number }) {
         <aside className="space-y-4 text-sm">
           {practice[level] && (
             <Card className="p-4">
-              <p className="font-medium">Ponlo en práctica</p>
+              <p className="t-card">Ponlo en práctica</p>
               <ul className="mt-2 space-y-2">
                 {practice[level].map((p) => (
                   <li key={p.href}>

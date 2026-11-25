@@ -47,8 +47,8 @@ export function CertCard({ cert, pct, modules }: { cert: Certification; pct: num
         <Icon name="chevron" className="mt-1 h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-90" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h3 className="t-h3">
-              <span className="t-tag mr-2 text-muted">{cert.short}</span>
+            <h3 className="t-card">
+              <span className="tag mr-2 align-middle font-mono">{cert.short}</span>
               {cert.name}
             </h3>
             <span className="text-sm tabular-nums text-muted">
@@ -83,9 +83,9 @@ export function CertCard({ cert, pct, modules }: { cert: Certification; pct: num
           {modules.map((m) => (
             <li key={m.id} className="py-3">
               <div className="flex flex-wrap items-baseline gap-x-2">
-                <span className="t-tag text-muted">{m.code}</span>
+                <span className="tag font-mono">{m.code}</span>
                 <span className="font-medium">{m.name}</span>
-                {m.hours && <span className="text-xs text-muted">{m.hours} h</span>}
+                {m.hours && <span className="font-mono text-xs text-muted">{m.hours} h</span>}
                 <span className="ml-auto text-sm tabular-nums text-muted">{m.pct} %</span>
               </div>
               <Bar pct={m.pct} className="mt-2" label={`${m.code}: ${m.pct} %`} />

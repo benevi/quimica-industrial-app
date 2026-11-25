@@ -24,6 +24,10 @@ Claves: **Leído** = leído en el documento descargado. **Cálculo** = recalcula
 | Web EPR | INSST, portal, sección «Protección respiratoria», información básica | https://www.insst.es/materias/equipos/epi/proteccion-respiratoria |
 | Folleto EPR | INSST, folleto «Respira hondo. Equipos de protección respiratoria» (2019) | https://www.insst.es/documents/94886/375202/Folleto.+Equipos+de+protecci%C3%B3n+respiratoria+-+A%C3%B1o+2019+%28en+cat%C3%A1logo%29.pdf/20255d67-6203-4cec-9a16-f6a110189670?t=1682599237125 |
 | NTP 787 | INSST, NTP 787, Equipos de protección respiratoria: identificación de los filtros (2008) | https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-prevencion/23-serie-ntp-numeros-786-a-820-ano-2008/nota-tecnica-de-prevencion-ntp-787 |
+| Tema 8 EPR | INSST, Centro Nacional de Medios de Protección, «Tema 8. Protección respiratoria» (A. Hernández), PDF | https://www.insst.es/documents/94886/550159/Tema+8+-+Proteccion+respiratoria+-+A_Hernandez.pdf/5506606c-dd69-439e-9892-630088750676 |
+| Jornada hospital | INSST, CNMP, «EPI en el sector hospitalario. Protección respiratoria» (jornada técnica, 18/04/2012), PDF | https://www.insst.es/documents/94886/214929/6ProteccionRespiratoria.pdf |
+| Nota ébola | INSST, CNMP, «EPI ébola» (26/11/2014), PDF | https://www.insst.es/documents/94886/491274/CNMP+-+EPI+ebola+(26.11.14).pdf |
+| Normas EPR 2025 | INSST, «Normas técnicas Protección Respiratoria (febrero 2025)», PDF | https://www.insst.es/documents/d/portal-insst/normas-tecnicas-proteccion-respiratoria-febrero-2025- |
 | FSU ropa | INSST, ficha «Ropa de protección química», rev. 3 (septiembre de 2022) | https://www.insst.es/documentacion/colecciones-tecnicas/fichas-de-seleccion-y-uso-de-epi-fsu-epi/ropa-de-proteccion-quimica |
 | NTP 929 | INSST, NTP 929, Ropa de protección contra productos químicos (2012) | https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-prevencion/27-serie-ntp-numeros-926-a-960-ano-2012/nota-tecnica-de-prevencion-ntp-929 |
 | Web ocular | INSST, portal, sección «Protección ocular y facial» | https://www.insst.es/materias/equipos/epi/proteccion-ocular-y-facial |
@@ -89,6 +93,19 @@ Claves: **Leído** = leído en el documento descargado. **Cálculo** = recalcula
 | Vello facial, cicatrices, pañuelos afectan a la hermeticidad | Guía EPI, apéndice 4, apdo. 4.1; Web EPR; FSU piezas y FSU FFP (advertencia sobre barba) | Leído |
 | Con barba se recurre a otro tipo de equipo (de ajuste suelto) | Enciclopedia, cap. 31, «Pelo facial» | Leído |
 | Prueba de ajuste (periódica, por modelo y talla) y comprobación de ajuste por el usuario según el fabricante | Enciclopedia, cap. 31, «Algunos procedimientos de prueba del ajuste»; FSU piezas («ajuste de la pieza facial, comprobación antes de la utilización») | Leído |
+| Máscara completa: cubre la cara completa, con visor; cierra desde la frente / encima de los ojos hasta debajo de la barbilla | Tema 8 EPR, apdo. «Adaptadores faciales»; Enciclopedia, cap. 31, «Cobertura de entradas» | Leído (23/11/2026) |
+| Norma UNE-EN 136 y marcado de la clase con CL tras la norma («EN 136:1998 CL3») | FSU piezas (rev. 4, dic. 2023), apdo. de marcado; Jornada hospital, normas armonizadas | Leído (23/11/2026) |
+| Barba y gafas rompen la hermeticidad en máscaras y mascarillas | FSU piezas, «Advertencias sobre los problemas habituales» | Leído (23/11/2026) |
+| Factores de protección nominales: FFP3 50; mascarilla + P3 50; máscara + P3 1000; mascarilla + filtro de gases clase 2-3 50; máscara + filtro de gases clase 2-3 2000. Salen de la fuga máxima de las normas; valores teóricos que se toman con precaución | Tema 8 EPR, apdo. «Hermeticidad, penetración y factor de protección» (tabla) | Leído (23/11/2026) |
+| Concentración máxima = FP × VLA | Tema 8 EPR (Cexterior = FP × VLA) | Leído; ejemplo 1000 × 0,01 = 10 mg/m³ calculado |
+| Equipos filtrantes asistidos con motor: con máscara o media máscara (EN 12942) o con capucha o casco (EN 12941) | Jornada hospital, «Clasificación de EPR (I)»; Normas EPR 2025 (UNE-EN 12941 y 12942, títulos) | Leído (23/11/2026) |
+| El aire pasa por el filtro impulsado por un ventilador | Enciclopedia, cap. 31, «Equipos de protección respiratoria purificadores del aire» | Leído (23/11/2026) |
+| Las coberturas sueltas solo funcionan con un caudal mayor que el necesario para respirar, para que no entre el contaminante | Enciclopedia, cap. 31, «Cobertura de entradas» | Leído (23/11/2026) |
+| Capuz motorizado TH2 o TH3 (UNE-EN 12941) cuando no se consigue buen ajuste con mascarillas o máscaras | Nota ébola, apdo. de protección respiratoria | Leído (23/11/2026) |
+| Clases TH1, TH2 y TH3 de la UNE-EN 12941 | Nota ébola (cita TH2 y TH3); la existencia de TH1 es conocimiento general de la norma, no leído en el texto de la norma | Parcial |
+| Capuz con línea de aire comprimido de flujo continuo (UNE-EN 14594); los de caudal continuo admiten casco o capuz | Normas EPR 2025 (título de UNE-EN 14594:2018); Jornada hospital, «Clasificación de EPR (II)»; Enciclopedia, cap. 31 («Los de caudal continuo admiten también un casco o capuz») | Leído (23/11/2026) |
+| Comprobaciones previas (batería, filtros, caudal) según el fabricante | FSU filtros (el fabricante informa de los «controles previos»); el detalle batería/caudal es práctica de uso de estos equipos, no leído en una fuente oficial | Parcial |
+| Si el ventilador se para o baja el caudal, salir de la zona | Razonamiento a partir de la Enciclopedia (la cobertura suelta solo protege con caudal suficiente) | Razonamiento |
 | El filtro lleva marcados año y mes de caducidad | FSU filtros, apdo. 4.1; NTP 787, apdo. 4 f) | Leído |
 | Un equipo caducado se retira aunque no se haya usado | Guía EPI, comentario al art. 7 (Mantenimiento) | Leído |
 | El tiempo de uso y la sustitución los fija el empresario según la evaluación de riesgos | Guía EPI, apéndice 4, apdo. 4.1 | Leído |
@@ -114,6 +131,10 @@ Claves: **Leído** = leído en el documento descargado. **Cálculo** = recalcula
 | Apartado «hoja de producción» (casillas, registro de filtros, registro de formación) | Ejemplo ficticio coherente con RD 773 arts. 8 y 10 | Ficticio |
 
 ## Lo que quería incluir y dejé fuera por no poder verificarlo
+
+- **Fuga máxima de cada clase TH1, TH2 y TH3** de la UNE-EN 12941 y su caudal mínimo: no pude leer la norma (es de pago) ni un documento del INSST que dé las cifras. La lección no da valores por clase.
+- **Factores de protección asignados** (los que se usan en la práctica, según la UNE-EN 529) para máscara completa y capuz motorizado: varían por país y no los leí en una fuente española. Solo se dan los nominales del INSST, marcados como teóricos. La tabla de la Enciclopedia (ANSI Z88.2, 1992) es estadounidense y antigua, y no se usa.
+- **Gafas con máscara completa**: existen adaptadores de lentes graduadas para el interior de algunas máscaras, pero no lo leí en una fuente oficial; la lección solo dice que las gafas rompen el cierre.
 
 - **Para qué sirve cada material de guante** (nitrilo, butilo, neopreno, fluoroelastómero): ningún documento del INSST leído lo dice producto a producto; la NTP 1136 solo los enumera y advierte contra las extrapolaciones. Solo se incluyen los dos ejemplos de la Enciclopedia (PVA y látex).
 - **Temperatura del ensayo de permeación (23 °C)**: aparecía en un resumen del buscador, pero no la encontré en el texto de la NTP leído.

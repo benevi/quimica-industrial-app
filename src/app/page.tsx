@@ -46,9 +46,8 @@ export default function Home() {
         </p>
 
         {next ? (
-          <div className="relative mt-6 overflow-hidden rounded-[var(--radius)] border border-line bg-surface">
-            <span aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-signal" />
-            <div className="grid gap-6 p-6 pl-8 sm:p-8 sm:pl-10 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="next-step mt-6 overflow-hidden">
+            <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-end">
               <div className="min-w-0">
                 <p className="text-sm text-muted">
                   {stage ? (
@@ -61,7 +60,7 @@ export default function Home() {
                     </>
                   )}
                 </p>
-                <h2 className="mt-2 text-2xl font-semibold leading-tight tracking-tight sm:text-[1.75rem]">{next.title}</h2>
+                <h2 className="t-h1 mt-2">{next.title}</h2>
                 <p lang="en" className="text-muted">
                   {next.titleEn}
                 </p>
@@ -128,11 +127,11 @@ export default function Home() {
                 href={p.href}
                 className="group flex h-full gap-3 rounded-[var(--radius)] border border-line bg-surface p-4 hover:border-accent"
               >
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-accent-soft text-accent">
+                <span className="bubble h-10 w-10 text-accent">
                   <Icon name={p.icon} className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-medium group-hover:text-accent">{p.title}</span>
+                  <span className="t-card block group-hover:text-accent">{p.title}</span>
                   <span className="mt-0.5 block text-sm text-muted">{p.text}</span>
                 </span>
               </Link>
@@ -167,7 +166,7 @@ function ProgressCard({
       <Link href={href} className="group block p-5">
         <div className="flex items-center gap-3">
           <Icon name={icon} className="h-5 w-5 text-muted" />
-          <span className="flex-1 font-medium group-hover:text-accent">{title}</span>
+          <span className="t-card flex-1 group-hover:text-accent">{title}</span>
           <span className="text-sm tabular-nums text-muted">
             <span className="font-semibold text-ink">{loaded ? done : "–"}</span> de {total} lecciones
           </span>

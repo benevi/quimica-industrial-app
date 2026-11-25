@@ -16,8 +16,8 @@ const MODES = [
 export function SimModes() {
   const path = usePathname();
   return (
-    <nav aria-label="Modos del simulador" className="-mx-1 overflow-x-auto border-b border-line">
-      <ul className="flex gap-1 px-1">
+    <nav aria-label="Modos del simulador" className="overflow-x-auto border-b border-line">
+      <ul className="flex gap-1">
         {MODES.map((m) => {
           const on = path === m.href;
           return (
@@ -43,6 +43,7 @@ export function SimModes() {
 /**
  * Marco común de las páginas del simulador: cabecera con migas, pestañas de modo y el contenido.
  * `wide` ensancha la página (sin pisar la barra lateral) para que la planta y el «qué hacer ahora» quepan lado a lado.
+ * La cabecera y el contenido comparten siempre la misma columna: si se ensancha, se ensancha todo junto.
  */
 export function SimShell({
   mode,
@@ -61,22 +62,13 @@ export function SimShell({
 }) {
   const crumbs = [{ href: "/", label: "Hoy" }, { href: "/simulador", label: "Simulador de planta" }, { label: mode }];
   return (
-    <div>
+    <div data-ancho={wide ? "" : undefined} className={wide ? "relative left-1/2 w-[min(100vw_-_2rem,80rem)] -translate-x-1/2 lg:w-[min(100vw_-_20rem,80rem)]" : undefined}>
       <PageHeader crumbs={crumbs} title={title} en={en} icon="reactor" lead={lead}>
         <div className="pt-3">
           <SimModes />
         </div>
       </PageHeader>
-      {/* El simulador en marcha necesita más ancho que el texto: se ensancha solo el contenido, sin pisar la barra lateral */}
-      <div
-        className={
-          wide
-            ? "relative left-1/2 w-[min(100vw_-_2rem,80rem)] -translate-x-1/2 space-y-6 lg:w-[min(100vw_-_20rem,80rem)]"
-            : "space-y-6"
-        }
-      >
-        {children}
-      </div>
+      <div className="space-y-6">{children}</div>
     </div>
   );
 }

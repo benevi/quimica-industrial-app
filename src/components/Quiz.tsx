@@ -10,15 +10,28 @@ import { useLessonRoute } from "@/components/course/useLessonRoute";
 import { btn } from "@/components/ui";
 import { Icon } from "@/components/icons";
 
-export function Quiz({
+export function Quiz({ slug, questions }: { slug: string; questions: Question[] }) {
+  const route = useLessonRoute(slug);
+  return (
+    <QuizCore
+      slug={slug}
+      questions={questions}
+      next={route.next ? { href: `/leccion/${route.next.slug}${route.suffix}`, title: route.next.title } : undefined}
+    />
+  );
+}
+
+/** El test sin la navegación del temario: quien lo usa dice cuál es la siguiente lección (la edición de operador). */
+export function QuizCore({
   slug,
   questions,
+  next,
 }: {
   slug: string;
   questions: Question[];
+  next?: { href: string; title: string };
 }) {
   const { progress, save } = useProgress();
-  const route = useLessonRoute(slug);
   const [answers, setAnswers] = useState<Record<number, string | number>>({});
   const [checked, setChecked] = useState(false);
   // cambia en cada repetición para que las opciones salgan en otro orden
@@ -81,9 +94,9 @@ export function Quiz({
             <button onClick={retry} className={btn.secondary}>
               Repetir el test
             </button>
-            {route.next && (
-              <Link href={`/leccion/${route.next.slug}${route.suffix}`} className={btn.primary}>
-                Siguiente lección: {route.next.title}
+            {next && (
+              <Link href={next.href} className={btn.primary}>
+                Siguiente lección: {next.title}
                 <Icon name="arrow" className="h-4 w-4" />
               </Link>
             )}

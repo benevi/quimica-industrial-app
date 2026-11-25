@@ -1,0 +1,11 @@
+# Netlify publica la edición de operador (carpeta operador/) como web estática: todas sus páginas se generan
+# en el build y el progreso se guarda en el navegador, así que no hace falta servidor.
+# `npm run export:operador` deja la web en operador/out, con las cabeceras de seguridad en operador/out/_headers.
+[build]
+  command = "npm run export:operador"
+  publish = "operador/out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Web estática: sin el adaptador de Next.js para Netlify (no hay páginas de servidor)
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"

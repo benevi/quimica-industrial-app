@@ -58,33 +58,55 @@ function Start({ onStart }: { onStart: (o: StartOpts) => void }) {
     onStart({ events: ids.slice(0, 1 + Math.floor(Math.random() * 2)) });
   };
   return (
-    <section aria-labelledby="sim-start" className="max-w-3xl space-y-6 rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
-      <div>
-        <h2 id="sim-start" className="t-h2">
-          Tu primer lote: modo guiado
-        </h2>
-        <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-          Sin incidencias. En cada etapa te explica qué estás haciendo y por qué, con enlaces a las lecciones. Una tarjeta ámbar te dice
-          siempre el siguiente paso.
-        </p>
-        <button type="button" onClick={() => onStart({ guided: true, events: [] })} className={`${btn.primary} mt-4 px-5 py-3 text-[15px]`}>
-          Empezar el lote guiado
-          <Icon name="arrow" className="h-4 w-4" />
-        </button>
+    <section aria-labelledby="sim-start" className="space-y-8 rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-8">
+      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem]">
+        <div className="max-w-[60ch]">
+          <h2 id="sim-start" className="t-h2">
+            Tu primer lote: modo guiado
+          </h2>
+          <p className="mt-2 leading-relaxed text-muted">
+            Sin incidencias. En cada etapa te explica qué estás haciendo y por qué, con enlaces a las lecciones. Una tarjeta ámbar te dice
+            siempre el siguiente paso.
+          </p>
+          <button type="button" onClick={() => onStart({ guided: true, events: [] })} className={`${btn.primary} mt-5`}>
+            Empezar el lote guiado
+            <Icon name="arrow" className="h-4 w-4" />
+          </button>
+        </div>
+        <aside aria-label="Datos del lote" className="h-fit rounded-[var(--radius)] border border-line-strong bg-soft p-4 font-mono text-sm">
+          <p className="border-b border-line pb-2 text-lg font-semibold text-ink">FX-101</p>
+          <dl className="mt-2 divide-y divide-line">
+            {[
+              ["Proceso", "Lote completo"],
+              ["Equipos", "Reactor, filtro, cristalizador, centrífuga y secadero"],
+              ["Incidencias posibles", String(E.EVENTS.length)],
+            ].map(([k, v]) => (
+              <div key={k} className="flex flex-col py-1.5">
+                <dt className="text-xs text-muted">{k}</dt>
+                <dd className="text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
       </div>
-      <div className="border-t border-line pt-5">
-        <h3 className="font-medium">Práctica</h3>
+      <div className="border-t border-line pt-6">
+        <h3 className="t-card">Práctica</h3>
         <p className="mt-1 max-w-[60ch] text-sm leading-relaxed text-muted">
           Sin explicaciones. Con incidencias pasan cosas que también pasan en planta: tendrás que parar en seguro, avisar, registrar y abrir
           desviación cuando toque.
         </p>
-        <fieldset className="mt-3">
+        <fieldset className="mt-4 max-w-3xl">
           <legend className="text-sm font-medium">Incidencias de este lote</legend>
-          <ul className="mt-2 space-y-1.5 text-sm">
+          <ul className="mt-2 border-t border-line text-sm">
             {E.EVENTS.map((e) => (
-              <li key={e.id}>
-                <label className="flex items-start gap-2">
-                  <input type="checkbox" className="mt-1" checked={sel.includes(e.id)} onChange={() => toggle(e.id)} />
+              <li key={e.id} className="border-b border-line">
+                <label className="flex cursor-pointer items-start gap-3 py-2">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 h-[18px] w-[18px] shrink-0 accent-[var(--accent)]"
+                    checked={sel.includes(e.id)}
+                    onChange={() => toggle(e.id)}
+                  />
                   <span>
                     {e.title} <span className="text-muted">({e.when})</span>
                   </span>
@@ -93,7 +115,7 @@ function Start({ onStart }: { onStart: (o: StartOpts) => void }) {
             ))}
           </ul>
         </fieldset>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2">
           <button type="button" onClick={() => onStart({ events: sel })} className={btn.secondary}>
             {sel.length === 0 ? "Empezar un lote normal" : `Empezar con ${sel.length === 1 ? "esta incidencia" : `estas ${sel.length} incidencias`}`}
           </button>
