@@ -163,12 +163,12 @@ for (const f of alcanzados) {
     err(`la edición de operador carga ${rel} (${cadena.reverse().join(" › ")})`);
   }
 }
-// operador/package.json solo existe para Vercel: sus versiones tienen que ser las de la raíz
+// operador/package.json solo existe para que el hosting reconozca la app de la carpeta: sus versiones tienen que ser las de la raíz
 const raiz = JSON.parse(readFileSync(join(repo, "package.json"), "utf8")).dependencies;
 const suyo = JSON.parse(readFileSync(join(repo, "operador/package.json"), "utf8")).dependencies;
 for (const [dep, v] of Object.entries(suyo)) if (raiz[dep] !== v) err(`operador/package.json: ${dep} ${v} no coincide con la raíz (${raiz[dep]})`);
-const conf = readFileSync(join(repo, "operador/next.config.ts"), "utf8");
-if (/youtube|phet/i.test(conf)) err("operador/next.config.ts permite YouTube o PhET en la CSP");
+const conf = ["operador/next.config.ts"].map((f) => readFileSync(join(repo, f), "utf8")).join("\n");
+if (/youtube|phet/i.test(conf)) err("la CSP de la edición de operador (operador/next.config.ts) permite YouTube o PhET");
 
 const minutos = (ls) => ls.reduce((m, s) => m + (bySlug[s]?.minutes ?? 0), 0);
 console.log(

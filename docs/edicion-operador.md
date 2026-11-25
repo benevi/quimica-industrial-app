@@ -72,10 +72,19 @@ npm run start:operador   # sirve la build en el puerto 3001
 npm run check:operador
 ```
 
-Se publica en Vercel (ok de Victor del 23/11/2026) como un proyecto aparte, `formacion-operadores`, conectado al mismo
-repositorio: carpeta raíz `operador`, instalación `cd .. && npm ci` y build `cd .. && npm run build:operador`.
-`operador/package.json` solo existe para que Vercel reconozca la app de esa carpeta; sus versiones de Next y React
-tienen que ser las de la raíz (lo comprueba `check:operador`).
+Se publica en **Netlify** como web estática, en el proyecto `formacion-operadores`
+(https://formacion-operadores.netlify.app). Hasta el 25/11/2026 estaba en Vercel (ok de Victor del 23/11/2026). Ese día
+Vercel dejó de estar disponible durante un mes y se pasó a Netlify.
+
+- Todas las páginas de la edición se generan en el build y el progreso se guarda en el navegador, así que no hace falta
+  servidor. `npm run export:operador` (`EXPORTAR=1` en `operador/next.config.ts`) deja la web en `operador/out`, y
+  `scripts/operador-netlify.mjs` escribe allí `_headers` con las mismas cabeceras de seguridad (CSP) que usa Next.
+- `netlify.toml`, en la raíz, tiene la configuración por si se conecta el repositorio a Netlify: build `npm run export:operador`,
+  publicación `operador/out` y sin el adaptador de Next.js (`NETLIFY_NEXT_PLUGIN_SKIP`).
+- Mientras no esté conectado, se publica subiendo `operador/out` ya construido, junto a un `netlify.toml` con
+  `publish = "."` y sin build. Para hacerlo hace falta el ok de Victor.
+- `operador/package.json` solo existe para que el hosting reconozca la app de esa carpeta. Sus versiones de Next y React
+  tienen que ser las de la raíz (lo comprueba `check:operador`).
 
 ## Pendiente
 

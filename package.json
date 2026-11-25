@@ -9,6 +9,7 @@
     "build": "next build",
     "dev:operador": "node scripts/gen-catalog.mjs && node scripts/operador-media.mjs && next dev operador -p 3001",
     "build:operador": "node scripts/gen-catalog.mjs && node scripts/operador-media.mjs && next build operador",
+    "export:operador": "EXPORTAR=1 npm run build:operador && node scripts/operador-netlify.mjs",
     "start:operador": "next start operador -p 3001",
     "start": "next start",
     "lint": "eslint",

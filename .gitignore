@@ -20,6 +20,7 @@
 # edición de operador: build y archivos copiados de public/ (scripts/operador-media.mjs)
 /operador/.next/
 /operador/public/
+/operador/out/
 
 # production
 /build
@@ -44,3 +45,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Netlify
+.netlify

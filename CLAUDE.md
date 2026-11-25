@@ -57,7 +57,7 @@ Tiene tres partes:
   En planta manda siempre el procedimiento vigente (SOP).
 - **Imágenes y vídeos**: solo material con licencia libre (Wikimedia Commons, UNECE para pictogramas GHS, ISO 7010)
   o vídeos de fuentes fiables, con créditos en `src/content/media.ts`.
-- **Publicar** (Vercel u otro hosting) o cualquier paso irreversible: solo con el ok explícito de Victor.
+- **Publicar** (Netlify u otro hosting) o cualquier paso irreversible: solo con el ok explícito de Victor.
   No inscribir ni pagar nada en su nombre.
 - **Base de datos**: el progreso en la nube vive en un proyecto de Supabase compartido con otra app de Victor
   (proyecto `kultura-test`). Cambios de esquema **solo en tablas `aula_*`**; no toques las demás tablas.
@@ -87,6 +87,7 @@ npm run check:operador # edición de operador: índice, ajustes, textos, licenci
 # Edición de operador (carpeta operador/)
 npm run dev:operador   # http://localhost:3001
 npm run build:operador
+npm run export:operador  # web estática en operador/out (lo que se publica en Netlify)
 ```
 
 Antes de dar un cambio por terminado: `npm run lint`, `npx tsc --noEmit`, los `check:*` afectados y `npm run build`
@@ -183,9 +184,9 @@ Los planes son de noviembre de 2026; parte ya está construida. Compara siempre 
   comprobación en `src/sim/misiones.ts`; se marcan solas al terminar cada simulador). Decidir con
   Victor si el verde de las válvulas abiertas se queda como código de planta.
 - Edición de operador: hecha la primera versión (12 etapas, 54 lecciones básicas y 5 de ampliación, glosario, tarjetas,
-  fichas de seguridad y calculadoras). Se publica en Vercel como proyecto
-  aparte (`formacion-operadores`, ver `docs/edicion-operador.md`). Victor descartó la lección «Un lote de principio a fin».
+  fichas de seguridad y calculadoras). Se publica en Netlify como web estática
+  (`formacion-operadores`, ver `docs/edicion-operador.md`; Vercel quedó fuera de servicio el 25/11/2026). Victor descartó la lección «Un lote de principio a fin».
 - Pendiente además: biotecnología (módulos FP 1390/1393) queda fuera del
   temario; vigilar cuándo se publiquen como definitivos los borradores 2025 del Anexo 11, Capítulo 4 y Anexo 22 de EU GMP
   (a 21/11/2026 siguen siendo borradores) y actualizar entonces `part-11-y-anexo-11`, `normas-integridad-a-fondo`,
-  `sistemas-en-operacion` y `sistemas-en-operacion-a-fondo`; publicación en Vercel en curso (requiere pasos de Victor).
+  `sistemas-en-operacion` y `sistemas-en-operacion-a-fondo`.
